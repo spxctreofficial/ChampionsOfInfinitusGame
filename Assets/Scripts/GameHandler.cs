@@ -8,10 +8,13 @@ public class GameHandler : MonoBehaviour
 {
     public GamePhase phase;
     public CardIndex cardIndex;
+    public CardLogicHandler cardLogicHandler;
 
     public GameObject startCanvas;
     public GameObject gameCanvas;
     public GameObject firstTurnCanvas;
+
+    public GameObject playerPrefab;
 
     public GameObject PlayerArea;
     public GameObject OpponentArea;
