@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0f8def147a68165489d9f4b077b27918
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Card1: {fileID: 5448966896486951634, guid: 56d8d43fb5a311c428e205749f3fb43a, type: 3}
+  - PlayerArea: {fileID: 5066373282602041380, guid: 55e76fecc1255324ebaf9ba240325fa6,
+      type: 3}
+  - OpponentArea: {fileID: 865893745144888655, guid: d4c12ab404841584bba86ff3c87c7988,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
