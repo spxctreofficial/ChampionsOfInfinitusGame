@@ -50,7 +50,7 @@ public class GameHandler : MonoBehaviour
     {
         for (int x = 0; x < cards; x++)
         {
-            GameObject playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             playerCard.transform.SetParent(PlayerArea.transform, false);
         }
     }
