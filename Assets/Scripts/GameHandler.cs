@@ -33,10 +33,6 @@ public class GameHandler : MonoBehaviour
         cardIndex.PopulatePlayingCardsList();
         GameStart();
     }
-    void Update()
-    {
-        PurgePlayArea();
-    }
     public void GameStart()
     {
         phase = GamePhase.GAMESTART;
@@ -106,15 +102,5 @@ public class GameHandler : MonoBehaviour
     {
         DealCardsPlayer(cards);
         DealCardsOpponent(cards);
-    }
-
-    private void PurgePlayArea()
-    {
-        if (PlayArea.transform.childCount > 1)
-        {
-            Transform transform = PlayArea.transform.GetChild(0);
-            GameObject gameObject = transform.gameObject;
-            Object.Destroy(gameObject);
-        }
     }
 }

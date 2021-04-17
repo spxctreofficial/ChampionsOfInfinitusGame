@@ -17,7 +17,11 @@ public class CardLogicHandler : MonoBehaviour
 
     void Update()
     {
-        
+        PurgePlayArea();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            card.ToggleCardVisibility();
+        }
     }
 
     public void CardSelect(GameObject card)
@@ -58,6 +62,16 @@ public class CardLogicHandler : MonoBehaviour
         else
         {
             Debug.Log("This is not the player's card!");
+        }
+    }
+
+    private void PurgePlayArea()
+    {
+        if (PlayArea.transform.childCount > 1)
+        {
+            Transform transform = PlayArea.transform.GetChild(0);
+            GameObject gameObject = transform.gameObject;
+            Object.Destroy(gameObject);
         }
     }
 }
