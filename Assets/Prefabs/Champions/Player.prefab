@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71b215d559448246bacaffd329eb691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  championName: Player
   currentHP: 100
   maxHP: 100
   attackDamage: 30

@@ -6,6 +6,7 @@ public enum DamageType { Normal, Fire, Lightning, Water }
 
 public class Player : MonoBehaviour
 {
+    public string championName;
     public int currentHP;
     public int maxHP;
     public int attackDamage;

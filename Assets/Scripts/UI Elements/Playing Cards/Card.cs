@@ -7,6 +7,8 @@ public class Card : MonoBehaviour
 {
     public CardType cardType;
     public int cardValue; // 1 = Two of X, 13 = Ace of X
+    [HideInInspector]
+    public bool isHidden = false;
 
     public void CardSelect()
     {

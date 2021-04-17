@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GamePhase { GAMESTART, PLAYERBEGINNINGPHASE, PLAYERACTIONPHASE, PLAYERENDPHASE, OPPONENTBEGINNINGPHASE, OPPONENTACTIONPHASE, OPPONENTENDPHASE, GAMEWIN, GAMELOSE }
 
@@ -14,18 +15,27 @@ public class GameHandler : MonoBehaviour
     public GameObject GameCanvas;
     public GameObject FirstTurnCanvas;
 
+    public Text PlayerActionTooltip;
+
     public GameObject PlayerPrefab;
     public GameObject OpponentPrefab;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
+    public GameObject PlayArea;
 
-    Player player;
-    Player opponent;
+    [HideInInspector]
+    public Player player;
+    [HideInInspector]
+    public Player opponent;
 
     void Start()
     {
         cardIndex.PopulatePlayingCardsList();
         GameStart();
+    }
+    void Update()
+    {
+        PurgePlayArea();
     }
     public void GameStart()
     {
@@ -48,17 +58,30 @@ public class GameHandler : MonoBehaviour
         playerGO.transform.SetParent(GameCanvas.transform, false);
         player = playerGO.GetComponent<Player>();
         Debug.Log("Player: " + player.currentHP);
+        Debug.Log("Cards: " + PlayerArea.transform.childCount);
 
         GameObject opponentGO = Instantiate(OpponentPrefab, new Vector2(866, 139), Quaternion.identity);
         opponent = opponentGO.GetComponent<Player>();
         opponentGO.transform.SetParent(GameCanvas.transform, false);
         Debug.Log("Opponent: " + opponent.currentHP);
+        Debug.Log("Cards: " + OpponentArea.transform.childCount);
 
-        PlayerTurn();
+        StartCoroutine(PlayerTurn());
+        PlayerActionTooltip.text = "You are " + player.championName + ".";
     }
-    public void PlayerTurn()
+    IEnumerator PlayerTurn()
     {
+        yield return new WaitForSeconds(2f);
+
         phase = GamePhase.PLAYERBEGINNINGPHASE;
+        PlayerActionTooltip.text = "It is your Beginning Phase.";
+
+        yield return new WaitForSeconds(1f);
+        DealCardsPlayer(2);
+        yield return new WaitForSeconds(2f);
+
+        phase = GamePhase.PLAYERACTIONPHASE;
+        PlayerActionTooltip.text = "It is your Action Phase.";
     }
 
     // PRIVATE VOIDS
@@ -83,5 +106,15 @@ public class GameHandler : MonoBehaviour
     {
         DealCardsPlayer(cards);
         DealCardsOpponent(cards);
+    }
+
+    private void PurgePlayArea()
+    {
+        if (PlayArea.transform.childCount > 1)
+        {
+            Transform transform = PlayArea.transform.GetChild(0);
+            GameObject gameObject = transform.gameObject;
+            Object.Destroy(gameObject);
+        }
     }
 }

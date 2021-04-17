@@ -10,29 +10,54 @@ public class CardLogicHandler : MonoBehaviour
 
     public GameObject PlayerArea;
     public GameObject OpponentArea;
+    public GameObject PlayArea;
 
     Card card;
     bool cardOfPlayer;
+
+    void Update()
+    {
+        
+    }
 
     public void CardSelect(GameObject card)
     {
         this.card = card.GetComponent<Card>();
         GameObject parentObject = card.transform.parent.gameObject;
         cardOfPlayer = parentObject == PlayerArea;
-        Debug.Log(this.card.cardType + ", " + this.card.cardValue + ". Owned by player? " + cardOfPlayer);
+        // Debug.Log(this.card.cardType + ", " + this.card.cardValue + ". Owned by player? " + cardOfPlayer);
 
-
-
-        /*switch (this.card.cardType)
+        if (cardOfPlayer)
         {
-            case CardType.SPADE:
-                break;
-            case CardType.HEART:
-                break;
-            case CardType.CLUB:
-                break;
-            case CardType.DIAMOND:
-                break;
-        }*/
+            if (gameHandler.phase == GamePhase.PLAYERACTIONPHASE)
+            {
+                switch (this.card.cardType)
+                {
+                    case CardType.SPADE:
+                        Debug.Log("Player is now attacking the opponent.");
+                        gameHandler.player.isAttacking = true;
+                        gameHandler.opponent.isAttacked = true;
+                        card.transform.SetParent(PlayArea.transform, false);
+                        break;
+                    case CardType.HEART:
+                        Debug.Log("Player is attempting to heal.");
+                        break;
+                    case CardType.CLUB:
+                        Debug.Log("Player is attempting to trade a CLUB.");
+                        break;
+                    case CardType.DIAMOND:
+                        Debug.Log("Player is attempting to use a DIAMOND.");
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("It is not the player's turn!");
+            }
+        }
+        else
+        {
+            Debug.Log("This is not the player's card!");
+        }
     }
 }
