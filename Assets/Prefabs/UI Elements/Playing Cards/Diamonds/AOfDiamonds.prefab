@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2325519481144677316}
   - component: {fileID: -3303508826440944326}
   m_Layer: 5
-  m_Name: AceDiamond
+  m_Name: AOfDiamonds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,13 +119,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9199065240357749513, guid: b8eebb8394b223f41861661c460a2691,
-          type: 3}
+      - m_Target: {fileID: -3303508826440944326}
         m_MethodName: CardSelect
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2484265156037721842}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

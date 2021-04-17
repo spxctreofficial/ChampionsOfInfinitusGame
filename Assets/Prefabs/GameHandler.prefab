@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5889533944474125832}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 234.39548, y: 64.11488, z: -727.39844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -45,8 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phase: 0
   cardIndex: {fileID: 0}
+  cardLogicHandler: {fileID: 0}
   startCanvas: {fileID: 0}
   gameCanvas: {fileID: 0}
   firstTurnCanvas: {fileID: 0}
+  playerPrefab: {fileID: 0}
   PlayerArea: {fileID: 0}
   OpponentArea: {fileID: 0}

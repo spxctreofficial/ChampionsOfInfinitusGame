@@ -17,7 +17,7 @@ public class CardLogicHandler : MonoBehaviour
     {
         this.card = card.GetComponent<Card>();
         GameObject parentObject = card.transform.parent.gameObject;
-        bool cardOfPlayer = parentObject == PlayerArea;
+        cardOfPlayer = parentObject == PlayerArea;
 
         Debug.Log(this.card.cardType + ", " + this.card.cardValue + ". Owned by player? " + cardOfPlayer);
 
