@@ -21,11 +21,6 @@ public class GameHandler : MonoBehaviour
         cardIndex.PopulatePlayingCardsList();
         GameStart();
     }
-
-    void Update()
-    {
-        
-    }
     public void GameStart()
     {
         phase = GamePhase.GAMESTART;
@@ -41,7 +36,7 @@ public class GameHandler : MonoBehaviour
     {
         firstTurnCanvas.SetActive(false);
         gameCanvas.SetActive(true);
-        DealStartingHand();
+        DealCards(4);
         PlayerTurn();
     }
     public void PlayerTurn()
@@ -51,9 +46,9 @@ public class GameHandler : MonoBehaviour
 
     // PRIVATE VOIDS
 
-    private void DealStartingHand()
+    private void DealCards(int cards)
     {
-        for (var x = 0; x < 4; x++)
+        for (int x = 0; x < cards; x++)
         {
             GameObject playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector3(0, 0, 0), Quaternion.identity);
             playerCard.transform.SetParent(PlayerArea.transform, false);

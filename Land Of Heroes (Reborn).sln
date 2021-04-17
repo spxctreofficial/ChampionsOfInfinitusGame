@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWebTransport", "SimpleWebTransport.csproj", "{35259B7C-2997-F024-A56A-23C5038A9E91}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror", "Mirror.csproj", "{B2C8BDD6-D4DE-5068-1EBF-3C54C519D6EB}"
@@ -12,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Cloud", "Mirror.Cloud.csproj", "{D445A7B5-8993-3E9C-B91E-5752C535D533}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Components", "Mirror.Components.csproj", "{50B7169F-AECC-54D9-0C3D-663DFEFFD88C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Examples", "Mirror.Examples.csproj", "{A840D50D-D72F-F13A-237D-02898FA653C2}"
 EndProject
@@ -35,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35259B7C-2997-F024-A56A-23C5038A9E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35259B7C-2997-F024-A56A-23C5038A9E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35259B7C-2997-F024-A56A-23C5038A9E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,6 +55,10 @@ Global
 		{50B7169F-AECC-54D9-0C3D-663DFEFFD88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50B7169F-AECC-54D9-0C3D-663DFEFFD88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50B7169F-AECC-54D9-0C3D-663DFEFFD88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38EF498A-7AD4-CF10-C4DA-EEC68BA79971}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A840D50D-D72F-F13A-237D-02898FA653C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A840D50D-D72F-F13A-237D-02898FA653C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A840D50D-D72F-F13A-237D-02898FA653C2}.Release|Any CPU.ActiveCfg = Release|Any CPU

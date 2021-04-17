@@ -315,16 +315,16 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Mono.CecilX">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.dll</HintPath>
     </Reference>
     <Reference Include="Mono.CecilX.Mdb">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Mdb.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.CecilX.Pdb">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Pdb.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.CecilX.Rocks">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Rocks.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/2019.4.20f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -672,10 +672,10 @@
       <HintPath>C:/Program Files/Unity/2019.4.20f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Land Of Heroes (Reborn)/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>E:/Unity Projects/Land Of Heroes (Reborn)/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
