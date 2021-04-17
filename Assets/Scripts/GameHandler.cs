@@ -14,6 +14,7 @@ public class GameHandler : MonoBehaviour
     public GameObject StartCanvas;
     public GameObject GameCanvas;
     public GameObject FirstTurnCanvas;
+    public GameObject ChampionDashboard;
 
     public Text PlayerActionTooltip;
 
@@ -78,6 +79,20 @@ public class GameHandler : MonoBehaviour
 
         phase = GamePhase.PLAYERACTIONPHASE;
         PlayerActionTooltip.text = "It is your Action Phase.";
+    }
+
+    [HideInInspector]
+    public void EnlargeChampionDashboard()
+    {
+        Image image = PlayerPrefab.GetComponent<Image>();
+        ChampionDashboard.SetActive(true);
+        Image championImage = ChampionDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
+        championImage.sprite = image.sprite;             
+    }
+    [HideInInspector]
+    public void CloseChampionDashboard()
+    {
+        ChampionDashboard.SetActive(false);
     }
 
     // PRIVATE VOIDS

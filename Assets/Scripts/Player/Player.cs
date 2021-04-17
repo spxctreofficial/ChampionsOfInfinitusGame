@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum DamageType { Normal, Fire, Lightning, Water }
 
@@ -29,5 +30,11 @@ public class Player : MonoBehaviour
         currentHP += amount;
         if (currentHP > maxHP)
             currentHP = maxHP;
+    }
+    [HideInInspector]
+    public void EnlargeChampionDashboard()
+    {
+        GameHandler gameHandler = GameObject.FindWithTag("GameHandler").GetComponent<GameHandler>();
+        gameHandler.EnlargeChampionDashboard();
     }
 }

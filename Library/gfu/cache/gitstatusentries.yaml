@@ -13,1865 +13,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2021-04-17T18:15:36.731-04:00
+  lastUpdatedAtString: 2021-04-17T18:41:24.838-04:00
   initializedAtString: 2021-04-17T14:30:15.397-04:00
   entries:
-  - path: Assets\Imported\Cards.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards.meta
-    projectPath: Assets\Imported\Cards.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue1.png
-    projectPath: Assets\Imported\Cards\cardBack_blue1.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue1.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_blue1.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue2.png
-    projectPath: Assets\Imported\Cards\cardBack_blue2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue2.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_blue2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue3.png
-    projectPath: Assets\Imported\Cards\cardBack_blue3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue3.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_blue3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue4.png
-    projectPath: Assets\Imported\Cards\cardBack_blue4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue4.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_blue4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue5.png
-    projectPath: Assets\Imported\Cards\cardBack_blue5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_blue5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_blue5.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_blue5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green1.png
-    projectPath: Assets\Imported\Cards\cardBack_green1.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green1.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_green1.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green2.png
-    projectPath: Assets\Imported\Cards\cardBack_green2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green2.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_green2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green3.png
-    projectPath: Assets\Imported\Cards\cardBack_green3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green3.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_green3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green4.png
-    projectPath: Assets\Imported\Cards\cardBack_green4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green4.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_green4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green5.png
-    projectPath: Assets\Imported\Cards\cardBack_green5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_green5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_green5.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_green5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red1.png
-    projectPath: Assets\Imported\Cards\cardBack_red1.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red1.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_red1.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red2.png
-    projectPath: Assets\Imported\Cards\cardBack_red2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red2.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_red2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red3.png
-    projectPath: Assets\Imported\Cards\cardBack_red3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red3.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_red3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red4.png
-    projectPath: Assets\Imported\Cards\cardBack_red4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red4.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_red4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red5.png
-    projectPath: Assets\Imported\Cards\cardBack_red5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardBack_red5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardBack_red5.png.meta
-    projectPath: Assets\Imported\Cards\cardBack_red5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs10.png
-    projectPath: Assets\Imported\Cards\cardClubs10.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs10.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs10.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs2.png
-    projectPath: Assets\Imported\Cards\cardClubs2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs2.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs3.png
-    projectPath: Assets\Imported\Cards\cardClubs3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs3.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs4.png
-    projectPath: Assets\Imported\Cards\cardClubs4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs4.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs5.png
-    projectPath: Assets\Imported\Cards\cardClubs5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs5.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs6.png
-    projectPath: Assets\Imported\Cards\cardClubs6.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs6.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs6.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs7.png
-    projectPath: Assets\Imported\Cards\cardClubs7.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs7.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs7.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs8.png
-    projectPath: Assets\Imported\Cards\cardClubs8.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs8.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs8.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs9.png
-    projectPath: Assets\Imported\Cards\cardClubs9.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubs9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubs9.png.meta
-    projectPath: Assets\Imported\Cards\cardClubs9.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsA.png
-    projectPath: Assets\Imported\Cards\cardClubsA.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsA.png.meta
-    projectPath: Assets\Imported\Cards\cardClubsA.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsJ.png
-    projectPath: Assets\Imported\Cards\cardClubsJ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsJ.png.meta
-    projectPath: Assets\Imported\Cards\cardClubsJ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsK.png
-    projectPath: Assets\Imported\Cards\cardClubsK.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsK.png.meta
-    projectPath: Assets\Imported\Cards\cardClubsK.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsQ.png
-    projectPath: Assets\Imported\Cards\cardClubsQ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardClubsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardClubsQ.png.meta
-    projectPath: Assets\Imported\Cards\cardClubsQ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds10.png
-    projectPath: Assets\Imported\Cards\cardDiamonds10.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds10.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds10.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds2.png
-    projectPath: Assets\Imported\Cards\cardDiamonds2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds2.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds3.png
-    projectPath: Assets\Imported\Cards\cardDiamonds3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds3.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds4.png
-    projectPath: Assets\Imported\Cards\cardDiamonds4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds4.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds5.png
-    projectPath: Assets\Imported\Cards\cardDiamonds5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds5.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds6.png
-    projectPath: Assets\Imported\Cards\cardDiamonds6.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds6.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds6.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds7.png
-    projectPath: Assets\Imported\Cards\cardDiamonds7.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds7.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds7.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds8.png
-    projectPath: Assets\Imported\Cards\cardDiamonds8.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds8.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds8.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds9.png
-    projectPath: Assets\Imported\Cards\cardDiamonds9.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamonds9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamonds9.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamonds9.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsA.png
-    projectPath: Assets\Imported\Cards\cardDiamondsA.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsA.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamondsA.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsJ.png
-    projectPath: Assets\Imported\Cards\cardDiamondsJ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsJ.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamondsJ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsK.png
-    projectPath: Assets\Imported\Cards\cardDiamondsK.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsK.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamondsK.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsQ.png
-    projectPath: Assets\Imported\Cards\cardDiamondsQ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardDiamondsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardDiamondsQ.png.meta
-    projectPath: Assets\Imported\Cards\cardDiamondsQ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts10.png
-    projectPath: Assets\Imported\Cards\cardHearts10.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts10.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts10.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts2.png
-    projectPath: Assets\Imported\Cards\cardHearts2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts2.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts3.png
-    projectPath: Assets\Imported\Cards\cardHearts3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts3.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts4.png
-    projectPath: Assets\Imported\Cards\cardHearts4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts4.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts5.png
-    projectPath: Assets\Imported\Cards\cardHearts5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts5.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts6.png
-    projectPath: Assets\Imported\Cards\cardHearts6.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts6.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts6.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts7.png
-    projectPath: Assets\Imported\Cards\cardHearts7.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts7.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts7.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts8.png
-    projectPath: Assets\Imported\Cards\cardHearts8.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts8.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts8.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts9.png
-    projectPath: Assets\Imported\Cards\cardHearts9.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHearts9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHearts9.png.meta
-    projectPath: Assets\Imported\Cards\cardHearts9.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsA.png
-    projectPath: Assets\Imported\Cards\cardHeartsA.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsA.png.meta
-    projectPath: Assets\Imported\Cards\cardHeartsA.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsJ.png
-    projectPath: Assets\Imported\Cards\cardHeartsJ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsJ.png.meta
-    projectPath: Assets\Imported\Cards\cardHeartsJ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsK.png
-    projectPath: Assets\Imported\Cards\cardHeartsK.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsK.png.meta
-    projectPath: Assets\Imported\Cards\cardHeartsK.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsQ.png
-    projectPath: Assets\Imported\Cards\cardHeartsQ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardHeartsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardHeartsQ.png.meta
-    projectPath: Assets\Imported\Cards\cardHeartsQ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardJoker.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardJoker.png
-    projectPath: Assets\Imported\Cards\cardJoker.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardJoker.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardJoker.png.meta
-    projectPath: Assets\Imported\Cards\cardJoker.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades10.png
-    projectPath: Assets\Imported\Cards\cardSpades10.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades10.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades10.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades2.png
-    projectPath: Assets\Imported\Cards\cardSpades2.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades2.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades2.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades3.png
-    projectPath: Assets\Imported\Cards\cardSpades3.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades3.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades3.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades4.png
-    projectPath: Assets\Imported\Cards\cardSpades4.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades4.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades4.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades5.png
-    projectPath: Assets\Imported\Cards\cardSpades5.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades5.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades5.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades6.png
-    projectPath: Assets\Imported\Cards\cardSpades6.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades6.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades6.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades7.png
-    projectPath: Assets\Imported\Cards\cardSpades7.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades7.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades7.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades8.png
-    projectPath: Assets\Imported\Cards\cardSpades8.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades8.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades8.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades9.png
-    projectPath: Assets\Imported\Cards\cardSpades9.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpades9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpades9.png.meta
-    projectPath: Assets\Imported\Cards\cardSpades9.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesA.png
-    projectPath: Assets\Imported\Cards\cardSpadesA.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesA.png.meta
-    projectPath: Assets\Imported\Cards\cardSpadesA.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesJ.png
-    projectPath: Assets\Imported\Cards\cardSpadesJ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesJ.png.meta
-    projectPath: Assets\Imported\Cards\cardSpadesJ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesK.png
-    projectPath: Assets\Imported\Cards\cardSpadesK.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesK.png.meta
-    projectPath: Assets\Imported\Cards\cardSpadesK.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesQ.png
-    projectPath: Assets\Imported\Cards\cardSpadesQ.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Imported\Cards\cardSpadesQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Imported\Cards\cardSpadesQ.png.meta
-    projectPath: Assets\Imported\Cards\cardSpadesQ.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Prefabs\UI Elements\Playing Cards\Diamonds\AOfDiamonds.prefab
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\UI Elements\Playing
-      Cards\Diamonds\AOfDiamonds.prefab
-    projectPath: Assets\Prefabs\UI Elements\Playing Cards\Diamonds\AOfDiamonds.prefab
+  - path: .vs\Land Of Heroes (Reborn)\v16\.suo
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\.vs\Land Of Heroes (Reborn)\v16\.suo
+    projectPath: .vs\Land Of Heroes (Reborn)\v16\.suo
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Resources.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources.meta
-    projectPath: Assets\Resources.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites.meta
-    projectPath: Assets\Resources\Sprites.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\Player.psd
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\Player.psd
-    projectPath: Assets\Resources\Sprites\Player.psd
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\Player.psd.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\Player.psd.meta
-    projectPath: Assets\Resources\Sprites\Player.psd.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements.meta
-    projectPath: Assets\Resources\Sprites\UI Elements.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\blackAbstractBackground.jpg
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\blackAbstractBackground.jpg
-    projectPath: Assets\Resources\Sprites\UI Elements\blackAbstractBackground.jpg
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\blackAbstractBackground.jpg.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\blackAbstractBackground.jpg.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\blackAbstractBackground.jpg.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\dragonIcon.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\dragonIcon.png
-    projectPath: Assets\Resources\Sprites\UI Elements\dragonIcon.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\dragonIcon.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\dragonIcon.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\dragonIcon.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue1.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue1.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue1.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue1.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_blue5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_blue5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green1.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green1.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green1.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green1.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_green5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_green5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red1.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red1.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red1.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red1.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red1.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red1.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardBack_red5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardBack_red5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs10.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs10.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs10.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs10.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs6.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs6.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs6.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs6.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs7.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs7.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs7.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs7.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs8.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs8.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs8.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs8.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs9.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs9.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubs9.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubs9.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsA.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsA.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsA.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsA.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsJ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsJ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsJ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsJ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsK.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsK.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsK.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsK.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsQ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsQ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardClubsQ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardClubsQ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds10.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds10.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds10.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds10.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds6.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds6.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds6.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds6.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds7.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds7.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds7.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds7.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds8.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds8.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds8.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds8.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds9.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds9.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamonds9.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamonds9.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsA.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsA.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsA.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsA.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsJ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsJ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsJ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsJ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsK.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsK.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsK.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsK.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsQ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsQ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardDiamondsQ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardDiamondsQ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts10.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts10.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts10.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts10.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts6.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts6.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts6.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts6.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts7.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts7.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts7.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts7.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts8.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts8.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts8.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts8.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts9.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts9.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHearts9.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHearts9.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsA.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsA.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsA.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsA.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsJ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsJ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsJ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsJ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsK.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsK.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsK.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsK.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsQ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsQ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardHeartsQ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardHeartsQ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardJoker.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardJoker.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardJoker.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardJoker.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardJoker.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardJoker.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades10.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades10.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades10.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades10.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades10.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades10.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades2.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades2.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades2.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades2.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades2.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades2.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades3.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades3.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades3.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades3.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades3.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades3.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades4.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades4.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades4.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades4.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades4.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades4.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades5.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades5.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades5.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades5.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades5.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades5.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades6.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades6.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades6.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades6.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades6.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades6.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades7.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades7.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades7.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades7.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades7.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades7.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades8.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades8.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades8.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades8.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades8.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades8.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades9.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades9.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades9.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades9.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpades9.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpades9.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesA.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesA.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesA.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesA.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesA.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesA.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesJ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesJ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesJ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesJ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesJ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesJ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesK.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesK.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesK.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesK.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesK.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesK.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesQ.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesQ.png
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesQ.png
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesQ.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Sprites\UI
-      Elements\Playing Cards\cardSpadesQ.png.meta
-    projectPath: Assets\Resources\Sprites\UI Elements\Playing Cards\cardSpadesQ.png.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scenes\GameScene.unity
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scenes\GameScene.unity
-    projectPath: Assets\Scenes\GameScene.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Scripts\CardLogicHandler.cs
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\CardLogicHandler.cs
-    projectPath: Assets\Scripts\CardLogicHandler.cs
+  - path: Assets\Prefabs\Champions\Player.prefab
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\Champions\Player.prefab
+    projectPath: Assets\Prefabs\Champions\Player.prefab
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -1881,1087 +34,150 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scripts\UI Elements\Playing Cards\Card.cs
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\UI Elements\Playing
-      Cards\Card.cs
-    projectPath: Assets\Scripts\UI Elements\Playing Cards\Card.cs
+  - path: Assets\Scripts\Player\Player.cs
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\Player\Player.cs
+    projectPath: Assets\Scripts\Player\Player.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Sprites.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites.meta
-    projectPath: Assets\Sprites.meta
+  - path: kcp2k.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\kcp2k.csproj
+    projectPath: kcp2k.csproj
     originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\Player.psd
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\Player.psd
-    projectPath: Assets\Sprites\Player.psd
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\Player.psd.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\Player.psd.meta
-    projectPath: Assets\Sprites\Player.psd.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\UI Elements.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\UI Elements.meta
-    projectPath: Assets\Sprites\UI Elements.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\UI Elements\blackAbstractBackground.jpg
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\UI Elements\blackAbstractBackground.jpg
-    projectPath: Assets\Sprites\UI Elements\blackAbstractBackground.jpg
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\UI Elements\blackAbstractBackground.jpg.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\UI Elements\blackAbstractBackground.jpg.meta
-    projectPath: Assets\Sprites\UI Elements\blackAbstractBackground.jpg.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\UI Elements\dragonIcon.png
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\UI Elements\dragonIcon.png
-    projectPath: Assets\Sprites\UI Elements\dragonIcon.png
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Sprites\UI Elements\dragonIcon.png.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Sprites\UI Elements\dragonIcon.png.meta
-    projectPath: Assets\Sprites\UI Elements\dragonIcon.png.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
+    workTreeStatus: 3
   - path: Library\ArtifactDB
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\ArtifactDB
     projectPath: Library\ArtifactDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\Artifacts\00\0074200fa570db6b49b3ea4e4e278559
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\00\0074200fa570db6b49b3ea4e4e278559
-    projectPath: Library\Artifacts\00\0074200fa570db6b49b3ea4e4e278559
+  - path: Library\Artifacts\07\071bdff69b7662ad0f95f5f88e4d6f82
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\07\071bdff69b7662ad0f95f5f88e4d6f82
+    projectPath: Library\Artifacts\07\071bdff69b7662ad0f95f5f88e4d6f82
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\01\01388f1b89412b01fcd6acf6a9bdd2a9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\01\01388f1b89412b01fcd6acf6a9bdd2a9
-    projectPath: Library\Artifacts\01\01388f1b89412b01fcd6acf6a9bdd2a9
+  - path: Library\Artifacts\0b\0b303609fc2387be5139e0db1dd94d59
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0b\0b303609fc2387be5139e0db1dd94d59
+    projectPath: Library\Artifacts\0b\0b303609fc2387be5139e0db1dd94d59
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\02\025504ebdee6f17f679f6e2bef030d7c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\02\025504ebdee6f17f679f6e2bef030d7c
-    projectPath: Library\Artifacts\02\025504ebdee6f17f679f6e2bef030d7c
+  - path: Library\Artifacts\21\2107b819c5ec47f58ce6c93b68f976c6
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\21\2107b819c5ec47f58ce6c93b68f976c6
+    projectPath: Library\Artifacts\21\2107b819c5ec47f58ce6c93b68f976c6
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\02\028338ad5d7c08efb61b1c9ce8fe76b5
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\02\028338ad5d7c08efb61b1c9ce8fe76b5
-    projectPath: Library\Artifacts\02\028338ad5d7c08efb61b1c9ce8fe76b5
+  - path: Library\Artifacts\27\271c882c9c808bf06dd1cfe9e9bd9970
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\27\271c882c9c808bf06dd1cfe9e9bd9970
+    projectPath: Library\Artifacts\27\271c882c9c808bf06dd1cfe9e9bd9970
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\02\02f5ba3d72b9011f383faf0130f7e676
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\02\02f5ba3d72b9011f383faf0130f7e676
-    projectPath: Library\Artifacts\02\02f5ba3d72b9011f383faf0130f7e676
+  - path: Library\Artifacts\35\35800d1d75fa0239d4885a441ac0cbd4
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\35\35800d1d75fa0239d4885a441ac0cbd4
+    projectPath: Library\Artifacts\35\35800d1d75fa0239d4885a441ac0cbd4
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\04\042a80cfe87d793e7d3798f783768699
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\04\042a80cfe87d793e7d3798f783768699
-    projectPath: Library\Artifacts\04\042a80cfe87d793e7d3798f783768699
+  - path: Library\Artifacts\4a\4ad0bb9a31286296adc5315df849c3e1
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4a\4ad0bb9a31286296adc5315df849c3e1
+    projectPath: Library\Artifacts\4a\4ad0bb9a31286296adc5315df849c3e1
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\05\0559aea0565e6af99bcd983cba6b5d0c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\05\0559aea0565e6af99bcd983cba6b5d0c
-    projectPath: Library\Artifacts\05\0559aea0565e6af99bcd983cba6b5d0c
+  - path: Library\Artifacts\4b\4bc32c16d6f3876a6cf071c3742d3736
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4b\4bc32c16d6f3876a6cf071c3742d3736
+    projectPath: Library\Artifacts\4b\4bc32c16d6f3876a6cf071c3742d3736
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\06\064dd72cc1a9b135abe7ef2ef7008914
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\06\064dd72cc1a9b135abe7ef2ef7008914
-    projectPath: Library\Artifacts\06\064dd72cc1a9b135abe7ef2ef7008914
+  - path: Library\Artifacts\50\50ddf6f4c044b7b850ac5e0f5316e5c3
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\50\50ddf6f4c044b7b850ac5e0f5316e5c3
+    projectPath: Library\Artifacts\50\50ddf6f4c044b7b850ac5e0f5316e5c3
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0b\0b28b43ef4f0e5325fdae3c7d2fdc521
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0b\0b28b43ef4f0e5325fdae3c7d2fdc521
-    projectPath: Library\Artifacts\0b\0b28b43ef4f0e5325fdae3c7d2fdc521
+  - path: Library\Artifacts\51\5124949207c8de5d879f99055bcd5c7e
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\51\5124949207c8de5d879f99055bcd5c7e
+    projectPath: Library\Artifacts\51\5124949207c8de5d879f99055bcd5c7e
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0b\0bb903d9a2c3d4e99d4b2b45da270155
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0b\0bb903d9a2c3d4e99d4b2b45da270155
-    projectPath: Library\Artifacts\0b\0bb903d9a2c3d4e99d4b2b45da270155
+  - path: Library\Artifacts\55\5540cccdbe74ffc2852648bbed30dc59
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\55\5540cccdbe74ffc2852648bbed30dc59
+    projectPath: Library\Artifacts\55\5540cccdbe74ffc2852648bbed30dc59
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0c\0cbae9fb3b3670fa5770b1e7cf500ac2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0c\0cbae9fb3b3670fa5770b1e7cf500ac2
-    projectPath: Library\Artifacts\0c\0cbae9fb3b3670fa5770b1e7cf500ac2
+  - path: Library\Artifacts\56\560c96b2d1e2e07877829fa824628972
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\56\560c96b2d1e2e07877829fa824628972
+    projectPath: Library\Artifacts\56\560c96b2d1e2e07877829fa824628972
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0e\0ea66ecd86c96e14bbbb960b2b0d1bcb
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0e\0ea66ecd86c96e14bbbb960b2b0d1bcb
-    projectPath: Library\Artifacts\0e\0ea66ecd86c96e14bbbb960b2b0d1bcb
+  - path: Library\Artifacts\6d\6d36a6a0bf1d368740a6aab86ddeaea0
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\6d\6d36a6a0bf1d368740a6aab86ddeaea0
+    projectPath: Library\Artifacts\6d\6d36a6a0bf1d368740a6aab86ddeaea0
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0e\0eeffb184fcb27bc3833b9d366ea696a
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0e\0eeffb184fcb27bc3833b9d366ea696a
-    projectPath: Library\Artifacts\0e\0eeffb184fcb27bc3833b9d366ea696a
+  - path: Library\Artifacts\7a\7a0edb715ccab4c957534c543a0198e3
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\7a\7a0edb715ccab4c957534c543a0198e3
+    projectPath: Library\Artifacts\7a\7a0edb715ccab4c957534c543a0198e3
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\0f\0fac9155d3c1631616cf3129af85be09
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0f\0fac9155d3c1631616cf3129af85be09
-    projectPath: Library\Artifacts\0f\0fac9155d3c1631616cf3129af85be09
+  - path: Library\Artifacts\90\9006d9539ef32cdd1ee5e3fb26ccb818
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\90\9006d9539ef32cdd1ee5e3fb26ccb818
+    projectPath: Library\Artifacts\90\9006d9539ef32cdd1ee5e3fb26ccb818
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\10\100206b34394faadc4e1187fdd70e6c0
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\10\100206b34394faadc4e1187fdd70e6c0
-    projectPath: Library\Artifacts\10\100206b34394faadc4e1187fdd70e6c0
+  - path: Library\Artifacts\aa\aa4fc6353f277bd9e9a936f75ddf990d
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\aa\aa4fc6353f277bd9e9a936f75ddf990d
+    projectPath: Library\Artifacts\aa\aa4fc6353f277bd9e9a936f75ddf990d
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\13\134d6dfb8de3372d79ca289bf4e089b9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\13\134d6dfb8de3372d79ca289bf4e089b9
-    projectPath: Library\Artifacts\13\134d6dfb8de3372d79ca289bf4e089b9
+  - path: Library\Artifacts\b0\b01e0986acbbe9364285291f087381ce
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b0\b01e0986acbbe9364285291f087381ce
+    projectPath: Library\Artifacts\b0\b01e0986acbbe9364285291f087381ce
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\14\14994f06de3221f110d2223c5321a3d0
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\14\14994f06de3221f110d2223c5321a3d0
-    projectPath: Library\Artifacts\14\14994f06de3221f110d2223c5321a3d0
+  - path: Library\Artifacts\d1\d123d975780f0b249504f3c71f147186
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d1\d123d975780f0b249504f3c71f147186
+    projectPath: Library\Artifacts\d1\d123d975780f0b249504f3c71f147186
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\17\176cb73290bd532b0ba23499c728c7b2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\17\176cb73290bd532b0ba23499c728c7b2
-    projectPath: Library\Artifacts\17\176cb73290bd532b0ba23499c728c7b2
+  - path: Library\Artifacts\d3\d32137ddb379de2912cfbe71330b07ec
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d3\d32137ddb379de2912cfbe71330b07ec
+    projectPath: Library\Artifacts\d3\d32137ddb379de2912cfbe71330b07ec
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\19\19ca5ac66145904e4307615ff20ee5e3
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\19\19ca5ac66145904e4307615ff20ee5e3
-    projectPath: Library\Artifacts\19\19ca5ac66145904e4307615ff20ee5e3
+  - path: Library\Artifacts\ea\ea1b8d1526ba69517bb0cfc9e4054afa
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ea\ea1b8d1526ba69517bb0cfc9e4054afa
+    projectPath: Library\Artifacts\ea\ea1b8d1526ba69517bb0cfc9e4054afa
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\1b\1babb8fb985f520a21cb496178fc2943
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\1b\1babb8fb985f520a21cb496178fc2943
-    projectPath: Library\Artifacts\1b\1babb8fb985f520a21cb496178fc2943
+  - path: Library\Artifacts\ef\efabef4f33b357e2d37404dca71b122b
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ef\efabef4f33b357e2d37404dca71b122b
+    projectPath: Library\Artifacts\ef\efabef4f33b357e2d37404dca71b122b
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\1c\1c0f662c4ffdf45626af1b95edf2e9ba
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\1c\1c0f662c4ffdf45626af1b95edf2e9ba
-    projectPath: Library\Artifacts\1c\1c0f662c4ffdf45626af1b95edf2e9ba
+  - path: Library\EditorUserBuildSettings.asset
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\EditorUserBuildSettings.asset
+    projectPath: Library\EditorUserBuildSettings.asset
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\1c\1c9f9aec5a257aaef5cb846292bc4f2c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\1c\1c9f9aec5a257aaef5cb846292bc4f2c
-    projectPath: Library\Artifacts\1c\1c9f9aec5a257aaef5cb846292bc4f2c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\1d\1de7269334b8de77de202fd4b8718d2d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\1d\1de7269334b8de77de202fd4b8718d2d
-    projectPath: Library\Artifacts\1d\1de7269334b8de77de202fd4b8718d2d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\20\20299a9a39eff574682e081a47083b26
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\20\20299a9a39eff574682e081a47083b26
-    projectPath: Library\Artifacts\20\20299a9a39eff574682e081a47083b26
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\21\21e57aa344979234a9dca65262e8feaa
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\21\21e57aa344979234a9dca65262e8feaa
-    projectPath: Library\Artifacts\21\21e57aa344979234a9dca65262e8feaa
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\23\23deabcb53d84db361fc25852025ef81
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\23\23deabcb53d84db361fc25852025ef81
-    projectPath: Library\Artifacts\23\23deabcb53d84db361fc25852025ef81
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\24\24498252678f075e740b332847ec6ff9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\24\24498252678f075e740b332847ec6ff9
-    projectPath: Library\Artifacts\24\24498252678f075e740b332847ec6ff9
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\24\246ec239959b329a966696a5fa19f6d6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\24\246ec239959b329a966696a5fa19f6d6
-    projectPath: Library\Artifacts\24\246ec239959b329a966696a5fa19f6d6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\25\2511a2c48feecf87e3cc34ee30cc9c8e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\25\2511a2c48feecf87e3cc34ee30cc9c8e
-    projectPath: Library\Artifacts\25\2511a2c48feecf87e3cc34ee30cc9c8e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\25\251d46956d3887b59d3b1e7cd7a86e1c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\25\251d46956d3887b59d3b1e7cd7a86e1c
-    projectPath: Library\Artifacts\25\251d46956d3887b59d3b1e7cd7a86e1c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\27\272720f5b77ec3d620f84d64f849467c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\27\272720f5b77ec3d620f84d64f849467c
-    projectPath: Library\Artifacts\27\272720f5b77ec3d620f84d64f849467c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\27\27cd0a9c5eef565a1a5740f516127e90
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\27\27cd0a9c5eef565a1a5740f516127e90
-    projectPath: Library\Artifacts\27\27cd0a9c5eef565a1a5740f516127e90
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\28\28c7ab603dd0f703f194c6591ed1a647
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\28\28c7ab603dd0f703f194c6591ed1a647
-    projectPath: Library\Artifacts\28\28c7ab603dd0f703f194c6591ed1a647
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2a\2a1b87effb99ee206d3dbcece98948e2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2a\2a1b87effb99ee206d3dbcece98948e2
-    projectPath: Library\Artifacts\2a\2a1b87effb99ee206d3dbcece98948e2
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2b\2b89e25fac9162a221e255088f22cb0d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2b\2b89e25fac9162a221e255088f22cb0d
-    projectPath: Library\Artifacts\2b\2b89e25fac9162a221e255088f22cb0d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2c\2ca9f137efa12af93d37aec1014f3ba5
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2c\2ca9f137efa12af93d37aec1014f3ba5
-    projectPath: Library\Artifacts\2c\2ca9f137efa12af93d37aec1014f3ba5
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2d\2d5a95c9d4302f8c00ed8e2ba0a1cb59
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2d\2d5a95c9d4302f8c00ed8e2ba0a1cb59
-    projectPath: Library\Artifacts\2d\2d5a95c9d4302f8c00ed8e2ba0a1cb59
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2e\2ea833fd6ffde4c819312aeacd2af5b6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2e\2ea833fd6ffde4c819312aeacd2af5b6
-    projectPath: Library\Artifacts\2e\2ea833fd6ffde4c819312aeacd2af5b6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2f\2faf33d87e9412272435ec1a17ef278c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2f\2faf33d87e9412272435ec1a17ef278c
-    projectPath: Library\Artifacts\2f\2faf33d87e9412272435ec1a17ef278c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\2f\2ff4e0f90fbd4cd399a25c16a00cf134
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2f\2ff4e0f90fbd4cd399a25c16a00cf134
-    projectPath: Library\Artifacts\2f\2ff4e0f90fbd4cd399a25c16a00cf134
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\31\3116b43501bace6cddaf041d22049a6a
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\31\3116b43501bace6cddaf041d22049a6a
-    projectPath: Library\Artifacts\31\3116b43501bace6cddaf041d22049a6a
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\31\313f29967cdbb61eb562420d54f222c3
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\31\313f29967cdbb61eb562420d54f222c3
-    projectPath: Library\Artifacts\31\313f29967cdbb61eb562420d54f222c3
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\35\3526392d73cab6e9bb5e496163b068e9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\35\3526392d73cab6e9bb5e496163b068e9
-    projectPath: Library\Artifacts\35\3526392d73cab6e9bb5e496163b068e9
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\35\35659b71a9b286c36ed297cd73e46891
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\35\35659b71a9b286c36ed297cd73e46891
-    projectPath: Library\Artifacts\35\35659b71a9b286c36ed297cd73e46891
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\36\36514c7ef6b3a672d85c9ee56e5eb86d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\36\36514c7ef6b3a672d85c9ee56e5eb86d
-    projectPath: Library\Artifacts\36\36514c7ef6b3a672d85c9ee56e5eb86d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\39\3991526666a2753479a86f62b326404b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\39\3991526666a2753479a86f62b326404b
-    projectPath: Library\Artifacts\39\3991526666a2753479a86f62b326404b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\39\39c2721ea1e71c275e592cf9cc6dedb2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\39\39c2721ea1e71c275e592cf9cc6dedb2
-    projectPath: Library\Artifacts\39\39c2721ea1e71c275e592cf9cc6dedb2
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\3a\3af07fdf9d90bb7fcb3e373b563176d4
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\3a\3af07fdf9d90bb7fcb3e373b563176d4
-    projectPath: Library\Artifacts\3a\3af07fdf9d90bb7fcb3e373b563176d4
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\3b\3b8da58caf9ac8e9503e861f99b457ee
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\3b\3b8da58caf9ac8e9503e861f99b457ee
-    projectPath: Library\Artifacts\3b\3b8da58caf9ac8e9503e861f99b457ee
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\3c\3c05d9ab44d073de14786d9d99cfc794
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\3c\3c05d9ab44d073de14786d9d99cfc794
-    projectPath: Library\Artifacts\3c\3c05d9ab44d073de14786d9d99cfc794
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\3c\3c33f80e148e64bcdf4a34564bea006c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\3c\3c33f80e148e64bcdf4a34564bea006c
-    projectPath: Library\Artifacts\3c\3c33f80e148e64bcdf4a34564bea006c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\3d\3d55e0f3404146acd1ebc5af2270afe4
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\3d\3d55e0f3404146acd1ebc5af2270afe4
-    projectPath: Library\Artifacts\3d\3d55e0f3404146acd1ebc5af2270afe4
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\40\40084c5d02d0e7e6c75ee4d7d881152e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\40\40084c5d02d0e7e6c75ee4d7d881152e
-    projectPath: Library\Artifacts\40\40084c5d02d0e7e6c75ee4d7d881152e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\42\4207b0106b4b2c48066af7b11f1f2f2b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\42\4207b0106b4b2c48066af7b11f1f2f2b
-    projectPath: Library\Artifacts\42\4207b0106b4b2c48066af7b11f1f2f2b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\42\42ae0abcf8dd1f83fcd062d68e31d18b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\42\42ae0abcf8dd1f83fcd062d68e31d18b
-    projectPath: Library\Artifacts\42\42ae0abcf8dd1f83fcd062d68e31d18b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\44\447bece81665361b1a315c68b4ed40c7
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\44\447bece81665361b1a315c68b4ed40c7
-    projectPath: Library\Artifacts\44\447bece81665361b1a315c68b4ed40c7
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4a\4a34c71a83f7222b495c076900e3f28f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4a\4a34c71a83f7222b495c076900e3f28f
-    projectPath: Library\Artifacts\4a\4a34c71a83f7222b495c076900e3f28f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4a\4ac37b6186226be3369a23b8fc0a3454
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4a\4ac37b6186226be3369a23b8fc0a3454
-    projectPath: Library\Artifacts\4a\4ac37b6186226be3369a23b8fc0a3454
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4b\4ba4323f9bf919bc3161935e1ed86445
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4b\4ba4323f9bf919bc3161935e1ed86445
-    projectPath: Library\Artifacts\4b\4ba4323f9bf919bc3161935e1ed86445
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4b\4bc8a236929d98da10528e9a53c48e68
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4b\4bc8a236929d98da10528e9a53c48e68
-    projectPath: Library\Artifacts\4b\4bc8a236929d98da10528e9a53c48e68
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4d\4df3a5cafa803ef1355360693fe099ed
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4d\4df3a5cafa803ef1355360693fe099ed
-    projectPath: Library\Artifacts\4d\4df3a5cafa803ef1355360693fe099ed
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\4e\4e760cc680dd0dd0e0243e7e15ba1b0c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4e\4e760cc680dd0dd0e0243e7e15ba1b0c
-    projectPath: Library\Artifacts\4e\4e760cc680dd0dd0e0243e7e15ba1b0c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\50\508409a7568111f7f5374e1987b2543f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\50\508409a7568111f7f5374e1987b2543f
-    projectPath: Library\Artifacts\50\508409a7568111f7f5374e1987b2543f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\52\520d13f41cbaaaba31b788e30313af2c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\52\520d13f41cbaaaba31b788e30313af2c
-    projectPath: Library\Artifacts\52\520d13f41cbaaaba31b788e30313af2c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\53\533ede2ae18903e993d6078f7f6a970a
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\53\533ede2ae18903e993d6078f7f6a970a
-    projectPath: Library\Artifacts\53\533ede2ae18903e993d6078f7f6a970a
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\54\5448cc9421dfcbcf269cbbb21ef511f9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\54\5448cc9421dfcbcf269cbbb21ef511f9
-    projectPath: Library\Artifacts\54\5448cc9421dfcbcf269cbbb21ef511f9
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\54\5486b7109c3ce988c75730e0771ca928
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\54\5486b7109c3ce988c75730e0771ca928
-    projectPath: Library\Artifacts\54\5486b7109c3ce988c75730e0771ca928
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\54\54d044526ebc817900eeece0c1dc8f70
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\54\54d044526ebc817900eeece0c1dc8f70
-    projectPath: Library\Artifacts\54\54d044526ebc817900eeece0c1dc8f70
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\55\550f0f5581aae086ea5d133f7ccf0253
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\55\550f0f5581aae086ea5d133f7ccf0253
-    projectPath: Library\Artifacts\55\550f0f5581aae086ea5d133f7ccf0253
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\55\554ae031d515ca2e99683949c01504d8
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\55\554ae031d515ca2e99683949c01504d8
-    projectPath: Library\Artifacts\55\554ae031d515ca2e99683949c01504d8
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\56\5675b984053936bbba909125bdbd9288
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\56\5675b984053936bbba909125bdbd9288
-    projectPath: Library\Artifacts\56\5675b984053936bbba909125bdbd9288
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\56\56f4226c526c653e86b55ccc3b023f1f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\56\56f4226c526c653e86b55ccc3b023f1f
-    projectPath: Library\Artifacts\56\56f4226c526c653e86b55ccc3b023f1f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\5c\5cdef1b4df35e3d78bab98e48099bb62
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\5c\5cdef1b4df35e3d78bab98e48099bb62
-    projectPath: Library\Artifacts\5c\5cdef1b4df35e3d78bab98e48099bb62
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\61\61bd9f2d7fe28f6cfa82e7ddde4b9236
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\61\61bd9f2d7fe28f6cfa82e7ddde4b9236
-    projectPath: Library\Artifacts\61\61bd9f2d7fe28f6cfa82e7ddde4b9236
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\61\61c879dec3ece43e590b13caefbcd615
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\61\61c879dec3ece43e590b13caefbcd615
-    projectPath: Library\Artifacts\61\61c879dec3ece43e590b13caefbcd615
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\65\655a7be3cc7bacf9100ec679b0f02f40
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\65\655a7be3cc7bacf9100ec679b0f02f40
-    projectPath: Library\Artifacts\65\655a7be3cc7bacf9100ec679b0f02f40
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\68\685c0335f5dda2d7bc8dd0f5a91cf010
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\68\685c0335f5dda2d7bc8dd0f5a91cf010
-    projectPath: Library\Artifacts\68\685c0335f5dda2d7bc8dd0f5a91cf010
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\6b\6bc75dcf42f8ea7799edef5f02942339
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\6b\6bc75dcf42f8ea7799edef5f02942339
-    projectPath: Library\Artifacts\6b\6bc75dcf42f8ea7799edef5f02942339
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\6d\6d4e587e129940465343f64e0fba7670
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\6d\6d4e587e129940465343f64e0fba7670
-    projectPath: Library\Artifacts\6d\6d4e587e129940465343f64e0fba7670
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\6d\6dc8a60f89f956de6c44fdfb3ae0c3d7
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\6d\6dc8a60f89f956de6c44fdfb3ae0c3d7
-    projectPath: Library\Artifacts\6d\6dc8a60f89f956de6c44fdfb3ae0c3d7
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\6f\6f46d9c4ddb62792c009798ee2143c38
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\6f\6f46d9c4ddb62792c009798ee2143c38
-    projectPath: Library\Artifacts\6f\6f46d9c4ddb62792c009798ee2143c38
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\70\70533a52a6d3f347583c7ba4e84730c1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\70\70533a52a6d3f347583c7ba4e84730c1
-    projectPath: Library\Artifacts\70\70533a52a6d3f347583c7ba4e84730c1
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\73\730430b7873026dafa02960247605a9c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\73\730430b7873026dafa02960247605a9c
-    projectPath: Library\Artifacts\73\730430b7873026dafa02960247605a9c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\73\736c4fea3289f23b61e853c74bdb6968
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\73\736c4fea3289f23b61e853c74bdb6968
-    projectPath: Library\Artifacts\73\736c4fea3289f23b61e853c74bdb6968
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\79\796371e5acd78918e8ef30d33b3c3339
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\79\796371e5acd78918e8ef30d33b3c3339
-    projectPath: Library\Artifacts\79\796371e5acd78918e8ef30d33b3c3339
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\7c\7cdb0bf2783d59f6ffa07b257f63fe97
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\7c\7cdb0bf2783d59f6ffa07b257f63fe97
-    projectPath: Library\Artifacts\7c\7cdb0bf2783d59f6ffa07b257f63fe97
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\7e\7e30a5d558facec717db2ec029b66956
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\7e\7e30a5d558facec717db2ec029b66956
-    projectPath: Library\Artifacts\7e\7e30a5d558facec717db2ec029b66956
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\80\801fa05c54a01da6820c75e858eb01db
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\80\801fa05c54a01da6820c75e858eb01db
-    projectPath: Library\Artifacts\80\801fa05c54a01da6820c75e858eb01db
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\80\80a951cdc0390a2eeb10a2d84c9be070
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\80\80a951cdc0390a2eeb10a2d84c9be070
-    projectPath: Library\Artifacts\80\80a951cdc0390a2eeb10a2d84c9be070
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\81\819bb029ba8a16d98e81d3e0fc62618e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\81\819bb029ba8a16d98e81d3e0fc62618e
-    projectPath: Library\Artifacts\81\819bb029ba8a16d98e81d3e0fc62618e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\81\81b0e5bf2ef424ddf3d761836653bf31
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\81\81b0e5bf2ef424ddf3d761836653bf31
-    projectPath: Library\Artifacts\81\81b0e5bf2ef424ddf3d761836653bf31
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\81\81ea0dcbe0c9045d2cf81b54b47025f8
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\81\81ea0dcbe0c9045d2cf81b54b47025f8
-    projectPath: Library\Artifacts\81\81ea0dcbe0c9045d2cf81b54b47025f8
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\82\82e26eb8e38618bc3f42cc830cba3152
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\82\82e26eb8e38618bc3f42cc830cba3152
-    projectPath: Library\Artifacts\82\82e26eb8e38618bc3f42cc830cba3152
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\85\85fd16776e2957199e612cfaf1517f93
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\85\85fd16776e2957199e612cfaf1517f93
-    projectPath: Library\Artifacts\85\85fd16776e2957199e612cfaf1517f93
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\8c\8cb1b2361f26b40088f8ebdaab321eef
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\8c\8cb1b2361f26b40088f8ebdaab321eef
-    projectPath: Library\Artifacts\8c\8cb1b2361f26b40088f8ebdaab321eef
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\8d\8d3922c4a37f5a28121b842116a8bfbb
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\8d\8d3922c4a37f5a28121b842116a8bfbb
-    projectPath: Library\Artifacts\8d\8d3922c4a37f5a28121b842116a8bfbb
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\90\901a59daaba0b6d9648f88c38989f52f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\90\901a59daaba0b6d9648f88c38989f52f
-    projectPath: Library\Artifacts\90\901a59daaba0b6d9648f88c38989f52f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\90\90ac84c7e376a4c880e2bf7fd998e857
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\90\90ac84c7e376a4c880e2bf7fd998e857
-    projectPath: Library\Artifacts\90\90ac84c7e376a4c880e2bf7fd998e857
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\90\90bab976dfc4c8de849842a877fbdbbd
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\90\90bab976dfc4c8de849842a877fbdbbd
-    projectPath: Library\Artifacts\90\90bab976dfc4c8de849842a877fbdbbd
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\94\94e14bbd98a242fc16ff1b22e4c8c7c0
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\94\94e14bbd98a242fc16ff1b22e4c8c7c0
-    projectPath: Library\Artifacts\94\94e14bbd98a242fc16ff1b22e4c8c7c0
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\95\954f0109294901e985fdccce19e7f77d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\95\954f0109294901e985fdccce19e7f77d
-    projectPath: Library\Artifacts\95\954f0109294901e985fdccce19e7f77d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\97\976e7f271990f69d7a837b59c1888a73
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\97\976e7f271990f69d7a837b59c1888a73
-    projectPath: Library\Artifacts\97\976e7f271990f69d7a837b59c1888a73
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\99\991fa505a95c158b2aaa1d8da2fbdef1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\99\991fa505a95c158b2aaa1d8da2fbdef1
-    projectPath: Library\Artifacts\99\991fa505a95c158b2aaa1d8da2fbdef1
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\9c\9c4189e521d771de7abc38caa1294813
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\9c\9c4189e521d771de7abc38caa1294813
-    projectPath: Library\Artifacts\9c\9c4189e521d771de7abc38caa1294813
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\9c\9ce704631471389a4850a3cb49d70c8b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\9c\9ce704631471389a4850a3cb49d70c8b
-    projectPath: Library\Artifacts\9c\9ce704631471389a4850a3cb49d70c8b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\9f\9f200df0b461140aed1b01f1af451fb6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\9f\9f200df0b461140aed1b01f1af451fb6
-    projectPath: Library\Artifacts\9f\9f200df0b461140aed1b01f1af451fb6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\9f\9fdca5494f76f184b310f0bdb6f6e1e2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\9f\9fdca5494f76f184b310f0bdb6f6e1e2
-    projectPath: Library\Artifacts\9f\9fdca5494f76f184b310f0bdb6f6e1e2
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a3\a3ce1be8e4d89625d1f2515118c9757b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a3\a3ce1be8e4d89625d1f2515118c9757b
-    projectPath: Library\Artifacts\a3\a3ce1be8e4d89625d1f2515118c9757b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a4\a447b871360be06856187bada206bdc6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a4\a447b871360be06856187bada206bdc6
-    projectPath: Library\Artifacts\a4\a447b871360be06856187bada206bdc6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a4\a4cc6e22ea79aec2b34b570bf9ef9755
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a4\a4cc6e22ea79aec2b34b570bf9ef9755
-    projectPath: Library\Artifacts\a4\a4cc6e22ea79aec2b34b570bf9ef9755
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a5\a5076182fbee90af34e7dd299507ac9b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a5\a5076182fbee90af34e7dd299507ac9b
-    projectPath: Library\Artifacts\a5\a5076182fbee90af34e7dd299507ac9b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ab\ab27db88f368eb7c49b513ca7e9a5f92
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ab\ab27db88f368eb7c49b513ca7e9a5f92
-    projectPath: Library\Artifacts\ab\ab27db88f368eb7c49b513ca7e9a5f92
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ab\abd3f14db22338a71c22c265de677a7e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ab\abd3f14db22338a71c22c265de677a7e
-    projectPath: Library\Artifacts\ab\abd3f14db22338a71c22c265de677a7e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b5\b530ae7ddf76bed4701c3b9ba2d421da
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b5\b530ae7ddf76bed4701c3b9ba2d421da
-    projectPath: Library\Artifacts\b5\b530ae7ddf76bed4701c3b9ba2d421da
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b6\b68534a9e8b7800a729025e2c471c117
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b6\b68534a9e8b7800a729025e2c471c117
-    projectPath: Library\Artifacts\b6\b68534a9e8b7800a729025e2c471c117
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b6\b68f07c4d882c474d26b996011bad9ad
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b6\b68f07c4d882c474d26b996011bad9ad
-    projectPath: Library\Artifacts\b6\b68f07c4d882c474d26b996011bad9ad
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b6\b6afc0c30a6b27e48ae3435c0d8030ff
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b6\b6afc0c30a6b27e48ae3435c0d8030ff
-    projectPath: Library\Artifacts\b6\b6afc0c30a6b27e48ae3435c0d8030ff
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b8\b8a0e72244d99a5332189bd366cd9903
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b8\b8a0e72244d99a5332189bd366cd9903
-    projectPath: Library\Artifacts\b8\b8a0e72244d99a5332189bd366cd9903
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b8\b8b74c8b91fab85a32a47d09c7d6dcb5
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b8\b8b74c8b91fab85a32a47d09c7d6dcb5
-    projectPath: Library\Artifacts\b8\b8b74c8b91fab85a32a47d09c7d6dcb5
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b9\b9c43fdf01da80008826169fd8759e9d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b9\b9c43fdf01da80008826169fd8759e9d
-    projectPath: Library\Artifacts\b9\b9c43fdf01da80008826169fd8759e9d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\bb\bb6d86ba4973b3906166b6885916635f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\bb\bb6d86ba4973b3906166b6885916635f
-    projectPath: Library\Artifacts\bb\bb6d86ba4973b3906166b6885916635f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\bc\bc3d2db7668968e1e69eca25a711665f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\bc\bc3d2db7668968e1e69eca25a711665f
-    projectPath: Library\Artifacts\bc\bc3d2db7668968e1e69eca25a711665f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\bd\bd58c7f513ad55df4a69ce3685d33963
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\bd\bd58c7f513ad55df4a69ce3685d33963
-    projectPath: Library\Artifacts\bd\bd58c7f513ad55df4a69ce3685d33963
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\be\befbc3eabf2d825ce215216745d0ebc1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\be\befbc3eabf2d825ce215216745d0ebc1
-    projectPath: Library\Artifacts\be\befbc3eabf2d825ce215216745d0ebc1
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c1\c1129998950ddf79ae36505911a5864a
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c1129998950ddf79ae36505911a5864a
-    projectPath: Library\Artifacts\c1\c1129998950ddf79ae36505911a5864a
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c1\c176be66d6dd954a53df9f9cb80fbf63
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c176be66d6dd954a53df9f9cb80fbf63
-    projectPath: Library\Artifacts\c1\c176be66d6dd954a53df9f9cb80fbf63
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c1\c18699ce2bf9e93224764f53c7a0dad2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c18699ce2bf9e93224764f53c7a0dad2
-    projectPath: Library\Artifacts\c1\c18699ce2bf9e93224764f53c7a0dad2
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c1\c1d5f0af4ed6f9c3844422303e6ad346
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c1d5f0af4ed6f9c3844422303e6ad346
-    projectPath: Library\Artifacts\c1\c1d5f0af4ed6f9c3844422303e6ad346
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c2\c22476e4b81303b84cabde66606f1bfe
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c2\c22476e4b81303b84cabde66606f1bfe
-    projectPath: Library\Artifacts\c2\c22476e4b81303b84cabde66606f1bfe
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c8\c8a3ff7709d803d5be707c8d630a7eee
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c8\c8a3ff7709d803d5be707c8d630a7eee
-    projectPath: Library\Artifacts\c8\c8a3ff7709d803d5be707c8d630a7eee
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ca\ca30bfd15475e62eed247cc9d9fe36e6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ca\ca30bfd15475e62eed247cc9d9fe36e6
-    projectPath: Library\Artifacts\ca\ca30bfd15475e62eed247cc9d9fe36e6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ca\ca7d8454af6c9b5ef0db3329fdc89f6e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ca\ca7d8454af6c9b5ef0db3329fdc89f6e
-    projectPath: Library\Artifacts\ca\ca7d8454af6c9b5ef0db3329fdc89f6e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\cc\cce87bb1d572a9d4615fb369452eb2ac
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\cc\cce87bb1d572a9d4615fb369452eb2ac
-    projectPath: Library\Artifacts\cc\cce87bb1d572a9d4615fb369452eb2ac
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ce\ceae9052f78bba2ccf1b482e49767014
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ce\ceae9052f78bba2ccf1b482e49767014
-    projectPath: Library\Artifacts\ce\ceae9052f78bba2ccf1b482e49767014
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ce\cec22ccf6a1159c640f742f2fd845540
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ce\cec22ccf6a1159c640f742f2fd845540
-    projectPath: Library\Artifacts\ce\cec22ccf6a1159c640f742f2fd845540
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\cf\cf624e5a8e7304965f11a3491bdad1c6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\cf\cf624e5a8e7304965f11a3491bdad1c6
-    projectPath: Library\Artifacts\cf\cf624e5a8e7304965f11a3491bdad1c6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d0\d08d30ee6e3c388739dcf6804a7b064c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d0\d08d30ee6e3c388739dcf6804a7b064c
-    projectPath: Library\Artifacts\d0\d08d30ee6e3c388739dcf6804a7b064c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d1\d1b460ea0fcaab6be484bf674581f127
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d1\d1b460ea0fcaab6be484bf674581f127
-    projectPath: Library\Artifacts\d1\d1b460ea0fcaab6be484bf674581f127
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d3\d32a756078e9c6e7cc2f1d3c8b2c8ae6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d3\d32a756078e9c6e7cc2f1d3c8b2c8ae6
-    projectPath: Library\Artifacts\d3\d32a756078e9c6e7cc2f1d3c8b2c8ae6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d4\d439a6f0b2757a2f9e3f2314d0950703
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d4\d439a6f0b2757a2f9e3f2314d0950703
-    projectPath: Library\Artifacts\d4\d439a6f0b2757a2f9e3f2314d0950703
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d8\d85d7c00836f61c0949fd4602f9a7757
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d8\d85d7c00836f61c0949fd4602f9a7757
-    projectPath: Library\Artifacts\d8\d85d7c00836f61c0949fd4602f9a7757
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\dc\dca91d2090401c6552d8f618f3da49a3
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\dc\dca91d2090401c6552d8f618f3da49a3
-    projectPath: Library\Artifacts\dc\dca91d2090401c6552d8f618f3da49a3
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\de\dea6af67b17f0502ead71b7b6810121d
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\de\dea6af67b17f0502ead71b7b6810121d
-    projectPath: Library\Artifacts\de\dea6af67b17f0502ead71b7b6810121d
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\df\df1ca1a719f23cfab493ffba2b998908
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\df\df1ca1a719f23cfab493ffba2b998908
-    projectPath: Library\Artifacts\df\df1ca1a719f23cfab493ffba2b998908
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\df\df96d041649fe0300801588ce057cc04
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\df\df96d041649fe0300801588ce057cc04
-    projectPath: Library\Artifacts\df\df96d041649fe0300801588ce057cc04
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e0\e028247983f9de56a186784febf2b547
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e0\e028247983f9de56a186784febf2b547
-    projectPath: Library\Artifacts\e0\e028247983f9de56a186784febf2b547
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e0\e0459a2e7fbe976ac7176be369944eff
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e0\e0459a2e7fbe976ac7176be369944eff
-    projectPath: Library\Artifacts\e0\e0459a2e7fbe976ac7176be369944eff
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e0\e089d58a65ba7bea84cb44760a6eb103
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e0\e089d58a65ba7bea84cb44760a6eb103
-    projectPath: Library\Artifacts\e0\e089d58a65ba7bea84cb44760a6eb103
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e0\e0ee54acacc62792441ff62b5a72b56b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e0\e0ee54acacc62792441ff62b5a72b56b
-    projectPath: Library\Artifacts\e0\e0ee54acacc62792441ff62b5a72b56b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e1\e163609db326adbc1431a86c3a390d0c
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e1\e163609db326adbc1431a86c3a390d0c
-    projectPath: Library\Artifacts\e1\e163609db326adbc1431a86c3a390d0c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e5\e565e4e0c1b5fd07b09299587829f715
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e5\e565e4e0c1b5fd07b09299587829f715
-    projectPath: Library\Artifacts\e5\e565e4e0c1b5fd07b09299587829f715
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e6\e6d2a908b5fd87ac9f2cbff84d0dbfa4
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e6\e6d2a908b5fd87ac9f2cbff84d0dbfa4
-    projectPath: Library\Artifacts\e6\e6d2a908b5fd87ac9f2cbff84d0dbfa4
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e7\e718270cc9166819fa0670ff74d95877
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e7\e718270cc9166819fa0670ff74d95877
-    projectPath: Library\Artifacts\e7\e718270cc9166819fa0670ff74d95877
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\e8\e8ba5029cddfd5c8e66c5c2cd7d85cc3
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e8\e8ba5029cddfd5c8e66c5c2cd7d85cc3
-    projectPath: Library\Artifacts\e8\e8ba5029cddfd5c8e66c5c2cd7d85cc3
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ea\ea13c3e0556f2840915f7ca234995fee
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ea\ea13c3e0556f2840915f7ca234995fee
-    projectPath: Library\Artifacts\ea\ea13c3e0556f2840915f7ca234995fee
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ea\eaac8cdbf692ab0f6c1c2b891ecf8a96
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ea\eaac8cdbf692ab0f6c1c2b891ecf8a96
-    projectPath: Library\Artifacts\ea\eaac8cdbf692ab0f6c1c2b891ecf8a96
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ea\eaf57619a20c388819b76e8f2961cf8b
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ea\eaf57619a20c388819b76e8f2961cf8b
-    projectPath: Library\Artifacts\ea\eaf57619a20c388819b76e8f2961cf8b
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ec\ec87263644c2f6c0ab4b1f5506816e91
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ec\ec87263644c2f6c0ab4b1f5506816e91
-    projectPath: Library\Artifacts\ec\ec87263644c2f6c0ab4b1f5506816e91
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ed\ed4bbb1906e794cc58769707db138773
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ed\ed4bbb1906e794cc58769707db138773
-    projectPath: Library\Artifacts\ed\ed4bbb1906e794cc58769707db138773
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ed\edaa968d2ed5ad9f18dc4b865a1d3c6e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ed\edaa968d2ed5ad9f18dc4b865a1d3c6e
-    projectPath: Library\Artifacts\ed\edaa968d2ed5ad9f18dc4b865a1d3c6e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ee\ee4de0855018ee078ca61311430c9d0f
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ee\ee4de0855018ee078ca61311430c9d0f
-    projectPath: Library\Artifacts\ee\ee4de0855018ee078ca61311430c9d0f
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ee\ee513df49ddb8525393f2fdbce7237fb
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ee\ee513df49ddb8525393f2fdbce7237fb
-    projectPath: Library\Artifacts\ee\ee513df49ddb8525393f2fdbce7237fb
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ef\ef5fee8469c507bceb13ab50ad6d3386
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ef\ef5fee8469c507bceb13ab50ad6d3386
-    projectPath: Library\Artifacts\ef\ef5fee8469c507bceb13ab50ad6d3386
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\f1\f1d93998eb896f469aa1ef9165fb3462
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\f1\f1d93998eb896f469aa1ef9165fb3462
-    projectPath: Library\Artifacts\f1\f1d93998eb896f469aa1ef9165fb3462
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\f9\f966eb4481991fdd2bfdb40053c6ae1e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\f9\f966eb4481991fdd2bfdb40053c6ae1e
-    projectPath: Library\Artifacts\f9\f966eb4481991fdd2bfdb40053c6ae1e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\f9\f9a9d962c7d21455976dc2bd7c31c985
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\f9\f9a9d962c7d21455976dc2bd7c31c985
-    projectPath: Library\Artifacts\f9\f9a9d962c7d21455976dc2bd7c31c985
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\fa\fae2f2010efcf7a3c5c163178a2f4a20
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\fa\fae2f2010efcf7a3c5c163178a2f4a20
-    projectPath: Library\Artifacts\fa\fae2f2010efcf7a3c5c163178a2f4a20
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\fc\fc59201e0128109032ca3fafeedf079e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\fc\fc59201e0128109032ca3fafeedf079e
-    projectPath: Library\Artifacts\fc\fc59201e0128109032ca3fafeedf079e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\fd\fd983678e2aa846da7146cc539a065a1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\fd\fd983678e2aa846da7146cc539a065a1
-    projectPath: Library\Artifacts\fd\fd983678e2aa846da7146cc539a065a1
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ff\ff72f2c5029c248ae6079ba5cd51fc19
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ff\ff72f2c5029c248ae6079ba5cd51fc19
-    projectPath: Library\Artifacts\ff\ff72f2c5029c248ae6079ba5cd51fc19
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\branches.yaml
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\branches.yaml
     projectPath: Library\gfu\cache\branches.yaml
@@ -2986,6 +202,12 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Library\gfu\cache\gittrackingstatus.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gittrackingstatus.yaml
+    projectPath: Library\gfu\cache\gittrackingstatus.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\gituser.yaml
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gituser.yaml
     projectPath: Library\gfu\cache\gituser.yaml
@@ -2995,6 +217,210 @@ MonoBehaviour:
   - path: Library\gfu\cache\repoinfo.yaml
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\repoinfo.yaml
     projectPath: Library\gfu\cache\repoinfo.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\InspectorExpandedItems.asset
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\InspectorExpandedItems.asset
+    projectPath: Library\InspectorExpandedItems.asset
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\LastBuild.buildreport
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\LastBuild.buildreport
+    projectPath: Library\LastBuild.buildreport
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\globalgamemanagers
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\globalgamemanagers
+    projectPath: Library\PlayerDataCache\Win64\Data\globalgamemanagers
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\globalgamemanagers.assets
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\globalgamemanagers.assets
+    projectPath: Library\PlayerDataCache\Win64\Data\globalgamemanagers.assets
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\level0
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\level0
+    projectPath: Library\PlayerDataCache\Win64\Data\level0
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\level1
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\level1
+    projectPath: Library\PlayerDataCache\Win64\Data\level1
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Assembly-CSharp.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Assembly-CSharp.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Assembly-CSharp.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\kcp2k.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\kcp2k.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\kcp2k.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Authenticators.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Authenticators.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Authenticators.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Cloud.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Cloud.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Cloud.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Components.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Components.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Components.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.GUI.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.GUI.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.GUI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.Pong.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.Pong.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.Cloud.Pong.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Mirror.Examples.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\SimpleWebTransport.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\SimpleWebTransport.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\SimpleWebTransport.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Telepathy.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Telepathy.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Telepathy.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Runtime.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Runtime.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Runtime.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Triangle.Runtime.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Triangle.Runtime.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Animation.Triangle.Runtime.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Common.Runtime.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Common.Runtime.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.Common.Runtime.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.PixelPerfect.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.PixelPerfect.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.PixelPerfect.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.Mathematics.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.Mathematics.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.Mathematics.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.TextMeshPro.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.TextMeshPro.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.TextMeshPro.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\Unity.Timeline.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\Unity.Timeline.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\Unity.Timeline.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\Managed\UnityEngine.UI.dll
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\Managed\UnityEngine.UI.dll
+    projectPath: Library\PlayerDataCache\Win64\Data\Managed\UnityEngine.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\resources.assets
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\resources.assets
+    projectPath: Library\PlayerDataCache\Win64\Data\resources.assets
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\resources.assets.resS
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\resources.assets.resS
+    projectPath: Library\PlayerDataCache\Win64\Data\resources.assets.resS
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\sharedassets0.assets
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\sharedassets0.assets
+    projectPath: Library\PlayerDataCache\Win64\Data\sharedassets0.assets
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\sharedassets1.assets
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\sharedassets1.assets
+    projectPath: Library\PlayerDataCache\Win64\Data\sharedassets1.assets
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\PlayerDataCache\Win64\Data\sharedassets1.assets.resS
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\Data\sharedassets1.assets.resS
+    projectPath: Library\PlayerDataCache\Win64\Data\sharedassets1.assets.resS
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PlayerDataCache\Win64\ScriptsOnlyCache.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\PlayerDataCache\Win64\ScriptsOnlyCache.yaml
+    projectPath: Library\PlayerDataCache\Win64\ScriptsOnlyCache.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\SceneVisibilityState.asset
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SceneVisibilityState.asset
+    projectPath: Library\SceneVisibilityState.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -3010,12 +436,48 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Library\shadercompiler-UnityShaderCompiler.exe3.log
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\shadercompiler-UnityShaderCompiler.exe3.log
+    projectPath: Library\shadercompiler-UnityShaderCompiler.exe3.log
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\shadercompiler-UnityShaderCompiler.exe4.log
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\shadercompiler-UnityShaderCompiler.exe4.log
+    projectPath: Library\shadercompiler-UnityShaderCompiler.exe4.log
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\shadercompiler-UnityShaderCompiler.exe5.log
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\shadercompiler-UnityShaderCompiler.exe5.log
+    projectPath: Library\shadercompiler-UnityShaderCompiler.exe5.log
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\shadercompiler-UnityShaderCompiler.exe6.log
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\shadercompiler-UnityShaderCompiler.exe6.log
+    projectPath: Library\shadercompiler-UnityShaderCompiler.exe6.log
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\shadercompiler-UnityShaderCompiler.exe7.log
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\shadercompiler-UnityShaderCompiler.exe7.log
+    projectPath: Library\shadercompiler-UnityShaderCompiler.exe7.log
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\SourceAssetDB
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SourceAssetDB
     projectPath: Library\SourceAssetDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Library\StateCache\Hierarchy\a1d351-7790cb8303f471548a.json
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\Hierarchy\a1d351-7790cb8303f471548a.json
+    projectPath: Library\StateCache\Hierarchy\a1d351-7790cb8303f471548a.json
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\StateCache\Hierarchy\a1d351-aa9613f2ee96f0c4e8.json
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\Hierarchy\a1d351-aa9613f2ee96f0c4e8.json
     projectPath: Library\StateCache\Hierarchy\a1d351-aa9613f2ee96f0c4e8.json
@@ -3025,6 +487,90 @@ MonoBehaviour:
   - path: Library\StateCache\Hierarchy\a1d351-mainStage.json
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\Hierarchy\a1d351-mainStage.json
     projectPath: Library\StateCache\Hierarchy\a1d351-mainStage.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\StateCache\SceneView\15c65c-7790cb8303f471548a.json
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\SceneView\15c65c-7790cb8303f471548a.json
+    projectPath: Library\StateCache\SceneView\15c65c-7790cb8303f471548a.json
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Mirror.Authenticators.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Authenticators.csproj
+    projectPath: Mirror.Authenticators.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Cloud.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Cloud.csproj
+    projectPath: Mirror.Cloud.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.CompilerSymbols.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.CompilerSymbols.csproj
+    projectPath: Mirror.CompilerSymbols.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Components.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Components.csproj
+    projectPath: Mirror.Components.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.csproj
+    projectPath: Mirror.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Editor.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Editor.csproj
+    projectPath: Mirror.Editor.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Examples.Cloud.GUI.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Examples.Cloud.GUI.csproj
+    projectPath: Mirror.Examples.Cloud.GUI.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Examples.Cloud.Pong.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Examples.Cloud.Pong.csproj
+    projectPath: Mirror.Examples.Cloud.Pong.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Examples.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Examples.csproj
+    projectPath: Mirror.Examples.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Mirror.Weaver.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Mirror.Weaver.csproj
+    projectPath: Mirror.Weaver.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: obj\Debug\Mirror.CompilerSymbols.csprojAssemblyReference.cache
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\obj\Debug\Mirror.CompilerSymbols.csprojAssemblyReference.cache
+    projectPath: obj\Debug\Mirror.CompilerSymbols.csprojAssemblyReference.cache
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: SimpleWebTransport.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\SimpleWebTransport.csproj
+    projectPath: SimpleWebTransport.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Telepathy.csproj
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Telepathy.csproj
+    projectPath: Telepathy.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
