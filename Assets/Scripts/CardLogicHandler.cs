@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardLogicHandler : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class CardLogicHandler : MonoBehaviour
         this.card = card.GetComponent<Card>();
         GameObject parentObject = card.transform.parent.gameObject;
         cardOfPlayer = parentObject == PlayerArea;
-
         Debug.Log(this.card.cardType + ", " + this.card.cardValue + ". Owned by player? " + cardOfPlayer);
+
+
 
         /*switch (this.card.cardType)
         {

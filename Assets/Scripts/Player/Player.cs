@@ -12,8 +12,11 @@ public class Player : MonoBehaviour
     public string attackName;
     public DamageType damageType;
     
+    [HideInInspector]
     public bool isDead = false;
+    [HideInInspector]
     public bool isAttacking = false;
+    [HideInInspector]
     public bool isAttacked = false;
 
     public void Damage(int amount)
