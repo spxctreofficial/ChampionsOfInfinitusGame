@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardLogicHandler : MonoBehaviour
 {
@@ -24,16 +23,40 @@ public class CardLogicHandler : MonoBehaviour
         }
     }
 
-    public void CardSelect(GameObject card)
+    public IEnumerator CardSelect(GameObject card)
     {
         this.card = card.GetComponent<Card>();
         GameObject parentObject = card.transform.parent.gameObject;
         cardOfPlayer = parentObject == PlayerArea;
-        // Debug.Log(this.card.cardType + ", " + this.card.cardValue + ". Owned by player? " + cardOfPlayer);
 
-        if (cardOfPlayer)
+        if (cardOfPlayer && gameHandler.phase == GamePhase.PLAYERACTIONPHASE)
         {
-            if (gameHandler.phase == GamePhase.PLAYERACTIONPHASE)
+            if (gameHandler.player.isAttacking)
+            {
+                GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(0).gameObject;
+
+                Debug.Log("Player is attacking the opponent with a card with a value of " + this.card.cardValue);
+                gameHandler.opponent.isAttacked = true;
+                card.transform.SetParent(PlayArea.transform, false);
+
+                yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+                opponentCard.transform.SetParent(PlayArea.transform, false);
+
+                if (this.card.cardValue > opponentCard.GetComponent<Card>().cardValue)
+                {
+                    gameHandler.opponent.currentHP -= gameHandler.player.attackDamage;
+                }
+                else if (this.card.cardValue < opponentCard.GetComponent<Card>().cardValue)
+                {
+                    gameHandler.player.currentHP -= gameHandler.opponent.attackDamage;
+                }
+                Debug.Log("Player: " + gameHandler.player.currentHP);
+                Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+
+                gameHandler.player.isAttacking = false;
+            }
+            else
             {
                 switch (this.card.cardType)
                 {
@@ -100,14 +123,10 @@ public class CardLogicHandler : MonoBehaviour
                         break;
                 }
             }
-            else
-            {
-                Debug.Log("It is not the player's turn!");
-            }
         }
         else
         {
-            Debug.Log("This is not the player's card!");
+            Debug.Log("You cannot do that!");
         }
     }
 
