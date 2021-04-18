@@ -81,6 +81,8 @@ public class GameHandler : MonoBehaviour
         PlayerActionTooltip.text = "It is your Action Phase.";
     }
 
+    // Callable Voids
+
     [HideInInspector]
     public void EnlargeChampionDashboard()
     {
@@ -94,10 +96,7 @@ public class GameHandler : MonoBehaviour
     {
         ChampionDashboard.SetActive(false);
     }
-
-    // PRIVATE VOIDS
-
-    private void DealCardsPlayer(int cards)
+    public void DealCardsPlayer(int cards)
     {
         for (int x = 0; x < cards; x++)
         {
@@ -105,7 +104,7 @@ public class GameHandler : MonoBehaviour
             playerCard.transform.SetParent(PlayerArea.transform, false);
         }
     }
-    private void DealCardsOpponent(int cards)
+    public void DealCardsOpponent(int cards)
     {
         for (int x = 0; x < cards; x++)
         {
@@ -113,7 +112,7 @@ public class GameHandler : MonoBehaviour
             opponentCard.transform.SetParent(OpponentArea.transform, false);
         }
     }
-    private void DealCards(int cards)
+    public void DealCards(int cards)
     {
         DealCardsPlayer(cards);
         DealCardsOpponent(cards);
