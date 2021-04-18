@@ -130,7 +130,7 @@ public class CardLogicHandler : MonoBehaviour
                             card.transform.SetParent(PlayArea.transform, false);
                             break;
                         case CardType.DIAMOND:
-                            if (gameHandler.player.diamondsBeforeExhaustion <= 0)
+                            if (gameHandler.player.diamondsBeforeExhaustion <= 0 && this.card.cardValue >= 5 && this.card.cardValue <= 8)
                             {
                                 Debug.Log("Player is exhausted! Cannot play more diamonds.");
                                 break;
@@ -244,6 +244,42 @@ public class CardLogicHandler : MonoBehaviour
                                 case 11:
                                     gameHandler.opponent.Damage(20, DamageType.Fire);
                                     card.transform.SetParent(PlayArea.transform, false);
+                                    break;
+                                case 12:
+                                    chance = gameHandler.opponent.currentHP >= 75 ? 0.45f : 0.20f;
+                                    if (Random.Range(0f, 1f) > chance && gameHandler.opponent.currentHP > 40 || gameHandler.opponent.cards == 0)
+                                    {
+                                        card.transform.SetParent(PlayArea.transform, false);
+
+                                        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+                                        gameHandler.opponent.Damage(40, DamageType.Fire);
+                                        gameHandler.player.diamondsBeforeExhaustion--;
+                                        break;
+                                    }
+
+                                    gameHandler.opponent.discardAmount = 4;
+                                    card.transform.SetParent(PlayArea.transform, false);
+
+                                    yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+                                    for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
+                                    {
+                                        int value = 666;
+                                        int siblingIndex = 0;
+                                        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                                        {
+                                            if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                                            {
+                                                value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                                                siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                                            }
+                                        }
+                                        GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
+                                        opponentCard.transform.SetParent(PlayArea.transform, false);
+                                    }
+                                    gameHandler.opponent.discardAmount = 0;
+                                    gameHandler.player.diamondsBeforeExhaustion--;
                                     break;
                             }
                             break;

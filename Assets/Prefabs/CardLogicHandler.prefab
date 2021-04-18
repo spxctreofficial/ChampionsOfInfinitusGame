@@ -47,3 +47,6 @@ MonoBehaviour:
   cardIndex: {fileID: 0}
   PlayerArea: {fileID: 0}
   OpponentArea: {fileID: 0}
+  PlayArea: {fileID: 0}
+  summonObject: {fileID: 2907870641525700353, guid: 087b7eb13949669429e441141698a0c9,
+    type: 3}
