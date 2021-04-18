@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DamageType { Melee, Ranged, Fire, Lightning, Water }
+public enum DamageType { Melee, Ranged, Fire, Lightning, Water, Unblockable }
 
 [CreateAssetMenu(fileName = "New Champion", menuName = "Champion")]
 public class Champion : ScriptableObject

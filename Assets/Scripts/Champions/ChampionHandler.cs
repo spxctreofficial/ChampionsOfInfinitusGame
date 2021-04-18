@@ -50,7 +50,7 @@ public class ChampionHandler : MonoBehaviour
         thisImage.sprite = this.championImage;
     }
     [HideInInspector]
-    public void Damage(int amount)
+    public void Damage(int amount, DamageType damageType)
     {
         currentHP -= amount;
     }

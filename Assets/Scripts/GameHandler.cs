@@ -39,7 +39,6 @@ public class GameHandler : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(player.heartsBeforeExhaustion);
         if (player.currentHP > player.maxHP)
         {
             player.currentHP = player.maxHP;

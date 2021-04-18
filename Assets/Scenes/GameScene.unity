@@ -1968,6 +1968,12 @@ PrefabInstance:
       propertyPath: OpponentArea
       value: 
       objectReference: {fileID: 4941011981944754992}
+    - target: {fileID: 9199065240357749513, guid: b8eebb8394b223f41861661c460a2691,
+        type: 3}
+      propertyPath: summonObject
+      value: 
+      objectReference: {fileID: 5636130760055697292, guid: 2ce5a2550fb1de24dbdb9ef88b487a84,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8eebb8394b223f41861661c460a2691, type: 3}
 --- !u!1 &4941011981944754992 stripped
