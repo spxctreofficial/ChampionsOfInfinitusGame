@@ -26,9 +26,9 @@ public class GameHandler : MonoBehaviour
     public GameObject PlayArea;
 
     [HideInInspector]
-    public Player player;
+    public ChampionHandler player;
     [HideInInspector]
-    public Player opponent;
+    public ChampionHandler opponent;
 
     // Gameplay Phases
     void Start()
@@ -55,13 +55,15 @@ public class GameHandler : MonoBehaviour
 
         GameObject playerGO = Instantiate(PlayerPrefab, new Vector2(-866, -139), Quaternion.identity);
         playerGO.transform.SetParent(GameCanvas.transform, false);
-        player = playerGO.GetComponent<Player>();
+        player = playerGO.GetComponent<ChampionHandler>();
+        player.ChampionSetup();
         Debug.Log("Player: " + player.currentHP);
         Debug.Log("Cards: " + PlayerArea.transform.childCount);
 
         GameObject opponentGO = Instantiate(OpponentPrefab, new Vector2(866, 139), Quaternion.identity);
-        opponent = opponentGO.GetComponent<Player>();
+        opponent = opponentGO.GetComponent<ChampionHandler>();
         opponentGO.transform.SetParent(GameCanvas.transform, false);
+        opponent.ChampionSetup();
         Debug.Log("Opponent: " + opponent.currentHP);
         Debug.Log("Cards: " + OpponentArea.transform.childCount);
 
@@ -91,7 +93,7 @@ public class GameHandler : MonoBehaviour
     [HideInInspector]
     public void EnlargeChampionDashboard()
     {
-        Image image = PlayerPrefab.GetComponent<Image>();
+        Image image = player.GetComponent<Image>();
         ChampionDashboard.SetActive(true);
         Image championImage = ChampionDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
         championImage.sprite = image.sprite;             

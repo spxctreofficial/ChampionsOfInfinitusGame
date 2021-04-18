@@ -65,8 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CardLogicHandler.cs" />
+    <Compile Include="Assets\Scripts\Champions\Champion.cs" />
+    <Compile Include="Assets\Scripts\Champions\ChampionHandler.cs" />
     <Compile Include="Assets\Scripts\GameHandler.cs" />
-    <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\TickSystem.cs" />
     <Compile Include="Assets\Scripts\UI Elements\ChooseChampion.cs" />
     <Compile Include="Assets\Scripts\UI Elements\DrawCards.cs" />

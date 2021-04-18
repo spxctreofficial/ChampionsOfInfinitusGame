@@ -2152,6 +2152,12 @@ PrefabInstance:
       objectReference: {fileID: 4941011981944754992}
     - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
         type: 3}
+      propertyPath: OpponentPrefab
+      value: 
+      objectReference: {fileID: 7677552574236164398, guid: 573ee381fdba935439293467c3e8a108,
+        type: 3}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
       propertyPath: FirstTurnCanvas
       value: 
       objectReference: {fileID: 198648923}

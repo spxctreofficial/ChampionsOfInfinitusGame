@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7677552574236164387}
   - component: {fileID: 7677552574236164384}
   - component: {fileID: 5455470785239620589}
-  - component: {fileID: 3910981503023347544}
+  - component: {fileID: 6409778236762405745}
   m_Layer: 5
   m_Name: Player
   m_TagString: Player
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db3dd58bb999a294cab35c7e84512ca5, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -115,11 +115,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7677552574236164384}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3910981503023347544}
+      - m_Target: {fileID: 6409778236762405745}
         m_MethodName: EnlargeChampionDashboard
         m_Mode: 1
         m_Arguments:
@@ -130,7 +130,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3910981503023347544
+--- !u!114 &6409778236762405745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,15 +139,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7677552574236164398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71b215d559448246bacaffd329eb691, type: 3}
+  m_Script: {fileID: 11500000, guid: e65aea5cd24947f40b2c85815802eb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  championName: Player
-  currentHP: 100
-  maxHP: 100
-  attackDamage: 30
-  attackName: Giant Sword
+  champion: {fileID: 11400000, guid: c003b3bc12318bd4287f1157bb781cfb, type: 2}
+  championName: 
+  championImage: {fileID: 0}
+  currentHP: 0
+  maxHP: 0
+  attackDamage: 0
+  attackName: 
   damageType: 0
+  isAttackUnblockable: 0
+  cards: 0
+  discardAmount: 0
+  spadesBeforeExhaustion: 0
+  heartsBeforeExhaustion: 0
+  diamondsBeforeExhaustion: 0
   isDead: 0
   isAttacking: 0
   isAttacked: 0
+  mustDiscard: 0

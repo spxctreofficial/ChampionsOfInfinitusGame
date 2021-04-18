@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DamageType { Normal, Fire, Lightning, Water }
+public enum DamageType { Melee, Ranged, Fire, Lightning, Water }
 
-public class Player : MonoBehaviour
+[CreateAssetMenu(fileName = "New Champion", menuName = "Champion")]
+public class Champion : ScriptableObject
 {
     public string championName;
+    public Sprite championImage;
     public int currentHP;
     public int maxHP;
     public int attackDamage;
     public string attackName;
     public DamageType damageType;
+    [HideInInspector]
+    public bool isAttackUnblockable = false;
 
     [HideInInspector]
     public int cards;
@@ -49,11 +53,5 @@ public class Player : MonoBehaviour
         currentHP += amount;
         if (currentHP > maxHP)
             currentHP = maxHP;
-    }
-    [HideInInspector]
-    public void EnlargeChampionDashboard()
-    {
-        GameHandler gameHandler = GameObject.FindWithTag("GameHandler").GetComponent<GameHandler>();
-        gameHandler.EnlargeChampionDashboard();
     }
 }
