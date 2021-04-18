@@ -73,7 +73,7 @@ public class CardLogicHandler : MonoBehaviour
                     Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
 
                     gameHandler.player.isAttacking = false;
-                    gameHandler.player.isAttacked = false;
+                    gameHandler.opponent.isAttacked = false;
                 }
                 else
                 {
@@ -295,6 +295,45 @@ public class CardLogicHandler : MonoBehaviour
                     gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
                 }
             }
+            else if (gameHandler.phase == GamePhase.OPPONENTACTIONPHASE)
+            {
+                if (gameHandler.player.discardAmount > 0)
+                {
+                    card.transform.SetParent(PlayArea.transform, false);
+                    gameHandler.player.discardAmount--;
+                    if (gameHandler.player.discardAmount == 0)
+                    {
+                        gameHandler.PlayerActionTooltip.text = "It is the opponent's Action Phase.";
+                        StartCoroutine(OpponentCardLogic());
+                    }
+                    else
+                    {
+                        gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                    }
+                }
+                else if (gameHandler.opponent.isAttacking || gameHandler.player.isAttacked)
+                {
+                    GameObject attackingCard = gameHandler.PlayArea.transform.GetChild(this.card.transform.GetSiblingIndex() - 1).gameObject;
+                    Debug.Log(attackingCard.GetComponent<Card>().cardValue + attackingCard.GetComponent<Card>().cardType);
+                    card.transform.SetParent(PlayArea.transform, false);
+
+                    if (this.card.cardValue > attackingCard.GetComponent<Card>().cardValue)
+                    {
+                        gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
+                    }
+                    else if (this.card.cardValue < attackingCard.GetComponent<Card>().cardValue)
+                    {
+                        gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
+                    }
+                    Debug.Log("Player: " + gameHandler.player.currentHP);
+                    Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+
+                    gameHandler.opponent.isAttacking = false;
+                    gameHandler.player.isAttacked = false;
+
+                    StartCoroutine(OpponentCardLogic());
+                }
+            }
             else
             {
                 Debug.Log("It's not the player's turn!");
@@ -305,6 +344,115 @@ public class CardLogicHandler : MonoBehaviour
             Debug.Log("This is not the player's card!");
         }
     }
+
+    public IEnumerator OpponentCardLogic()
+    {
+        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        {
+            yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
+
+            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.CLUB)
+            {
+                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                gameHandler.DealCardsOpponent(1);
+            }
+        }
+
+        yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
+
+        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        {
+            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.DIAMOND && gameHandler.opponent.diamondsBeforeExhaustion != 0)
+            {
+                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                switch (selectedCard.GetComponent<Card>().cardValue)
+                {
+                    case 1:
+                        gameHandler.DealCards(2);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
+                        break;
+                    case 2:
+                        if (gameHandler.player.cards != 0)
+                        {
+                            gameHandler.player.discardAmount = 1;
+                            card.transform.SetParent(PlayArea.transform, false);
+                            gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                            gameHandler.opponent.diamondsBeforeExhaustion--;
+                            yield break;
+                        }
+                        break;
+                    case 3:
+                        gameHandler.DealCards(4);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
+                        break;
+                    default:
+                        Debug.Log("Not implemented yet. Skipping...");
+                        break;
+                }
+            }
+            else if (gameHandler.opponent.diamondsBeforeExhaustion == 0)
+            {
+                break;
+            }
+        }
+
+        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        {
+            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.SPADE && gameHandler.opponent.spadesBeforeExhaustion != 0)
+            {
+                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                GameObject attackingCard = gameHandler.OpponentArea.transform.GetChild(0).gameObject;
+                Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                Card attackingCardComponent = attackingCard.GetComponent<Card>();
+
+                float f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
+                if (selectedCardComponent.cardValue >= 11 && Random.Range(0f, 1f) <= f)
+                {
+                    continue;
+                }
+                int value = -1;
+                for (int y = 0; y < gameHandler.OpponentArea.transform.childCount; y++)
+                {
+                    if (value < gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                    {
+                        attackingCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                        value = attackingCard.GetComponent<Card>().cardValue;
+                    }
+                }
+
+                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                gameHandler.opponent.isAttacking = true;
+                attackingCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                attackingCardComponent.ToggleCardVisibility();
+                gameHandler.player.isAttacked = true;
+
+                Debug.Log("Opponent is attacking the player with a card with a value of " + attackingCardComponent.cardValue);
+
+                yield break;
+            }
+            else if (gameHandler.opponent.spadesBeforeExhaustion == 0)
+            {
+                break;
+            }
+        }
+
+        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+        
+        if (gameHandler.opponent.currentHP != gameHandler.opponent.maxHP)
+        {
+            Debug.Log("Not implemented yet. Skipping...");
+        }
+
+        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+        gameHandler.EndOpponentTurn();
+    }
+
 
     private void PurgePlayArea()
     {

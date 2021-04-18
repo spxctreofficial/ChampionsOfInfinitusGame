@@ -20,7 +20,7 @@ public class ChampionHandler : MonoBehaviour
     [HideInInspector]
     public int spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
     [HideInInspector]
-    public bool isDead, isAttacking, isAttacked, mustDiscard;
+    public bool isDead, isAttacking, isAttacked;
 
     private void Update()
     {
@@ -44,7 +44,6 @@ public class ChampionHandler : MonoBehaviour
         isDead = false;
         isAttacking = false;
         isAttacked = false;
-        mustDiscard = false;
 
         Image thisImage = GetComponent<Image>();
         thisImage.sprite = this.championImage;

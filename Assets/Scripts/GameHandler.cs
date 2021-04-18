@@ -58,7 +58,7 @@ public class GameHandler : MonoBehaviour
         }
         if (phase == GamePhase.PLAYERENDPHASE && player.discardAmount == 0)
         {
-            Debug.Log("Player turn is ended lol");
+            StartOpponentTurn();
         }
     }
     public void GameStart()
@@ -129,12 +129,56 @@ public class GameHandler : MonoBehaviour
     }
     void StartOpponentTurn()
     {
-
+        StartCoroutine(OpponentTurn());
+        phase = GamePhase.OPPONENTBEGINNINGPHASE;
     }
     IEnumerator OpponentTurn()
     {
         yield return new WaitForSeconds(2f);
+
+        PlayerActionTooltip.text = "It is the opponent's Beginning Phase.";
+
+        yield return new WaitForSeconds(1f);
+        DealCardsOpponent(2);
+        yield return new WaitForSeconds(2f);
+
+        phase = GamePhase.OPPONENTACTIONPHASE;
+        opponent.spadesBeforeExhaustion = 1;
+        opponent.heartsBeforeExhaustion = 3;
+        opponent.diamondsBeforeExhaustion = 1;
+        PlayerActionTooltip.text = "It is the opponent's Action Phase.";
+
+
+        StartCoroutine(cardLogicHandler.OpponentCardLogic());
     }
+    public void EndOpponentTurn()
+    {
+        phase = GamePhase.OPPONENTENDPHASE;
+        PlayerActionTooltip.text = "It is the opponent's End Phase.";
+        if (opponent.cards > 6)
+        {
+            opponent.discardAmount = opponent.cards - 6;
+
+            for (int i = 0; i < opponent.discardAmount; i++)
+            {
+                int value = 999;
+                int siblingIndex = 0;
+                for (int x = 0; x < OpponentArea.transform.childCount; x++)
+                {
+                    if (value > OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                    {
+                        value = OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                        siblingIndex = OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                    }
+                }
+                OpponentArea.transform.GetChild(siblingIndex).gameObject.transform.SetParent(PlayArea.transform, false);
+            }
+            opponent.discardAmount = 0;
+        }
+
+        StartCoroutine(PlayerTurn());
+    }
+
 
     // Callable Functions
     [HideInInspector]
@@ -149,7 +193,7 @@ public class GameHandler : MonoBehaviour
         Image image = player.GetComponent<Image>();
         ChampionDashboard.SetActive(true);
         Image championImage = ChampionDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
-        championImage.sprite = image.sprite;             
+        championImage.sprite = image.sprite;
     }
     [HideInInspector]
     public void CloseChampionDashboard()

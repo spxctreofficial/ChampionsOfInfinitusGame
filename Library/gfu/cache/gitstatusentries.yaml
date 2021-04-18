@@ -13,12 +13,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2021-04-18T16:40:37.968-04:00
+  lastUpdatedAtString: 2021-04-18T18:53:57.114-04:00
   initializedAtString: 2021-04-18T13:19:56.131-04:00
   entries:
   - path: Assets\Scripts\CardLogicHandler.cs
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\CardLogicHandler.cs
     projectPath: Assets\Scripts\CardLogicHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Scripts\Champions\ChampionHandler.cs
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\Champions\ChampionHandler.cs
+    projectPath: Assets\Scripts\Champions\ChampionHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Scripts\GameHandler.cs
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\GameHandler.cs
+    projectPath: Assets\Scripts\GameHandler.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -28,15 +40,153 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
-    projectPath: Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
+  - path: Library\Artifacts\0a\0af8688642e82b9e9da99333d69c47b7
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\0a\0af8688642e82b9e9da99333d69c47b7
+    projectPath: Library\Artifacts\0a\0af8688642e82b9e9da99333d69c47b7
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
+  - path: Library\Artifacts\1c\1c7b30ed9a7e152ca3ee895ab3a2e8be
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\1c\1c7b30ed9a7e152ca3ee895ab3a2e8be
+    projectPath: Library\Artifacts\1c\1c7b30ed9a7e152ca3ee895ab3a2e8be
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\2a\2aac6a07a3187da16b0c21243a7f2731
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2a\2aac6a07a3187da16b0c21243a7f2731
+    projectPath: Library\Artifacts\2a\2aac6a07a3187da16b0c21243a7f2731
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\4e\4e63dd1a2f1aad13eaf0d4a31760bb85
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4e\4e63dd1a2f1aad13eaf0d4a31760bb85
+    projectPath: Library\Artifacts\4e\4e63dd1a2f1aad13eaf0d4a31760bb85
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\54\5478a63d8fa4327771ccd51551446010
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\54\5478a63d8fa4327771ccd51551446010
+    projectPath: Library\Artifacts\54\5478a63d8fa4327771ccd51551446010
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\5f\5f37c5d544b60b20b88fde217ef930b0
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\5f\5f37c5d544b60b20b88fde217ef930b0
+    projectPath: Library\Artifacts\5f\5f37c5d544b60b20b88fde217ef930b0
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\60\6069e06daaa893768b465df9f6896acf
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\60\6069e06daaa893768b465df9f6896acf
+    projectPath: Library\Artifacts\60\6069e06daaa893768b465df9f6896acf
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\63\63eb43463cd70abbabfcd5f793c6e3ab
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\63\63eb43463cd70abbabfcd5f793c6e3ab
+    projectPath: Library\Artifacts\63\63eb43463cd70abbabfcd5f793c6e3ab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\71\71cb0c73d01020ddc9722fb9ff3bbeec
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\71\71cb0c73d01020ddc9722fb9ff3bbeec
+    projectPath: Library\Artifacts\71\71cb0c73d01020ddc9722fb9ff3bbeec
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\81\81aeb4cd17739fe48b054d91341f7af1
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\81\81aeb4cd17739fe48b054d91341f7af1
+    projectPath: Library\Artifacts\81\81aeb4cd17739fe48b054d91341f7af1
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\83\831a50fdfa3b133e80408cc222330956
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\83\831a50fdfa3b133e80408cc222330956
+    projectPath: Library\Artifacts\83\831a50fdfa3b133e80408cc222330956
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\8b\8b4c429cf4f741cf3eb81ae56e963b1e
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\8b\8b4c429cf4f741cf3eb81ae56e963b1e
+    projectPath: Library\Artifacts\8b\8b4c429cf4f741cf3eb81ae56e963b1e
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\8e\8e5c1826846685715a6fd398505b0292
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\8e\8e5c1826846685715a6fd398505b0292
+    projectPath: Library\Artifacts\8e\8e5c1826846685715a6fd398505b0292
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\a9\a9e4db3845a99e2178af7082e3dc4db4
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a9\a9e4db3845a99e2178af7082e3dc4db4
+    projectPath: Library\Artifacts\a9\a9e4db3845a99e2178af7082e3dc4db4
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\d3\d32af8ac894aba239c7e6393e516e373
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d3\d32af8ac894aba239c7e6393e516e373
+    projectPath: Library\Artifacts\d3\d32af8ac894aba239c7e6393e516e373
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\d5\d51f568a0fc97c1c3c2e670e8951f3ea
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\d5\d51f568a0fc97c1c3c2e670e8951f3ea
+    projectPath: Library\Artifacts\d5\d51f568a0fc97c1c3c2e670e8951f3ea
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\e0\e04015f3cc5d8bc0bbafb0522fb5be7f
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e0\e04015f3cc5d8bc0bbafb0522fb5be7f
+    projectPath: Library\Artifacts\e0\e04015f3cc5d8bc0bbafb0522fb5be7f
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\fd\fd8b4895e37f6bb8c60651d4051ca54a
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\fd\fd8b4895e37f6bb8c60651d4051ca54a
+    projectPath: Library\Artifacts\fd\fd8b4895e37f6bb8c60651d4051ca54a
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\gfu\cache\branches.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\branches.yaml
+    projectPath: Library\gfu\cache\branches.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\gfu\cache\gitlocks.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitlocks.yaml
+    projectPath: Library\gfu\cache\gitlocks.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\gfu\cache\gitlog.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitlog.yaml
+    projectPath: Library\gfu\cache\gitlog.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\gfu\cache\gitstatusentries.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitstatusentries.yaml
+    projectPath: Library\gfu\cache\gitstatusentries.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\gfu\cache\gittrackingstatus.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gittrackingstatus.yaml
+    projectPath: Library\gfu\cache\gittrackingstatus.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\gituser.yaml
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gituser.yaml
     projectPath: Library\gfu\cache\gituser.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\gfu\cache\repoinfo.yaml
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\repoinfo.yaml
+    projectPath: Library\gfu\cache\repoinfo.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -55,6 +205,12 @@ MonoBehaviour:
   - path: Library\SourceAssetDB
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SourceAssetDB
     projectPath: Library\SourceAssetDB
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\Style.catalog
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Style.catalog
+    projectPath: Library\Style.catalog
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
