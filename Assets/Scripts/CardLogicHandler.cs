@@ -38,18 +38,29 @@ public class CardLogicHandler : MonoBehaviour
                 switch (this.card.cardType)
                 {
                     case CardType.SPADE:
+                        if (gameHandler.player.spadesBeforeExhaustion <= 0)
+                        {
+                            Debug.Log("Player is exhausted! Cannot play more spades.");
+                            break;
+                        }
                         Debug.Log("Player is now attacking the opponent.");
                         gameHandler.player.isAttacking = true;
-                        gameHandler.opponent.isAttacked = true;
+                        gameHandler.player.spadesBeforeExhaustion -= 1;
                         card.transform.SetParent(PlayArea.transform, false);
                         break;
                     case CardType.HEART:
-                        Debug.Log("Player is attempting to heal.");
-                        if (gameHandler.player.currentHP >= gameHandler.player.maxHP)
+                        if (gameHandler.player.heartsBeforeExhaustion <= 0)
+                        {
+                            Debug.Log("Player is exhausted! Cannot play more hearts.");
+                            break;
+                        }
+                        else if (gameHandler.player.currentHP >= gameHandler.player.maxHP)
                         {
                             Debug.Log("Player health is full!");
                             break;
                         }
+                        Debug.Log("Player is attempting to heal.");
+                        gameHandler.player.heartsBeforeExhaustion -= 1;
                         card.transform.SetParent(PlayArea.transform, false);
                         break;
                     case CardType.CLUB:
@@ -102,7 +113,7 @@ public class CardLogicHandler : MonoBehaviour
 
     private void PurgePlayArea()
     {
-        if (PlayArea.transform.childCount > 5)
+        if (PlayArea.transform.childCount > 7)
         {
             Transform transform = PlayArea.transform.GetChild(0);
             GameObject gameObject = transform.gameObject;

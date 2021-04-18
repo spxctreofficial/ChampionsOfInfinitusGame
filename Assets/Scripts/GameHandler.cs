@@ -7,6 +7,7 @@ public enum GamePhase { GAMESTART, PLAYERBEGINNINGPHASE, PLAYERACTIONPHASE, PLAY
 
 public class GameHandler : MonoBehaviour
 {
+    // Variables
     public GamePhase phase;
     public CardIndex cardIndex;
     public CardLogicHandler cardLogicHandler;
@@ -29,6 +30,7 @@ public class GameHandler : MonoBehaviour
     [HideInInspector]
     public Player opponent;
 
+    // Gameplay Phases
     void Start()
     {
         cardIndex.PopulatePlayingCardsList();
@@ -75,13 +77,16 @@ public class GameHandler : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         DealCardsPlayer(2);
+        player.spadesBeforeExhaustion = 1;
+        player.heartsBeforeExhaustion = 1;
+        player.diamondsBeforeExhaustion = 1;
         yield return new WaitForSeconds(2f);
 
         phase = GamePhase.PLAYERACTIONPHASE;
         PlayerActionTooltip.text = "It is your Action Phase.";
     }
 
-    // Callable Voids
+    // Callable Functions
 
     [HideInInspector]
     public void EnlargeChampionDashboard()

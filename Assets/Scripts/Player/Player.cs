@@ -13,13 +13,32 @@ public class Player : MonoBehaviour
     public int attackDamage;
     public string attackName;
     public DamageType damageType;
-    
+
+    [HideInInspector]
+    public int cards;
+    [HideInInspector]
+    public int discardAmount;
+    [HideInInspector]
+    public int spadesBeforeExhaustion = 1;
+    [HideInInspector]
+    public int heartsBeforeExhaustion = 1;
+    [HideInInspector]
+    public int diamondsBeforeExhaustion = 1;
+
     [HideInInspector]
     public bool isDead = false;
     [HideInInspector]
     public bool isAttacking = false;
     [HideInInspector]
     public bool isAttacked = false;
+    [HideInInspector]
+    public bool mustDiscard = false;
+
+    void Update()
+    {
+
+    }
+
 
     public void Damage(int amount)
     {
