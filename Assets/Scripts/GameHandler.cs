@@ -127,6 +127,14 @@ public class GameHandler : MonoBehaviour
             player.discardAmount = 0;
         }
     }
+    void StartOpponentTurn()
+    {
+
+    }
+    IEnumerator OpponentTurn()
+    {
+        yield return new WaitForSeconds(2f);
+    }
 
     // Callable Functions
     [HideInInspector]

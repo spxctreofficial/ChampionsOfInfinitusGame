@@ -24,7 +24,6 @@ public class CardLogicHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            Debug.Log("Giving Diamond 5 to player");
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
             gameObject.transform.SetParent(PlayerArea.transform, false);
         }
@@ -230,6 +229,20 @@ public class CardLogicHandler : MonoBehaviour
                                     break;
                                 case 8:
                                     gameHandler.DealCardsPlayer(1);
+                                    card.transform.SetParent(PlayArea.transform, false);
+                                    break;
+                                case 9:
+                                    gameHandler.player.Heal(10);
+                                    gameHandler.opponent.Heal(10);
+                                    card.transform.SetParent(PlayArea.transform, false);
+                                    break;
+                                case 10:
+                                    gameHandler.player.Heal(20);
+                                    gameHandler.opponent.Heal(20);
+                                    card.transform.SetParent(PlayArea.transform, false);
+                                    break;
+                                case 11:
+                                    gameHandler.opponent.Damage(20, DamageType.Fire);
                                     card.transform.SetParent(PlayArea.transform, false);
                                     break;
                             }
