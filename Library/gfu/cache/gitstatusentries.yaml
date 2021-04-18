@@ -13,39 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2021-04-18T16:36:01.588-04:00
+  lastUpdatedAtString: 2021-04-18T16:40:37.968-04:00
   initializedAtString: 2021-04-18T13:19:56.131-04:00
   entries:
-  - path: Assets\Prefabs\CardLogicHandler.prefab
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\CardLogicHandler.prefab
-    projectPath: Assets\Prefabs\CardLogicHandler.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Prefabs\GameHandler.prefab
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\GameHandler.prefab
-    projectPath: Assets\Prefabs\GameHandler.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab
-    projectPath: Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab.meta
-    projectPath: Assets\Prefabs\UI Elements\PlayerActionTooltip.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scenes\GameScene.unity
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scenes\GameScene.unity
-    projectPath: Assets\Scenes\GameScene.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Scripts\CardLogicHandler.cs
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\CardLogicHandler.cs
     projectPath: Assets\Scripts\CardLogicHandler.cs
@@ -58,81 +28,15 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\Artifacts\41\4181c362cc1726e7570db0f8617507ec
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\41\4181c362cc1726e7570db0f8617507ec
-    projectPath: Library\Artifacts\41\4181c362cc1726e7570db0f8617507ec
+  - path: Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
+    projectPath: Library\Artifacts\c1\c1c8a2b757ca62132fbe3044323ab684
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\4e\4e3a185cfa9f5926d1d64be2e952f9f2
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4e\4e3a185cfa9f5926d1d64be2e952f9f2
-    projectPath: Library\Artifacts\4e\4e3a185cfa9f5926d1d64be2e952f9f2
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\60\608c0a2ed58993e9cef20ca7559741ba
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\60\608c0a2ed58993e9cef20ca7559741ba
-    projectPath: Library\Artifacts\60\608c0a2ed58993e9cef20ca7559741ba
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\69\693c50805cdc6e4716775cd649da62b7
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\69\693c50805cdc6e4716775cd649da62b7
-    projectPath: Library\Artifacts\69\693c50805cdc6e4716775cd649da62b7
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\75\75957155ebcc7e3adc18151d751c50cc
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\75\75957155ebcc7e3adc18151d751c50cc
-    projectPath: Library\Artifacts\75\75957155ebcc7e3adc18151d751c50cc
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a8\a85e2da833c56556c07eebe24e0744e9
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a8\a85e2da833c56556c07eebe24e0744e9
-    projectPath: Library\Artifacts\a8\a85e2da833c56556c07eebe24e0744e9
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\gfu\cache\branches.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\branches.yaml
-    projectPath: Library\gfu\cache\branches.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gitlocks.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitlocks.yaml
-    projectPath: Library\gfu\cache\gitlocks.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gitlog.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitlog.yaml
-    projectPath: Library\gfu\cache\gitlog.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gitstatusentries.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gitstatusentries.yaml
-    projectPath: Library\gfu\cache\gitstatusentries.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gittrackingstatus.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gittrackingstatus.yaml
-    projectPath: Library\gfu\cache\gittrackingstatus.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\gfu\cache\gituser.yaml
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\gituser.yaml
     projectPath: Library\gfu\cache\gituser.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\repoinfo.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\repoinfo.yaml
-    projectPath: Library\gfu\cache\repoinfo.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -151,18 +55,6 @@ MonoBehaviour:
   - path: Library\SourceAssetDB
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SourceAssetDB
     projectPath: Library\SourceAssetDB
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\StateCache\Hierarchy\a1d351-mainStage.json
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\Hierarchy\a1d351-mainStage.json
-    projectPath: Library\StateCache\Hierarchy\a1d351-mainStage.json
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\StateCache\SceneView\15c65c-mainStage.json
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\SceneView\15c65c-mainStage.json
-    projectPath: Library\StateCache\SceneView\15c65c-mainStage.json
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

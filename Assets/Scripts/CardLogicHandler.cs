@@ -51,7 +51,7 @@ public class CardLogicHandler : MonoBehaviour
                             siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
                         }
                     }
-                    GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
+                    GameObject opponentCard = gameHandler.opponent.cards == 0 ? Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
 
                     Debug.Log("Player is attacking the opponent with a card with a value of " + this.card.cardValue);
                     gameHandler.opponent.isAttacked = true;
