@@ -23,6 +23,10 @@ public class ChampionHandler : MonoBehaviour
     [HideInInspector]
     public bool isDead, isAttacking, isAttacked, mustDiscard;
 
+    private void Update()
+    {
+    }
+
     public void ChampionSetup()
     {
         championName = champion.championName;
@@ -46,7 +50,6 @@ public class ChampionHandler : MonoBehaviour
         Image thisImage = GetComponent<Image>();
         thisImage.sprite = this.championImage;
     }
-
     public void EnlargeChampionDashboard()
     {
         GameHandler gameHandler = GameObject.FindWithTag("GameHandler").GetComponent<GameHandler>();

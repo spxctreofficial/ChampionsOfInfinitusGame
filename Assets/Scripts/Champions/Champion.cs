@@ -37,13 +37,6 @@ public class Champion : ScriptableObject
     public bool isAttacked = false;
     [HideInInspector]
     public bool mustDiscard = false;
-
-    void Update()
-    {
-
-    }
-
-
     public void Damage(int amount)
     {
         currentHP -= amount;

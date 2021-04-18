@@ -31,10 +31,13 @@ public class GameHandler : MonoBehaviour
     public ChampionHandler opponent;
 
     // Gameplay Phases
-    void Start()
+    private void Start()
     {
         cardIndex.PopulatePlayingCardsList();
         GameStart();
+    }
+    private void Update()
+    {
     }
     public void GameStart()
     {
