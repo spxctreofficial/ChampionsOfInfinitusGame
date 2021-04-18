@@ -33,7 +33,17 @@ public class CardLogicHandler : MonoBehaviour
         {
             if (gameHandler.player.isAttacking)
             {
-                GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(0).gameObject;
+                int value = -1;
+                int siblingIndex = 0;
+                for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                {
+                    if (value < gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                    {
+                        value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                        siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                    }
+                }
+                GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
 
                 Debug.Log("Player is attacking the opponent with a card with a value of " + this.card.cardValue);
                 gameHandler.opponent.isAttacked = true;
