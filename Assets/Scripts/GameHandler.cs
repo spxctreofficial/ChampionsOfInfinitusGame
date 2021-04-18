@@ -17,13 +17,14 @@ public class GameHandler : MonoBehaviour
     public GameObject FirstTurnCanvas;
     public GameObject ChampionDashboard;
 
-    public Text PlayerActionTooltip;
-
     public GameObject PlayerPrefab;
     public GameObject OpponentPrefab;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject PlayArea;
+
+    public Text PlayerActionTooltip;
+    public GameObject EndTurnButton;
 
     [HideInInspector]
     public ChampionHandler player;
@@ -38,6 +39,15 @@ public class GameHandler : MonoBehaviour
     }
     private void Update()
     {
+        if (phase != GamePhase.GAMESTART)
+        {
+            player.cards = PlayerArea.transform.childCount;
+            opponent.cards = OpponentArea.transform.childCount;
+        }
+        if (phase == GamePhase.PLAYERENDPHASE && player.discardAmount == 0)
+        {
+            Debug.Log("Player turn is ended lol");
+        }
     }
     public void GameStart()
     {
@@ -82,17 +92,37 @@ public class GameHandler : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         DealCardsPlayer(2);
-        player.spadesBeforeExhaustion = 1;
-        player.heartsBeforeExhaustion = 1;
-        player.diamondsBeforeExhaustion = 1;
         yield return new WaitForSeconds(2f);
 
         phase = GamePhase.PLAYERACTIONPHASE;
+        player.spadesBeforeExhaustion = 1;
+        player.heartsBeforeExhaustion = 1;
+        player.diamondsBeforeExhaustion = 1;
+        EndTurnButton.SetActive(true);
         PlayerActionTooltip.text = "It is your Action Phase.";
+    }
+    void EndPlayerTurn()
+    {
+        phase = GamePhase.PLAYERENDPHASE;
+        PlayerActionTooltip.text = "It is your End Phase.";
+        if (player.cards > 6)
+        {
+            player.discardAmount = player.cards - 6;
+            PlayerActionTooltip.text = "Please discard " + player.discardAmount + ".";
+        }
+        else
+        {
+            player.discardAmount = 0;
+        }
     }
 
     // Callable Functions
-
+    [HideInInspector]
+    public void OnEndTurnButtonClick()
+    {
+        EndTurnButton.SetActive(false);
+        EndPlayerTurn();
+    }
     [HideInInspector]
     public void EnlargeChampionDashboard()
     {
