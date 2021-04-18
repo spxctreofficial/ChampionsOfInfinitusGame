@@ -57,11 +57,11 @@ public class CardLogicHandler : MonoBehaviour
 
                     if (this.card.cardValue > opponentCard.GetComponent<Card>().cardValue)
                     {
-                        gameHandler.opponent.currentHP -= gameHandler.player.attackDamage;
+                        gameHandler.opponent.Damage(gameHandler.player.attackDamage);
                     }
                     else if (this.card.cardValue < opponentCard.GetComponent<Card>().cardValue)
                     {
-                        gameHandler.player.currentHP -= gameHandler.opponent.attackDamage;
+                        gameHandler.player.Damage(gameHandler.opponent.attackDamage);
                     }
                     Debug.Log("Player: " + gameHandler.player.currentHP);
                     Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
@@ -81,7 +81,7 @@ public class CardLogicHandler : MonoBehaviour
                             }
                             Debug.Log("Player is now attacking the opponent.");
                             gameHandler.player.isAttacking = true;
-                            gameHandler.player.spadesBeforeExhaustion -= 1;
+                            gameHandler.player.spadesBeforeExhaustion--;
                             card.transform.SetParent(PlayArea.transform, false);
                             break;
                         case CardType.HEART:
@@ -96,7 +96,26 @@ public class CardLogicHandler : MonoBehaviour
                                 break;
                             }
                             Debug.Log("Player is attempting to heal.");
-                            gameHandler.player.heartsBeforeExhaustion -= 1;
+                            if (this.card.cardValue <= 6)
+                            {
+                                gameHandler.player.Heal(5);
+                                gameHandler.player.heartsBeforeExhaustion--;
+                            }
+                            if (this.card.cardValue >= 7 && this.card.cardValue <= 9 && gameHandler.player.heartsBeforeExhaustion >= 2)
+                            {
+                                gameHandler.player.Heal(10);
+                                gameHandler.player.heartsBeforeExhaustion -= 2;
+                            }
+                            if (this.card.cardValue >= 10 && this.card.cardValue <= 13)
+                            {
+                                gameHandler.player.Heal(20);
+                                gameHandler.player.heartsBeforeExhaustion -= 3;
+                            }
+                            if (this.card.cardValue == 14)
+                            {
+                                gameHandler.player.Heal(40);
+                                gameHandler.player.heartsBeforeExhaustion -= 3;
+                            }
                             card.transform.SetParent(PlayArea.transform, false);
                             break;
                         case CardType.CLUB:
@@ -105,16 +124,23 @@ public class CardLogicHandler : MonoBehaviour
                             card.transform.SetParent(PlayArea.transform, false);
                             break;
                         case CardType.DIAMOND:
+                            if (gameHandler.player.diamondsBeforeExhaustion <= 0)
+                            {
+                                Debug.Log("Player is exhausted! Cannot play more diamonds.");
+                                break;
+                            }
                             Debug.Log("Player is attempting to use a DIAMOND.");
                             switch (this.card.cardValue)
                             {
                                 case 1:
                                     gameHandler.DealCards(2);
                                     card.transform.SetParent(PlayArea.transform, false);
+                                    gameHandler.player.diamondsBeforeExhaustion--;
                                     break;
                                 case 3:
                                     gameHandler.DealCards(4);
                                     card.transform.SetParent(PlayArea.transform, false);
+                                    gameHandler.player.diamondsBeforeExhaustion--;
                                     break;
                                 case 5:
                                     gameHandler.DealCardsPlayer(1);

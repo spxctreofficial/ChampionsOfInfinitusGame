@@ -39,6 +39,19 @@ public class GameHandler : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(player.heartsBeforeExhaustion);
+        if (player.currentHP > player.maxHP)
+        {
+            player.currentHP = player.maxHP;
+            Debug.Log("Player health capped!");
+        }
+        if (opponent.currentHP > opponent.maxHP)
+        {
+            opponent.currentHP = opponent.maxHP;
+            Debug.Log("Opponent health capped!");
+        }
+
+
         if (phase != GamePhase.GAMESTART)
         {
             player.cards = PlayerArea.transform.childCount;
@@ -96,7 +109,7 @@ public class GameHandler : MonoBehaviour
 
         phase = GamePhase.PLAYERACTIONPHASE;
         player.spadesBeforeExhaustion = 1;
-        player.heartsBeforeExhaustion = 1;
+        player.heartsBeforeExhaustion = 3;
         player.diamondsBeforeExhaustion = 1;
         EndTurnButton.SetActive(true);
         PlayerActionTooltip.text = "It is your Action Phase.";

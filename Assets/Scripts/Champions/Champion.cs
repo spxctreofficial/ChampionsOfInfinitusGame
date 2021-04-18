@@ -15,36 +15,4 @@ public class Champion : ScriptableObject
     public int attackDamage;
     public string attackName;
     public DamageType damageType;
-    [HideInInspector]
-    public bool isAttackUnblockable = false;
-
-    [HideInInspector]
-    public int cards;
-    [HideInInspector]
-    public int discardAmount;
-    [HideInInspector]
-    public int spadesBeforeExhaustion = 1;
-    [HideInInspector]
-    public int heartsBeforeExhaustion = 1;
-    [HideInInspector]
-    public int diamondsBeforeExhaustion = 1;
-
-    [HideInInspector]
-    public bool isDead = false;
-    [HideInInspector]
-    public bool isAttacking = false;
-    [HideInInspector]
-    public bool isAttacked = false;
-    [HideInInspector]
-    public bool mustDiscard = false;
-    public void Damage(int amount)
-    {
-        currentHP -= amount;
-    }
-    public void Heal(int amount)
-    {
-        currentHP += amount;
-        if (currentHP > maxHP)
-            currentHP = maxHP;
-    }
 }
