@@ -169,7 +169,7 @@ public class GameHandler : MonoBehaviour
             {
                 int value = 999;
                 int siblingIndex = 0;
-                for (int x = 0; x < OpponentArea.transform.childCount; x++)
+                for (int x = 0; x < opponent.cards; x++)
                 {
                     if (value > OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                     {
@@ -178,6 +178,7 @@ public class GameHandler : MonoBehaviour
                     }
                 }
                 OpponentArea.transform.GetChild(siblingIndex).gameObject.transform.SetParent(PlayArea.transform, false);
+                OpponentArea.transform.GetChild(siblingIndex).gameObject.GetComponent<Card>().ToggleCardVisibility();
             }
             opponent.discardAmount = 0;
         }
@@ -239,6 +240,7 @@ public class GameHandler : MonoBehaviour
         {
             GameObject opponentCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             opponentCard.transform.SetParent(OpponentArea.transform, false);
+            opponentCard.GetComponent<Card>().ToggleCardVisibility();
         }
     }
     public void DealCards(int cards)

@@ -48,7 +48,7 @@ public class CardLogicHandler : MonoBehaviour
                     {
                         int value = -1;
                         int siblingIndex = 0;
-                        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                        for (int x = 0; x < gameHandler.opponent.cards; x++)
                         {
                             if (value < gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                             {
@@ -179,7 +179,7 @@ public class CardLogicHandler : MonoBehaviour
                                         {
                                             int value = 999;
                                             int siblingIndex = 0;
-                                            for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                                            for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
                                                 if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
@@ -222,7 +222,7 @@ public class CardLogicHandler : MonoBehaviour
                                         {
                                             int value = 999;
                                             int siblingIndex = 0;
-                                            for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                                            for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
                                                 if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
@@ -290,7 +290,7 @@ public class CardLogicHandler : MonoBehaviour
                                         {
                                             int value = 666;
                                             int siblingIndex = 0;
-                                            for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+                                            for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
                                                 if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
@@ -379,7 +379,7 @@ public class CardLogicHandler : MonoBehaviour
     }
     public IEnumerator OpponentCardLogic()
     {
-        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        for (int x = 0; x < gameHandler.opponent.cards; x++)
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 1f));
 
@@ -394,6 +394,7 @@ public class CardLogicHandler : MonoBehaviour
 				}
 
                 selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                selectedCard.GetComponent<Card>().ToggleCardVisibility();
                 gameHandler.DealCardsOpponent(1);
                 StartCoroutine(OpponentCardLogic());
                 yield break;
@@ -402,7 +403,7 @@ public class CardLogicHandler : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
 
-        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        for (int x = 0; x < gameHandler.opponent.cards; x++)
         {
             if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.DIAMOND && gameHandler.opponent.diamondsBeforeExhaustion != 0)
             {
@@ -412,6 +413,7 @@ public class CardLogicHandler : MonoBehaviour
                     case 1:
                         gameHandler.DealCards(2);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         break;
                     case 2:
@@ -419,6 +421,7 @@ public class CardLogicHandler : MonoBehaviour
                         {
                             gameHandler.player.discardAmount = 1;
                             selectedCard.transform.SetParent(PlayArea.transform, false);
+                            selectedCard.GetComponent<Card>().ToggleCardVisibility();
                             gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
                             gameHandler.opponent.diamondsBeforeExhaustion--;
                             yield break;
@@ -427,26 +430,31 @@ public class CardLogicHandler : MonoBehaviour
                     case 3:
                         gameHandler.DealCards(4);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         break;
                     case 5:
                         gameHandler.DealCardsOpponent(1);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 6:
                         gameHandler.DealCardsOpponent(1);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 7:
                         gameHandler.DealCardsOpponent(1);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 8:
                         gameHandler.DealCardsOpponent(1);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 9:
@@ -457,6 +465,7 @@ public class CardLogicHandler : MonoBehaviour
                         gameHandler.player.Heal(10);
                         gameHandler.opponent.Heal(10);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     case 10:
                         if (gameHandler.opponent.currentHP > 0.5f * gameHandler.opponent.maxHP || gameHandler.player.currentHP < 0.4f * gameHandler.player.currentHP)
@@ -466,10 +475,12 @@ public class CardLogicHandler : MonoBehaviour
                         gameHandler.player.Heal(10);
                         gameHandler.opponent.Heal(10);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     case 11:
                         gameHandler.player.Damage(20, DamageType.Fire);
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     default:
                         Debug.Log("Not implemented yet. Skipping...");
@@ -484,7 +495,7 @@ public class CardLogicHandler : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-        for (int x = 0; x < gameHandler.OpponentArea.transform.childCount; x++)
+        for (int x = 0; x < gameHandler.opponent.cards; x++)
         {
             if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.SPADE && gameHandler.opponent.spadesBeforeExhaustion != 0)
             {
@@ -499,7 +510,7 @@ public class CardLogicHandler : MonoBehaviour
                 }
                 else
                 {
-                    for (int y = 0; y < gameHandler.OpponentArea.transform.childCount; y++)
+                    for (int y = 0; y < gameHandler.opponent.cards; y++)
                     {
                         if (value < gameHandler.OpponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue)
                         {
@@ -518,8 +529,8 @@ public class CardLogicHandler : MonoBehaviour
                 }
 
                 selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                selectedCard.GetComponent<Card>().ToggleCardVisibility();
                 attackingCard.transform.SetParent(gameHandler.PlayArea.transform, false);
-                attackingCard.GetComponent<Card>().ToggleCardVisibility();
                 gameHandler.opponent.spadesBeforeExhaustion--;
                 gameHandler.opponent.isAttacking = true;
                 gameHandler.player.isAttacked = true;
