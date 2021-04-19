@@ -46,18 +46,20 @@ MonoBehaviour:
   phase: 0
   cardIndex: {fileID: 0}
   cardLogicHandler: {fileID: 0}
-  StartCanvas: {fileID: 0}
-  GameCanvas: {fileID: 0}
-  FirstTurnCanvas: {fileID: 0}
-  ChampionDashboard: {fileID: 0}
-  PlayerPrefab: {fileID: 7677552574236164398, guid: 7790cb8303f471548a269a7cdfe44db2,
+  startCanvas: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  firstTurnCanvas: {fileID: 0}
+  championDashboard: {fileID: 0}
+  playerPrefab: {fileID: 7677552574236164398, guid: 7790cb8303f471548a269a7cdfe44db2,
     type: 3}
-  OpponentPrefab: {fileID: 7677552574236164398, guid: 573ee381fdba935439293467c3e8a108,
+  opponentPrefab: {fileID: 6732456467659057330, guid: 54139a42599a7f243a0de9e82790a04d,
     type: 3}
-  PlayerArea: {fileID: 0}
-  OpponentArea: {fileID: 0}
-  PlayArea: {fileID: 0}
-  PlayerActionTooltip: {fileID: 0}
-  EndTurnButton: {fileID: 0}
+  healthDisplayTextPrefab: {fileID: 1312501885973302, guid: c51b152d7578b464abc6bbf96a5af9d5,
+    type: 3}
+  playerArea: {fileID: 0}
+  opponentArea: {fileID: 0}
+  playArea: {fileID: 0}
+  playerActionTooltip: {fileID: 0}
+  endTurnButton: {fileID: 0}
   player: {fileID: 0}
   opponent: {fileID: 0}

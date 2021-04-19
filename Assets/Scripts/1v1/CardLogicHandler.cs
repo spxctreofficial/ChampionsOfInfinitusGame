@@ -46,43 +46,7 @@ public class CardLogicHandler : MonoBehaviour
                 case GamePhase.PLAYERACTIONPHASE:
                     if (gameHandler.player.isAttacking)
                     {
-                        int value = -1;
-                        int siblingIndex = 0;
-                        for (int x = 0; x < gameHandler.opponent.cards; x++)
-                        {
-                            if (value < gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
-                            {
-                                value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                                siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
-                            }
-                        }
-                        GameObject opponentCard = gameHandler.opponent.cards == 0 ? Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
-
-                        Debug.Log("Player is attacking the opponent with a card with a value of " + this.card.cardValue);
-                        gameHandler.opponent.isAttacked = true;
-                        card.transform.SetParent(playArea.transform, false);
-                        this.card.ToggleCardVisibility();
-
-                        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
-
-                        opponentCard.transform.SetParent(playArea.transform, false);
-                        this.card.ToggleCardVisibility();
-
-                        if (this.card.cardValue > opponentCard.GetComponent<Card>().cardValue)
-                        {
-                            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
-                        }
-                        else if (this.card.cardValue < opponentCard.GetComponent<Card>().cardValue)
-                        {
-                            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
-                        }
-                        Debug.Log("Player: " + gameHandler.player.currentHP);
-                        Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
-
-                        gameHandler.player.isAttacking = false;
-                        gameHandler.opponent.isAttacked = false;
-
-                        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
+                        StartCoroutine(AttackCalc(card));
                     }
                     else
                     {
@@ -94,12 +58,14 @@ public class CardLogicHandler : MonoBehaviour
                                     Debug.Log("Player is exhausted! Cannot play more spades.");
                                     break;
                                 }
+
                                 Debug.Log("Player is now attacking the opponent.");
                                 gameHandler.player.isAttacking = true;
                                 gameHandler.player.spadesBeforeExhaustion--;
                                 card.transform.SetParent(playArea.transform, false);
 
                                 gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
+                                gameHandler.gambleButton.SetActive(true);
                                 break;
                             case CardType.HEART:
                                 if (gameHandler.player.heartsBeforeExhaustion <= 0)
@@ -344,26 +310,7 @@ public class CardLogicHandler : MonoBehaviour
 
                     if (gameHandler.opponent.isAttacking || gameHandler.player.isAttacked)
                     {
-                        card.transform.SetParent(playArea.transform, false);
-                        GameObject attackingCard = gameHandler.playArea.transform.GetChild(this.card.transform.GetSiblingIndex() - 1).gameObject;
-                        attackingCard.GetComponent<Card>().ToggleCardVisibility();
-
-                        if (this.card.cardValue > attackingCard.GetComponent<Card>().cardValue)
-                        {
-                            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
-                        }
-                        else if (this.card.cardValue < attackingCard.GetComponent<Card>().cardValue)
-                        {
-                            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
-                        }
-                        Debug.Log("Player: " + gameHandler.player.currentHP);
-                        Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
-                        gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
-
-                        gameHandler.opponent.isAttacking = false;
-                        gameHandler.player.isAttacked = false;
-
-                        StartCoroutine(OpponentCardLogic());
+                        DefenseCalc(card);
                         break;
                     }
                     break;
@@ -534,6 +481,7 @@ public class CardLogicHandler : MonoBehaviour
                 gameHandler.opponent.spadesBeforeExhaustion--;
                 gameHandler.opponent.isAttacking = true;
                 gameHandler.player.isAttacked = true;
+                gameHandler.gambleButton.SetActive(true);
 
                 gameHandler.playerActionTooltip.text = "The opponent is attacking. Defend with a card.";
                 Debug.Log("Opponent is attacking the player with a card with a value of " + attackingCard.GetComponent<Card>().cardValue);
@@ -560,13 +508,78 @@ public class CardLogicHandler : MonoBehaviour
     #endregion
 
     #region Other Functions
+    public IEnumerator AttackCalc(GameObject attackingCard)
+	{
+        gameHandler.gambleButton.SetActive(false);
+
+        int value = -1;
+        int siblingIndex = 0;
+        for (int x = 0; x < gameHandler.opponent.cards; x++)
+        {
+            if (value < gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+            {
+                value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
+            }
+        }
+        GameObject opponentCard = gameHandler.opponent.cards == 0 ? Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+
+        Debug.Log("Player is attacking the opponent with a card with a value of " + attackingCard.GetComponent<Card>().cardValue);
+        gameHandler.opponent.isAttacked = true;
+        attackingCard.transform.SetParent(playArea.transform, false);
+        attackingCard.GetComponent<Card>().ToggleCardVisibility();
+
+        yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+
+        opponentCard.transform.SetParent(playArea.transform, false);
+        attackingCard.GetComponent<Card>().ToggleCardVisibility();
+
+        if (attackingCard.GetComponent<Card>().cardValue > opponentCard.GetComponent<Card>().cardValue)
+        {
+            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
+        }
+        else if (attackingCard.GetComponent<Card>().cardValue < opponentCard.GetComponent<Card>().cardValue)
+        {
+            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
+        }
+        Debug.Log("Player: " + gameHandler.player.currentHP);
+        Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+
+        gameHandler.player.isAttacking = false;
+        gameHandler.opponent.isAttacked = false;
+
+        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
+    }
+    public void DefenseCalc(GameObject defendingCard)
+	{
+        defendingCard.transform.SetParent(playArea.transform, false);
+        GameObject attackingCard = gameHandler.playArea.transform.GetChild(defendingCard.transform.GetSiblingIndex() - 1).gameObject;
+        attackingCard.GetComponent<Card>().ToggleCardVisibility();
+
+        if (defendingCard.GetComponent<Card>().cardValue > attackingCard.GetComponent<Card>().cardValue)
+        {
+            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
+        }
+        else if (defendingCard.GetComponent<Card>().cardValue < attackingCard.GetComponent<Card>().cardValue)
+        {
+            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
+        }
+        Debug.Log("Player: " + gameHandler.player.currentHP);
+        Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+        gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
+
+        gameHandler.opponent.isAttacking = false;
+        gameHandler.player.isAttacked = false;
+
+        StartCoroutine(OpponentCardLogic());
+    }
     private void PurgePlayArea()
     {
         if (playArea.transform.childCount > 7)
         {
             Transform transform = playArea.transform.GetChild(0);
             GameObject gameObject = transform.gameObject;
-            Object.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
     #endregion

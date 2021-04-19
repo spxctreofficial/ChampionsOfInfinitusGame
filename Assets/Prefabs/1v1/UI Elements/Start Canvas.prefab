@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1770223853194172735}
   - component: {fileID: 1770223853194172734}
   - component: {fileID: 1770223853194172721}
+  - component: {fileID: 1076205916}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -118,18 +119,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
-          type: 3}
-        m_MethodName: GamePlayerChooseTurn
-        m_Mode: 1
+      - m_Target: {fileID: 1076205916}
+        m_MethodName: Choose1
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: GameHandler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1076205916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770223853194172723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d937b681ea9ea9498382543bb683f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1770223853697249588
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1770223854063805916
 RectTransform:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ public class GameHandler : MonoBehaviour
 
     public Text playerActionTooltip;
     public GameObject endTurnButton;
+    public GameObject gambleButton;
 
     [HideInInspector]
     public ChampionHandler player;
@@ -213,6 +214,27 @@ public class GameHandler : MonoBehaviour
         endTurnButton.SetActive(false);
         EndPlayerTurn();
     }
+    [HideInInspector]
+    public void OnGambleButtonClick()
+	{
+        gambleButton.SetActive(false);
+		switch (phase)
+		{
+            case GamePhase.PLAYERACTIONPHASE:
+                GameObject attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+                attackingCard.transform.SetParent(playerArea.transform, false);
+                StartCoroutine(cardLogicHandler.AttackCalc(attackingCard));
+                break;
+            case GamePhase.OPPONENTACTIONPHASE:
+                if (player.isAttacked != true || opponent.isAttacking != true) return;
+
+                attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+                attackingCard.transform.SetParent(playerArea.transform, false);
+                cardLogicHandler.DefenseCalc(attackingCard);
+                break;
+		}
+
+	}
     [HideInInspector]
     public void EnlargeChampionDashboard()
     {
