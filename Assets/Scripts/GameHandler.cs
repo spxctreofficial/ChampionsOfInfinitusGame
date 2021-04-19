@@ -22,6 +22,7 @@ public class GameHandler : MonoBehaviour
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject PlayArea;
+    public GameObject HealthDisplayTextPrefab;
 
     public Text PlayerActionTooltip;
     public GameObject EndTurnButton;
@@ -30,6 +31,8 @@ public class GameHandler : MonoBehaviour
     public ChampionHandler player;
     [HideInInspector]
     public ChampionHandler opponent;
+    Text playerHealthText;
+    Text opponentHealthText;
     #endregion
 
     #region Default Functions
@@ -44,6 +47,9 @@ public class GameHandler : MonoBehaviour
         {
             player.cards = PlayerArea.transform.childCount;
             opponent.cards = OpponentArea.transform.childCount;
+
+            playerHealthText.text = player.currentHP.ToString();
+            opponentHealthText.text = opponent.currentHP.ToString();
         }
         if (phase == GamePhase.PLAYERENDPHASE && player.discardAmount == 0)
         {
@@ -71,21 +77,29 @@ public class GameHandler : MonoBehaviour
         DealCards(4);
 
         GameObject playerGO = Instantiate(PlayerPrefab, new Vector2(-866, -139), Quaternion.identity);
-        playerGO.transform.SetParent(GameCanvas.transform, false);
+        GameObject playerHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(-866, 29), Quaternion.identity);
         player = playerGO.GetComponent<ChampionHandler>();
+        playerGO.transform.SetParent(GameCanvas.transform, false);
+        playerHealthTextGO.transform.SetParent(GameCanvas.transform, false);
         player.ChampionSetup();
+        playerHealthText = playerHealthTextGO.GetComponent<Text>();
         Debug.Log("Player: " + player.currentHP);
         Debug.Log("Cards: " + PlayerArea.transform.childCount);
 
         GameObject opponentGO = Instantiate(OpponentPrefab, new Vector2(866, 139), Quaternion.identity);
+        GameObject opponentHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(899, -29), Quaternion.identity);
         opponent = opponentGO.GetComponent<ChampionHandler>();
         opponentGO.transform.SetParent(GameCanvas.transform, false);
+        opponentHealthTextGO.transform.SetParent(GameCanvas.transform, false);
         opponent.ChampionSetup();
+        opponentHealthText = opponentHealthTextGO.GetComponent<Text>();
         Debug.Log("Opponent: " + opponent.currentHP);
         Debug.Log("Cards: " + OpponentArea.transform.childCount);
 
         StartCoroutine(PlayerTurn());
         PlayerActionTooltip.text = "You are " + player.championName + ".";
+        playerHealthText.text = player.currentHP.ToString();
+        opponentHealthText.text = opponent.currentHP.ToString();
     }
     IEnumerator PlayerTurn()
     {

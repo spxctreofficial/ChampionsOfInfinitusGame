@@ -2270,9 +2270,20 @@ PrefabInstance:
       objectReference: {fileID: 512776265}
     - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
         type: 3}
+      propertyPath: OpponentPrefab
+      value: 
+      objectReference: {fileID: 6732456467659057330, guid: 54139a42599a7f243a0de9e82790a04d,
+        type: 3}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
       propertyPath: FirstTurnCanvas
       value: 
       objectReference: {fileID: 198648923}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
+      propertyPath: PlayerHealthText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
         type: 3}
       propertyPath: cardLogicHandler
@@ -2285,9 +2296,20 @@ PrefabInstance:
       objectReference: {fileID: 1671879}
     - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
         type: 3}
+      propertyPath: OpponentHealthText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
       propertyPath: PlayerActionTooltip
       value: 
       objectReference: {fileID: 1268355900}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
+      propertyPath: HealthDisplayTextPrefab
+      value: 
+      objectReference: {fileID: 1312501885973302, guid: c51b152d7578b464abc6bbf96a5af9d5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f34e685b53eea243bed0e54372a9089, type: 3}
 --- !u!1001 &6384007358850145680
