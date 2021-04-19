@@ -13,20 +13,20 @@ public class GameHandler : MonoBehaviour
     public CardIndex cardIndex;
     public CardLogicHandler cardLogicHandler;
 
-    public GameObject StartCanvas;
-    public GameObject GameCanvas;
-    public GameObject FirstTurnCanvas;
-    public GameObject ChampionDashboard;
+    public GameObject startCanvas;
+    public GameObject gameCanvas;
+    public GameObject firstTurnCanvas;
+    public GameObject championDashboard;
 
-    public GameObject PlayerPrefab;
-    public GameObject OpponentPrefab;
-    public GameObject HealthDisplayTextPrefab;
-    public GameObject PlayerArea;
-    public GameObject OpponentArea;
-    public GameObject PlayArea;
+    public GameObject playerPrefab;
+    public GameObject opponentPrefab;
+    public GameObject healthDisplayTextPrefab;
+    public GameObject playerArea;
+    public GameObject opponentArea;
+    public GameObject playArea;
 
-    public Text PlayerActionTooltip;
-    public GameObject EndTurnButton;
+    public Text playerActionTooltip;
+    public GameObject endTurnButton;
 
     [HideInInspector]
     public ChampionHandler player;
@@ -46,8 +46,8 @@ public class GameHandler : MonoBehaviour
     {
         if (phase != GamePhase.GAMESTART)
         {
-            player.cards = PlayerArea.transform.childCount;
-            opponent.cards = OpponentArea.transform.childCount;
+            player.cards = playerArea.transform.childCount;
+            opponent.cards = opponentArea.transform.childCount;
 
             playerHealthText.text = player.currentHP.ToString();
             opponentHealthText.text = opponent.currentHP.ToString();
@@ -63,42 +63,42 @@ public class GameHandler : MonoBehaviour
     public void GameStart()
     {
         phase = GamePhase.GAMESTART;
-        GameCanvas.SetActive(false);
-        StartCanvas.SetActive(true);
+        gameCanvas.SetActive(false);
+        startCanvas.SetActive(true);
     }
     public void GamePlayerChooseTurn()
     {
-        StartCanvas.SetActive(false);
-        FirstTurnCanvas.SetActive(true);
+        startCanvas.SetActive(false);
+        firstTurnCanvas.SetActive(true);
     }
     public void GameSetup()
     {
-        FirstTurnCanvas.SetActive(false);
-        GameCanvas.SetActive(true);
+        firstTurnCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
         DealCards(4);
 
-        GameObject playerGO = Instantiate(PlayerPrefab, new Vector2(-866, -139), Quaternion.identity);
-        GameObject playerHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(-866, 29), Quaternion.identity);
+        GameObject playerGO = Instantiate(playerPrefab, new Vector2(-866, -139), Quaternion.identity);
+        GameObject playerHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(-866, 29), Quaternion.identity);
         player = playerGO.GetComponent<ChampionHandler>();
-        playerGO.transform.SetParent(GameCanvas.transform, false);
-        playerHealthTextGO.transform.SetParent(GameCanvas.transform, false);
+        playerGO.transform.SetParent(gameCanvas.transform, false);
+        playerHealthTextGO.transform.SetParent(gameCanvas.transform, false);
         player.ChampionSetup();
         playerHealthText = playerHealthTextGO.GetComponent<Text>();
         Debug.Log("Player: " + player.currentHP);
-        Debug.Log("Cards: " + PlayerArea.transform.childCount);
+        Debug.Log("Cards: " + playerArea.transform.childCount);
 
-        GameObject opponentGO = Instantiate(OpponentPrefab, new Vector2(866, 139), Quaternion.identity);
-        GameObject opponentHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
+        GameObject opponentGO = Instantiate(opponentPrefab, new Vector2(866, 139), Quaternion.identity);
+        GameObject opponentHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
         opponent = opponentGO.GetComponent<ChampionHandler>();
-        opponentGO.transform.SetParent(GameCanvas.transform, false);
-        opponentHealthTextGO.transform.SetParent(GameCanvas.transform, false);
+        opponentGO.transform.SetParent(gameCanvas.transform, false);
+        opponentHealthTextGO.transform.SetParent(gameCanvas.transform, false);
         opponent.ChampionSetup();
         opponentHealthText = opponentHealthTextGO.GetComponent<Text>();
         Debug.Log("Opponent: " + opponent.currentHP);
-        Debug.Log("Cards: " + OpponentArea.transform.childCount);
+        Debug.Log("Cards: " + opponentArea.transform.childCount);
 
         StartCoroutine(PlayerTurn());
-        PlayerActionTooltip.text = "You are " + player.championName + ".";
+        playerActionTooltip.text = "You are " + player.championName + ".";
         playerHealthText.text = player.currentHP.ToString();
         opponentHealthText.text = opponent.currentHP.ToString();
     }
@@ -107,7 +107,7 @@ public class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         phase = GamePhase.PLAYERBEGINNINGPHASE;
-        PlayerActionTooltip.text = "It is your Beginning Phase.";
+        playerActionTooltip.text = "It is your Beginning Phase.";
         DealCardsPlayer(2);
 
         yield return new WaitForSeconds(1f);
@@ -116,17 +116,17 @@ public class GameHandler : MonoBehaviour
         player.spadesBeforeExhaustion = 1;
         player.heartsBeforeExhaustion = 3;
         player.diamondsBeforeExhaustion = 1;
-        EndTurnButton.SetActive(true);
-        PlayerActionTooltip.text = "It is your Action Phase.";
+        endTurnButton.SetActive(true);
+        playerActionTooltip.text = "It is your Action Phase.";
     }
     void EndPlayerTurn()
     {
         phase = GamePhase.PLAYERENDPHASE;
-        PlayerActionTooltip.text = "It is your End Phase.";
+        playerActionTooltip.text = "It is your End Phase.";
         if (player.cards > 6)
         {
             player.discardAmount = player.cards - 6;
-            PlayerActionTooltip.text = "Please discard " + player.discardAmount + ".";
+            playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
         }
         else
         {
@@ -142,7 +142,7 @@ public class GameHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        PlayerActionTooltip.text = "It is the opponent's Beginning Phase.";
+        playerActionTooltip.text = "It is the opponent's Beginning Phase.";
 
         yield return new WaitForSeconds(1f);
         DealCardsOpponent(2);
@@ -152,7 +152,7 @@ public class GameHandler : MonoBehaviour
         opponent.spadesBeforeExhaustion = 1;
         opponent.heartsBeforeExhaustion = 3;
         opponent.diamondsBeforeExhaustion = 1;
-        PlayerActionTooltip.text = "It is the opponent's Action Phase.";
+        playerActionTooltip.text = "It is the opponent's Action Phase.";
 
 
         StartCoroutine(cardLogicHandler.OpponentCardLogic());
@@ -160,7 +160,7 @@ public class GameHandler : MonoBehaviour
     public void EndOpponentTurn()
     {
         phase = GamePhase.OPPONENTENDPHASE;
-        PlayerActionTooltip.text = "It is the opponent's End Phase.";
+        playerActionTooltip.text = "It is the opponent's End Phase.";
         if (opponent.cards > 6)
         {
             opponent.discardAmount = opponent.cards - 6;
@@ -171,14 +171,14 @@ public class GameHandler : MonoBehaviour
                 int siblingIndex = 0;
                 for (int x = 0; x < opponent.cards; x++)
                 {
-                    if (value > OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                    if (value > opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                     {
-                        value = OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                        siblingIndex = OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                        value = opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                        siblingIndex = opponentArea.transform.GetChild(x).GetSiblingIndex();
                     }
                 }
-                OpponentArea.transform.GetChild(siblingIndex).gameObject.transform.SetParent(PlayArea.transform, false);
-                OpponentArea.transform.GetChild(siblingIndex).gameObject.GetComponent<Card>().ToggleCardVisibility();
+                opponentArea.transform.GetChild(siblingIndex).gameObject.transform.SetParent(playArea.transform, false);
+                opponentArea.transform.GetChild(siblingIndex).gameObject.GetComponent<Card>().ToggleCardVisibility();
             }
             opponent.discardAmount = 0;
         }
@@ -190,13 +190,13 @@ public class GameHandler : MonoBehaviour
         switch (phase)
 		{
             case GamePhase.GAMEWIN:
-				PlayerActionTooltip.text = "Congratulations! You win.";
+				playerActionTooltip.text = "Congratulations! You win.";
 
                 yield return new WaitForSeconds(3f);
                 SceneManager.LoadScene("StartMenu");
                 break;
             case GamePhase.GAMELOSE:
-                PlayerActionTooltip.text = "You lost!";
+                playerActionTooltip.text = "You lost!";
 
                 yield return new WaitForSeconds(3f);
                 SceneManager.LoadScene("StartMenu");
@@ -210,28 +210,28 @@ public class GameHandler : MonoBehaviour
     [HideInInspector]
     public void OnEndTurnButtonClick()
     {
-        EndTurnButton.SetActive(false);
+        endTurnButton.SetActive(false);
         EndPlayerTurn();
     }
     [HideInInspector]
     public void EnlargeChampionDashboard()
     {
         Image image = player.GetComponent<Image>();
-        ChampionDashboard.SetActive(true);
-        Image championImage = ChampionDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
+        championDashboard.SetActive(true);
+        Image championImage = championDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
         championImage.sprite = image.sprite;
     }
     [HideInInspector]
     public void CloseChampionDashboard()
     {
-        ChampionDashboard.SetActive(false);
+        championDashboard.SetActive(false);
     }
     public void DealCardsPlayer(int cards)
     {
         for (int x = 0; x < cards; x++)
         {
             GameObject playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
-            playerCard.transform.SetParent(PlayerArea.transform, false);
+            playerCard.transform.SetParent(playerArea.transform, false);
         }
     }
     public void DealCardsOpponent(int cards)
@@ -239,7 +239,7 @@ public class GameHandler : MonoBehaviour
         for (int x = 0; x < cards; x++)
         {
             GameObject opponentCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
-            opponentCard.transform.SetParent(OpponentArea.transform, false);
+            opponentCard.transform.SetParent(opponentArea.transform, false);
             opponentCard.GetComponent<Card>().ToggleCardVisibility();
         }
     }

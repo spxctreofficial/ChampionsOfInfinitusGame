@@ -9,9 +9,9 @@ public class CardLogicHandler : MonoBehaviour
     public GameHandler gameHandler;
     public CardIndex cardIndex;
 
-    public GameObject PlayerArea;
-    public GameObject OpponentArea;
-    public GameObject PlayArea;
+    public GameObject playerArea;
+    public GameObject opponentArea;
+    public GameObject playArea;
     public GameObject summonObject;
 
     Card card;
@@ -28,7 +28,7 @@ public class CardLogicHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
-            gameObject.transform.SetParent(OpponentArea.transform, false);
+            gameObject.transform.SetParent(opponentArea.transform, false);
         }
     }
 
@@ -37,7 +37,7 @@ public class CardLogicHandler : MonoBehaviour
     {
         this.card = card.GetComponent<Card>();
         GameObject parentObject = card.transform.parent.gameObject;
-        cardOfPlayer = parentObject == PlayerArea;
+        cardOfPlayer = parentObject == playerArea;
 
         if (cardOfPlayer)
         {
@@ -50,22 +50,22 @@ public class CardLogicHandler : MonoBehaviour
                         int siblingIndex = 0;
                         for (int x = 0; x < gameHandler.opponent.cards; x++)
                         {
-                            if (value < gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                            if (value < gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                             {
-                                value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                                siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                                value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                                siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                             }
                         }
-                        GameObject opponentCard = gameHandler.opponent.cards == 0 ? Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
+                        GameObject opponentCard = gameHandler.opponent.cards == 0 ? Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
 
                         Debug.Log("Player is attacking the opponent with a card with a value of " + this.card.cardValue);
                         gameHandler.opponent.isAttacked = true;
-                        card.transform.SetParent(PlayArea.transform, false);
+                        card.transform.SetParent(playArea.transform, false);
                         this.card.ToggleCardVisibility();
 
                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-                        opponentCard.transform.SetParent(PlayArea.transform, false);
+                        opponentCard.transform.SetParent(playArea.transform, false);
                         this.card.ToggleCardVisibility();
 
                         if (this.card.cardValue > opponentCard.GetComponent<Card>().cardValue)
@@ -82,7 +82,7 @@ public class CardLogicHandler : MonoBehaviour
                         gameHandler.player.isAttacking = false;
                         gameHandler.opponent.isAttacked = false;
 
-                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
+                        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
                     }
                     else
                     {
@@ -97,9 +97,9 @@ public class CardLogicHandler : MonoBehaviour
                                 Debug.Log("Player is now attacking the opponent.");
                                 gameHandler.player.isAttacking = true;
                                 gameHandler.player.spadesBeforeExhaustion--;
-                                card.transform.SetParent(PlayArea.transform, false);
+                                card.transform.SetParent(playArea.transform, false);
 
-                                gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
+                                gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
                                 break;
                             case CardType.HEART:
                                 if (gameHandler.player.heartsBeforeExhaustion <= 0)
@@ -117,32 +117,32 @@ public class CardLogicHandler : MonoBehaviour
                                 {
                                     gameHandler.player.Heal(5);
                                     gameHandler.player.heartsBeforeExhaustion--;
-                                    card.transform.SetParent(PlayArea.transform, false);
+                                    card.transform.SetParent(playArea.transform, false);
                                 }
                                 if (this.card.cardValue >= 7 && this.card.cardValue <= 9 && gameHandler.player.heartsBeforeExhaustion >= 2)
                                 {
 
                                     gameHandler.player.Heal(10);
                                     gameHandler.player.heartsBeforeExhaustion -= 2;
-                                    card.transform.SetParent(PlayArea.transform, false);
+                                    card.transform.SetParent(playArea.transform, false);
                                 }
                                 if (this.card.cardValue >= 10 && this.card.cardValue <= 13 && gameHandler.player.heartsBeforeExhaustion == 3)
                                 {
                                     gameHandler.player.Heal(20);
                                     gameHandler.player.heartsBeforeExhaustion -= 3;
-                                    card.transform.SetParent(PlayArea.transform, false);
+                                    card.transform.SetParent(playArea.transform, false);
                                 }
                                 if (this.card.cardValue == 14 && gameHandler.player.heartsBeforeExhaustion == 3)
                                 {
                                     gameHandler.player.Heal(40);
                                     gameHandler.player.heartsBeforeExhaustion -= 3;
-                                    card.transform.SetParent(PlayArea.transform, false);
+                                    card.transform.SetParent(playArea.transform, false);
                                 }
                                 break;
                             case CardType.CLUB:
                                 Debug.Log("Player is attempting to trade a CLUB.");
                                 gameHandler.DealCardsPlayer(1);
-                                card.transform.SetParent(PlayArea.transform, false);
+                                card.transform.SetParent(playArea.transform, false);
                                 break;
                             case CardType.DIAMOND:
                                 if (this.card.cardValue < 5 || this.card.cardValue > 8)
@@ -158,20 +158,20 @@ public class CardLogicHandler : MonoBehaviour
                                 {
                                     case 1:
                                         gameHandler.DealCards(2);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         gameHandler.player.diamondsBeforeExhaustion--;
                                         break;
                                     case 2:
                                         if (gameHandler.opponent.cards == 0)
                                         {
-                                            card.transform.SetParent(PlayArea.transform, false);
+                                            card.transform.SetParent(playArea.transform, false);
                                             gameHandler.player.diamondsBeforeExhaustion--;
                                             break;
                                         }
 
                                         gameHandler.opponent.discardAmount = 1;
-                                        card.transform.SetParent(PlayArea.transform, false);
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
+                                        card.transform.SetParent(playArea.transform, false);
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -181,29 +181,29 @@ public class CardLogicHandler : MonoBehaviour
                                             int siblingIndex = 0;
                                             for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
-                                                if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                                                if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
-                                                    value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                                                    siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                                                    value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                                                    siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                                                 }
                                             }
-                                            GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
-                                            opponentCard.transform.SetParent(PlayArea.transform, false);
+                                            GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                                            opponentCard.transform.SetParent(playArea.transform, false);
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                     case 3:
                                         gameHandler.DealCards(4);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         gameHandler.player.diamondsBeforeExhaustion--;
                                         break;
                                     case 4:
                                         float chance = gameHandler.opponent.currentHP >= 75 ? 0.75f : 0.5f;
                                         if (Random.Range(0f, 1f) > chance && gameHandler.opponent.currentHP > 20 || gameHandler.opponent.cards == 0)
                                         {
-                                            card.transform.SetParent(PlayArea.transform, false);
+                                            card.transform.SetParent(playArea.transform, false);
 
                                             yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -213,8 +213,8 @@ public class CardLogicHandler : MonoBehaviour
                                         }
 
                                         gameHandler.opponent.discardAmount = gameHandler.opponent.cards < 2 ? gameHandler.opponent.cards : 2;
-                                        card.transform.SetParent(PlayArea.transform, false);
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
+                                        card.transform.SetParent(playArea.transform, false);
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -224,54 +224,54 @@ public class CardLogicHandler : MonoBehaviour
                                             int siblingIndex = 0;
                                             for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
-                                                if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                                                if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
-                                                    value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                                                    siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                                                    value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                                                    siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                                                 }
                                             }
-                                            GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
-                                            opponentCard.transform.SetParent(PlayArea.transform, false);
+                                            GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                                            opponentCard.transform.SetParent(playArea.transform, false);
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                     case 5:
                                         gameHandler.DealCardsPlayer(1);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 6:
                                         gameHandler.DealCardsPlayer(1);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 7:
                                         gameHandler.DealCardsPlayer(1);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 8:
                                         gameHandler.DealCardsPlayer(1);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 9:
                                         gameHandler.player.Heal(10);
                                         gameHandler.opponent.Heal(10);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 10:
                                         gameHandler.player.Heal(20);
                                         gameHandler.opponent.Heal(20);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 11:
                                         gameHandler.opponent.Damage(20, DamageType.Fire);
-                                        card.transform.SetParent(PlayArea.transform, false);
+                                        card.transform.SetParent(playArea.transform, false);
                                         break;
                                     case 12:
                                         chance = gameHandler.opponent.currentHP >= 75 ? 0.45f : 0.20f;
                                         if (Random.Range(0f, 1f) > chance && gameHandler.opponent.currentHP > 40 || gameHandler.opponent.cards == 0)
                                         {
-                                            card.transform.SetParent(PlayArea.transform, false);
+                                            card.transform.SetParent(playArea.transform, false);
 
                                             yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -281,8 +281,8 @@ public class CardLogicHandler : MonoBehaviour
                                         }
 
                                         gameHandler.opponent.discardAmount = gameHandler.opponent.cards < 4 ? gameHandler.opponent.cards : 4;
-                                        card.transform.SetParent(PlayArea.transform, false);
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
+                                        card.transform.SetParent(playArea.transform, false);
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -292,18 +292,18 @@ public class CardLogicHandler : MonoBehaviour
                                             int siblingIndex = 0;
                                             for (int x = 0; x < gameHandler.opponent.cards; x++)
                                             {
-                                                if (value > gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                                                if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                                                 {
-                                                    value = gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                                                    siblingIndex = gameHandler.OpponentArea.transform.GetChild(x).GetSiblingIndex();
+                                                    value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
+                                                    siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                                                 }
                                             }
-                                            GameObject opponentCard = gameHandler.OpponentArea.transform.GetChild(siblingIndex).gameObject;
-                                            opponentCard.transform.SetParent(PlayArea.transform, false);
+                                            GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                                            opponentCard.transform.SetParent(playArea.transform, false);
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
-                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
+                                        gameHandler.endTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                 }
                                 break;
@@ -313,39 +313,39 @@ public class CardLogicHandler : MonoBehaviour
                 case GamePhase.PLAYERENDPHASE:
                     if (gameHandler.player.discardAmount > 0)
                     {
-                        card.transform.SetParent(PlayArea.transform, false);
+                        card.transform.SetParent(playArea.transform, false);
                         gameHandler.player.discardAmount--;
                         if (gameHandler.player.discardAmount == 0)
 						{
-                            gameHandler.PlayerActionTooltip.text = "Waiting for the opponent...";
+                            gameHandler.playerActionTooltip.text = "Waiting for the opponent...";
                         }
                         else
 						{
-                            gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                            gameHandler.playerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
                         }
                     }
                     break;
                 case GamePhase.OPPONENTACTIONPHASE:
                     if (gameHandler.player.discardAmount > 0)
                     {
-                        card.transform.SetParent(PlayArea.transform, false);
+                        card.transform.SetParent(playArea.transform, false);
                         gameHandler.player.discardAmount--;
                         if (gameHandler.player.discardAmount == 0)
                         {
-                            gameHandler.PlayerActionTooltip.text = "It is the opponent's Action Phase.";
+                            gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
                             StartCoroutine(OpponentCardLogic());
                         }
                         else
                         {
-                            gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                            gameHandler.playerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
                         }
                         break;
                     }
 
                     if (gameHandler.opponent.isAttacking || gameHandler.player.isAttacked)
                     {
-                        card.transform.SetParent(PlayArea.transform, false);
-                        GameObject attackingCard = gameHandler.PlayArea.transform.GetChild(this.card.transform.GetSiblingIndex() - 1).gameObject;
+                        card.transform.SetParent(playArea.transform, false);
+                        GameObject attackingCard = gameHandler.playArea.transform.GetChild(this.card.transform.GetSiblingIndex() - 1).gameObject;
                         attackingCard.GetComponent<Card>().ToggleCardVisibility();
 
                         if (this.card.cardValue > attackingCard.GetComponent<Card>().cardValue)
@@ -358,7 +358,7 @@ public class CardLogicHandler : MonoBehaviour
                         }
                         Debug.Log("Player: " + gameHandler.player.currentHP);
                         Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
-                        gameHandler.PlayerActionTooltip.text = "It is the opponent's Action Phase.";
+                        gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
 
                         gameHandler.opponent.isAttacking = false;
                         gameHandler.player.isAttacked = false;
@@ -383,9 +383,9 @@ public class CardLogicHandler : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 1f));
 
-            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.CLUB)
+            if (gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.CLUB)
             {
-                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                GameObject selectedCard = gameHandler.opponentArea.transform.GetChild(x).gameObject;
                 
                 if (selectedCard.GetComponent<Card>().cardValue >= 10)
 				{
@@ -393,7 +393,7 @@ public class CardLogicHandler : MonoBehaviour
                     continue;
 				}
 
-                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                 selectedCard.GetComponent<Card>().ToggleCardVisibility();
                 gameHandler.DealCardsOpponent(1);
                 StartCoroutine(OpponentCardLogic());
@@ -405,14 +405,14 @@ public class CardLogicHandler : MonoBehaviour
 
         for (int x = 0; x < gameHandler.opponent.cards; x++)
         {
-            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.DIAMOND && gameHandler.opponent.diamondsBeforeExhaustion != 0)
+            if (gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.DIAMOND && gameHandler.opponent.diamondsBeforeExhaustion != 0)
             {
-                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                GameObject selectedCard = gameHandler.opponentArea.transform.GetChild(x).gameObject;
                 switch (selectedCard.GetComponent<Card>().cardValue)
                 {
                     case 1:
                         gameHandler.DealCards(2);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         break;
@@ -420,40 +420,40 @@ public class CardLogicHandler : MonoBehaviour
                         if (gameHandler.player.cards != 0)
                         {
                             gameHandler.player.discardAmount = 1;
-                            selectedCard.transform.SetParent(PlayArea.transform, false);
+                            selectedCard.transform.SetParent(playArea.transform, false);
                             selectedCard.GetComponent<Card>().ToggleCardVisibility();
-                            gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                            gameHandler.playerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
                             gameHandler.opponent.diamondsBeforeExhaustion--;
                             yield break;
                         }
                         break;
                     case 3:
                         gameHandler.DealCards(4);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         break;
                     case 5:
                         gameHandler.DealCardsOpponent(1);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 6:
                         gameHandler.DealCardsOpponent(1);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 7:
                         gameHandler.DealCardsOpponent(1);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 8:
                         gameHandler.DealCardsOpponent(1);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
@@ -464,7 +464,7 @@ public class CardLogicHandler : MonoBehaviour
 						}
                         gameHandler.player.Heal(10);
                         gameHandler.opponent.Heal(10);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     case 10:
@@ -474,12 +474,12 @@ public class CardLogicHandler : MonoBehaviour
                         }
                         gameHandler.player.Heal(10);
                         gameHandler.opponent.Heal(10);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     case 11:
                         gameHandler.player.Damage(20, DamageType.Fire);
-                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         break;
                     default:
@@ -497,9 +497,9 @@ public class CardLogicHandler : MonoBehaviour
 
         for (int x = 0; x < gameHandler.opponent.cards; x++)
         {
-            if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.SPADE && gameHandler.opponent.spadesBeforeExhaustion != 0)
+            if (gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.SPADE && gameHandler.opponent.spadesBeforeExhaustion != 0)
             {
-                GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                GameObject selectedCard = gameHandler.opponentArea.transform.GetChild(x).gameObject;
                 GameObject attackingCard = null;
                 Card selectedCardComponent = selectedCard.GetComponent<Card>();
 
@@ -512,9 +512,9 @@ public class CardLogicHandler : MonoBehaviour
                 {
                     for (int y = 0; y < gameHandler.opponent.cards; y++)
                     {
-                        if (value < gameHandler.OpponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue)
+                        if (value < gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue)
                         {
-                            attackingCard = gameHandler.OpponentArea.transform.GetChild(y).gameObject;
+                            attackingCard = gameHandler.opponentArea.transform.GetChild(y).gameObject;
                             value = attackingCard.GetComponent<Card>().cardValue;
                         }
                     }
@@ -528,14 +528,14 @@ public class CardLogicHandler : MonoBehaviour
                     continue;
                 }
 
-                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                 selectedCard.GetComponent<Card>().ToggleCardVisibility();
-                attackingCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                attackingCard.transform.SetParent(gameHandler.playArea.transform, false);
                 gameHandler.opponent.spadesBeforeExhaustion--;
                 gameHandler.opponent.isAttacking = true;
                 gameHandler.player.isAttacked = true;
 
-                gameHandler.PlayerActionTooltip.text = "The opponent is attacking. Defend with a card.";
+                gameHandler.playerActionTooltip.text = "The opponent is attacking. Defend with a card.";
                 Debug.Log("Opponent is attacking the player with a card with a value of " + attackingCard.GetComponent<Card>().cardValue);
 
                 yield break;
@@ -562,9 +562,9 @@ public class CardLogicHandler : MonoBehaviour
     #region Other Functions
     private void PurgePlayArea()
     {
-        if (PlayArea.transform.childCount > 7)
+        if (playArea.transform.childCount > 7)
         {
-            Transform transform = PlayArea.transform.GetChild(0);
+            Transform transform = playArea.transform.GetChild(0);
             GameObject gameObject = transform.gameObject;
             Object.Destroy(gameObject);
         }
