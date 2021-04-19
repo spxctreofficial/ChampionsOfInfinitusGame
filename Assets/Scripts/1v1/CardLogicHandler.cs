@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardLogicHandler : MonoBehaviour
 {
@@ -80,6 +81,8 @@ public class CardLogicHandler : MonoBehaviour
 
                         gameHandler.player.isAttacking = false;
                         gameHandler.opponent.isAttacked = false;
+
+                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
                     }
                     else
                     {
@@ -95,6 +98,8 @@ public class CardLogicHandler : MonoBehaviour
                                 gameHandler.player.isAttacking = true;
                                 gameHandler.player.spadesBeforeExhaustion--;
                                 card.transform.SetParent(PlayArea.transform, false);
+
+                                gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
                                 break;
                             case CardType.HEART:
                                 if (gameHandler.player.heartsBeforeExhaustion <= 0)
@@ -166,6 +171,7 @@ public class CardLogicHandler : MonoBehaviour
 
                                         gameHandler.opponent.discardAmount = 1;
                                         card.transform.SetParent(PlayArea.transform, false);
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -186,6 +192,7 @@ public class CardLogicHandler : MonoBehaviour
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                     case 3:
                                         gameHandler.DealCards(4);
@@ -205,8 +212,9 @@ public class CardLogicHandler : MonoBehaviour
                                             break;
                                         }
 
-                                        gameHandler.opponent.discardAmount = 2;
+                                        gameHandler.opponent.discardAmount = gameHandler.opponent.cards < 2 ? gameHandler.opponent.cards : 2;
                                         card.transform.SetParent(PlayArea.transform, false);
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -227,6 +235,7 @@ public class CardLogicHandler : MonoBehaviour
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                     case 5:
                                         gameHandler.DealCardsPlayer(1);
@@ -271,8 +280,9 @@ public class CardLogicHandler : MonoBehaviour
                                             break;
                                         }
 
-                                        gameHandler.opponent.discardAmount = 4;
+                                        gameHandler.opponent.discardAmount = gameHandler.opponent.cards < 4 ? gameHandler.opponent.cards : 4;
                                         card.transform.SetParent(PlayArea.transform, false);
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = false;
 
                                         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -293,6 +303,7 @@ public class CardLogicHandler : MonoBehaviour
                                         }
                                         gameHandler.opponent.discardAmount = 0;
                                         gameHandler.player.diamondsBeforeExhaustion--;
+                                        gameHandler.EndTurnButton.GetComponent<Button>().interactable = true;
                                         break;
                                 }
                                 break;

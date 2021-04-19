@@ -18,7 +18,7 @@ public class Card : MonoBehaviour
 
     public void CardSelect()
     {
-        CardLogicHandler cardLogicHandler = GameObject.FindWithTag("CardLogicHandler").GetComponent<CardLogicHandler>();
+        CardLogicHandler cardLogicHandler = FindObjectOfType<CardLogicHandler>();
         StartCoroutine(cardLogicHandler.CardSelect(this.gameObject));
     }
     [HideInInspector]

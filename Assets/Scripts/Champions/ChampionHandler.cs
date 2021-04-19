@@ -52,17 +52,28 @@ public class ChampionHandler : MonoBehaviour
     public void Damage(int amount, DamageType damageType)
     {
         currentHP -= amount;
+        if (currentHP < 0) currentHP = 0;
+        GameHandler gameHandler = FindObjectOfType<GameHandler>();
+        if (gameHandler.player.currentHP == 0)
+		{
+            gameHandler.phase = GamePhase.GAMELOSE;
+            StartCoroutine(gameHandler.GameEnd());
+		}
+        else if (gameHandler.opponent.currentHP == 0)
+		{
+            gameHandler.phase = GamePhase.GAMEWIN;
+            StartCoroutine(gameHandler.GameEnd());
+		}
     }
     [HideInInspector]
     public void Heal(int amount)
     {
         currentHP += amount;
-        if (currentHP > maxHP)
-            currentHP = maxHP;
+        if (currentHP > maxHP) currentHP = maxHP;
     }
     public void EnlargeChampionDashboard()
     {
-        GameHandler gameHandler = GameObject.FindWithTag("GameHandler").GetComponent<GameHandler>();
+        GameHandler gameHandler = FindObjectOfType<GameHandler>();
         gameHandler.EnlargeChampionDashboard();
     }
 }

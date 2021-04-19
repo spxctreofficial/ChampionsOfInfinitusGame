@@ -19,10 +19,10 @@ public class GameHandler : MonoBehaviour
 
     public GameObject PlayerPrefab;
     public GameObject OpponentPrefab;
+    public GameObject HealthDisplayTextPrefab;
     public GameObject PlayerArea;
     public GameObject OpponentArea;
     public GameObject PlayArea;
-    public GameObject HealthDisplayTextPrefab;
 
     public Text PlayerActionTooltip;
     public GameObject EndTurnButton;
@@ -183,6 +183,24 @@ public class GameHandler : MonoBehaviour
 
         StartCoroutine(PlayerTurn());
     }
+    public IEnumerator GameEnd()
+	{
+        switch (phase)
+		{
+            case GamePhase.GAMEWIN:
+				PlayerActionTooltip.text = "Congratulations! You win.";
+
+                yield return new WaitForSeconds(3f);
+
+                break;
+            case GamePhase.GAMELOSE:
+                PlayerActionTooltip.text = "You lost!";
+
+                yield return new WaitForSeconds(3f);
+
+                break;
+		}
+	}
     #endregion
 
 
