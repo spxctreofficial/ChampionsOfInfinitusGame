@@ -64,16 +64,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CardLogicHandler.cs" />
+    <Compile Include="Assets\Scripts\1v1\CardLogicHandler.cs" />
+    <Compile Include="Assets\Scripts\1v1\GameHandler.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\ChooseChampion.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\DrawCards.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\Playing Cards\Card.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\Playing Cards\CardIndex.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\StartMenu.cs" />
     <Compile Include="Assets\Scripts\Champions\Champion.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionHandler.cs" />
-    <Compile Include="Assets\Scripts\GameHandler.cs" />
-    <Compile Include="Assets\Scripts\TickSystem.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\ChooseChampion.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\DrawCards.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\Playing Cards\Card.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\Playing Cards\CardIndex.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\StartMenu.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />

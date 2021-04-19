@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5889533944474125832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5889533944474125838}
+  - component: {fileID: 5889533944474125839}
+  m_Layer: 0
+  m_Name: GameHandler
+  m_TagString: GameHandler
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5889533944474125838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5889533944474125832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 234.39548, y: 64.11488, z: -727.39844}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5889533944474125839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5889533944474125832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df11672a57887c4ba798377b854d0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: 0
+  cardIndex: {fileID: 0}
+  cardLogicHandler: {fileID: 0}
+  StartCanvas: {fileID: 0}
+  GameCanvas: {fileID: 0}
+  FirstTurnCanvas: {fileID: 0}
+  ChampionDashboard: {fileID: 0}
+  PlayerPrefab: {fileID: 7677552574236164398, guid: 7790cb8303f471548a269a7cdfe44db2,
+    type: 3}
+  OpponentPrefab: {fileID: 7677552574236164398, guid: 573ee381fdba935439293467c3e8a108,
+    type: 3}
+  PlayerArea: {fileID: 0}
+  OpponentArea: {fileID: 0}
+  PlayArea: {fileID: 0}
+  PlayerActionTooltip: {fileID: 0}
+  EndTurnButton: {fileID: 0}
+  player: {fileID: 0}
+  opponent: {fileID: 0}
