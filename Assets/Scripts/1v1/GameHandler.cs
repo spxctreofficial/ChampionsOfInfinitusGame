@@ -87,7 +87,7 @@ public class GameHandler : MonoBehaviour
         Debug.Log("Cards: " + PlayerArea.transform.childCount);
 
         GameObject opponentGO = Instantiate(OpponentPrefab, new Vector2(866, 139), Quaternion.identity);
-        GameObject opponentHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(899, -29), Quaternion.identity);
+        GameObject opponentHealthTextGO = Instantiate(HealthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
         opponent = opponentGO.GetComponent<ChampionHandler>();
         opponentGO.transform.SetParent(GameCanvas.transform, false);
         opponentHealthTextGO.transform.SetParent(GameCanvas.transform, false);
