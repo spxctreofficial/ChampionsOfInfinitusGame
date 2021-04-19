@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum GamePhase { GAMESTART, PLAYERBEGINNINGPHASE, PLAYERACTIONPHASE, PLAYERENDPHASE, OPPONENTBEGINNINGPHASE, OPPONENTACTIONPHASE, OPPONENTENDPHASE, GAMEWIN, GAMELOSE }
 
@@ -191,13 +192,13 @@ public class GameHandler : MonoBehaviour
 				PlayerActionTooltip.text = "Congratulations! You win.";
 
                 yield return new WaitForSeconds(3f);
-
+                SceneManager.LoadScene("StartMenu");
                 break;
             case GamePhase.GAMELOSE:
                 PlayerActionTooltip.text = "You lost!";
 
                 yield return new WaitForSeconds(3f);
-
+                SceneManager.LoadScene("StartMenu");
                 break;
 		}
 	}
