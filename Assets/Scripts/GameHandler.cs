@@ -7,7 +7,7 @@ public enum GamePhase { GAMESTART, PLAYERBEGINNINGPHASE, PLAYERACTIONPHASE, PLAY
 
 public class GameHandler : MonoBehaviour
 {
-    // Variables
+    #region Variables
     public GamePhase phase;
     public CardIndex cardIndex;
     public CardLogicHandler cardLogicHandler;
@@ -30,8 +30,9 @@ public class GameHandler : MonoBehaviour
     public ChampionHandler player;
     [HideInInspector]
     public ChampionHandler opponent;
+    #endregion
 
-    // Gameplay Phases
+    #region Default Functions
     private void Start()
     {
         cardIndex.PopulatePlayingCardsList();
@@ -39,18 +40,6 @@ public class GameHandler : MonoBehaviour
     }
     private void Update()
     {
-        if (player.currentHP > player.maxHP)
-        {
-            player.currentHP = player.maxHP;
-            Debug.Log("Player health capped!");
-        }
-        if (opponent.currentHP > opponent.maxHP)
-        {
-            opponent.currentHP = opponent.maxHP;
-            Debug.Log("Opponent health capped!");
-        }
-
-
         if (phase != GamePhase.GAMESTART)
         {
             player.cards = PlayerArea.transform.childCount;
@@ -61,6 +50,9 @@ public class GameHandler : MonoBehaviour
             StartOpponentTurn();
         }
     }
+    #endregion
+
+    #region GamePhase Functions
     public void GameStart()
     {
         phase = GamePhase.GAMESTART;
@@ -101,10 +93,9 @@ public class GameHandler : MonoBehaviour
 
         phase = GamePhase.PLAYERBEGINNINGPHASE;
         PlayerActionTooltip.text = "It is your Beginning Phase.";
+        DealCardsPlayer(2);
 
         yield return new WaitForSeconds(1f);
-        DealCardsPlayer(2);
-        yield return new WaitForSeconds(2f);
 
         phase = GamePhase.PLAYERACTIONPHASE;
         player.spadesBeforeExhaustion = 1;
@@ -178,9 +169,10 @@ public class GameHandler : MonoBehaviour
 
         StartCoroutine(PlayerTurn());
     }
+    #endregion
 
 
-    // Callable Functions
+    #region Other Callable Functions
     [HideInInspector]
     public void OnEndTurnButtonClick()
     {
@@ -221,4 +213,5 @@ public class GameHandler : MonoBehaviour
         DealCardsPlayer(cards);
         DealCardsOpponent(cards);
     }
+    #endregion
 }
