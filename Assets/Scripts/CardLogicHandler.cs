@@ -27,7 +27,7 @@ public class CardLogicHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
-            gameObject.transform.SetParent(PlayerArea.transform, false);
+            gameObject.transform.SetParent(OpponentArea.transform, false);
         }
     }
 
@@ -102,7 +102,7 @@ public class CardLogicHandler : MonoBehaviour
                                     Debug.Log("Player is exhausted! Cannot play more hearts.");
                                     break;
                                 }
-                                else if (gameHandler.player.currentHP >= gameHandler.player.maxHP)
+                                if (gameHandler.player.currentHP >= gameHandler.player.maxHP)
                                 {
                                     Debug.Log("Player health is full!");
                                     break;
@@ -112,23 +112,27 @@ public class CardLogicHandler : MonoBehaviour
                                 {
                                     gameHandler.player.Heal(5);
                                     gameHandler.player.heartsBeforeExhaustion--;
+                                    card.transform.SetParent(PlayArea.transform, false);
                                 }
                                 if (this.card.cardValue >= 7 && this.card.cardValue <= 9 && gameHandler.player.heartsBeforeExhaustion >= 2)
                                 {
+
                                     gameHandler.player.Heal(10);
                                     gameHandler.player.heartsBeforeExhaustion -= 2;
+                                    card.transform.SetParent(PlayArea.transform, false);
                                 }
-                                if (this.card.cardValue >= 10 && this.card.cardValue <= 13)
+                                if (this.card.cardValue >= 10 && this.card.cardValue <= 13 && gameHandler.player.heartsBeforeExhaustion == 3)
                                 {
                                     gameHandler.player.Heal(20);
                                     gameHandler.player.heartsBeforeExhaustion -= 3;
+                                    card.transform.SetParent(PlayArea.transform, false);
                                 }
-                                if (this.card.cardValue == 14)
+                                if (this.card.cardValue == 14 && gameHandler.player.heartsBeforeExhaustion == 3)
                                 {
                                     gameHandler.player.Heal(40);
                                     gameHandler.player.heartsBeforeExhaustion -= 3;
+                                    card.transform.SetParent(PlayArea.transform, false);
                                 }
-                                card.transform.SetParent(PlayArea.transform, false);
                                 break;
                             case CardType.CLUB:
                                 Debug.Log("Player is attempting to trade a CLUB.");
@@ -136,7 +140,7 @@ public class CardLogicHandler : MonoBehaviour
                                 card.transform.SetParent(PlayArea.transform, false);
                                 break;
                             case CardType.DIAMOND:
-                                if (this.card.cardValue < 5 && this.card.cardValue > 8)
+                                if (this.card.cardValue < 5 || this.card.cardValue > 8)
                                 {
                                     if (gameHandler.player.diamondsBeforeExhaustion <= 0)
                                     {
@@ -300,7 +304,14 @@ public class CardLogicHandler : MonoBehaviour
                     {
                         card.transform.SetParent(PlayArea.transform, false);
                         gameHandler.player.discardAmount--;
-                        gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                        if (gameHandler.player.discardAmount == 0)
+						{
+                            gameHandler.PlayerActionTooltip.text = "Waiting for the opponent...";
+                        }
+                        else
+						{
+                            gameHandler.PlayerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                        }
                     }
                     break;
                 case GamePhase.OPPONENTACTIONPHASE:
@@ -336,6 +347,7 @@ public class CardLogicHandler : MonoBehaviour
                         }
                         Debug.Log("Player: " + gameHandler.player.currentHP);
                         Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+                        gameHandler.PlayerActionTooltip.text = "It is the opponent's Action Phase.";
 
                         gameHandler.opponent.isAttacking = false;
                         gameHandler.player.isAttacked = false;
@@ -363,8 +375,17 @@ public class CardLogicHandler : MonoBehaviour
             if (gameHandler.OpponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.CLUB)
             {
                 GameObject selectedCard = gameHandler.OpponentArea.transform.GetChild(x).gameObject;
+                
+                if (selectedCard.GetComponent<Card>().cardValue >= 10)
+				{
+                    Debug.Log("The opponent refuses to trade in a card worth: " + selectedCard.GetComponent<Card>().cardValue);
+                    continue;
+				}
+
                 selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
                 gameHandler.DealCardsOpponent(1);
+                StartCoroutine(OpponentCardLogic());
+                yield break;
             }
         }
 
@@ -397,6 +418,48 @@ public class CardLogicHandler : MonoBehaviour
                         selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         break;
+                    case 5:
+                        gameHandler.DealCardsOpponent(1);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    case 6:
+                        gameHandler.DealCardsOpponent(1);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    case 7:
+                        gameHandler.DealCardsOpponent(1);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    case 8:
+                        gameHandler.DealCardsOpponent(1);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    case 9:
+                        if (gameHandler.opponent.currentHP > 0.80f * gameHandler.opponent.maxHP || gameHandler.player.currentHP < 0.25f * gameHandler.player.currentHP)
+						{
+                            continue;
+						}
+                        gameHandler.player.Heal(10);
+                        gameHandler.opponent.Heal(10);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        break;
+                    case 10:
+                        if (gameHandler.opponent.currentHP > 0.5f * gameHandler.opponent.maxHP || gameHandler.player.currentHP < 0.4f * gameHandler.player.currentHP)
+                        {
+                            continue;
+                        }
+                        gameHandler.player.Heal(10);
+                        gameHandler.opponent.Heal(10);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        break;
+                    case 11:
+                        gameHandler.player.Damage(20, DamageType.Fire);
+                        selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
+                        break;
                     default:
                         Debug.Log("Not implemented yet. Skipping...");
                         break;
@@ -418,16 +481,6 @@ public class CardLogicHandler : MonoBehaviour
                 GameObject attackingCard = null;
                 Card selectedCardComponent = selectedCard.GetComponent<Card>();
 
-                float f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
-                if (selectedCardComponent.cardValue >= 11 && Random.Range(0f, 1f) <= f)
-                {
-                    continue;
-                }
-
-                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
-                gameHandler.opponent.isAttacking = true;
-                gameHandler.opponent.spadesBeforeExhaustion--;
-
                 int value = -1;
                 if (gameHandler.opponent.cards == 0)
                 {
@@ -445,8 +498,19 @@ public class CardLogicHandler : MonoBehaviour
                     }
                 }
 
+                float f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
+                if (selectedCardComponent.cardValue >= 8 && Random.Range(0f, 1f) <= f
+                    || selectedCardComponent.cardValue >= attackingCard.GetComponent<Card>().cardValue
+                    || attackingCard.GetComponent<Card>().cardValue <= 9 && Random.Range(0f, 1f) <= f)
+                {
+                    continue;
+                }
+
+                selectedCard.transform.SetParent(gameHandler.PlayArea.transform, false);
                 attackingCard.transform.SetParent(gameHandler.PlayArea.transform, false);
                 attackingCard.GetComponent<Card>().ToggleCardVisibility();
+                gameHandler.opponent.spadesBeforeExhaustion--;
+                gameHandler.opponent.isAttacking = true;
                 gameHandler.player.isAttacked = true;
 
                 gameHandler.PlayerActionTooltip.text = "The opponent is attacking. Defend with a card.";
