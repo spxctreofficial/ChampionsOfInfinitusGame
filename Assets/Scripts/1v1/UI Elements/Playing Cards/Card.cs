@@ -24,7 +24,7 @@ public class Card : MonoBehaviour
     [HideInInspector]
     public void ToggleCardVisibility()
     {
-        /*image = GetComponent<Image>();
+        image = GetComponent<Image>();
         if (!this.isHidden)
         {
             this.isHidden = true;
@@ -35,6 +35,6 @@ public class Card : MonoBehaviour
         {
             this.isHidden = false;
             image.sprite = cardFront;
-        }*/
+        }
     }
 }

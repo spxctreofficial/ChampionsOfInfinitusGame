@@ -103,11 +103,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14328}
     - Class: 114
-      Script: {instanceID: 14554}
+      Script: {instanceID: 14552}
     - Class: 114
-      Script: {instanceID: 14872}
+      Script: {instanceID: 14870}
     - Class: 114
-      Script: {instanceID: 15072}
+      Script: {instanceID: 15070}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -141,6 +141,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
@@ -164,9 +166,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14312}
     - Class: 114
-      Script: {instanceID: 14664}
+      Script: {instanceID: 14662}
     - Class: 114
-      Script: {instanceID: 15072}
+      Script: {instanceID: 15070}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -396,7 +398,7 @@ ScriptsOnlyBuild:
     className: ChatWindow
   - hash:
       serializedVersion: 2
-      Hash: f8bddbaa5eb39d843d979df7d358a12c
+      Hash: cdc8d9c45a33eeab49254399a9af6058
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameHandler
@@ -1104,7 +1106,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 60e641b945dca9a71ecfc0dd1423d9e3
+      Hash: 2770277323596f4bf632a672aee0fad4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CardLogicHandler
@@ -1250,4 +1252,5 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/StartMenu.unity
   - Assets/Scenes/GameScene.unity
-  playerPath: E:/Unity Projects/Land Of Heroes (Reborn)/Build/Land Of Heroes (Reborn).exe
+  playerPath: E:/Unity Projects/Land Of Heroes (Reborn)/Build/Windows/x64/Land of
+    Heroes (Reborn).exe
