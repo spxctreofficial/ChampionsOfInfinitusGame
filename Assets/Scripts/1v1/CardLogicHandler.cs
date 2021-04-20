@@ -28,7 +28,7 @@ public class CardLogicHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
-            gameObject.transform.SetParent(opponentArea.transform, false);
+            gameObject.transform.SetParent(playerArea.transform, false);
         }
     }
 
@@ -453,6 +453,7 @@ public class CardLogicHandler : MonoBehaviour
 
                 for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
+                    gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
                     int value = 999;
                     int siblingIndex = 0;
                     for (int x = 0; x < gameHandler.opponent.cards; x++)
@@ -492,10 +493,11 @@ public class CardLogicHandler : MonoBehaviour
                 card.transform.SetParent(playArea.transform, false);
                 gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
 
-                yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+                yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
 
                 for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
+                    gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
                     int value = 999;
                     int siblingIndex = 0;
                     for (int x = 0; x < gameHandler.opponent.cards; x++)
@@ -560,10 +562,11 @@ public class CardLogicHandler : MonoBehaviour
                 card.transform.SetParent(playArea.transform, false);
                 gameHandler.endTurnButton.GetComponent<Button>().interactable = false;
 
-                yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+                yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
 
                 for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
+                    gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
                     int value = 666;
                     int siblingIndex = 0;
                     for (int x = 0; x < gameHandler.opponent.cards; x++)

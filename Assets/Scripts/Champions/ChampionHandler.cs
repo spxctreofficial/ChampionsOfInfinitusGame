@@ -53,7 +53,9 @@ public class ChampionHandler : MonoBehaviour
     {
         currentHP -= amount;
         if (currentHP < 0) currentHP = 0;
+
         GameHandler gameHandler = FindObjectOfType<GameHandler>();
+
         if (gameHandler.player.currentHP == 0)
 		{
             gameHandler.phase = GamePhase.GAMELOSE;
