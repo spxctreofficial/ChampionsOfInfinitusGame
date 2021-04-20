@@ -28,7 +28,7 @@ public class CardLogicHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
-            gameObject.transform.SetParent(playerArea.transform, false);
+            gameObject.transform.SetParent(opponentArea.transform, false);
         }
     }
 
@@ -212,10 +212,6 @@ public class CardLogicHandler : MonoBehaviour
                         break;
                 }
             }
-            if (gameHandler.opponent.diamondsBeforeExhaustion == 0)
-            {
-                break;
-            }
         }
 
         yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
@@ -237,6 +233,11 @@ public class CardLogicHandler : MonoBehaviour
                 {
                     for (int y = 0; y < gameHandler.opponent.cards; y++)
                     {
+                        if (gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardType == CardType.HEART && gameHandler.opponent.currentHP < 0.75f * gameHandler.opponent.maxHP)
+						{
+                            Debug.Log("The opponent refuses to use a HEART to represent an attack!");
+                            continue;
+						}
                         if (value < gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue)
                         {
                             attackingCard = gameHandler.opponentArea.transform.GetChild(y).gameObject;
@@ -266,17 +267,57 @@ public class CardLogicHandler : MonoBehaviour
 
                 yield break;
             }
-            if (gameHandler.opponent.spadesBeforeExhaustion == 0)
-            {
-                break;
-            }
         }
 
         yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
 
-        if (gameHandler.opponent.currentHP != gameHandler.opponent.maxHP)
+        if (gameHandler.opponent.currentHP < gameHandler.opponent.maxHP)
         {
-            Debug.Log("Not implemented yet. Skipping...");
+            for (int x = 0; x < gameHandler.opponent.cards; x++)
+            {
+                if (gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardType == CardType.HEART && gameHandler.opponent.heartsBeforeExhaustion != 0)
+                {
+                    GameObject selectedCard = gameHandler.opponentArea.transform.GetChild(x).gameObject;
+
+                    if (selectedCard.GetComponent<Card>().cardValue <= 6)
+                    {
+                        gameHandler.opponent.Heal(5);
+                        selectedCard.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.opponent.heartsBeforeExhaustion--;
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    }
+                    if (selectedCard.GetComponent<Card>().cardValue >= 7 && selectedCard.GetComponent<Card>().cardValue <= 9 && gameHandler.opponent.heartsBeforeExhaustion >= 2)
+                    {
+
+                        gameHandler.opponent.Heal(10);
+                        selectedCard.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.opponent.heartsBeforeExhaustion -= 2;
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    }
+                    if (selectedCard.GetComponent<Card>().cardValue >= 10 && selectedCard.GetComponent<Card>().cardValue <= 13 && gameHandler.opponent.heartsBeforeExhaustion >= 3)
+                    {
+                        gameHandler.opponent.Heal(20);
+                        selectedCard.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.opponent.heartsBeforeExhaustion -= 3;
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    }
+                    if (selectedCard.GetComponent<Card>().cardValue == 14 && gameHandler.opponent.heartsBeforeExhaustion == 3)
+                    {
+                        gameHandler.opponent.Heal(40);
+                        card.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.opponent.heartsBeforeExhaustion -= 3;
+                        StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    }
+                }
+            }
         }
 
         yield return new WaitForSeconds(Random.Range(0.2f, 1f));
@@ -397,7 +438,7 @@ public class CardLogicHandler : MonoBehaviour
             gameHandler.player.heartsBeforeExhaustion -= 2;
             card.transform.SetParent(playArea.transform, false);
         }
-        if (cardComponent.cardValue >= 10 && cardComponent.cardValue <= 13 && gameHandler.player.heartsBeforeExhaustion == 3)
+        if (cardComponent.cardValue >= 10 && cardComponent.cardValue <= 13 && gameHandler.player.heartsBeforeExhaustion >= 3)
         {
             gameHandler.player.Heal(20);
             gameHandler.player.heartsBeforeExhaustion -= 3;
@@ -567,7 +608,7 @@ public class CardLogicHandler : MonoBehaviour
                 for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
                     gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
-                    int value = 666;
+                    int value = 999;
                     int siblingIndex = 0;
                     for (int x = 0; x < gameHandler.opponent.cards; x++)
                     {
