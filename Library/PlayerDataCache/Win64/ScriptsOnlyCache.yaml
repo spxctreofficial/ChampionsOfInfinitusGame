@@ -12,11 +12,9 @@ ScriptsOnlyBuild:
     - StartMenu
     GitHub.Unity.45.dll:
     - GitHub.Unity.ApplicationCache
-    - GitHub.Unity.BranchesCache
     - GitHub.Unity.EnvironmentCache
     - GitHub.Unity.GitAheadBehindCache
     - GitHub.Unity.GitLocksCache
-    - GitHub.Unity.GitLogCache
     - GitHub.Unity.GitStatusCache
     - GitHub.Unity.GitUserCache
     - GitHub.Unity.RepositoryInfoCache
@@ -25,8 +23,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
-    - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:

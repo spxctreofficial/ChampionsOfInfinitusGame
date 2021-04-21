@@ -385,6 +385,8 @@ public class CardLogicHandler : MonoBehaviour
         {
             gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
         }
+        if (gameHandler.player.currentHP == 0 || gameHandler.opponent.currentHP == 0) return;
+
         Debug.Log("Player: " + gameHandler.player.currentHP);
         Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
         gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
