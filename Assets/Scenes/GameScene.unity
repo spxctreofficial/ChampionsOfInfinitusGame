@@ -1446,6 +1446,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519890524}
+    - target: {fileID: 5763257239596880627, guid: 248e6b36b1a1c6a47b8f150a2f4e218c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSkipButtonClick
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248e6b36b1a1c6a47b8f150a2f4e218c, type: 3}
 --- !u!1001 &1462549655056366222
@@ -2006,6 +2011,12 @@ PrefabInstance:
       propertyPath: opponentArea
       value: 
       objectReference: {fileID: 4941011981944754992}
+    - target: {fileID: 9199065240357749513, guid: b8eebb8394b223f41861661c460a2691,
+        type: 3}
+      propertyPath: summonObject
+      value: 
+      objectReference: {fileID: 3477009149478043703, guid: 7c8696ecab3342a41af45e71d1f18008,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8eebb8394b223f41861661c460a2691, type: 3}
 --- !u!1 &4941011981944754992 stripped
