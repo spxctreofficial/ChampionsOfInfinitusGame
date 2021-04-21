@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public enum CardType { SPADE, HEART, CLUB, DIAMOND };
 public class Card : MonoBehaviour

@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\1v1\CardLogicHandler.cs" />
     <Compile Include="Assets\Scripts\1v1\GameHandler.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\CardHoverAnimation.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\ChooseChampion.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\DrawCards.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\PlayerAbilityStatus.cs" />

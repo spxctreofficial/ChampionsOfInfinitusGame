@@ -48,5 +48,5 @@ MonoBehaviour:
   playerArea: {fileID: 0}
   opponentArea: {fileID: 0}
   playArea: {fileID: 0}
-  summonObject: {fileID: 2907870641525700353, guid: 542a9e2f2e8a9b34dab7817f61fa40c2,
+  summonObject: {fileID: 6538825376666039054, guid: d49f0a48dfc1a484a90980c589dc8795,
     type: 3}

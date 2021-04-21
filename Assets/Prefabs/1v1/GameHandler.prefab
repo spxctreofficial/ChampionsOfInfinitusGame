@@ -46,6 +46,7 @@ MonoBehaviour:
   phase: 0
   cardIndex: {fileID: 0}
   cardLogicHandler: {fileID: 0}
+  championIndex: {fileID: 0}
   startCanvas: {fileID: 0}
   gameCanvas: {fileID: 0}
   firstTurnCanvas: {fileID: 0}
@@ -56,11 +57,18 @@ MonoBehaviour:
     type: 3}
   healthDisplayTextPrefab: {fileID: 1312501885973302, guid: c51b152d7578b464abc6bbf96a5af9d5,
     type: 3}
+  playerAbilityStatusPrefab: {fileID: 8124432417858830897, guid: e499418d949995e478b7c475ce0af3c5,
+    type: 3}
   playerArea: {fileID: 0}
   opponentArea: {fileID: 0}
   playArea: {fileID: 0}
   playerActionTooltip: {fileID: 0}
   endTurnButton: {fileID: 0}
   gambleButton: {fileID: 0}
+  skipButton: {fileID: 0}
   player: {fileID: 0}
   opponent: {fileID: 0}
+  playerAbilityStatus1: {fileID: 0}
+  playerAbilityStatus2: {fileID: 0}
+  playerAbilityStatus3: {fileID: 0}
+  playerAbilityStatus4: {fileID: 0}
