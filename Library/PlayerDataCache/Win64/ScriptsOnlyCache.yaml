@@ -2,13 +2,16 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Card
+    - CardHoverAnimation
     - CardIndex
     - CardLogicHandler
     - Champion
     - ChampionHandler
+    - ChampionIndex
     - ChooseChampion
     - DrawCards
     - GameHandler
+    - PlayerAbilityStatus
     - StartMenu
     - WinLoseMenu
     GitHub.Unity.45.dll:
@@ -30,6 +33,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
+    - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
@@ -75,39 +79,45 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11314}
-    - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11318}
     - Class: 114
       Script: {instanceID: 11320}
     - Class: 114
-      Script: {instanceID: 11322}
-    - Class: 114
       Script: {instanceID: 11324}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11326}
     - Class: 114
-      Script: {instanceID: 11894}
+      Script: {instanceID: 11328}
     - Class: 114
-      Script: {instanceID: 12328}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 11898}
     - Class: 114
-      Script: {instanceID: 13364}
+      Script: {instanceID: 12332}
     - Class: 114
-      Script: {instanceID: 13614}
+      Script: {instanceID: 12536}
     - Class: 114
-      Script: {instanceID: 14312}
+      Script: {instanceID: 13370}
     - Class: 114
-      Script: {instanceID: 14318}
+      Script: {instanceID: 13620}
     - Class: 114
-      Script: {instanceID: 14328}
+      Script: {instanceID: 13974}
     - Class: 114
-      Script: {instanceID: 14552}
+      Script: {instanceID: 14320}
     - Class: 114
-      Script: {instanceID: 14870}
+      Script: {instanceID: 14326}
     - Class: 114
-      Script: {instanceID: 15070}
+      Script: {instanceID: 14336}
+    - Class: 114
+      Script: {instanceID: 14560}
+    - Class: 114
+      Script: {instanceID: 14566}
+    - Class: 114
+      Script: {instanceID: 14880}
+    - Class: 114
+      Script: {instanceID: 15080}
+    - Class: 114
+      Script: {instanceID: 28252}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -142,21 +152,21 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11314}
-    - Class: 114
-      Script: {instanceID: 11320}
+      Script: {instanceID: 11318}
     - Class: 114
       Script: {instanceID: 11324}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11328}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 14312}
+      Script: {instanceID: 12408}
     - Class: 114
-      Script: {instanceID: 15070}
+      Script: {instanceID: 12536}
     - Class: 114
-      Script: {instanceID: 26706}
+      Script: {instanceID: 14320}
+    - Class: 114
+      Script: {instanceID: 15080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -195,29 +205,29 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11314}
-    - Class: 114
-      Script: {instanceID: 11320}
+      Script: {instanceID: 11318}
     - Class: 114
       Script: {instanceID: 11324}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11328}
     - Class: 114
-      Script: {instanceID: 11438}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 12590}
+      Script: {instanceID: 12536}
     - Class: 114
-      Script: {instanceID: 13826}
+      Script: {instanceID: 12596}
     - Class: 114
-      Script: {instanceID: 13844}
+      Script: {instanceID: 13832}
     - Class: 114
-      Script: {instanceID: 14312}
+      Script: {instanceID: 13850}
     - Class: 114
-      Script: {instanceID: 14662}
+      Script: {instanceID: 14320}
     - Class: 114
-      Script: {instanceID: 15070}
+      Script: {instanceID: 14672}
+    - Class: 114
+      Script: {instanceID: 15080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -252,21 +262,21 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11314}
-    - Class: 114
-      Script: {instanceID: 11320}
+      Script: {instanceID: 11318}
     - Class: 114
       Script: {instanceID: 11324}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11328}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 14312}
+      Script: {instanceID: 12408}
     - Class: 114
-      Script: {instanceID: 15070}
+      Script: {instanceID: 12536}
     - Class: 114
-      Script: {instanceID: 26706}
+      Script: {instanceID: 14320}
+    - Class: 114
+      Script: {instanceID: 15080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -496,7 +506,7 @@ ScriptsOnlyBuild:
     className: ChatWindow
   - hash:
       serializedVersion: 2
-      Hash: 5ef967bbc80ec843373d01de7cc2bee2
+      Hash: 54cb84e1ae7c509203f3b2db018c223e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameHandler
@@ -638,6 +648,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.Cloud.Pong.dll
     namespaceName: Mirror.Cloud.Examples.Pong
     className: Player
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: WinLoseMenu
   - hash:
       serializedVersion: 2
       Hash: e35fcf041b759cbf8e4b5ffb1fb29bf2
@@ -904,7 +920,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 361ad0e358d2ce67ed20edb8bb391a5b
+      Hash: 2e871371ebb0c3604bd0179bc0722d5b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CardIndex
@@ -1036,6 +1052,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 6089823f74f31e9cd7d893c7cdb023ea
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ChampionIndex
+  - hash:
+      serializedVersion: 2
       Hash: ce58790f4b80db4732075fa2fb5e1bf9
     assemblyName: Mirror.Examples.Cloud.GUI.dll
     namespaceName: Mirror.Cloud.Example
@@ -1096,7 +1118,7 @@ ScriptsOnlyBuild:
     className: Card
   - hash:
       serializedVersion: 2
-      Hash: 95e5466bf9c4e3810bd0a874ec2dc956
+      Hash: 71df7a0fefe9e348225ac98c519c3e39
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChampionHandler
@@ -1148,6 +1170,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Champion
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerAbilityStatus
   - hash:
       serializedVersion: 2
       Hash: d17a27985b6bda14fc0afc8d39fb0b63
@@ -1351,7 +1379,7 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: WinLoseMenu
+    className: CardHoverAnimation
   platform: 19
   scenePathNames:
   - Assets/Scenes/StartMenu.unity

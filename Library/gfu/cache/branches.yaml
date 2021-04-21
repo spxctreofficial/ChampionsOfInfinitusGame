@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 2
-  lastUpdatedAtString: 2021-04-21T19:10:16.015-04:00
+  lastUpdatedAtString: 2021-04-21T19:12:49.461-04:00
   initializedAtString: 2021-04-21T16:34:29.012-04:00
-  localBranches: []
-  remoteBranches: []
+  localBranches:
+  - name: gameplay
+    tracking: 
+  remoteBranches:
+  - name: origin/gameplay
+    tracking: '[None]'
   remotes:
   - name: origin
     url: https://github.com/spxctreofficial/Land-Of-Heroes-Reborn-.git
@@ -26,15 +30,27 @@ MonoBehaviour:
     function: 0
     token: 
   localConfigBranches:
-    keys: []
-    values: []
+    keys:
+    - gameplay
+    values:
+    - name: gameplay
+      remote:
+        name: 
+        url: 
+      trackingBranch: 
   remoteConfigBranches:
     keys:
     - origin
     subKeys:
-    - Values: []
+    - Values:
+      - gameplay
     subKeyValues:
-    - Values: []
+    - Values:
+      - name: gameplay
+        remote:
+          name: origin
+          url: https://github.com/spxctreofficial/Land-Of-Heroes-Reborn-.git
+        trackingBranch: 
   configRemotes:
     keys:
     - origin
