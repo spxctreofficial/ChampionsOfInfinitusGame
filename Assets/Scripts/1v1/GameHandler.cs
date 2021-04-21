@@ -196,13 +196,13 @@ public class GameHandler : MonoBehaviour
 				playerActionTooltip.text = "Congratulations! You win.";
 
                 yield return new WaitForSeconds(3f);
-                SceneManager.LoadScene("StartMenu");
+                SceneManager.LoadScene("WinScene");
                 break;
             case GamePhase.GAMELOSE:
                 playerActionTooltip.text = "You lost!";
 
                 yield return new WaitForSeconds(3f);
-                SceneManager.LoadScene("StartMenu");
+                SceneManager.LoadScene("LoseScene");
                 break;
 		}
 	}

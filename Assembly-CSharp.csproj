@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\1v1\UI Elements\Playing Cards\Card.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\Playing Cards\CardIndex.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\StartMenu.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\WinLoseMenu.cs" />
     <Compile Include="Assets\Scripts\Champions\Champion.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionHandler.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
