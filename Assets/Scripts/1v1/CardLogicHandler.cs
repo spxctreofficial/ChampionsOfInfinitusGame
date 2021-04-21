@@ -223,6 +223,21 @@ public class CardLogicHandler : MonoBehaviour
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
                         yield break;
+                    case 12:
+                        if (gameHandler.player.cards == 0)
+                        {
+                            gameHandler.player.Damage(40, DamageType.Fire);
+                            Debug.Log("Player has no cards! Dealing damage automatically.");
+                            StartCoroutine(OpponentCardLogic());
+                            yield break;
+                        }
+                        gameHandler.player.discardAmount = 4;
+                        selectedCard.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.playerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                        gameHandler.skipButton.SetActive(true);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
+                        yield break;
                     default:
                         Debug.Log("Not implemented yet. Skipping...");
                         break;
@@ -241,9 +256,10 @@ public class CardLogicHandler : MonoBehaviour
                 Card selectedCardComponent = selectedCard.GetComponent<Card>();
 
                 int value = -1;
-                if (gameHandler.opponent.cards == 0)
+                if (gameHandler.opponent.cards == 0 || gameHandler.player.cards == 0 && Random.Range(0f, 1f) <= 0.75f)
                 {
                     attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+                    attackingCard.GetComponent<Card>().ToggleCardVisibility();
                 }
                 else
                 {
@@ -690,6 +706,8 @@ public class CardLogicHandler : MonoBehaviour
             case "Forced":
                 card.transform.SetParent(playArea.transform, false);
                 gameHandler.player.discardAmount--;
+                gameHandler.player.cards = gameHandler.playerArea.transform.childCount;
+                gameHandler.skipButton.SetActive(false);
                 if (gameHandler.player.cards == 0)
 				{
                     gameHandler.player.discardAmount = 0;

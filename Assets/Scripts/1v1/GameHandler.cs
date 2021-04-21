@@ -246,8 +246,15 @@ public class GameHandler : MonoBehaviour
             case GamePhase.OPPONENTACTIONPHASE:
                 if (player.discardAmount >= 2)
 				{
+                    if (player.discardAmount >= 4)
+					{
+                        player.Damage(40, DamageType.Fire);
+					}
+                    else
+					{
+                        player.Damage(20, DamageType.Unblockable);
+                    }
                     player.discardAmount = 0;
-                    player.Damage(20, DamageType.Unblockable);
                     playerActionTooltip.text = "It is the opponent's Action Phase.";
                     StartCoroutine(cardLogicHandler.OpponentCardLogic());
                 }
