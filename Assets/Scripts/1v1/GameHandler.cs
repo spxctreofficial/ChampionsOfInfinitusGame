@@ -12,6 +12,7 @@ public class GameHandler : MonoBehaviour
     public GamePhase phase;
     public CardIndex cardIndex;
     public CardLogicHandler cardLogicHandler;
+    public ChampionIndex championIndex;
 
     public GameObject startCanvas;
     public GameObject gameCanvas;
@@ -21,6 +22,7 @@ public class GameHandler : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
     public GameObject healthDisplayTextPrefab;
+    public GameObject playerAbilityStatusPrefab;
     public GameObject playerArea;
     public GameObject opponentArea;
     public GameObject playArea;
@@ -36,6 +38,14 @@ public class GameHandler : MonoBehaviour
     public ChampionHandler opponent;
     Text playerHealthText;
     Text opponentHealthText;
+    [HideInInspector]
+    public Text playerAbilityStatus1;
+    [HideInInspector]
+    public Text playerAbilityStatus2;
+    [HideInInspector]
+    public Text playerAbilityStatus3;
+    [HideInInspector]
+    public Text playerAbilityStatus4;
     #endregion
 
     #region Default Functions
@@ -50,6 +60,8 @@ public class GameHandler : MonoBehaviour
         {
             player.cards = playerArea.transform.childCount;
             opponent.cards = opponentArea.transform.childCount;
+
+            PlayerAbilityCheck();
 
             playerHealthText.text = player.currentHP.ToString();
             opponentHealthText.text = opponent.currentHP.ToString();
@@ -88,6 +100,36 @@ public class GameHandler : MonoBehaviour
         playerHealthText = playerHealthTextGO.GetComponent<Text>();
         Debug.Log("Player: " + player.currentHP);
         Debug.Log("Cards: " + playerArea.transform.childCount);
+
+		switch (player.championName)
+        {
+			case "The Wraith King":
+                player.cards = playerArea.transform.childCount;
+                for (int i = 0; i < player.cards; i++)
+				{
+                    GameObject selectedCard = playerArea.transform.GetChild(i).gameObject;
+                    if (selectedCard.GetComponent<Card>().cardType == CardType.CLUB)
+					{
+                        player.clubs++;
+                    }
+				}
+                Debug.Log(player.clubs);
+
+                GameObject DeathCrownAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -150), Quaternion.identity);
+                GameObject DeathMistAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -110), Quaternion.identity);
+                GameObject playerAbilityStatusGO3 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -70), Quaternion.identity);
+				GameObject playerAbilityStatusGO4 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -30), Quaternion.identity);
+                DeathCrownAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
+                DeathMistAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
+                playerAbilityStatusGO3.transform.SetParent(gameCanvas.transform, false);
+                playerAbilityStatusGO4.transform.SetParent(gameCanvas.transform, false);
+                playerAbilityStatus1 = DeathCrownAbilityStatusGO.GetComponent<Text>();
+                playerAbilityStatus2 = DeathMistAbilityStatusGO.GetComponent<Text>();
+                playerAbilityStatus3 = playerAbilityStatusGO3.GetComponent<Text>();
+                playerAbilityStatus4 = playerAbilityStatusGO4.GetComponent<Text>();
+                break;
+        }
+
 
         GameObject opponentGO = Instantiate(opponentPrefab, new Vector2(866, 139), Quaternion.identity);
         GameObject opponentHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
@@ -211,6 +253,44 @@ public class GameHandler : MonoBehaviour
 
     #region Other Callable Functions
     [HideInInspector]
+    private void PlayerAbilityCheck()
+	{
+        switch (player.championName)
+        {
+            case "The Wraith King":
+                if (!player.isDeathCrownReady)
+                {
+                    int count = 0;
+                    for (int i = 0; i < player.cards; i++)
+                    {
+                        GameObject selectedCard = playerArea.transform.GetChild(i).gameObject;
+                        if (selectedCard.GetComponent<Card>().cardType == CardType.CLUB)
+                        {
+                            count++;
+                        }
+                    }
+                    player.clubs = count;
+                }
+
+                if (player.clubs >= 3)
+                {
+                    player.isDeathCrownReady = true;
+                    Debug.Log(player.isDeathCrownReady);
+
+                    if (playerAbilityStatus1.text != "Death Crown - UP")
+					{
+                        playerAbilityStatus1.text = "Death Crown - UP";
+					}
+                }
+                else
+                {
+                    player.isDeathCrownReady = false;
+                    playerAbilityStatus1.text = "";
+                }
+                break;
+        }
+    }
+    [HideInInspector]
     public void OnEndTurnButtonClick()
     {
         endTurnButton.SetActive(false);
@@ -243,21 +323,40 @@ public class GameHandler : MonoBehaviour
         skipButton.SetActive(false);
         switch (phase)
 		{
+            case GamePhase.PLAYERACTIONPHASE:
+                switch (player.championName)
+                {
+                    case "The Wraith King":
+                        playerActionTooltip.text = "It is the player's Action Phase.";
+                        skipButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
+                        player.UndeadTurning(this, opponent);
+                        break;
+                }
+                break;
             case GamePhase.OPPONENTACTIONPHASE:
                 if (player.discardAmount >= 2)
 				{
                     if (player.discardAmount >= 4)
 					{
-                        player.Damage(40, DamageType.Fire);
+                        player.Damage(40, DamageType.Fire, opponent);
 					}
                     else
 					{
-                        player.Damage(20, DamageType.Unblockable);
+                        player.Damage(20, DamageType.Unblockable, opponent);
                     }
                     player.discardAmount = 0;
                     playerActionTooltip.text = "It is the opponent's Action Phase.";
                     StartCoroutine(cardLogicHandler.OpponentCardLogic());
+                    break;
                 }
+
+                switch (player.championName)
+				{
+                    case "The Wraith King":
+                        playerActionTooltip.text = "It is the opponent's Action Phase.";
+                        StartCoroutine(cardLogicHandler.OpponentCardLogic());
+                        break;
+				}
                 break;
 		}
 	}

@@ -11,6 +11,6 @@ public class WinLoseMenu : MonoBehaviour
     }
     public void MainMenuButtonClick()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("StartMenu");
     }
 }

@@ -28,7 +28,7 @@ public class CardLogicHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
-            gameObject.transform.SetParent(opponentArea.transform, false);
+            gameObject.transform.SetParent(playerArea.transform, false);
         }
     }
 
@@ -46,6 +46,17 @@ public class CardLogicHandler : MonoBehaviour
                 case GamePhase.PLAYERACTIONPHASE:
                     if (gameHandler.player.isAttacking)
                     {
+                        switch (gameHandler.player.championName)
+						{
+                            case "The Wraith King":
+                                if (gameHandler.player.isUndeadTurningReady)
+								{
+                                    this.card.transform.SetParent(playArea.transform, false);
+                                    gameHandler.player.undeadTurningMultiplier++;
+                                    yield break;
+								}
+                                break;
+						}
                         StartCoroutine(AttackCalc(card));
                     }
                     else
@@ -85,6 +96,15 @@ public class CardLogicHandler : MonoBehaviour
                         DefenseCalc(card);
                         break;
                     }
+
+					switch (gameHandler.player.championName)
+					{
+                        case "The Wraith King":
+                            gameHandler.player.DeathMist(gameHandler, this.card);
+                            gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";
+                            StartCoroutine(OpponentCardLogic());
+                            break;
+					}
                     break;
                 default:
                     Debug.Log("It's not the player's turn!");
@@ -116,6 +136,17 @@ public class CardLogicHandler : MonoBehaviour
                 selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                 selectedCard.GetComponent<Card>().ToggleCardVisibility();
                 gameHandler.DealCardsOpponent(1);
+
+                switch (gameHandler.player.championName)
+				{
+                    case "The Wraith King":
+                        gameHandler.player.isDeathMistReady = true;
+                        gameHandler.playerActionTooltip.text = "Death Mist is ready. Choose a card.";
+                        gameHandler.playerAbilityStatus2.text = "Death Mist - UP";
+                        gameHandler.skipButton.SetActive(true);
+                        yield break;
+				}
+
                 StartCoroutine(OpponentCardLogic());
                 yield break;
             }
@@ -159,7 +190,7 @@ public class CardLogicHandler : MonoBehaviour
                     case 4:
                         if (gameHandler.player.cards == 0)
 						{
-                            gameHandler.player.Damage(20, DamageType.Unblockable);
+                            gameHandler.player.Damage(20, DamageType.Unblockable, gameHandler.player);
                             Debug.Log("Player has no cards! Dealing damage automatically.");
                             StartCoroutine(OpponentCardLogic());
                             yield break;
@@ -218,7 +249,7 @@ public class CardLogicHandler : MonoBehaviour
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 11:
-                        gameHandler.player.Damage(20, DamageType.Fire);
+                        gameHandler.player.Damage(20, DamageType.Fire, gameHandler.opponent);
                         selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         StartCoroutine(OpponentCardLogic());
@@ -226,7 +257,7 @@ public class CardLogicHandler : MonoBehaviour
                     case 12:
                         if (gameHandler.player.cards == 0)
                         {
-                            gameHandler.player.Damage(40, DamageType.Fire);
+                            gameHandler.player.Damage(40, DamageType.Fire, gameHandler.opponent);
                             Debug.Log("Player has no cards! Dealing damage automatically.");
                             StartCoroutine(OpponentCardLogic());
                             yield break;
@@ -413,12 +444,27 @@ public class CardLogicHandler : MonoBehaviour
 
         if (attackingCard.GetComponent<Card>().cardValue > opponentCard.GetComponent<Card>().cardValue)
         {
-            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
+            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType, gameHandler.player);
+
+            switch (gameHandler.player.championName)
+            {
+                case "The Wraith King":
+                    if (attackingCard.GetComponent<Card>().cardType == CardType.CLUB)
+                    {
+                        gameHandler.player.isUndeadTurningReady = true;
+                        gameHandler.playerActionTooltip.text = "Undead Turning is ready. Select CLUBS to amplify attack.";
+                        gameHandler.skipButton.SetActive(true);
+                        gameHandler.skipButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
+                        yield break;
+                    }
+                    break;
+            }
         }
         else if (attackingCard.GetComponent<Card>().cardValue < opponentCard.GetComponent<Card>().cardValue)
         {
-            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
+            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType, gameHandler.opponent);
         }
+
         Debug.Log("Player: " + gameHandler.player.currentHP);
         Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
 
@@ -437,11 +483,11 @@ public class CardLogicHandler : MonoBehaviour
 
         if (defendingCard.GetComponent<Card>().cardValue > attackingCard.GetComponent<Card>().cardValue)
         {
-            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType);
+            gameHandler.opponent.Damage(gameHandler.player.attackDamage, gameHandler.player.damageType, gameHandler.player);
         }
         else if (defendingCard.GetComponent<Card>().cardValue < attackingCard.GetComponent<Card>().cardValue)
         {
-            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType);
+            gameHandler.player.Damage(gameHandler.opponent.attackDamage, gameHandler.opponent.damageType, gameHandler.opponent);
         }
         if (gameHandler.player.currentHP == 0 || gameHandler.opponent.currentHP == 0) return;
 
@@ -585,7 +631,7 @@ public class CardLogicHandler : MonoBehaviour
 
                     yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-                    gameHandler.opponent.Damage(20, DamageType.Unblockable);
+                    gameHandler.opponent.Damage(20, DamageType.Unblockable, gameHandler.player);
                     gameHandler.player.diamondsBeforeExhaustion--;
                     break;
                 }
@@ -643,7 +689,7 @@ public class CardLogicHandler : MonoBehaviour
                 card.transform.SetParent(playArea.transform, false);
                 break;
             case 11:
-                gameHandler.opponent.Damage(20, DamageType.Fire);
+                gameHandler.opponent.Damage(20, DamageType.Fire, gameHandler.player);
                 card.transform.SetParent(playArea.transform, false);
                 break;
             case 12:
@@ -654,7 +700,7 @@ public class CardLogicHandler : MonoBehaviour
 
                     yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-                    gameHandler.opponent.Damage(40, DamageType.Fire);
+                    gameHandler.opponent.Damage(40, DamageType.Fire, gameHandler.player);
                     gameHandler.player.diamondsBeforeExhaustion--;
                     break;
                 }

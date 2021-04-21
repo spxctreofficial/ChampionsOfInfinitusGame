@@ -51,6 +51,8 @@ public class CardIndex : MonoBehaviour
     public GameObject ThreeOfClubs;
     public GameObject TwoOfClubs;
 
+    public GameObject ClubToken;
+
     // DIAMONDS
     public GameObject AceOfDiamonds;
     public GameObject KingOfDiamonds;

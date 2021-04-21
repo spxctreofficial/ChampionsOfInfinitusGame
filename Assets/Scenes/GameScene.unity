@@ -2015,7 +2015,7 @@ PrefabInstance:
         type: 3}
       propertyPath: summonObject
       value: 
-      objectReference: {fileID: 3477009149478043703, guid: 7c8696ecab3342a41af45e71d1f18008,
+      objectReference: {fileID: 6538825376666039054, guid: d49f0a48dfc1a484a90980c589dc8795,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8eebb8394b223f41861661c460a2691, type: 3}
@@ -2390,6 +2390,12 @@ PrefabInstance:
       objectReference: {fileID: 4941011981944754992}
     - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
         type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 5647413089059783621, guid: 812f5cd6edf7a3b4699fa99541a3a4f9,
+        type: 3}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
       propertyPath: endTurnButton
       value: 
       objectReference: {fileID: 512776265}
@@ -2413,6 +2419,12 @@ PrefabInstance:
       propertyPath: playerActionTooltip
       value: 
       objectReference: {fileID: 1268355900}
+    - target: {fileID: 5889533944474125839, guid: 8f34e685b53eea243bed0e54372a9089,
+        type: 3}
+      propertyPath: playerAbilityStatusPrefab
+      value: 
+      objectReference: {fileID: 8124432417858830897, guid: e499418d949995e478b7c475ce0af3c5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f34e685b53eea243bed0e54372a9089, type: 3}
 --- !u!1001 &6384007358850145680

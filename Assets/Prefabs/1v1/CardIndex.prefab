@@ -122,6 +122,8 @@ MonoBehaviour:
     type: 3}
   TwoOfClubs: {fileID: 4947735208680391520, guid: c426a7ece85d10047926dcaa9ee8d019,
     type: 3}
+  ClubToken: {fileID: 235601047450549964, guid: 2fb873c8d15a1034a8370821694bd6fa,
+    type: 3}
   AceOfDiamonds: {fileID: 2484265156037721842, guid: aa9613f2ee96f0c4e8a872f3f53a69bc,
     type: 3}
   KingOfDiamonds: {fileID: 3477009149478043703, guid: 7c8696ecab3342a41af45e71d1f18008,
