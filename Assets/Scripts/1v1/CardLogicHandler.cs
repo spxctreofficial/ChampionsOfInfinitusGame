@@ -147,6 +147,7 @@ public class CardLogicHandler : MonoBehaviour
                             gameHandler.opponent.diamondsBeforeExhaustion--;
                             yield break;
                         }
+                        Debug.Log("Player has no cards! Cannot use this card.");
                         break;
                     case 3:
                         gameHandler.DealCards(4);
@@ -154,6 +155,21 @@ public class CardLogicHandler : MonoBehaviour
                         selectedCard.GetComponent<Card>().ToggleCardVisibility();
                         gameHandler.opponent.diamondsBeforeExhaustion--;
                         StartCoroutine(OpponentCardLogic());
+                        yield break;
+                    case 4:
+                        if (gameHandler.player.cards == 0)
+						{
+                            gameHandler.player.Damage(20, DamageType.Unblockable);
+                            Debug.Log("Player has no cards! Dealing damage automatically.");
+                            StartCoroutine(OpponentCardLogic());
+                            yield break;
+						}
+                        gameHandler.player.discardAmount = 2;
+                        selectedCard.transform.SetParent(playArea.transform, false);
+                        selectedCard.GetComponent<Card>().ToggleCardVisibility();
+                        gameHandler.playerActionTooltip.text = "Please discard " + gameHandler.player.discardAmount + ".";
+                        gameHandler.skipButton.SetActive(true);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
                         yield break;
                     case 5:
                         gameHandler.DealCardsOpponent(1);
@@ -240,6 +256,13 @@ public class CardLogicHandler : MonoBehaviour
 						}
                         if (value < gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue)
                         {
+                            if (gameHandler.opponent.currentHP >= 0.5f * gameHandler.opponent.maxHP
+                                && gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue >= 12
+                                && Random.Range(0f, 1f) <= 0.75f)
+							{
+                                Debug.Log("The opponent is confident! They refuse to use a value of " + gameHandler.opponentArea.transform.GetChild(y).gameObject.GetComponent<Card>().cardValue + " to attack!");
+                                continue;
+							}
                             attackingCard = gameHandler.opponentArea.transform.GetChild(y).gameObject;
                             value = attackingCard.GetComponent<Card>().cardValue;
                         }
@@ -251,7 +274,18 @@ public class CardLogicHandler : MonoBehaviour
                     || selectedCardComponent.cardValue >= attackingCard.GetComponent<Card>().cardValue
                     || attackingCard.GetComponent<Card>().cardValue <= 9 && Random.Range(0f, 1f) <= f)
                 {
-                    continue;
+                    if (gameHandler.opponent.cards <= 3)
+					{
+                        if (gameHandler.opponent.cards != 1 && Random.Range(0f, 1f) >= f)
+						{
+                            Debug.Log("The opponent does not want to attack! Reason: Less than three cards.");
+						}
+					}
+                    else
+					{
+                        Debug.Log("The opponent does not want to attack!");
+                        continue;
+                    }
                 }
 
                 selectedCard.transform.SetParent(gameHandler.playArea.transform, false);
@@ -337,6 +371,13 @@ public class CardLogicHandler : MonoBehaviour
         {
             if (value < gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
             {
+                if (gameHandler.opponent.currentHP >= 0.5f * gameHandler.opponent.maxHP
+                                && gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue >= 12
+                                && Random.Range(0f, 1f) <= 0.75f)
+                {
+                    Debug.Log("The opponent is confident! They refuse to use a value of " + gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue + " to defend!");
+                    continue;
+                }
                 value = gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
                 siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
             }
@@ -352,6 +393,7 @@ public class CardLogicHandler : MonoBehaviour
 
         opponentCard.transform.SetParent(playArea.transform, false);
         attackingCard.GetComponent<Card>().ToggleCardVisibility();
+        opponentCard.GetComponent<Card>().ToggleCardVisibility();
 
         if (attackingCard.GetComponent<Card>().cardValue > opponentCard.GetComponent<Card>().cardValue)
         {
@@ -648,6 +690,10 @@ public class CardLogicHandler : MonoBehaviour
             case "Forced":
                 card.transform.SetParent(playArea.transform, false);
                 gameHandler.player.discardAmount--;
+                if (gameHandler.player.cards == 0)
+				{
+                    gameHandler.player.discardAmount = 0;
+                }
                 if (gameHandler.player.discardAmount == 0)
                 {
                     gameHandler.playerActionTooltip.text = "It is the opponent's Action Phase.";

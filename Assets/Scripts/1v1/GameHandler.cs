@@ -28,6 +28,7 @@ public class GameHandler : MonoBehaviour
     public Text playerActionTooltip;
     public GameObject endTurnButton;
     public GameObject gambleButton;
+    public GameObject skipButton;
 
     [HideInInspector]
     public ChampionHandler player;
@@ -235,6 +236,23 @@ public class GameHandler : MonoBehaviour
                 break;
 		}
 
+	}
+    [HideInInspector]
+    public void OnSkipButtonClick()
+	{
+        skipButton.SetActive(false);
+        switch (phase)
+		{
+            case GamePhase.OPPONENTACTIONPHASE:
+                if (player.discardAmount >= 2)
+				{
+                    player.discardAmount = 0;
+                    player.Damage(20, DamageType.Unblockable);
+                    playerActionTooltip.text = "It is the opponent's Action Phase.";
+                    StartCoroutine(cardLogicHandler.OpponentCardLogic());
+                }
+                break;
+		}
 	}
     [HideInInspector]
     public void EnlargeChampionDashboard()
