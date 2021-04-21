@@ -75,7 +75,6 @@ public class ChampionHandler : MonoBehaviour
     }
     public void EnlargeChampionDashboard()
     {
-        GameHandler gameHandler = FindObjectOfType<GameHandler>();
-        gameHandler.EnlargeChampionDashboard();
+        FindObjectOfType<GameHandler>().EnlargeChampionDashboard(championImage);
     }
 }

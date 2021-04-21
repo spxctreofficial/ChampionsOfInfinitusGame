@@ -262,17 +262,18 @@ public class GameHandler : MonoBehaviour
 		}
 	}
     [HideInInspector]
-    public void EnlargeChampionDashboard()
+    public void EnlargeChampionDashboard(Sprite sprite)
     {
-        Image image = player.GetComponent<Image>();
         championDashboard.SetActive(true);
+        gameCanvas.SetActive(false);
         Image championImage = championDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
-        championImage.sprite = image.sprite;
+        championImage.sprite = sprite;
     }
     [HideInInspector]
     public void CloseChampionDashboard()
     {
         championDashboard.SetActive(false);
+        gameCanvas.SetActive(true);
     }
     public void DealCardsPlayer(int cards)
     {
