@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EZCameraShake;
 
 public class ChampionHandler : MonoBehaviour
 {
@@ -34,15 +35,11 @@ public class ChampionHandler : MonoBehaviour
     public int clubs, undeadTurningMultiplier;
     [HideInInspector]
     public bool isDeathCrownReady, isDeathMistReady, isUndeadTurningReady;
-    #endregion
+	#endregion
 
-    #endregion
+	#endregion
 
-    private void Update()
-    {
-    }
-
-    public void ChampionSetup()
+	public void ChampionSetup()
     {
 		#region Default
 		championName = champion.championName;
@@ -79,19 +76,42 @@ public class ChampionHandler : MonoBehaviour
 
 	#region Default Champion Functions
 	[HideInInspector]
-    public void Damage(int amount, DamageType damageType, ChampionHandler source)
+    public void Damage(int amount, DamageType damageType, ChampionHandler source, float shakeMagnitude = 5f)
     {
         GameHandler gameHandler = FindObjectOfType<GameHandler>();
 
         switch (source.championName)
 		{
             case "The Wraith King":
-                if (damageType == DamageType.Melee) amount += source.DeathCrown();
+                if (damageType == DamageType.Melee && isDeathCrownReady)
+                {
+                    amount += source.DeathCrown();
+                }
                 break;
 		}
 
         currentHP -= amount;
         if (currentHP < 0) currentHP = 0;
+
+        switch (damageType)
+		{
+            case DamageType.Melee:
+                shakeMagnitude = 20f;
+                break;
+            case DamageType.Ranged:
+                shakeMagnitude = 10f;
+                break;
+            case DamageType.Fire:
+                shakeMagnitude = 8f;
+                break;
+            case DamageType.Lightning:
+                shakeMagnitude = 15f;
+                break;
+            default:
+                break;
+
+		}
+        StartCoroutine(ShakeImageViolent(0.2f, shakeMagnitude));
 
         if (gameHandler.player.currentHP == 0)
 		{
@@ -113,6 +133,36 @@ public class ChampionHandler : MonoBehaviour
     public void EnlargeChampionDashboard()
     {
         FindObjectOfType<GameHandler>().EnlargeChampionDashboard(championImage);
+    }
+    private IEnumerator ShakeImage(float duration, float shakeRange)
+	{
+        float elapsed = 0.0f;
+        Quaternion originalRotation = transform.rotation;
+
+        while (elapsed < duration)
+        {
+
+            elapsed += Time.deltaTime;
+            float z = Random.value * shakeRange - (shakeRange / 2);
+            transform.eulerAngles = new Vector3(originalRotation.x, originalRotation.y, originalRotation.z + z);
+            yield return null;
+        }
+
+        transform.rotation = originalRotation;
+    }
+    private IEnumerator ShakeImageViolent(float duration, float magnitude)
+    {
+        Vector3 originalPos = transform.localPosition;
+
+        for (float t = 0; t < 1; t += Time.deltaTime / duration)
+        {
+            float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+            float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+            Vector3 ohShit = new Vector3(x, y, originalPos.z);
+            transform.localPosition = ohShit;
+            yield return null;
+        }
+        transform.localPosition = originalPos;
     }
     #endregion
 
@@ -153,7 +203,7 @@ public class ChampionHandler : MonoBehaviour
     public void UndeadTurning(GameHandler gameHandler, ChampionHandler target)
 	{
         isUndeadTurningReady = false;
-        target.Damage(undeadTurningMultiplier * 5, DamageType.Shadow, this);
+        target.Damage(undeadTurningMultiplier * 5, DamageType.Shadow, this, undeadTurningMultiplier * 5);
 
         gameHandler.player.isAttacking = false;
         gameHandler.player.isAttacked = false;
