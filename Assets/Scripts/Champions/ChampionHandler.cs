@@ -78,6 +78,7 @@ public class ChampionHandler : MonoBehaviour
     public void Damage(int amount, DamageType damageType, ChampionHandler source, float shakeMagnitude = 5f)
     {
         GameHandler gameHandler = FindObjectOfType<GameHandler>();
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
 
         switch (source.championName)
 		{
@@ -96,6 +97,7 @@ public class ChampionHandler : MonoBehaviour
 		{
             case DamageType.Melee:
                 shakeMagnitude = 20f;
+                audioManager.Play("Sword" + Random.Range(1, 2));
                 break;
             case DamageType.Ranged:
                 shakeMagnitude = 10f;
@@ -107,6 +109,7 @@ public class ChampionHandler : MonoBehaviour
                 shakeMagnitude = 15f;
                 break;
             default:
+                audioManager.Play("Damage" + Random.Range(1, 4));
                 break;
 
 		}
