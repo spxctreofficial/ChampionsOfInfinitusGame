@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CardHoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    Vector3 cachedScale;
+    public Vector3 cachedScale;
     bool isScalingUp, isScalingDown;
 
     void Start()
@@ -16,20 +16,19 @@ public class CardHoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerE
     [HideInInspector]
     public void OnPointerEnter(PointerEventData eventData)
     {
-        StartCoroutine(ScaleUp());
+        StartCoroutine(ScaleUp(new Vector3(1.1f, 1.1f, 1.1f)));
     }
     [HideInInspector]
     public void OnPointerExit(PointerEventData eventData)
     {
-        StartCoroutine(ScaleDown());
+        StartCoroutine(ScaleDown(cachedScale));
     }
-    IEnumerator ScaleUp()
+    public IEnumerator ScaleUp(Vector3 targetScale)
     {
         isScalingUp = true;
         isScalingDown = false;
 
         float scaleDuration = 1;
-        Vector3 targetScale = new Vector3(1.1f, 1.1f, 1.1f);
         for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration)
         {
             if (isScalingDown) break;
@@ -37,13 +36,12 @@ public class CardHoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerE
             yield return null;
         }
     }
-    IEnumerator ScaleDown()
+    public IEnumerator ScaleDown(Vector3 targetScale)
     {
         isScalingUp = false;
         isScalingDown = true;
 
         float scaleDuration = 1;
-        Vector3 targetScale = cachedScale;
         for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration)
         {
             if (isScalingUp) break;
