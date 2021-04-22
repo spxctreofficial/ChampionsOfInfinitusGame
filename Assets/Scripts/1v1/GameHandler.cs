@@ -258,7 +258,7 @@ public class GameHandler : MonoBehaviour
         switch (player.championName)
         {
             case "The Wraith King":
-                if (!player.isDeathCrownReady)
+                if (!player.isDeathMistReady)
                 {
                     int count = 0;
                     for (int i = 0; i < player.cards; i++)
