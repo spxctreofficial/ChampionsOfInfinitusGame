@@ -22,7 +22,7 @@ public class Card : MonoBehaviour
         StartCoroutine(cardLogicHandler.CardSelect(this.gameObject));
     }
     [HideInInspector]
-    public void ToggleCardVisibility()
+    public void ToggleCardVisibility(bool doFlipAnimation = false)
     {
         image = GetComponent<Image>();
         if (!this.isHidden)
@@ -35,6 +35,12 @@ public class Card : MonoBehaviour
         {
             this.isHidden = false;
             image.sprite = cardFront;
+
+            if (doFlipAnimation)
+			{
+                transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+                StartCoroutine(GetComponent<HoverScale>().ScaleDown(new Vector3(1f, 1f, 1f)));
+			}
         }
     }
 }

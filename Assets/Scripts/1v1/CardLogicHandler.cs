@@ -422,7 +422,7 @@ public class CardLogicHandler : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-        attackingCard.GetComponent<Card>().ToggleCardVisibility();
+        attackingCard.GetComponent<Card>().ToggleCardVisibility(true);
         Discard(opponentCard, true);
 
         if (attackingCardComponent.cardValue > opponentCardComponent.cardValue)
@@ -460,12 +460,12 @@ public class CardLogicHandler : MonoBehaviour
 	{
         gameHandler.gambleButton.SetActive(false);
 
+        Discard(defendingCard, false);
         GameObject attackingCard = gameHandler.playArea.transform.GetChild(defendingCard.transform.GetSiblingIndex() - 1).gameObject;
         Card attackingCardComponent = attackingCard.GetComponent<Card>();
         Card defendingCardComponent = defendingCard.GetComponent<Card>();
 
-        attackingCardComponent.ToggleCardVisibility();
-        Discard(defendingCard, false);
+        attackingCardComponent.ToggleCardVisibility(true);
 
         if (defendingCardComponent.cardValue > attackingCardComponent.cardValue)
         {
@@ -493,7 +493,7 @@ public class CardLogicHandler : MonoBehaviour
         if (animate)
         {
             card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            StartCoroutine(card.GetComponent<HoverScale>().ScaleDown(card.GetComponent<HoverScale>().cachedScale));
+            StartCoroutine(card.GetComponent<HoverScale>().ScaleDown(new Vector3(1f, 1f, 1f)));
         }
     }
     void PlayerSpade(GameObject card)

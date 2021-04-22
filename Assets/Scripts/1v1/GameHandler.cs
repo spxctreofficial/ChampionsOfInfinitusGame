@@ -277,7 +277,6 @@ public class GameHandler : MonoBehaviour
                 if (player.clubs >= 3)
                 {
                     player.isDeathCrownReady = true;
-                    Debug.Log(player.isDeathCrownReady);
 
                     if (playerAbilityStatus1.text != "Death Crown - UP")
 					{

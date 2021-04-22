@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using EZCameraShake;
 
 public class ChampionHandler : MonoBehaviour
 {
