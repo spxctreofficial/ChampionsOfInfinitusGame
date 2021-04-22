@@ -116,15 +116,15 @@ public class GameHandler : MonoBehaviour
 
                 GameObject DeathCrownAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -150), Quaternion.identity);
                 GameObject DeathMistAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -110), Quaternion.identity);
-                GameObject playerAbilityStatusGO3 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -70), Quaternion.identity);
+                GameObject UndeadTurningAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -70), Quaternion.identity);
 				GameObject playerAbilityStatusGO4 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -30), Quaternion.identity);
                 DeathCrownAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
                 DeathMistAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
-                playerAbilityStatusGO3.transform.SetParent(gameCanvas.transform, false);
+                UndeadTurningAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
                 playerAbilityStatusGO4.transform.SetParent(gameCanvas.transform, false);
                 playerAbilityStatus1 = DeathCrownAbilityStatusGO.GetComponent<Text>();
                 playerAbilityStatus2 = DeathMistAbilityStatusGO.GetComponent<Text>();
-                playerAbilityStatus3 = playerAbilityStatusGO3.GetComponent<Text>();
+                playerAbilityStatus3 = UndeadTurningAbilityStatusGO.GetComponent<Text>();
                 playerAbilityStatus4 = playerAbilityStatusGO4.GetComponent<Text>();
                 break;
         }
@@ -326,9 +326,13 @@ public class GameHandler : MonoBehaviour
                 switch (player.championName)
                 {
                     case "The Wraith King":
-                        playerActionTooltip.text = "It is the player's Action Phase.";
-                        skipButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
-                        player.UndeadTurning(this, opponent);
+                        if (player.isUndeadTurningReady)
+						{
+                            playerActionTooltip.text = "It is the player's Action Phase.";
+                            playerAbilityStatus3.text = "";
+                            skipButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
+                            player.UndeadTurning(this, opponent);
+                        }
                         break;
                 }
                 break;

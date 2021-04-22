@@ -46,8 +46,19 @@ public class CardLogicHandler : MonoBehaviour
                             case "The Wraith King":
                                 if (gameHandler.player.isUndeadTurningReady)
 								{
+                                    if (this.card.cardType != CardType.CLUB)
+									{
+                                        gameHandler.playerActionTooltip.text = "Choose a CLUB!";
+                                        yield break;
+									}
+
                                     Discard(card);
                                     gameHandler.player.undeadTurningMultiplier++;
+
+                                    if (gameHandler.player.undeadTurningMultiplier >= 0)
+									{
+                                        gameHandler.skipButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
+                                    }
                                     yield break;
 								}
                                 break;
@@ -435,9 +446,9 @@ public class CardLogicHandler : MonoBehaviour
                     if (attackingCardComponent.cardType == CardType.CLUB)
                     {
                         gameHandler.player.isUndeadTurningReady = true;
-                        gameHandler.playerActionTooltip.text = "Undead Turning is ready. Select CLUBS to amplify attack.";
+						gameHandler.playerActionTooltip.text = "Undead Turning is ready. Select CLUBS to amplify attack.";
+                        gameHandler.playerAbilityStatus3.text = "Undead Turning - UP";
                         gameHandler.skipButton.SetActive(true);
-                        gameHandler.skipButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
                         yield break;
                     }
                     break;

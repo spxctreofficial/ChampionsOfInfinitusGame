@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 2
-  lastUpdatedAtString: 2021-04-22T16:40:51.779-04:00
-  initializedAtString: 2021-04-22T08:18:29.962-04:00
-  localBranches: []
+  lastUpdatedAtString: 2021-04-22T18:32:00.498-04:00
+  initializedAtString: 2021-04-22T18:31:08.319-04:00
+  localBranches:
+  - name: gameplay
+    tracking: 
   remoteBranches:
   - name: origin/gameplay
     tracking: '[None]'
@@ -28,8 +30,14 @@ MonoBehaviour:
     function: 0
     token: 
   localConfigBranches:
-    keys: []
-    values: []
+    keys:
+    - gameplay
+    values:
+    - name: gameplay
+      remote:
+        name: 
+        url: 
+      trackingBranch: 
   remoteConfigBranches:
     keys:
     - origin

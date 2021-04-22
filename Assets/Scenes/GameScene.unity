@@ -2051,6 +2051,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 232962777}
+    - target: {fileID: 1713512970401849082, guid: 5ce87e9c2dc75b9458ade93c516de33f,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1713512970401849083, guid: 5ce87e9c2dc75b9458ade93c516de33f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2290,6 +2295,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 232962777}
+    - target: {fileID: 1770223854063805919, guid: c6653658b860a004684962c9a0843e07,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6653658b860a004684962c9a0843e07, type: 3}
 --- !u!1001 &3229793199640489162
