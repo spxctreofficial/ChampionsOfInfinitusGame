@@ -35,8 +35,6 @@ public class Card : MonoBehaviour
         {
             this.isHidden = false;
             image.sprite = cardFront;
-            transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            StartCoroutine(GetComponent<CardHoverAnimation>().ScaleDown(GetComponent<CardHoverAnimation>().cachedScale));
         }
     }
 }

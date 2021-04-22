@@ -104,15 +104,15 @@ public class GameHandler : MonoBehaviour
 		switch (player.championName)
         {
 			case "The Wraith King":
-                player.cards = playerArea.transform.childCount;
-                for (int i = 0; i < player.cards; i++)
+                foreach (Transform child in playerArea.transform)
 				{
-                    GameObject selectedCard = playerArea.transform.GetChild(i).gameObject;
-                    if (selectedCard.GetComponent<Card>().cardType == CardType.CLUB)
-					{
+                    GameObject selectedCard = child.gameObject;
+                    Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                    if (selectedCardComponent.cardType == CardType.CLUB)
+                    {
                         player.clubs++;
                     }
-				}
+                }
                 Debug.Log(player.clubs);
 
                 GameObject DeathCrownAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -150), Quaternion.identity);
@@ -211,19 +211,19 @@ public class GameHandler : MonoBehaviour
 
             for (int i = 0; i < opponent.discardAmount; i++)
             {
-                opponent.cards = opponentArea.transform.childCount;
                 int value = 999;
-                int siblingIndex = 0;
-                for (int x = 0; x < opponent.cards; x++)
+                GameObject chosenCard = opponentArea.transform.GetChild(0).gameObject;
+                foreach (Transform child in opponentArea.transform)
                 {
-                    if (value > opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
+                    GameObject selectedCard = child.gameObject;
+                    Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                    if (value > selectedCardComponent.cardValue)
                     {
-                        value = opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue;
-                        siblingIndex = opponentArea.transform.GetChild(x).GetSiblingIndex();
+                        value = selectedCardComponent.cardValue;
+                        chosenCard = selectedCard;
                     }
                 }
-                opponentArea.transform.GetChild(siblingIndex).gameObject.GetComponent<Card>().ToggleCardVisibility();
-                opponentArea.transform.GetChild(siblingIndex).gameObject.transform.SetParent(playArea.transform, false);
+                cardLogicHandler.Discard(chosenCard, true);
             }
             opponent.discardAmount = 0;
         }
@@ -261,10 +261,11 @@ public class GameHandler : MonoBehaviour
                 if (!player.isDeathMistReady)
                 {
                     int count = 0;
-                    for (int i = 0; i < player.cards; i++)
+                    foreach (Transform child in playerArea.transform)
                     {
-                        GameObject selectedCard = playerArea.transform.GetChild(i).gameObject;
-                        if (selectedCard.GetComponent<Card>().cardType == CardType.CLUB)
+                        GameObject selectedCard = child.gameObject;
+                        Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                        if (selectedCardComponent.cardType == CardType.CLUB)
                         {
                             count++;
                         }
@@ -304,14 +305,14 @@ public class GameHandler : MonoBehaviour
 		{
             case GamePhase.PLAYERACTIONPHASE:
                 GameObject attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
-                attackingCard.transform.SetParent(playerArea.transform, false);
+                cardLogicHandler.Discard(attackingCard);
                 StartCoroutine(cardLogicHandler.AttackCalc(attackingCard));
                 break;
             case GamePhase.OPPONENTACTIONPHASE:
                 if (player.isAttacked != true || opponent.isAttacking != true) return;
 
                 attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
-                attackingCard.transform.SetParent(playerArea.transform, false);
+                cardLogicHandler.Discard(attackingCard);
                 cardLogicHandler.DefenseCalc(attackingCard);
                 break;
 		}

@@ -64,7 +64,7 @@
     <Compile Include="Assets\Scripts\Champions\ChampionIndex.cs" />
     <Compile Include="Assets\Scripts\1v1\GameHandler.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionHandler.cs" />
-    <Compile Include="Assets\Scripts\1v1\UI Elements\CardHoverAnimation.cs" />
+    <Compile Include="Assets\Scripts\1v1\UI Elements\HoverScale.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\Playing Cards\Card.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\WinLoseMenu.cs" />
     <Compile Include="Assets\Scripts\1v1\UI Elements\ChooseChampion.cs" />

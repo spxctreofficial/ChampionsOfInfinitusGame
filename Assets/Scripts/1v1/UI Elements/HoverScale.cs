@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardHoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Vector3 cachedScale;
     bool isScalingUp, isScalingDown;

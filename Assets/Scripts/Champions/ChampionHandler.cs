@@ -137,7 +137,7 @@ public class ChampionHandler : MonoBehaviour
             GameObject newCard = Instantiate(gameHandler.cardIndex.ClubToken, new Vector2(0, 0), Quaternion.identity);
             int siblingIndex = card.transform.GetSiblingIndex();
 
-            card.transform.SetParent(gameHandler.playArea.transform, false);
+            gameHandler.cardLogicHandler.Discard(card.gameObject);
             newCard.transform.SetParent(gameHandler.playerArea.transform, false);
             newCard.transform.SetSiblingIndex(siblingIndex);
             gameHandler.skipButton.SetActive(false);
