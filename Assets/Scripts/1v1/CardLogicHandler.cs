@@ -613,6 +613,7 @@ public class CardLogicHandler : MonoBehaviour
                     }
                     GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     opponentCard.transform.SetParent(playArea.transform, false);
+                    opponentCard.GetComponent<Card>().ToggleCardVisibility();
                 }
                 gameHandler.opponent.discardAmount = 0;
                 gameHandler.player.diamondsBeforeExhaustion--;
@@ -657,6 +658,7 @@ public class CardLogicHandler : MonoBehaviour
                     }
                     GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     opponentCard.transform.SetParent(playArea.transform, false);
+                    opponentCard.GetComponent<Card>().ToggleCardVisibility();
                 }
                 gameHandler.opponent.discardAmount = 0;
                 gameHandler.player.diamondsBeforeExhaustion--;
@@ -726,6 +728,7 @@ public class CardLogicHandler : MonoBehaviour
                     }
                     GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     opponentCard.transform.SetParent(playArea.transform, false);
+                    opponentCard.GetComponent<Card>().ToggleCardVisibility();
                 }
                 gameHandler.opponent.discardAmount = 0;
                 gameHandler.player.diamondsBeforeExhaustion--;
