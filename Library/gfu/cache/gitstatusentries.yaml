@@ -13,84 +13,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2021-04-23T19:38:44.455-04:00
+  lastUpdatedAtString: 2021-04-23T19:48:32.319-04:00
   initializedAtString: 2021-04-23T14:08:02.497-04:00
   entries:
-  - path: .vs\Land Of Heroes (Reborn)\v16\.suo
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\.vs\Land Of Heroes (Reborn)\v16\.suo
-    projectPath: .vs\Land Of Heroes (Reborn)\v16\.suo
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Prefabs\AudioManager.prefab
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Prefabs\AudioManager.prefab
-    projectPath: Assets\Prefabs\AudioManager.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Resources\Audio\damage1.wav
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage1.wav
-    projectPath: Assets\Resources\Audio\damage1.wav
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage1.wav.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage1.wav.meta
-    projectPath: Assets\Resources\Audio\damage1.wav.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage2.wav
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage2.wav
-    projectPath: Assets\Resources\Audio\damage2.wav
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage2.wav.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage2.wav.meta
-    projectPath: Assets\Resources\Audio\damage2.wav.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage3.wav
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage3.wav
-    projectPath: Assets\Resources\Audio\damage3.wav
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage3.wav.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage3.wav.meta
-    projectPath: Assets\Resources\Audio\damage3.wav.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage4.wav
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage4.wav
-    projectPath: Assets\Resources\Audio\damage4.wav
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\damage4.wav.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\damage4.wav.meta
-    projectPath: Assets\Resources\Audio\damage4.wav.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Resources\Audio\unblockable1.wav
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\unblockable1.wav
-    projectPath: Assets\Resources\Audio\unblockable1.wav
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Resources\Audio\unblockable1.wav.meta
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Resources\Audio\unblockable1.wav.meta
-    projectPath: Assets\Resources\Audio\unblockable1.wav.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Assets\Scripts\Champions\ChampionHandler.cs
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\Champions\ChampionHandler.cs
     projectPath: Assets\Scripts\Champions\ChampionHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Scripts\GameHandler.cs
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Assets\Scripts\GameHandler.cs
+    projectPath: Assets\Scripts\GameHandler.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -100,69 +34,27 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\Artifacts\4b\4b12eb7c2ecafb7afcbe5891d9e9a2b1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\4b\4b12eb7c2ecafb7afcbe5891d9e9a2b1
-    projectPath: Library\Artifacts\4b\4b12eb7c2ecafb7afcbe5891d9e9a2b1
+  - path: Library\Artifacts\2f\2f5d00ac4255d7d0785bb77185fef9a7
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\2f\2f5d00ac4255d7d0785bb77185fef9a7
+    projectPath: Library\Artifacts\2f\2f5d00ac4255d7d0785bb77185fef9a7
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\55\557676cd7a1e43477a17603d6b5ebff4
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\55\557676cd7a1e43477a17603d6b5ebff4
-    projectPath: Library\Artifacts\55\557676cd7a1e43477a17603d6b5ebff4
+  - path: Library\Artifacts\5b\5bcd3fa459c7fedee4e9bfe15c27617d
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\5b\5bcd3fa459c7fedee4e9bfe15c27617d
+    projectPath: Library\Artifacts\5b\5bcd3fa459c7fedee4e9bfe15c27617d
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\5a\5ad7c3ae10a2e854217e8cc8ead2d3e8
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\5a\5ad7c3ae10a2e854217e8cc8ead2d3e8
-    projectPath: Library\Artifacts\5a\5ad7c3ae10a2e854217e8cc8ead2d3e8
+  - path: Library\Artifacts\62\62c1e02405847617210bc6638e5e2a49
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\62\62c1e02405847617210bc6638e5e2a49
+    projectPath: Library\Artifacts\62\62c1e02405847617210bc6638e5e2a49
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\74\745b6a81a79374190e0e9bff563471da
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\74\745b6a81a79374190e0e9bff563471da
-    projectPath: Library\Artifacts\74\745b6a81a79374190e0e9bff563471da
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\74\74eaf3dee819d41de5622c447f5dda1a
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\74\74eaf3dee819d41de5622c447f5dda1a
-    projectPath: Library\Artifacts\74\74eaf3dee819d41de5622c447f5dda1a
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\75\75b295b5f863f2032eb1111bf9d8a41e
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\75\75b295b5f863f2032eb1111bf9d8a41e
-    projectPath: Library\Artifacts\75\75b295b5f863f2032eb1111bf9d8a41e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a6\a6058f848c17082b31e273afcba6afc1
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\a6\a6058f848c17082b31e273afcba6afc1
-    projectPath: Library\Artifacts\a6\a6058f848c17082b31e273afcba6afc1
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b2\b25267ad4b57f8fc01a38f51ae4816f6
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b2\b25267ad4b57f8fc01a38f51ae4816f6
-    projectPath: Library\Artifacts\b2\b25267ad4b57f8fc01a38f51ae4816f6
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\b5\b53899fbeebc892ba8bdb78b2f87e7bd
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\b5\b53899fbeebc892ba8bdb78b2f87e7bd
-    projectPath: Library\Artifacts\b5\b53899fbeebc892ba8bdb78b2f87e7bd
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ed\ed09746403901d324b3804d432c9db75
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ed\ed09746403901d324b3804d432c9db75
-    projectPath: Library\Artifacts\ed\ed09746403901d324b3804d432c9db75
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ed\ed4f2756fb393aa51f7fc41c5be3a149
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\ed\ed4f2756fb393aa51f7fc41c5be3a149
-    projectPath: Library\Artifacts\ed\ed4f2756fb393aa51f7fc41c5be3a149
+  - path: Library\Artifacts\e9\e92b4f2e61c5c6ea9e5ee67b89b601f9
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Artifacts\e9\e92b4f2e61c5c6ea9e5ee67b89b601f9
+    projectPath: Library\Artifacts\e9\e92b4f2e61c5c6ea9e5ee67b89b601f9
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -196,12 +88,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\repoinfo.yaml
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\gfu\cache\repoinfo.yaml
-    projectPath: Library\gfu\cache\repoinfo.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\SceneVisibilityState.asset
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SceneVisibilityState.asset
     projectPath: Library\SceneVisibilityState.asset
@@ -220,12 +106,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\ShaderCache\EditorEncounteredVariants
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\ShaderCache\EditorEncounteredVariants
-    projectPath: Library\ShaderCache\EditorEncounteredVariants
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\SourceAssetDB
     fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\SourceAssetDB
     projectPath: Library\SourceAssetDB
@@ -238,15 +118,9 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\StateCache\PrefabStageHierarchy\e2\e2badca1eb587599916774d5c8ec0638.json
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\PrefabStageHierarchy\e2\e2badca1eb587599916774d5c8ec0638.json
-    projectPath: Library\StateCache\PrefabStageHierarchy\e2\e2badca1eb587599916774d5c8ec0638.json
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\Style.catalog
-    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\Style.catalog
-    projectPath: Library\Style.catalog
+  - path: Library\StateCache\SceneView\8c\8cd7c613bf844de3b80696e27a479d5e.json
+    fullPath: E:\Unity Projects\Land Of Heroes (Reborn)\Library\StateCache\SceneView\8c\8cd7c613bf844de3b80696e27a479d5e.json
+    projectPath: Library\StateCache\SceneView\8c\8cd7c613bf844de3b80696e27a479d5e.json
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

@@ -204,10 +204,14 @@ public class ChampionHandler : MonoBehaviour
 		}
 	}
     [HideInInspector]
-    public void UndeadTurning(GameHandler gameHandler, ChampionHandler target)
+    public IEnumerator UndeadTurning(GameHandler gameHandler, ChampionHandler target)
 	{
         isUndeadTurningReady = false;
-        target.Damage(undeadTurningMultiplier * 5, DamageType.Shadow, this, undeadTurningMultiplier * 5);
+        for (int x = 0; x < undeadTurningMultiplier; x++)
+		{
+            target.Damage(5, DamageType.Shadow, this);
+            yield return new WaitForSeconds(0.25f);
+        }
 
         gameHandler.player.isAttacking = false;
         gameHandler.player.isAttacked = false;

@@ -331,8 +331,8 @@ public class GameHandler : MonoBehaviour
                             playerActionTooltip.text = "It is the player's Action Phase.";
                             playerAbilityStatus3.text = "";
                             skipButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
-                            player.UndeadTurning(this, opponent);
-                        }
+							StartCoroutine(player.UndeadTurning(this, opponent));
+						}
                         break;
                 }
                 break;
