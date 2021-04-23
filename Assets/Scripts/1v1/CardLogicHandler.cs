@@ -8,6 +8,7 @@ public class CardLogicHandler : MonoBehaviour
     #region Variables
     public GameHandler gameHandler;
     public GameObject summonObject;
+    public GameObject summonObjectEnemy;
 
     Card card;
     bool cardOfPlayer;
@@ -24,6 +25,11 @@ public class CardLogicHandler : MonoBehaviour
         {
             GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
             gameObject.transform.SetParent(gameHandler.playerArea.transform, false);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            GameObject gameObject = Instantiate(summonObjectEnemy, new Vector2(0, 0), Quaternion.identity);
+            gameObject.transform.SetParent(gameHandler.opponentArea.transform, false);
         }
     }
 
@@ -199,6 +205,8 @@ public class CardLogicHandler : MonoBehaviour
 						{
                             gameHandler.player.Damage(20, DamageType.Unblockable, gameHandler.player);
                             Debug.Log("Player has no cards! Dealing damage automatically.");
+                            Discard(selectedCard, true);
+                            gameHandler.opponent.diamondsBeforeExhaustion--;
                             StartCoroutine(OpponentCardLogic());
                             yield break;
 						}
@@ -246,11 +254,13 @@ public class CardLogicHandler : MonoBehaviour
                         gameHandler.player.Heal(20);
                         gameHandler.opponent.Heal(20);
                         Discard(selectedCard, true);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 11:
                         gameHandler.player.Damage(20, DamageType.Fire, gameHandler.opponent);
                         Discard(selectedCard, true);
+                        gameHandler.opponent.diamondsBeforeExhaustion--;
                         StartCoroutine(OpponentCardLogic());
                         yield break;
                     case 12:
@@ -258,6 +268,8 @@ public class CardLogicHandler : MonoBehaviour
                         {
                             gameHandler.player.Damage(40, DamageType.Fire, gameHandler.opponent);
                             Debug.Log("Player has no cards! Dealing damage automatically.");
+                            Discard(selectedCard, true);
+                            gameHandler.opponent.diamondsBeforeExhaustion--;
                             StartCoroutine(OpponentCardLogic());
                             yield break;
                         }
@@ -407,7 +419,7 @@ public class CardLogicHandler : MonoBehaviour
 	{
         gameHandler.gambleButton.SetActive(false);
         GameObject opponentCard = null;
-        Card opponentCardComponent = null;
+        Card opponentCardComponent;
         Card attackingCardComponent = attackingCard.GetComponent<Card>();
 
         int value = -1;
@@ -426,19 +438,23 @@ public class CardLogicHandler : MonoBehaviour
                 }
                 value = selectedCardComponent.cardValue;
                 opponentCard = selectedCard;
-                opponentCardComponent = selectedCardComponent;
             }
         }
-        opponentCard = opponentCard == null ? Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : opponentCard;
+        if (opponentCard == null)
+		{
+            opponentCard = opponentCard == null ? Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : opponentCard;
+            opponentCard.GetComponent<Card>().ToggleCardVisibility();
+        }
+        opponentCardComponent = opponentCard.GetComponent<Card>();
 
         gameHandler.playerActionTooltip.text = "Waiting for the opponent...";
-        Debug.Log("Player is attacking the opponent with a card with a value of " + attackingCard.GetComponent<Card>().cardValue);
+        Debug.Log("Player is attacking the opponent with a card with a value of " + attackingCardComponent.cardValue);
         gameHandler.opponent.isAttacked = true;
         Discard(attackingCard, true);
 
         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-        attackingCard.GetComponent<Card>().ToggleCardVisibility(true);
+        attackingCardComponent.ToggleCardVisibility(true);
         Discard(opponentCard, true);
 
         if (attackingCardComponent.cardValue > opponentCardComponent.cardValue)
@@ -466,6 +482,7 @@ public class CardLogicHandler : MonoBehaviour
 
         Debug.Log("Player: " + gameHandler.player.currentHP);
         Debug.Log("Opponent: " + gameHandler.opponent.currentHP);
+        gameHandler.playerActionTooltip.text = "It is your Action Phase.";
 
         gameHandler.player.isAttacking = false;
         gameHandler.opponent.isAttacked = false;

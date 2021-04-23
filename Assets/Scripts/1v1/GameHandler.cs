@@ -357,6 +357,7 @@ public class GameHandler : MonoBehaviour
 				{
                     case "The Wraith King":
                         playerActionTooltip.text = "It is the opponent's Action Phase.";
+                        playerAbilityStatus2.text = "";
                         StartCoroutine(cardLogicHandler.OpponentCardLogic());
                         break;
 				}
