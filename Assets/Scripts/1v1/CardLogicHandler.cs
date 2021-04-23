@@ -427,6 +427,7 @@ public class CardLogicHandler : MonoBehaviour
         }
         opponentCard = opponentCard == null ? Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : opponentCard;
 
+        gameHandler.playerActionTooltip.text = "Waiting for the opponent...";
         Debug.Log("Player is attacking the opponent with a card with a value of " + attackingCard.GetComponent<Card>().cardValue);
         gameHandler.opponent.isAttacked = true;
         Discard(attackingCard, true);
@@ -516,6 +517,7 @@ public class CardLogicHandler : MonoBehaviour
         }
 
         Debug.Log("Player is now attacking the opponent.");
+        gameHandler.playerActionTooltip.text = "Choose a card to represent your attack.";
         gameHandler.player.isAttacking = true;
         gameHandler.player.spadesBeforeExhaustion--;
         Discard(card);
