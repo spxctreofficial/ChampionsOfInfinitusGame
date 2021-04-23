@@ -331,20 +331,12 @@ public class CardLogicHandler : MonoBehaviour
                 float f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
                 if (selectedCardComponent.cardValue >= 8 && Random.Range(0f, 1f) <= f
                     || selectedCardComponent.cardValue >= attackingCardComponent.cardValue
-                    || attackingCardComponent.cardValue <= 9 && Random.Range(0f, 1f) <= f)
+                    || attackingCardComponent.cardValue <= 9 && Random.Range(0f, 1f) <= f
+                    || gameHandler.opponent.cards <= 2 && Random.Range(0f, 1f) >= f)
                 {
-                    if (gameHandler.opponent.cards <= 3)
-					{
-                        if (gameHandler.opponent.cards != 1 && Random.Range(0f, 1f) >= f)
-						{
-                            Debug.Log("The opponent does not want to attack! Reason: Less than three cards.");
-						}
-					}
-                    else
-					{
-                        Debug.Log("The opponent does not want to attack!");
-                        continue;
-                    }
+                    Debug.Log("The opponent does not want to attack!");
+                    gameHandler.opponent.spadesBeforeExhaustion--;
+                    break;
                 }
 
                 Discard(selectedCard, true);
@@ -442,7 +434,7 @@ public class CardLogicHandler : MonoBehaviour
         }
         if (opponentCard == null)
 		{
-            opponentCard = opponentCard == null ? Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity) : opponentCard;
+            opponentCard = Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             opponentCard.GetComponent<Card>().ToggleCardVisibility();
         }
         opponentCardComponent = opponentCard.GetComponent<Card>();
