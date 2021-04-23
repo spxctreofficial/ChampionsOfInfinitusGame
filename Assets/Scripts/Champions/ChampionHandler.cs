@@ -110,7 +110,7 @@ public class ChampionHandler : MonoBehaviour
                 shakeMagnitude = 15f;
                 break;
             default:
-                audioManager.Play("Damage" + Random.Range(1, 4));
+                audioManager.Play("Unblockable1");
                 break;
 
 		}

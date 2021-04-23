@@ -63,35 +63,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Damage1
-    clip: {fileID: 8300000, guid: d77c4f78b318ec740a2752ade8573ad5, type: 3}
-    volume: 0.25
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Damage2
-    clip: {fileID: 8300000, guid: 8d437a5ecfe34224bbda359f370c70b5, type: 3}
-    volume: 0.25
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Damage3
-    clip: {fileID: 8300000, guid: af83168a29b677a41bff241e58a61cce, type: 3}
-    volume: 0.25
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Damage4
-    clip: {fileID: 8300000, guid: f31aafbceacdd114c9e4cc4f28ea8795, type: 3}
+  - name: Unblockable1
+    clip: {fileID: 8300000, guid: e5f5140a5fb363a48b03a44357a07a38, type: 3}
     volume: 0.25
     volumeVariance: 0
     pitch: 1
