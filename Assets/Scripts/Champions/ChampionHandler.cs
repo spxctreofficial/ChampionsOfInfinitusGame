@@ -104,6 +104,7 @@ public class ChampionHandler : MonoBehaviour
                 break;
             case DamageType.Fire:
                 shakeMagnitude = 8f;
+                audioManager.Play("FireDamage1");
                 break;
             case DamageType.Lightning:
                 shakeMagnitude = 15f;
