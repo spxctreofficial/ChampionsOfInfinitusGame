@@ -66,11 +66,11 @@
     <Compile Include="Assets\Scripts\UI Elements\WinLoseMenu.cs" />
     <Compile Include="Assets\Scripts\UI Elements\ChooseChampion.cs" />
     <Compile Include="Assets\Scripts\UI Elements\PlayerAbilityStatus.cs" />
+    <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Scripts\UI Elements\StartMenu.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionHandler.cs" />
-    <Compile Include="Assets\Scripts\UI Elements\Playing Cards\Card.cs" />
-    <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\UI Elements\Playing Cards\Card.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
