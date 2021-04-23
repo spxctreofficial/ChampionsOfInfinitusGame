@@ -48,7 +48,10 @@ public class CardLogicHandler : MonoBehaviour
 								{
                                     if (this.card.cardType != CardType.CLUB)
 									{
+                                        string defaultString = gameHandler.playerActionTooltip.text;
                                         gameHandler.playerActionTooltip.text = "Choose a CLUB!";
+                                        yield return new WaitForSeconds(1f);
+                                        gameHandler.playerActionTooltip.text = defaultString;
                                         yield break;
 									}
 
@@ -58,6 +61,7 @@ public class CardLogicHandler : MonoBehaviour
                                     if (gameHandler.player.undeadTurningMultiplier >= 0)
 									{
                                         gameHandler.skipButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
+                                        gameHandler.playerAbilityStatus3.text = "Undead Turning - AMP " + gameHandler.player.undeadTurningMultiplier;
                                     }
                                     yield break;
 								}

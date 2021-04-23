@@ -131,6 +131,7 @@ public class ChampionHandler : MonoBehaviour
     {
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
+        FindObjectOfType<AudioManager>().Play("Heal");
     }
     public void EnlargeChampionDashboard()
     {
