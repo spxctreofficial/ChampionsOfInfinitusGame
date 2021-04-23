@@ -553,7 +553,7 @@ ScriptsOnlyBuild:
     className: TelepathyTransport
   - hash:
       serializedVersion: 2
-      Hash: 0c5415efb760b867f8fb22cfffd578fb
+      Hash: 4c20cd15e85db213382e7c9f7f0cd9d4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CardLogicHandler
