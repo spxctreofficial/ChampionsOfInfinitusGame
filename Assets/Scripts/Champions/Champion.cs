@@ -1,18 +1,19 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public enum DamageType { Melee, Ranged, Fire, Lightning, Water, Shadow, Unblockable }
-
-[CreateAssetMenu(fileName = "New Champion", menuName = "Champion")]
+[CreateAssetMenu(fileName = "Champion", menuName = "New Champion")]
 public class Champion : ScriptableObject
 {
-    public string championName;
-    public Sprite championImage;
-    public int currentHP;
-    public int maxHP;
-    public int attackDamage;
-    public string attackName;
-    public DamageType damageType;
+	public new string name;
+	public Sprite avatar;
+
+	public int maxHP;
+	public int currentHP;
+
+	public int attackDamage;
+	public DamageType attackDamageType;
+	public string attackName;
+
+
 }
