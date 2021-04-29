@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
@@ -9,8 +10,6 @@ public class ChampionController : MonoBehaviour
 {
 	public Champion champion;
 	public Hand hand;
-	[HideInInspector]
-	public Button championButton;
 
 	[HideInInspector]
 	public new string name;
@@ -18,6 +17,13 @@ public class ChampionController : MonoBehaviour
 	public Sprite avatar;
 	[HideInInspector]
 	public Champion.Gender gender;
+
+	[HideInInspector]
+	public Button championButton;
+	[HideInInspector]
+	public TMP_Text healthText;
+	[HideInInspector]
+	public TMP_Text cardsText;
 
 	[HideInInspector]
 	public int maxHP;
@@ -44,13 +50,21 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public bool isUltReady;
 
+	private void Update()
+	{
+		healthText.text = currentHP.ToString();
+		cardsText.text = hand.transform.childCount.ToString();
+	}
 
 	public void ChampionSetup()
 	{
 		name = champion.name;
 		avatar = champion.avatar;
 		gender = champion.gender;
+
 		championButton = gameObject.GetComponent<Button>();
+		healthText = transform.GetChild(0).GetComponent<TMP_Text>();
+		cardsText = transform.GetChild(1).GetComponent<TMP_Text>();
 
 		maxHP = champion.maxHP;
 		currentHP = champion.currentHP;
@@ -71,6 +85,13 @@ public class ChampionController : MonoBehaviour
 		isUltReady = false;
 
 		GetComponent<Image>().sprite = avatar;
+
+		if (isPlayer)
+		{
+			healthText.transform.localPosition = new Vector3(healthText.transform.localPosition.x, -healthText.transform.localPosition.y, healthText.transform.localPosition.z);
+			cardsText.transform.localPosition = new Vector3(cardsText.transform.localPosition.x, -cardsText.transform.localPosition.y, cardsText.transform.localPosition.z);
+			cardsText.verticalAlignment = VerticalAlignmentOptions.Bottom;
+		}
 	}
 
 	public void Attack(ChampionController target)
