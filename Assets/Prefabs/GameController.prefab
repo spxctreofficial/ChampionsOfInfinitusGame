@@ -48,5 +48,14 @@ MonoBehaviour:
   gameArea: {fileID: 0}
   playerHand: {fileID: 0}
   discardArea: {fileID: 0}
+  temporaryPrefab: {fileID: 7677552574236164398, guid: 5ac4c6b2dc7e39a49997ce7b59f03346,
+    type: 3}
+  handPrefab: {fileID: 4946762797089187214, guid: 0af8b325fa7cdb145a8b1dbeb367d869,
+    type: 3}
+  playerActionTooltip: {fileID: 0}
+  confirmButton: {fileID: 0}
+  endTurnButton: {fileID: 0}
   champions: []
-  players: 0
+  players: 2
+  difficulty: 0
+  roundsElapsed: 0

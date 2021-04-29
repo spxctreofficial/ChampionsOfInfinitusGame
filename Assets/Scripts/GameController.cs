@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEnd }
@@ -21,8 +22,8 @@ public class GameController : MonoBehaviour
 
 	public GameObject temporaryPrefab;
 	public GameObject handPrefab;
-
-	public Text playerActionTooltip;
+	
+	public TMP_Text playerActionTooltip;
 	public Button confirmButton;
 	public Button endTurnButton;
 
@@ -182,7 +183,6 @@ public class GameController : MonoBehaviour
 							}
 						}
 						CardLogicController.instance.Discard(selectedCard);
-						champion.discardAmount--;
 					}
 					champion.discardAmount = 0;
 				}
@@ -241,9 +241,9 @@ public class GameController : MonoBehaviour
 			}
 		}
 	}
+
 	private void PruneDiscardArea()
 	{
 		Destroy(discardArea.transform.GetChild(0));
 	}
-			
 }

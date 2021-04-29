@@ -12,14 +12,23 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public Button championButton;
 
+	[HideInInspector]
 	public new string name;
+	[HideInInspector]
 	public Sprite avatar;
+	[HideInInspector]
+	public Champion.Gender gender;
 
+	[HideInInspector]
 	public int maxHP;
+	[HideInInspector]
 	public int currentHP;
 
+	[HideInInspector]
 	public int attackDamage;
+	[HideInInspector]
 	public DamageType attackDamageType;
+	[HideInInspector]
 	public string attackName;
 
 	[HideInInspector]
@@ -40,6 +49,7 @@ public class ChampionController : MonoBehaviour
 	{
 		name = champion.name;
 		avatar = champion.avatar;
+		gender = champion.gender;
 		championButton = gameObject.GetComponent<Button>();
 
 		maxHP = champion.maxHP;

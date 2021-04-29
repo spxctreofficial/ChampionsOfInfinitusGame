@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CardLogicController : MonoBehaviour
 {
 	public static CardLogicController instance;
-	public Card summonCard;
+	public Card summonCard; // debugging
+	public int dealToIndex; // debugging
 
 	void Awake()
 	{
@@ -23,7 +25,7 @@ public class CardLogicController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha5))
 		{
 			Card card = Instantiate(summonCard.gameObject, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-			card.transform.SetParent(GameController.instance.champions[1].hand.transform, false);
+			card.transform.SetParent(GameController.instance.champions[dealToIndex].hand.transform, false);
 		}
 	}
 
@@ -189,7 +191,6 @@ public class CardLogicController : MonoBehaviour
 										}
 									}
 									Discard(selectedCard);
-									selectedChampion.discardAmount--;
 								}
 
 								selectedChampion.discardAmount = 0;
@@ -225,7 +226,7 @@ public class CardLogicController : MonoBehaviour
 									selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 2);
 									GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
 									GameController.instance.confirmButton.gameObject.SetActive(true);
-									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
+									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
 
 									yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
 
@@ -233,7 +234,7 @@ public class CardLogicController : MonoBehaviour
 									{
 										selectedChampion.Damage(20, DamageType.Unblockable, champion);
 										selectedChampion.discardAmount = 0;
-										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
+										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
 									}
 
 									continue;
@@ -265,7 +266,6 @@ public class CardLogicController : MonoBehaviour
 										}
 									}
 									Discard(selectedCard);
-									selectedChampion.discardAmount--;
 								}
 
 								selectedChampion.discardAmount = 0;
@@ -332,7 +332,7 @@ public class CardLogicController : MonoBehaviour
 									selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 4);
 									GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
 									GameController.instance.confirmButton.gameObject.SetActive(true);
-									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<Text>().text = "Skip";
+									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
 
 									yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
 
@@ -340,7 +340,7 @@ public class CardLogicController : MonoBehaviour
 									{
 										selectedChampion.Damage(40, DamageType.Fire, champion);
 										selectedChampion.discardAmount = 0;
-										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<Text>().text = "Confirm";
+										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
 									}
 
 									continue;
@@ -372,7 +372,6 @@ public class CardLogicController : MonoBehaviour
 										}
 									}
 									Discard(selectedCard);
-									selectedChampion.discardAmount--;
 								}
 
 								selectedChampion.discardAmount = 0;
@@ -400,7 +399,7 @@ public class CardLogicController : MonoBehaviour
 			}
 			Card card = child.GetComponent<Card>();
 
-			if (champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.8f || Random.Range(0f, 1f) < 0.25f)
+			if ((champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.8f) || Random.Range(0f, 1f) < 0.25f)
 			{
 				Debug.Log("The " + champion.name + " doesn't want to attack!");
 				champion.spadesBeforeExhaustion--;
@@ -831,7 +830,6 @@ public class CardLogicController : MonoBehaviour
 							}
 						}
 						Discard(selectedCard);
-						champion.discardAmount--;
 					}
 
 					champion.discardAmount = 0;
@@ -870,6 +868,7 @@ public class CardLogicController : MonoBehaviour
 					}
 
 					champion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 2);
+					Debug.Log(champion.discardAmount);
 
 					for (int discarded = 0; discarded < champion.discardAmount; discarded++)
 					{
@@ -884,7 +883,7 @@ public class CardLogicController : MonoBehaviour
 							}
 						}
 						Discard(selectedCard);
-						champion.discardAmount--;
+						Debug.Log(champion.discardAmount);
 					}
 
 					champion.discardAmount = 0;
@@ -965,7 +964,6 @@ public class CardLogicController : MonoBehaviour
 							}
 						}
 						Discard(selectedCard);
-						champion.discardAmount--;
 					}
 
 					champion.discardAmount = 0;
