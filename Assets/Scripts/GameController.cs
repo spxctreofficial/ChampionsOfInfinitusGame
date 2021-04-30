@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour
 			if (champion.isPlayer)
 			{
 				endTurnButton.gameObject.SetActive(true);
+				AudioController.instance.Play("PlayerTurn");
 				yield break;
 			}
 			else

@@ -585,7 +585,7 @@ public class CardLogicController : MonoBehaviour
 			if (animate)
 			{
 				card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				StartCoroutine(card.GetComponent<HoverScale>().ScaleDown(new Vector3(1f, 1f, 1f)));
+				StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 			}
 			yield return new WaitForSeconds(0.25f);
 		}
@@ -596,7 +596,7 @@ public class CardLogicController : MonoBehaviour
 		if (flip) card.ToggleCardVisibility();
 		if (!animate) return;
 		card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-		StartCoroutine(card.GetComponent<HoverScale>().ScaleDown(new Vector3(1f, 1f, 1f)));
+		StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 	}
 	public IEnumerator CombatCalc(ChampionController attacker, ChampionController defender)
 	{
@@ -643,6 +643,7 @@ public class CardLogicController : MonoBehaviour
 			else
 			{
 				Debug.Log("lol it tie");
+				AudioController.instance.Play("SwordClashing");
 			}
 			Debug.Log(attacker.name + attacker.currentHP);
 			Debug.Log(defender.name + defender.currentHP);
@@ -683,6 +684,7 @@ public class CardLogicController : MonoBehaviour
 					else
 					{
 						Debug.Log("lol it tie");
+						AudioController.instance.Play("SwordClashing");
 					}
 					Debug.Log(attacker.name + attacker.currentHP);
 					Debug.Log(defender.name + defender.currentHP);

@@ -159,7 +159,8 @@ public class ChampionController : MonoBehaviour
 	{
 		foreach (ChampionController champion in GameController.instance.champions)
 		{
-			if (champion.isPlayer == false) continue;
+
+			if (!champion.isAttacking || !champion.isPlayer || isPlayer) continue;
 
 			champion.currentTarget = this;
 			GameController.instance.playerActionTooltip.text = "Confirm the attack, or change selected card and/or target.";

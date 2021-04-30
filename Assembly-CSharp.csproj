@@ -62,7 +62,7 @@
     <Compile Include="Assets\Deprecated\Scripts\GameHandler.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionController.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
-    <Compile Include="Assets\Scripts\UI\HoverScale.cs" />
+    <Compile Include="Assets\Scripts\UI\SmartHover.cs" />
     <Compile Include="Assets\Scripts\CardLogicController.cs" />
     <Compile Include="Assets\Deprecated\Scripts\UI Elements\WinLoseMenu.cs" />
     <Compile Include="Assets\Deprecated\Scripts\UI Elements\ChooseChampion.cs" />

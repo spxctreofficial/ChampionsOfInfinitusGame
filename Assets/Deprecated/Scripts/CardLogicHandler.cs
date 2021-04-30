@@ -518,7 +518,7 @@ public class CardLogicHandler : MonoBehaviour
         if (animate)
         {
             card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            StartCoroutine(card.GetComponent<HoverScale>().ScaleDown(new Vector3(1f, 1f, 1f)));
+            StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
         }
     }
     void PlayerSpade(GameObject card)
