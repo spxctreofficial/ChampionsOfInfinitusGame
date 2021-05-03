@@ -1,3 +1,14 @@
+# Unity Project User-specific Files
 **/Temp
 **/Logs
 **/Build
+
+# IDE Caches
+**/.idea
+**/.vscode
+**/.vs
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
