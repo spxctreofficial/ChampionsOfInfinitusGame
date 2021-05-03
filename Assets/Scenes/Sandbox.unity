@@ -826,31 +826,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].name
-      value: MiniClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].volume
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 305460857126176041, guid: 3e39c12b24d4a684fb387edda7429ac5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1242,6 +1217,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4497401501057623108, guid: 2ce5a2550fb1de24dbdb9ef88b487a84,
         type: 3}
+    - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
+        type: 3}
+      propertyPath: dealToIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4426096360858846a74f163d0b7322e, type: 3}
 --- !u!224 &7120735544176057318 stripped
@@ -1524,6 +1504,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
+      propertyPath: players
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
       propertyPath: gameArea
       value: 
       objectReference: {fileID: 975385646}
@@ -1532,6 +1517,11 @@ PrefabInstance:
       propertyPath: cardIndex
       value: 
       objectReference: {fileID: 422067827}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gamemodes
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: playerHand

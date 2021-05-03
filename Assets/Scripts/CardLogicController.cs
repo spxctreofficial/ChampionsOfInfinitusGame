@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class CardLogicController : MonoBehaviour
@@ -34,7 +32,13 @@ public class CardLogicController : MonoBehaviour
 		ChampionController player = GameController.instance.champions[0];
 		foreach (ChampionController champion in GameController.instance.champions)
 		{
-			if (champion.isPlayer) player = champion;
+			if (!champion.isPlayer) continue;
+			player = champion;
+			if (player.isDead)
+			{
+				Debug.Log("The player is dead!");
+				yield break;
+			}
 		}
 		switch (GameController.instance.gamePhase)
 		{
@@ -105,6 +109,13 @@ public class CardLogicController : MonoBehaviour
 	}
 	public IEnumerator BotCardLogic(ChampionController champion)
 	{
+		if (champion.isDead)
+		{
+			Debug.LogWarning("Attempted to apply logic to dead champion!");
+			GameController.instance.NextTurnCalculator(champion);
+			yield break;
+		}
+
 		GameController.instance.playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 
 		yield return new WaitForSeconds(Random.Range(0.2f, 1f));
@@ -161,7 +172,7 @@ public class CardLogicController : MonoBehaviour
 
 							foreach (ChampionController selectedChampion in GameController.instance.champions)
 							{
-								if (selectedChampion.hand.transform.childCount == 0 || selectedChampion == champion) continue;
+								if (selectedChampion.hand.transform.childCount == 0 || selectedChampion == champion || selectedChampion.isDead) continue;
 								if (selectedChampion.isPlayer)
 								{
 									selectedChampion.discardAmount = 1;
@@ -208,12 +219,25 @@ public class CardLogicController : MonoBehaviour
 							StartCoroutine(BotCardLogic(champion));
 							yield break;
 						case 4:
+							bool jeopardized = false;
+							foreach (ChampionController quickSelectChampion in GameController.instance.champions)
+							{
+								if (quickSelectChampion.team != champion.team || quickSelectChampion == champion || quickSelectChampion.isDead) continue;
+
+								if (quickSelectChampion.currentHP - 20 <= 0)
+								{
+									Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+									jeopardized = true;
+								}
+							}
+							if (jeopardized) continue;
+
 							champion.diamondsBeforeExhaustion--;
 							Discard(card);
 
 							foreach (ChampionController selectedChampion in GameController.instance.champions)
 							{
-								if (selectedChampion == champion) continue;
+								if (selectedChampion == champion || selectedChampion.isDead) continue;
 								if (selectedChampion.hand.transform.childCount == 0)
 								{
 									Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
@@ -245,7 +269,7 @@ public class CardLogicController : MonoBehaviour
 								yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 								float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.75f : 0.5f;
-								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 <= 0 || selectedChampion.hand.transform.childCount == 0)
+								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.transform.childCount == 0)
 								{
 									selectedChampion.Damage(20, DamageType.Unblockable, champion);
 									continue;
@@ -305,7 +329,7 @@ public class CardLogicController : MonoBehaviour
 
 							foreach (ChampionController selectedChampion in GameController.instance.champions)
 							{
-								if (selectedChampion == champion) continue;
+								if (selectedChampion == champion || selectedChampion.isDead) continue;
 
 								selectedChampion.Damage(20, DamageType.Fire, champion);
 
@@ -319,7 +343,7 @@ public class CardLogicController : MonoBehaviour
 
 							foreach (ChampionController selectedChampion in GameController.instance.champions)
 							{
-								if (selectedChampion == champion) continue;
+								if (selectedChampion == champion || selectedChampion.isDead) continue;
 								if (selectedChampion.hand.transform.childCount == 0)
 								{
 									Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
@@ -351,7 +375,7 @@ public class CardLogicController : MonoBehaviour
 								yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 								float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.5f : 0.15f;
-								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 <= 0 || selectedChampion.hand.transform.childCount == 0)
+								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.transform.childCount == 0)
 								{
 									selectedChampion.Damage(40, DamageType.Fire, champion);
 									continue;
@@ -418,7 +442,7 @@ public class CardLogicController : MonoBehaviour
 
 					foreach (ChampionController targetChampion in GameController.instance.champions)
 					{
-						if (targetChampion == champion) continue;
+						if (targetChampion == champion || targetChampion.isDead) continue;
 
 						float chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.75f;
 						if ((targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) || targetChampion == champion.currentNemesis)
@@ -572,7 +596,7 @@ public class CardLogicController : MonoBehaviour
 
 		yield return new WaitForSeconds(Random.Range(0.2f, 1f));
 
-		GameController.instance.StartEndPhase();
+		GameController.instance.StartEndPhase(champion);
 	}
 
 	public IEnumerator Deal(Hand hand, int amount = 4, bool flip = false, bool animate = true)
@@ -863,7 +887,7 @@ public class CardLogicController : MonoBehaviour
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 					float chance = champion.currentHP >= 0.75f * champion.maxHP ? 0.75f : 0.5f;
-					if (Random.Range(0f, 1f) < chance && champion.currentHP - 20 <= 0 || champion.hand.transform.childCount == 0)
+					if (Random.Range(0f, 1f) < chance && champion.currentHP - 20 > 0 || champion.hand.transform.childCount == 0)
 					{
 						champion.Damage(20, DamageType.Unblockable, player);
 						continue;
@@ -945,7 +969,7 @@ public class CardLogicController : MonoBehaviour
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 					float chance = champion.currentHP >= 0.75f * champion.maxHP ? 0.5f : 0.15f;
-					if (Random.Range(0f, 1f) < chance && champion.currentHP - 40 <= 0 || champion.hand.transform.childCount == 0)
+					if (Random.Range(0f, 1f) < chance && champion.currentHP - 40 > 0 || champion.hand.transform.childCount == 0)
 					{
 						champion.Damage(40, DamageType.Fire, player);
 						continue;

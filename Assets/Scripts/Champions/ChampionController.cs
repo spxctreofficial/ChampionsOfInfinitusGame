@@ -27,7 +27,6 @@ public class ChampionController : MonoBehaviour
 
 	[HideInInspector]
 	public int maxHP;
-	[HideInInspector]
 	public int currentHP;
 
 	[HideInInspector]
@@ -38,11 +37,11 @@ public class ChampionController : MonoBehaviour
 	public string attackName;
 
 	[HideInInspector]
-	public int discardAmount;
-	[HideInInspector]
-	public int spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
+	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
 	[HideInInspector]
 	public bool isPlayer, isMyTurn, isAttacking, currentlyTargeted, hasDefended, isDead;
+	// [HideInInspector]
+	public string team;
 	[HideInInspector]
 	public ChampionController currentTarget, currentNemesis;
 	[HideInInspector]
@@ -80,13 +79,14 @@ public class ChampionController : MonoBehaviour
 		isAttacking = false;
 		hasDefended = false;
 		isDead = false;
+		// team = null; // this is not needed
 		currentTarget = null;
 		attackingCard = null;
 		isUltReady = false;
 
 		GetComponent<Image>().sprite = avatar;
 
-		if (isPlayer)
+		if (isPlayer || team == "PlayerTeam" /*temporary*/)
 		{
 			healthText.transform.localPosition = new Vector3(healthText.transform.localPosition.x, -healthText.transform.localPosition.y, healthText.transform.localPosition.z);
 			cardsText.transform.localPosition = new Vector3(cardsText.transform.localPosition.x, -cardsText.transform.localPosition.y, cardsText.transform.localPosition.z);
@@ -160,14 +160,14 @@ public class ChampionController : MonoBehaviour
 		foreach (ChampionController champion in GameController.instance.champions)
 		{
 
-			if (!champion.isAttacking || !champion.isPlayer || isPlayer) continue;
+			if (!champion.isAttacking || !champion.isPlayer || isPlayer || isDead) continue;
 
 			champion.currentTarget = this;
-			GameController.instance.playerActionTooltip.text = "Confirm the attack, or change selected card and/or target.";
+			GameController.instance.playerActionTooltip.text = (champion.team != this.team) ? "Confirm the attack, or change selected card and/or target." : "This champion is on your team! Confirm the attack, or consider changing the selected target and/or selected card.";
 			GameController.instance.confirmButton.gameObject.SetActive(true);
 
 			if (champion.attackingCard != null) break;
-			GameController.instance.playerActionTooltip.text = "Choose another card to represent your attack, or change selected target.";
+			GameController.instance.playerActionTooltip.text = (champion.team != this.team) ? "Choose another card to represent your attack, or change selected target." : "This champion is on your team! Consider changing the selected target, or continue by selecting a card to represent your attack.";
 			GameController.instance.confirmButton.gameObject.SetActive(false);
 		}
 	}

@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 {
 	public static GameController instance;
 	public enum Difficulty { Novice, Warrior, Champion }
+	public enum Gamemodes { Duel, Competitive2v2, FFA }
 
 	public GamePhase gamePhase;
 	public CardIndex cardIndex;
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
 	public int players;
 
 	public Difficulty difficulty;
+	public Gamemodes gamemodes;
 	public int roundsElapsed = 0;
 
 
@@ -59,6 +61,19 @@ public class GameController : MonoBehaviour
 
 	IEnumerator GameStart()
 	{
+		switch (gamemodes)
+		{
+			case Gamemodes.Competitive2v2:
+				players = 4;
+				Debug.LogWarning("Configured number of players will be replaced with: " + players);
+				break;
+			case Gamemodes.Duel:
+				players = 2;
+				Debug.LogWarning("Configured number of players will be replaced with: " + players);
+				break;
+			default:
+				break;
+		}
 		for (int i = 0; i < players; i++)
 		{
 			ChampionController championController;
@@ -76,7 +91,7 @@ public class GameController : MonoBehaviour
 					handVector2 = new Vector2(0, 1030);
 					break;
 				case 3:
-					championControllerVector2 = new Vector2(0, 408);
+					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(866, -178): new Vector2(0, 408);
 					handVector2 = new Vector2(0, -800);
 					break;
 				default:
@@ -85,130 +100,170 @@ public class GameController : MonoBehaviour
 					break;
 			}
 			championController = Instantiate(temporaryPrefab, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
-			hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			champions.Add(championController);
 			champions[i].transform.SetParent(gameArea.transform, false);
 			champions[i].ChampionSetup();
+
+			hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
 			hand.SetOwner(champions[i]);
+
+			switch (gamemodes)
+			{
+				case Gamemodes.Competitive2v2:
+					if (i == 3 || champions[i].isPlayer)
+					{
+						champions[i].team = "PlayerTeam";
+					}
+					else
+					{
+						champions[i].team = "OpponentTeam";
+					}
+					break;
+				case Gamemodes.Duel:
+					champions[0].team = "PlayerTeam";
+					champions[1].team = "OpponentTeam";
+					break;
+				case Gamemodes.FFA:
+					champions[i].team = champions[i].name;
+					break;
+			}
+
 			StartCoroutine(CardLogicController.instance.Deal(champions[i].hand));
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
 
 		yield return new WaitForSeconds(2f);
 
-		champions[0].isMyTurn = true; // temporary
-
-		StartCoroutine(BeginningPhase());
+		NextTurnCalculator();
 	}
-	IEnumerator BeginningPhase()
+	IEnumerator BeginningPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.BeginningPhase;
 
-		foreach (ChampionController champion in champions)
-		{
-			if (champion.isMyTurn == false) continue;
-
-			playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
-			StartCoroutine(CardLogicController.instance.Deal(champion.hand, 2));
-		}
+		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
+		StartCoroutine(CardLogicController.instance.Deal(champion.hand, 2));
 
 		yield return new WaitForSeconds(2f);
 
-		StartCoroutine(ActionPhase());
+		StartCoroutine(ActionPhase(champion));
 	}
-	IEnumerator ActionPhase()
+	IEnumerator ActionPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.ActionPhase;
 
-		foreach (ChampionController champion in champions)
+		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
+		champion.ResetExhaustion();
+
+		if (champion.isPlayer)
 		{
-			if (champion.isMyTurn == false) continue;
-
-			playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
-			champion.ResetExhaustion();
-
-			if (champion.isPlayer)
-			{
-				endTurnButton.gameObject.SetActive(true);
-				AudioController.instance.Play("PlayerTurn");
-				yield break;
-			}
-			else
-			{
-				StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
-			}
+			endTurnButton.gameObject.SetActive(true);
+			AudioController.instance.Play("PlayerTurn");
+			yield break;
+		}
+		else
+		{
+			StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
 		}
 	}
-	public void StartEndPhase()
+	public void StartEndPhase(ChampionController champion)
 	{
-		StartCoroutine(EndPhase());
+		StartCoroutine(EndPhase(champion));
 	}
-	IEnumerator EndPhase()
+	IEnumerator EndPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
-		foreach (ChampionController champion in champions)
+		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
+		champion.discardAmount = champion.hand.transform.childCount > 6 ? champion.hand.transform.childCount - 6 : 0;
+
+		yield return new WaitForSeconds(2f);
+
+		if (champion.isPlayer)
 		{
-			if (!champion.isMyTurn) continue;
+			playerActionTooltip.text = champion.discardAmount != 0 ? "Please discard " + champion.discardAmount + "." : playerActionTooltip.text;
 
-			playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
-			champion.discardAmount = champion.hand.transform.childCount > 6 ? champion.hand.transform.childCount - 6 : 0;
+			yield return new WaitUntil(() => champion.discardAmount == 0);
 
-			yield return new WaitForSeconds(2f);
-
-			if (champion.isPlayer)
+			NextTurnCalculator(champion);
+			yield break;
+		}
+		else
+		{
+			if (champion.discardAmount != 0)
 			{
-				playerActionTooltip.text = champion.discardAmount != 0 ? "Please discard " + champion.discardAmount + "." : playerActionTooltip.text;
-
-				yield return new WaitUntil(() => champion.discardAmount == 0);
-
-				NextTurnCalculator(champion);
-				break;
-			}
-			else
-			{
-				if (champion.discardAmount != 0)
+				for (int discarded = 0; discarded < champion.discardAmount; discarded++)
 				{
-					for (int discarded = 0; discarded < champion.discardAmount; discarded++)
+					Card selectedCard = null;
+					int value = 999;
+					foreach (Transform child in champion.hand.transform)
 					{
-						Card selectedCard = null;
-						int value = 999;
-						foreach (Transform child in champion.hand.transform)
+						if (child.GetComponent<Card>().cardValue < value)
 						{
-							if (child.GetComponent<Card>().cardValue < value)
-							{
-								selectedCard = child.GetComponent<Card>();
-								value = selectedCard.cardValue;
-							}
+							selectedCard = child.GetComponent<Card>();
+							value = selectedCard.cardValue;
 						}
-						CardLogicController.instance.Discard(selectedCard);
 					}
-					champion.discardAmount = 0;
+					CardLogicController.instance.Discard(selectedCard);
 				}
-
-				NextTurnCalculator(champion);
-				break;
+				champion.discardAmount = 0;
 			}
+
+			NextTurnCalculator(champion);
+			yield break;
 		}
 	}
 	public void NextTurnCalculator(ChampionController currentTurnChampion)
 	{
-		int nextIndex = champions.IndexOf(currentTurnChampion) + 1;
-
-		currentTurnChampion.isMyTurn = false;
+		ChampionController nextTurnChampion;
 		try
 		{
-			champions[nextIndex].isMyTurn = true;
+			nextTurnChampion = champions[champions.IndexOf(currentTurnChampion) + 1];
 		}
 		catch (System.ArgumentOutOfRangeException)
 		{
-			Debug.Log("The index was out of range. Elapsing round.");
-			champions[0].isMyTurn = true;
+			Debug.LogWarning("The index was out of range. Elapsing round and resetting.");
+			nextTurnChampion = champions[0];
 			roundsElapsed++;
 		}
-		StartCoroutine(BeginningPhase());
+		while (nextTurnChampion.isDead)
+		{
+			try
+			{
+				nextTurnChampion = champions[champions.IndexOf(nextTurnChampion) + 1];
+			}
+			catch (System.ArgumentOutOfRangeException)
+			{
+				Debug.Log("The index was out of range. Elapsing round and resetting.");
+				nextTurnChampion = champions[0];
+				roundsElapsed++;
+			}
+		}
+		if (nextTurnChampion == currentTurnChampion)
+		{
+			Debug.LogError("Something went horribly fucking wrong. Did it miscalculate the next champion or is everyone die!?");
+			return;
+		}
+
+		currentTurnChampion.isMyTurn = false;
+		nextTurnChampion.isMyTurn = true;
+		StartCoroutine(BeginningPhase(nextTurnChampion));
+	}
+	private void NextTurnCalculator()
+	{
+		ChampionController nextTurnChampion;
+		try
+		{
+			nextTurnChampion = champions[0];
+		}
+		catch (System.NullReferenceException)
+		{
+			Debug.LogError("The first champion was not found! An error most likely occured whilst preparing the game.");
+			return;
+		}
+		nextTurnChampion.isMyTurn = true;
+		StartCoroutine(BeginningPhase(nextTurnChampion));
 	}
 
 	public void OnConfirmButtonClick()
@@ -217,7 +272,7 @@ public class GameController : MonoBehaviour
 
 		foreach (ChampionController champion in champions)
 		{
-			if (!champion.isPlayer) continue;
+			if (!champion.isPlayer || champion.isDead) continue;
 
 			switch (gamePhase)
 			{
