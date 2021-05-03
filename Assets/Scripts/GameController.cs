@@ -168,7 +168,18 @@ public class GameController : MonoBehaviour
 	}
 	public void StartEndPhase(ChampionController champion)
 	{
-		StartCoroutine(EndPhase(champion));
+		if (champion == null)
+		{
+			StartCoroutine(EndPhase(champion));
+			return;
+		}
+
+		StartCoroutine(EndPhase(champions[0]));
+		Debug.LogWarning("No champion was specified! Targeting first in index.");
+	}
+	public void StartEndPhase()
+	{
+		StartCoroutine(EndPhase(champions[0]));
 	}
 	IEnumerator EndPhase(ChampionController champion)
 	{
