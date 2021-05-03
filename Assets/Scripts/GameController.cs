@@ -174,12 +174,24 @@ public class GameController : MonoBehaviour
 			return;
 		}
 
-		StartCoroutine(EndPhase(champions[0]));
-		Debug.LogWarning("No champion was specified! Targeting first in index.");
+		Debug.LogWarning("No champion was specified! Using an overload of method without any parameters.");
 	}
 	public void StartEndPhase()
 	{
-		StartCoroutine(EndPhase(champions[0]));
+		ChampionController champion = null;
+		foreach (ChampionController selectedChampion in champions)
+		{
+			if (!selectedChampion.isMyTurn) continue;
+
+			champion = selectedChampion;
+		}
+		if (champion == null)
+		{
+			Debug.LogWarning("What the fuck?");
+			return;
+		}
+
+		StartCoroutine(EndPhase(champion));
 	}
 	IEnumerator EndPhase(ChampionController champion)
 	{
@@ -260,6 +272,32 @@ public class GameController : MonoBehaviour
 		currentTurnChampion.isMyTurn = false;
 		nextTurnChampion.isMyTurn = true;
 		StartCoroutine(BeginningPhase(nextTurnChampion));
+	}
+	private void NextTurnCalculator(string version)
+	{
+		ChampionController champion = null;
+		switch (version)
+		{
+			case "Smart":
+				foreach (ChampionController selectedChampion in champions)
+				{
+					if (!selectedChampion.isMyTurn) continue;
+
+					champion = selectedChampion;
+				}
+				if (champion == null)
+				{
+					Debug.LogWarning("What the fuck?");
+					break;
+				}
+
+				NextTurnCalculator(champion);
+
+				break;
+			default:
+				Debug.LogWarning("No smart calculator type defined! This will soft-lock the program.");
+				return;
+		}
 	}
 	private void NextTurnCalculator()
 	{
