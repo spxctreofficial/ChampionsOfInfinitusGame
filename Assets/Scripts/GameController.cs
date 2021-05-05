@@ -83,19 +83,19 @@ public class GameController : MonoBehaviour
 			switch (i)
 			{
 				case 1:
-					championControllerVector2 = new Vector2(866, 408);
+					championControllerVector2 = new Vector2(864, (float) 412.5);
 					handVector2 = new Vector2(0, 800);
 					break;
 				case 2:
-					championControllerVector2 = new Vector2(-866, 408);
+					championControllerVector2 = new Vector2(-864, (float) 412.5);
 					handVector2 = new Vector2(0, 1030);
 					break;
 				case 3:
-					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(866, -178): new Vector2(0, 408);
+					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(864, (float) -213.25): new Vector2(0, 408);
 					handVector2 = new Vector2(0, -800);
 					break;
 				default:
-					championControllerVector2 = new Vector2(-866, -178);
+					championControllerVector2 = new Vector2(-864, (float) -213.25);
 					handVector2 = new Vector2(0, 0);
 					break;
 			}

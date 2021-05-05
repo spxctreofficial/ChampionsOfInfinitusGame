@@ -9,6 +9,7 @@ public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 public class ChampionController : MonoBehaviour
 {
 	public Champion champion;
+	[HideInInspector]
 	public Hand hand;
 
 	[HideInInspector]
@@ -21,9 +22,7 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public Button championButton;
 	[HideInInspector]
-	public TMP_Text healthText;
-	[HideInInspector]
-	public TMP_Text cardsText;
+	public TMP_Text nameText, healthText, cardsText;
 
 	[HideInInspector]
 	public int maxHP;
@@ -51,7 +50,8 @@ public class ChampionController : MonoBehaviour
 
 	private void Update()
 	{
-		healthText.text = currentHP.ToString();
+		HealthTextManager();
+
 		cardsText.text = hand.transform.childCount.ToString();
 	}
 
@@ -62,8 +62,9 @@ public class ChampionController : MonoBehaviour
 		gender = champion.gender;
 
 		championButton = gameObject.GetComponent<Button>();
-		healthText = transform.GetChild(0).GetComponent<TMP_Text>();
-		cardsText = transform.GetChild(1).GetComponent<TMP_Text>();
+		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
+		healthText = transform.GetChild(1).GetComponent<TMP_Text>();
+		cardsText = transform.GetChild(2).GetComponent<TMP_Text>();
 
 		maxHP = champion.maxHP;
 		currentHP = champion.currentHP;
@@ -86,12 +87,12 @@ public class ChampionController : MonoBehaviour
 
 		GetComponent<Image>().sprite = avatar;
 
-		if (isPlayer || team == "PlayerTeam" /*temporary*/)
+		/*if (isPlayer || team == "PlayerTeam")
 		{
 			healthText.transform.localPosition = new Vector3(healthText.transform.localPosition.x, -healthText.transform.localPosition.y, healthText.transform.localPosition.z);
 			cardsText.transform.localPosition = new Vector3(cardsText.transform.localPosition.x, -cardsText.transform.localPosition.y, cardsText.transform.localPosition.z);
 			cardsText.verticalAlignment = VerticalAlignmentOptions.Bottom;
-		}
+		}*/
 	}
 
 	public void Attack(ChampionController target)
@@ -169,6 +170,24 @@ public class ChampionController : MonoBehaviour
 			if (champion.attackingCard != null) break;
 			GameController.instance.playerActionTooltip.text = (champion.team != this.team) ? "Choose another card to represent your attack, or change selected target." : "This champion is on your team! Consider changing the selected target, or continue by selecting a card to represent your attack.";
 			GameController.instance.confirmButton.gameObject.SetActive(false);
+		}
+	}
+	private void HealthTextManager()
+	{
+		healthText.text = currentHP.ToString();
+		if (currentHP == 0)
+		{
+			healthText.color = new Color32(100, 100, 100, 255);
+			healthText.text = "DEAD";
+			return;
+		}
+		if (currentHP <= 0.6f * maxHP)
+		{
+			healthText.color = currentHP <= 0.3f * maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
+		}
+		else
+		{
+			healthText.color = new Color32(0, 255, 0, 255);
 		}
 	}
 	private IEnumerator ShakeImage(float duration, float magnitude)

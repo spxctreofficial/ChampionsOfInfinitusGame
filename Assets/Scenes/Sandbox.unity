@@ -187,7 +187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386640846 stripped
 GameObject:
@@ -324,7 +324,7 @@ RectTransform:
   m_Children:
   - {fileID: 975385647}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -701,7 +701,53 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1600387037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1600387039}
+  - component: {fileID: 1600387038}
+  m_Layer: 0
+  m_Name: ChampionIndex
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1600387038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600387037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982520eaa432f2e4685da68701a06e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  champions:
+  - {fileID: 0}
+  TheWraithKing: {fileID: 0}
+--- !u!4 &1600387039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600387037}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809010322
 GameObject:
@@ -785,7 +831,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1809010326
 MonoBehaviour:
@@ -913,7 +959,7 @@ PrefabInstance:
     - target: {fileID: 1772800351090816291, guid: 3f199183ee7d25048a01e0ddf5cb58e4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1772800351090816291, guid: 3f199183ee7d25048a01e0ddf5cb58e4,
         type: 3}
@@ -1027,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 4946762797089187213, guid: 0af8b325fa7cdb145a8b1dbeb367d869,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4946762797089187213, guid: 0af8b325fa7cdb145a8b1dbeb367d869,
         type: 3}
@@ -1272,7 +1318,7 @@ PrefabInstance:
     - target: {fileID: 2728260895373578543, guid: c60f4351c4a8ce1429b84c1209139e7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2728260895373578543, guid: c60f4351c4a8ce1429b84c1209139e7c,
         type: 3}
@@ -1406,7 +1452,7 @@ PrefabInstance:
     - target: {fileID: 7780179091963574233, guid: 3963cb97d21951f40924dbde00384b0d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7780179091963574233, guid: 3963cb97d21951f40924dbde00384b0d,
         type: 3}
@@ -1552,6 +1598,12 @@ PrefabInstance:
       propertyPath: endTurnButton
       value: 
       objectReference: {fileID: 512776267}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: temporaryPrefab
+      value: 
+      objectReference: {fileID: 2077964528263133328, guid: 3f777192606861745b0c8e0fadda708a,
+        type: 3}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: playerActionTooltip
