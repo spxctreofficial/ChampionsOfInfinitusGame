@@ -471,7 +471,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 975385647}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -508,9 +508,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 942276468}
   - {fileID: 7120735544176057318}
   - {fileID: 386640847}
-  - {fileID: 942276468}
   - {fileID: 5098982409637595514}
   - {fileID: 512776266}
   m_Father: {fileID: 708824486}
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champions:
-  - {fileID: 0}
+  - {fileID: 2077964528263133328, guid: 3f777192606861745b0c8e0fadda708a, type: 3}
   TheWraithKing: {fileID: 0}
 --- !u!4 &1600387039
 Transform:
@@ -1561,7 +1561,7 @@ PrefabInstance:
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: players
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}

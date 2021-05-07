@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
 					champions[1].team = "OpponentTeam";
 					break;
 				case Gamemodes.FFA:
-					champions[i].team = champions[i].name;
+					champions[i].team = champions[i].name + i;
 					break;
 			}
 
@@ -168,13 +168,14 @@ public class GameController : MonoBehaviour
 	}
 	public void StartEndPhase(ChampionController champion)
 	{
-		if (champion == null)
+		if (champion != null)
 		{
 			StartCoroutine(EndPhase(champion));
 			return;
 		}
 
-		Debug.LogWarning("No champion was specified! Using an overload of method without any parameters.");
+		Debug.LogWarning("No overload was specified! Searching manually for current turn's champion.");
+		StartEndPhase();
 	}
 	public void StartEndPhase()
 	{
@@ -328,8 +329,7 @@ public class GameController : MonoBehaviour
 				case GamePhase.ActionPhase:
 					if (champion.isAttacking && champion.attackingCard != null && champion.currentTarget != null)
 					{
-						StartCoroutine(CardLogicController.instance.CombatCalc(champion, champion.currentTarget));
-						champion.currentTarget.currentlyTargeted = true;
+						StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
 						return;
 					}
 					if (champion.currentlyTargeted && champion.defendingCard != null && !champion.isMyTurn)

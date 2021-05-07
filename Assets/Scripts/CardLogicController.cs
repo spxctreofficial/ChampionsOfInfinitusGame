@@ -61,7 +61,7 @@ public class CardLogicController : MonoBehaviour
 					switch (card.cardSuit)
 					{
 						case CardSuit.SPADE:
-							StartCoroutine(PlayerSpade(card, player));
+							StartCoroutine(SpadeLogic(card, player));
 							break;
 						case CardSuit.HEART:
 							PlayerHeart(card, player);
@@ -70,7 +70,7 @@ public class CardLogicController : MonoBehaviour
 							PlayerClub(card, player);
 							break;
 						case CardSuit.DIAMOND:
-							StartCoroutine(PlayerDiamond(card, player));
+							StartCoroutine(DiamondLogic(card, player));
 							break;
 					}
 					break;
@@ -146,282 +146,29 @@ public class CardLogicController : MonoBehaviour
 		foreach (Transform child in champion.hand.transform)
 		{
 			Card card = child.GetComponent<Card>();
-			switch (card.cardSuit)
+			if (card.cardSuit != CardSuit.DIAMOND) continue;
+			if (champion.diamondsBeforeExhaustion == 0 && (card.cardValue < 5 || card.cardValue > 8))
 			{
-				case CardSuit.DIAMOND:
-					if (champion.diamondsBeforeExhaustion == 0 && (card.cardValue < 5 || card.cardValue > 8))
-					{
-						Debug.Log("The " + champion.name + " can't play this DIAMOND.");
-						break;
-					}
-
-					switch (card.cardValue)
-					{
-						case 1:
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								StartCoroutine(Deal(selectedChampion.hand, 2));
-							}
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 2:
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								if (selectedChampion.hand.transform.childCount == 0 || selectedChampion == champion || selectedChampion.isDead) continue;
-								if (selectedChampion.isPlayer)
-								{
-									selectedChampion.discardAmount = 1;
-									GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
-
-									yield return new WaitUntil(() => selectedChampion.discardAmount == 0);
-
-									continue;
-								}
-
-								GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
-
-								selectedChampion.discardAmount = 1;
-
-								yield return new WaitForSeconds(Random.Range(0.2f, 2f));
-
-								for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-								{
-									Card selectedCard = null;
-									int value = 999;
-									foreach (Transform kid in selectedChampion.hand.transform)
-									{
-										if (kid.GetComponent<Card>().cardValue < value)
-										{
-											selectedCard = kid.GetComponent<Card>();
-											value = selectedCard.cardValue;
-										}
-									}
-									Discard(selectedCard);
-								}
-
-								selectedChampion.discardAmount = 0;
-							}
-
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 3:
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								StartCoroutine(Deal(selectedChampion.hand, 4));
-							}
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 4:
-							bool jeopardized = false;
-							foreach (ChampionController quickSelectChampion in GameController.instance.champions)
-							{
-								if (quickSelectChampion.team != champion.team || quickSelectChampion == champion || quickSelectChampion.isDead) continue;
-
-								if (quickSelectChampion.currentHP - 20 <= 0)
-								{
-									Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
-									jeopardized = true;
-								}
-							}
-							if (jeopardized) continue;
-
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								if (selectedChampion == champion || selectedChampion.isDead) continue;
-								if (selectedChampion.hand.transform.childCount == 0)
-								{
-									Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
-									selectedChampion.Damage(20, DamageType.Unblockable, champion);
-									continue;
-								}
-
-								if (selectedChampion.isPlayer)
-								{
-									selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 2);
-									GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
-									GameController.instance.confirmButton.gameObject.SetActive(true);
-									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
-
-									yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
-
-									if (selectedChampion.discardAmount == -1)
-									{
-										selectedChampion.Damage(20, DamageType.Unblockable, champion);
-										selectedChampion.discardAmount = 0;
-										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
-									}
-
-									continue;
-								}
-
-								GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
-
-								yield return new WaitForSeconds(Random.Range(0.2f, 2f));
-
-								float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.75f : 0.5f;
-								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.transform.childCount == 0)
-								{
-									selectedChampion.Damage(20, DamageType.Unblockable, champion);
-									continue;
-								}
-
-								selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 2);
-
-								for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-								{
-									Card selectedCard = null;
-									int value = 999;
-									foreach (Transform kid in selectedChampion.hand.transform)
-									{
-										if (kid.GetComponent<Card>().cardValue < value)
-										{
-											selectedCard = kid.GetComponent<Card>();
-											value = selectedCard.cardValue;
-										}
-									}
-									Discard(selectedCard);
-								}
-
-								selectedChampion.discardAmount = 0;
-							}
-
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 5:
-						case 6:
-						case 7:
-						case 8:
-							StartCoroutine(Deal(champion.hand, 1));
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 9:
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								selectedChampion.Heal(10);
-							}
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 10:
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								selectedChampion.Heal(20);
-							}
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 11:
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								if (selectedChampion == champion || selectedChampion.isDead) continue;
-
-								selectedChampion.Damage(20, DamageType.Fire, champion);
-
-								yield return new WaitForSeconds(1f);
-							}
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 12:
-							champion.diamondsBeforeExhaustion--;
-							Discard(card);
-
-							foreach (ChampionController selectedChampion in GameController.instance.champions)
-							{
-								if (selectedChampion == champion || selectedChampion.isDead) continue;
-								if (selectedChampion.hand.transform.childCount == 0)
-								{
-									Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
-									selectedChampion.Damage(40, DamageType.Fire, champion);
-									continue;
-								}
-
-								if (selectedChampion.isPlayer)
-								{
-									selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 4);
-									GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
-									GameController.instance.confirmButton.gameObject.SetActive(true);
-									GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
-
-									yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
-
-									if (selectedChampion.discardAmount == -1)
-									{
-										selectedChampion.Damage(40, DamageType.Fire, champion);
-										selectedChampion.discardAmount = 0;
-										GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
-									}
-
-									continue;
-								}
-
-								GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
-
-								yield return new WaitForSeconds(Random.Range(0.2f, 2f));
-
-								float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.5f : 0.15f;
-								if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.transform.childCount == 0)
-								{
-									selectedChampion.Damage(40, DamageType.Fire, champion);
-									continue;
-								}
-
-								selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 4);
-
-								for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-								{
-									Card selectedCard = null;
-									int value = 999;
-									foreach (Transform kid in selectedChampion.hand.transform)
-									{
-										if (kid.GetComponent<Card>().cardValue < value)
-										{
-											selectedCard = kid.GetComponent<Card>();
-											value = selectedCard.cardValue;
-										}
-									}
-									Discard(selectedCard);
-								}
-
-								selectedChampion.discardAmount = 0;
-							}
-
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						default:
-							Debug.Log("Not implemented yet. Skipping...");
-							continue;
-					}
-				default:
-					break;
+				Debug.Log("The " + champion.name + " can't play this DIAMOND.");
+				break;
 			}
+
+			StartCoroutine(DiamondLogic(card, champion));
+			yield break;
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
 
+		// Spades
 		foreach (Transform child in champion.hand.transform)
 		{
+			Card card = child.GetComponent<Card>();
+			if (card.cardSuit != CardSuit.SPADE) continue;
 			if (champion.spadesBeforeExhaustion == 0)
 			{
 				Debug.Log("The " + champion.name + " is exhausted. Cannot attack.");
 				break;
 			}
-			Card card = child.GetComponent<Card>();
 
 			if ((champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.8f) || Random.Range(0f, 1f) < 0.25f)
 			{
@@ -429,95 +176,9 @@ public class CardLogicController : MonoBehaviour
 				champion.spadesBeforeExhaustion--;
 				break;
 			}
-			switch (card.cardSuit)
-			{
-				case CardSuit.SPADE:
-					bool gambled = false;
 
-					if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f)
-					{
-						Debug.Log("The " + champion.name + " refuses to use a SPADE worth: " + card.cardValue);
-						continue;
-					}
-
-					foreach (ChampionController targetChampion in GameController.instance.champions)
-					{
-						if (targetChampion == champion || targetChampion.isDead) continue;
-
-						float chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.75f;
-						if ((targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) || targetChampion == champion.currentNemesis)
-						{
-							champion.currentTarget = targetChampion;
-							break;
-						}
-
-						chance = targetChampion.isPlayer ? 0.65f : 0.5f;
-						if (champion.currentHP >= 0.75f * champion.maxHP && Random.Range(0f, 1f) < chance)
-						{
-							champion.currentTarget = targetChampion;
-							break;
-						}
-					}
-					if (champion.currentTarget == null)
-					{
-						Debug.Log("The " + champion.name + " decides not to attack!");
-						champion.spadesBeforeExhaustion--;
-						break;
-					}
-
-					if (champion.hand.transform.childCount - 1 == 0 || (champion.currentTarget.hand.transform.childCount == 0 && Random.Range(0f, 1f) < 0.75f))
-					{
-						champion.attackingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-						gambled = true;
-					}
-					else
-					{
-						int value = -1;
-						foreach (Transform kid in champion.hand.transform)
-						{
-							Card selectedCard = kid.GetComponent<Card>();
-
-							if (selectedCard == card) continue;
-							if (selectedCard.cardSuit == CardSuit.HEART && champion.currentHP <= 0.75f * champion.maxHP && Random.Range(0f, 1f) < 0.75f)
-							{
-								Debug.Log("The " + champion.name + " refuses to use a HEART to attack!");
-								continue;
-							}
-							if (champion.currentHP >= 0.5f * champion.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
-							{
-								Debug.Log("The opponent is confident! They refuse to use a value of " + selectedCard.cardValue + " to attack!");
-								continue;
-							}
-
-							if (value < selectedCard.cardValue)
-							{
-								value = selectedCard.cardValue;
-								champion.attackingCard = selectedCard;
-							}
-						}
-					}
-
-					float f = champion.currentTarget.currentHP <= 0.25f * champion.currentTarget.maxHP ? 0.8f : 0.5f;
-					if ((champion.attackingCard.cardValue <= card.cardValue ||
-						(card.cardValue >= 9 || champion.attackingCard.cardValue <= 9 || champion.hand.transform.childCount <= 2) && Random.Range(0f, 1f) < f)
-						&& !gambled)
-					{
-						Debug.Log("The " + champion.name + " does not want to attack with the current configuration!");
-						champion.attackingCard = null;
-					}
-
-					champion.spadesBeforeExhaustion--;
-					Discard(card);
-					champion.isAttacking = true;
-
-					Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
-
-					StartCoroutine(CombatCalc(champion, champion.currentTarget));
-
-					yield break;
-				default:
-					break;
-			}
+			StartCoroutine(SpadeLogic(card, champion));
+			yield break;
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
@@ -622,6 +283,455 @@ public class CardLogicController : MonoBehaviour
 		card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 		StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 	}
+	public IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender)
+	{
+		if (attacker.attackingCard == null)
+		{
+			Debug.LogError("No attacking card was specified on an initiated attack!");
+			yield break;
+		}
+		defender.currentlyTargeted = true;
+		defender.hasDefended = false;
+
+		switch (attacker.isPlayer)
+		{
+			case true:
+				Discard(attacker.attackingCard);
+				break;
+			case false:
+				Discard(attacker.attackingCard, true);
+				break;
+		}
+		switch (defender.isPlayer)
+		{
+			case true:
+				GameController.instance.playerActionTooltip.text = "The " + attacker.name + " is attacking the " + defender.name + ". Defend with a card.";
+
+				yield return new WaitUntil(() => defender.hasDefended && defender.defendingCard != null);
+				break;
+			case false:
+				int value = -1;
+				foreach (Transform child in defender.hand.transform)
+				{
+					Card selectedCard = child.GetComponent<Card>();
+					if (defender.currentHP >= 0.5f * defender.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+					{
+						Debug.Log("The " + defender.name + " is confident! They refuse to use a value of " + selectedCard.cardValue + " to defend!");
+						continue;
+					}
+					if (value < selectedCard.cardValue)
+					{
+						value = selectedCard.cardValue;
+						defender.defendingCard = selectedCard;
+					}
+				}
+				if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) defender.defendingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+				break;
+		}
+
+		if (!defender.isPlayer)
+		{
+			yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+			Discard(defender.defendingCard);
+		}
+		else
+		{
+			Discard(defender.defendingCard);
+			defender.defendingCard.ToggleCardVisibility();
+		}
+		attacker.attackingCard.ToggleCardVisibility(true);
+
+		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue)
+		{
+			attacker.Attack(defender);
+		}
+		else if (attacker.attackingCard.cardValue < defender.defendingCard.cardValue)
+		{
+			attacker.Damage(defender.attackDamage, defender.attackDamageType, defender);
+		}
+		else
+		{
+			Debug.Log("lol it tie");
+			AudioController.instance.Play("SwordClashing");
+		}
+		Debug.Log(attacker.name + attacker.currentHP);
+		Debug.Log(defender.name + defender.currentHP);
+
+		GameController.instance.endTurnButton.gameObject.SetActive(true);
+		GameController.instance.playerActionTooltip.text = "The " + attacker.name + "'s Turn: Action Phase";
+		attacker.isAttacking = false;
+		attacker.attackingCard = null;
+		attacker.currentTarget = null;
+		defender.currentlyTargeted = false;
+		defender.hasDefended = false;
+		defender.defendingCard = null;
+
+		if (!attacker.isPlayer) StartCoroutine(BotCardLogic(attacker));
+
+		yield break;
+	}
+	private IEnumerator SpadeLogic(Card card, ChampionController champion)
+	{
+		if (champion.spadesBeforeExhaustion <= 0)
+		{
+			GameController.instance.playerActionTooltip.text = "The" + champion.name + " cannot play any more SPADES! Choose another card.";
+			yield break;
+		}
+
+		switch (champion.isPlayer)
+		{
+			case true:
+				GameController.instance.endTurnButton.gameObject.SetActive(false);
+				GameController.instance.playerActionTooltip.text = "Choose another card to represent your attack, or choose a target.";
+				champion.isAttacking = true;
+				champion.spadesBeforeExhaustion--;
+				Discard(card);
+
+				yield return new WaitUntil(() => champion.attackingCard != null && champion.currentTarget != null);
+				GameController.instance.confirmButton.gameObject.SetActive(true);
+				break;
+			case false:
+				bool gambled = false;
+
+				if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f)
+				{
+					Debug.Log("The " + champion.name + " refuses to use a SPADE worth: " + card.cardValue);
+					yield break;
+				}
+
+				// Targeting Champion
+				foreach (ChampionController targetChampion in GameController.instance.champions)
+				{
+					if (targetChampion == champion || targetChampion.isDead || targetChampion.team == champion.team) continue;
+
+					float chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.75f;
+					if ((targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) || targetChampion == champion.currentNemesis)
+					{
+						champion.currentTarget = targetChampion;
+						break;
+					}
+
+					chance = targetChampion.isPlayer ? 0.65f : 0.5f;
+					if (champion.currentHP >= 0.75f * champion.maxHP && Random.Range(0f, 1f) < chance)
+					{
+						champion.currentTarget = targetChampion;
+						break;
+					}
+				}
+				if (champion.currentTarget == null)
+				{
+					Debug.Log("The " + champion.name + " decides not to attack!");
+					champion.spadesBeforeExhaustion--;
+					break;
+				}
+
+				// Attacking Card
+				if (champion.hand.transform.childCount - 1 == 0 || (champion.currentTarget.hand.transform.childCount == 0 && Random.Range(0f, 1f) < 0.75f))
+				{
+					champion.attackingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+					gambled = true;
+				}
+				else
+				{
+					int value = -1;
+					foreach (Transform kid in champion.hand.transform)
+					{
+						Card selectedCard = kid.GetComponent<Card>();
+
+						if (selectedCard == card) continue;
+						if (selectedCard.cardSuit == CardSuit.HEART && champion.currentHP <= 0.75f * champion.maxHP && Random.Range(0f, 1f) < 0.75f)
+						{
+							Debug.Log("The " + champion.name + " refuses to use a HEART to attack!");
+							continue;
+						}
+						if (champion.currentHP >= 0.5f * champion.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+						{
+							Debug.Log("The opponent is confident! They refuse to use a value of " + selectedCard.cardValue + " to attack!");
+							continue;
+						}
+
+						if (value < selectedCard.cardValue)
+						{
+							value = selectedCard.cardValue;
+							champion.attackingCard = selectedCard;
+						}
+					}
+				}
+
+				// Reviewing Choices
+				float f = champion.currentTarget.currentHP <= 0.25f * champion.currentTarget.maxHP ? 0.8f : 0.5f;
+				if ((champion.attackingCard.cardValue <= card.cardValue ||
+					(card.cardValue >= 9 || champion.attackingCard.cardValue <= 9 || champion.hand.transform.childCount <= 2) && Random.Range(0f, 1f) < f)
+					&& !gambled)
+				{
+					Debug.Log("The " + champion.name + " does not want to attack with the current configuration!");
+					champion.attackingCard = null;
+					break;
+				}
+
+				// Confirming Attack
+				champion.isAttacking = true;
+				champion.spadesBeforeExhaustion--;
+				Discard(card);
+
+				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
+
+				StartCoroutine(CombatCalculation(champion, champion.currentTarget));
+				break;
+		}
+	}
+	private IEnumerator DiamondLogic(Card card, ChampionController champion)
+	{
+		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8))
+		{
+			GameController.instance.playerActionTooltip.text = "The " + champion.name + " cannot play more DIAMONDS! Choose another card.";
+		}
+
+		switch (card.cardValue)
+		{
+			case 1:
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					StartCoroutine(Deal(selectedChampion.hand, 2));
+				}
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+				break;
+			case 2:
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					if (selectedChampion.hand.transform.childCount == 0 || selectedChampion == champion || selectedChampion.isDead) continue;
+					if (selectedChampion.isPlayer)
+					{
+						selectedChampion.discardAmount = 1;
+						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
+
+						yield return new WaitUntil(() => selectedChampion.discardAmount == 0);
+
+						continue;
+					}
+
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+
+					selectedChampion.discardAmount = 1;
+
+					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
+
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
+					{
+						Card selectedCard = null;
+						int value = 999;
+						foreach (Transform kid in selectedChampion.hand.transform)
+						{
+							if (kid.GetComponent<Card>().cardValue < value)
+							{
+								selectedCard = kid.GetComponent<Card>();
+								value = selectedCard.cardValue;
+							}
+						}
+						Discard(selectedCard);
+					}
+
+					selectedChampion.discardAmount = 0;
+				}
+				break;
+			case 3:
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					StartCoroutine(Deal(selectedChampion.hand, 4));
+				}
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+				break;
+			case 4:
+				bool jeopardized = false;
+				foreach (ChampionController quickSelectChampion in GameController.instance.champions)
+				{
+					if (quickSelectChampion.team != champion.team || quickSelectChampion == champion || quickSelectChampion.isDead) continue;
+
+					if (quickSelectChampion.currentHP - 20 <= 0)
+					{
+						Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+						jeopardized = true;
+					}
+				}
+				if (jeopardized) break;
+
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					if (selectedChampion == champion || selectedChampion.isDead) continue;
+					if (selectedChampion.hand.transform.childCount == 0)
+					{
+						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
+						selectedChampion.Damage(20, DamageType.Unblockable, champion);
+						continue;
+					}
+
+					if (selectedChampion.isPlayer)
+					{
+						selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 2);
+						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
+						GameController.instance.confirmButton.gameObject.SetActive(true);
+						GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
+
+						yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
+
+						if (selectedChampion.discardAmount == -1)
+						{
+							selectedChampion.Damage(20, DamageType.Unblockable, champion);
+							selectedChampion.discardAmount = 0;
+							GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
+						}
+
+						continue;
+					}
+
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+
+					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
+
+					float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.75f : 0.5f;
+					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.transform.childCount == 0)
+					{
+						selectedChampion.Damage(20, DamageType.Unblockable, champion);
+						continue;
+					}
+
+					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 2);
+
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
+					{
+						Card selectedCard = null;
+						int value = 999;
+						foreach (Transform kid in selectedChampion.hand.transform)
+						{
+							if (kid.GetComponent<Card>().cardValue < value)
+							{
+								selectedCard = kid.GetComponent<Card>();
+								value = selectedCard.cardValue;
+							}
+						}
+						Discard(selectedCard);
+					}
+
+					selectedChampion.discardAmount = 0;
+				}
+				break;
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				StartCoroutine(Deal(champion.hand, 1));
+				Discard(card);
+				break;
+			case 9:
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					selectedChampion.Heal(10);
+				}
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+				break;
+			case 10:
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					selectedChampion.Heal(20);
+				}
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+				break;
+			case 11:
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					if (selectedChampion == champion || selectedChampion.isDead) continue;
+
+					selectedChampion.Damage(20, DamageType.Fire, champion);
+
+					yield return new WaitForSeconds(1f);
+				}
+				break;
+			case 12:
+				champion.diamondsBeforeExhaustion--;
+				Discard(card);
+
+				foreach (ChampionController selectedChampion in GameController.instance.champions)
+				{
+					if (selectedChampion == champion || selectedChampion.isDead) continue;
+					if (selectedChampion.hand.transform.childCount == 0)
+					{
+						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
+						selectedChampion.Damage(40, DamageType.Fire, champion);
+						continue;
+					}
+
+					if (selectedChampion.isPlayer)
+					{
+						selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 4);
+						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
+						GameController.instance.confirmButton.gameObject.SetActive(true);
+						GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Skip";
+
+						yield return new WaitUntil(() => selectedChampion.discardAmount <= 0);
+
+						if (selectedChampion.discardAmount == -1)
+						{
+							selectedChampion.Damage(40, DamageType.Fire, champion);
+							selectedChampion.discardAmount = 0;
+							GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
+						}
+
+						continue;
+					}
+
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+
+					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
+
+					float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.5f : 0.15f;
+					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.transform.childCount == 0)
+					{
+						selectedChampion.Damage(40, DamageType.Fire, champion);
+						continue;
+					}
+
+					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 4);
+
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
+					{
+						Card selectedCard = null;
+						int value = 999;
+						foreach (Transform kid in selectedChampion.hand.transform)
+						{
+							if (kid.GetComponent<Card>().cardValue < value)
+							{
+								selectedCard = kid.GetComponent<Card>();
+								value = selectedCard.cardValue;
+							}
+						}
+						Discard(selectedCard);
+					}
+
+					selectedChampion.discardAmount = 0;
+				}
+				break;
+			default:
+				Debug.Log("Not implemented yet. Skipping...");
+				break;
+		}
+
+		if (!champion.isPlayer) StartCoroutine(BotCardLogic(champion));
+	}
+
+	[System.Obsolete("No longer used to calculate combat. Use 'CombatCalculation()' instead.")]
 	public IEnumerator CombatCalc(ChampionController attacker, ChampionController defender)
 	{
 		if (attacker.isPlayer && !defender.isPlayer)
@@ -726,6 +836,7 @@ public class CardLogicController : MonoBehaviour
 			}
 		}
 	}
+	[System.Obsolete("No longer used. Use 'SpadeLogic()' instead.")]
 	private IEnumerator PlayerSpade(Card card, ChampionController player)
 	{
 		if (player.spadesBeforeExhaustion <= 0)
@@ -810,6 +921,7 @@ public class CardLogicController : MonoBehaviour
 		StartCoroutine(Deal(player.hand, 1));
 		Discard(card);
 	}
+	[System.Obsolete("No longer used. Use 'DiamondLogic()' instead.")]
 	private IEnumerator PlayerDiamond(Card card, ChampionController player)
 	{
 		if ((card.cardValue < 5 || card.cardValue > 8) && player.diamondsBeforeExhaustion <= 0)
