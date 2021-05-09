@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
 					break;
 			}
 
-			StartCoroutine(CardLogicController.instance.Deal(champions[i].hand));
+			champions[i].hand.Deal(4);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
 
@@ -142,7 +142,7 @@ public class GameController : MonoBehaviour
 		gamePhase = GamePhase.BeginningPhase;
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
-		StartCoroutine(CardLogicController.instance.Deal(champion.hand, 2));
+		champion.hand.Deal(2);
 
 		yield return new WaitForSeconds(2f);
 
@@ -217,20 +217,7 @@ public class GameController : MonoBehaviour
 		{
 			if (champion.discardAmount != 0)
 			{
-				for (int discarded = 0; discarded < champion.discardAmount; discarded++)
-				{
-					Card selectedCard = null;
-					int value = 999;
-					foreach (Transform child in champion.hand.transform)
-					{
-						if (child.GetComponent<Card>().cardValue < value)
-						{
-							selectedCard = child.GetComponent<Card>();
-							value = selectedCard.cardValue;
-						}
-					}
-					CardLogicController.instance.Discard(selectedCard);
-				}
+				for (int discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
 				champion.discardAmount = 0;
 			}
 

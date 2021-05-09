@@ -35,6 +35,8 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public string attackName;
 
+	public List<string> abilities;
+
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
 	[HideInInspector]
@@ -50,9 +52,7 @@ public class ChampionController : MonoBehaviour
 
 	private void Update()
 	{
-		HealthTextManager();
-
-		cardsText.text = hand.transform.childCount.ToString();
+		TextManager();
 	}
 
 	public void ChampionSetup()
@@ -72,6 +72,8 @@ public class ChampionController : MonoBehaviour
 		attackDamage = champion.attackDamage;
 		attackDamageType = champion.attackDamageType;
 		attackName = champion.attackName;
+
+		abilities = champion.abilities;
 
 		discardAmount = 0;
 		ResetExhaustion();
@@ -155,6 +157,7 @@ public class ChampionController : MonoBehaviour
 		this.hand = hand;
 		hand.owner = this;
 	}
+
 	[HideInInspector]
 	public void OnClick()
 	{
@@ -172,9 +175,12 @@ public class ChampionController : MonoBehaviour
 			GameController.instance.confirmButton.gameObject.SetActive(false);
 		}
 	}
-	private void HealthTextManager()
+
+	[HideInInspector]
+	private void TextManager()
 	{
 		healthText.text = currentHP.ToString();
+		cardsText.text = hand.transform.childCount.ToString();
 		if (currentHP == 0)
 		{
 			healthText.color = new Color32(100, 100, 100, 255);

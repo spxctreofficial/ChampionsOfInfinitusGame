@@ -17,5 +17,5 @@ public class Champion : ScriptableObject
 	public DamageType attackDamageType;
 	public string attackName;
 
-
+	public List<string> abilities;
 }

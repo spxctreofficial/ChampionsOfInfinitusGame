@@ -67,7 +67,7 @@ public class CardLogicController : MonoBehaviour
 							PlayerHeart(card, player);
 							break;
 						case CardSuit.CLUB:
-							PlayerClub(card, player);
+							StartCoroutine(SpadeLogic(card, player));
 							break;
 						case CardSuit.DIAMOND:
 							StartCoroutine(DiamondLogic(card, player));
@@ -123,21 +123,11 @@ public class CardLogicController : MonoBehaviour
 		foreach (Transform child in champion.hand.transform)
 		{
 			Card card = child.GetComponent<Card>();
-			switch (card.cardSuit)
+			if (card.cardSuit != CardSuit.CLUB) continue;
+			if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f)
 			{
-				case CardSuit.CLUB:
-					if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f)
-					{
-						Debug.Log("The " + champion.name + " refuses to trade in a CLUB worth: " + card.cardValue);
-						continue;
-					}
-
-					StartCoroutine(Deal(champion.hand, 1));
-					Discard(card);
-					StartCoroutine(BotCardLogic(champion));
-					yield break;
-				default:
-					break;
+				Debug.Log("The " + champion.name + " refuses to trade in a CLUB worth: " + card.cardValue);
+				continue;
 			}
 		}
 
@@ -310,21 +300,7 @@ public class CardLogicController : MonoBehaviour
 				yield return new WaitUntil(() => defender.hasDefended && defender.defendingCard != null);
 				break;
 			case false:
-				int value = -1;
-				foreach (Transform child in defender.hand.transform)
-				{
-					Card selectedCard = child.GetComponent<Card>();
-					if (defender.currentHP >= 0.5f * defender.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
-					{
-						Debug.Log("The " + defender.name + " is confident! They refuse to use a value of " + selectedCard.cardValue + " to defend!");
-						continue;
-					}
-					if (value < selectedCard.cardValue)
-					{
-						value = selectedCard.cardValue;
-						defender.defendingCard = selectedCard;
-					}
-				}
+				defender.defendingCard = defender.hand.GetCard("Defense");
 				if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) defender.defendingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 				break;
 		}
@@ -433,29 +409,7 @@ public class CardLogicController : MonoBehaviour
 				}
 				else
 				{
-					int value = -1;
-					foreach (Transform kid in champion.hand.transform)
-					{
-						Card selectedCard = kid.GetComponent<Card>();
-
-						if (selectedCard == card) continue;
-						if (selectedCard.cardSuit == CardSuit.HEART && champion.currentHP <= 0.75f * champion.maxHP && Random.Range(0f, 1f) < 0.75f)
-						{
-							Debug.Log("The " + champion.name + " refuses to use a HEART to attack!");
-							continue;
-						}
-						if (champion.currentHP >= 0.5f * champion.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
-						{
-							Debug.Log("The opponent is confident! They refuse to use a value of " + selectedCard.cardValue + " to attack!");
-							continue;
-						}
-
-						if (value < selectedCard.cardValue)
-						{
-							value = selectedCard.cardValue;
-							champion.attackingCard = selectedCard;
-						}
-					}
+					champion.attackingCard = champion.hand.GetAttackingCard(card);
 				}
 
 				// Reviewing Choices
@@ -470,15 +424,23 @@ public class CardLogicController : MonoBehaviour
 				}
 
 				// Confirming Attack
+				Discard(card);
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;
-				Discard(card);
 
 				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
 
 				StartCoroutine(CombatCalculation(champion, champion.currentTarget));
 				break;
 		}
+	}
+	private IEnumerator ClubLogic(Card card, ChampionController champion)
+	{
+		champion.hand.Deal(1);
+		Discard(card);
+
+		if (!champion.isPlayer) StartCoroutine(BotCardLogic(champion));
+		yield break;
 	}
 	private IEnumerator DiamondLogic(Card card, ChampionController champion)
 	{
@@ -492,7 +454,7 @@ public class CardLogicController : MonoBehaviour
 			case 1:
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
-					StartCoroutine(Deal(selectedChampion.hand, 2));
+					selectedChampion.hand.Deal(2);
 				}
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -520,20 +482,7 @@ public class CardLogicController : MonoBehaviour
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
-					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-					{
-						Card selectedCard = null;
-						int value = 999;
-						foreach (Transform kid in selectedChampion.hand.transform)
-						{
-							if (kid.GetComponent<Card>().cardValue < value)
-							{
-								selectedCard = kid.GetComponent<Card>();
-								value = selectedCard.cardValue;
-							}
-						}
-						Discard(selectedCard);
-					}
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -541,7 +490,7 @@ public class CardLogicController : MonoBehaviour
 			case 3:
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
-					StartCoroutine(Deal(selectedChampion.hand, 4));
+					selectedChampion.hand.Deal(4);
 				}
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -605,20 +554,7 @@ public class CardLogicController : MonoBehaviour
 
 					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 2);
 
-					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-					{
-						Card selectedCard = null;
-						int value = 999;
-						foreach (Transform kid in selectedChampion.hand.transform)
-						{
-							if (kid.GetComponent<Card>().cardValue < value)
-							{
-								selectedCard = kid.GetComponent<Card>();
-								value = selectedCard.cardValue;
-							}
-						}
-						Discard(selectedCard);
-					}
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -627,7 +563,7 @@ public class CardLogicController : MonoBehaviour
 			case 6:
 			case 7:
 			case 8:
-				StartCoroutine(Deal(champion.hand, 1));
+				champion.hand.Deal(1);
 				Discard(card);
 				break;
 			case 9:
@@ -705,20 +641,7 @@ public class CardLogicController : MonoBehaviour
 
 					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 4);
 
-					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++)
-					{
-						Card selectedCard = null;
-						int value = 999;
-						foreach (Transform kid in selectedChampion.hand.transform)
-						{
-							if (kid.GetComponent<Card>().cardValue < value)
-							{
-								selectedCard = kid.GetComponent<Card>();
-								value = selectedCard.cardValue;
-							}
-						}
-						Discard(selectedCard);
-					}
+					for (int discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -743,21 +666,7 @@ public class CardLogicController : MonoBehaviour
 			}
 			GameController.instance.playerActionTooltip.text = "Waiting for the opponent...";
 
-			int value = -1;
-			foreach (Transform child in defender.hand.transform)
-			{
-				Card selectedCard = child.GetComponent<Card>();
-				if (defender.currentHP >= 0.5f * defender.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
-				{
-					Debug.Log("The " + defender.name + " is confident! They refuse to use a value of " + selectedCard.cardValue + " to defend!");
-					continue;
-				}
-				if (value < selectedCard.cardValue)
-				{
-					value = selectedCard.cardValue;
-					defender.defendingCard = selectedCard;
-				}
-			}
+			defender.defendingCard = defender.hand.GetCard("Defense");
 			if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) defender.defendingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 
 			Discard(attacker.attackingCard);
@@ -916,9 +825,10 @@ public class CardLogicController : MonoBehaviour
 				break;
 		}
 	}
+	[System.Obsolete("No longer used. Use 'ClubLogic()' instead.")]
 	private void PlayerClub(Card card, ChampionController player)
 	{
-		StartCoroutine(Deal(player.hand, 1));
+		player.hand.Deal(1);
 		Discard(card);
 	}
 	[System.Obsolete("No longer used. Use 'DiamondLogic()' instead.")]
@@ -935,7 +845,7 @@ public class CardLogicController : MonoBehaviour
 			case 1:
 				foreach (ChampionController champion in GameController.instance.champions)
 				{
-					StartCoroutine(Deal(champion.hand, 2));
+					champion.hand.Deal(2);
 				}
 				player.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -980,7 +890,7 @@ public class CardLogicController : MonoBehaviour
 			case 3:
 				foreach (ChampionController champion in GameController.instance.champions)
 				{
-					StartCoroutine(Deal(champion.hand, 4));
+					champion.hand.Deal(4);
 				}
 				player.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -1035,7 +945,7 @@ public class CardLogicController : MonoBehaviour
 			case 6:
 			case 7:
 			case 8:
-				StartCoroutine(Deal(player.hand, 1));
+				player.hand.Deal(1);
 				Discard(card);
 				break;
 			case 9:
