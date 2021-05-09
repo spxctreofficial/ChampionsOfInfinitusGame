@@ -43,12 +43,12 @@ public class Hand : MonoBehaviour
 				value = -999;
 				foreach (Transform child in transform)
 				{
-					if (owner.currentHP >= 0.5f * owner.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+					if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
 					{
-						Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + selectedCard.cardValue + " to defend!");
+						Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
 						continue;
 					}
-					if (value < selectedCard.cardValue)
+					if (value < child.GetComponent<Card>().cardValue)
 					{
 						selectedCard = child.GetComponent<Card>();
 						value = selectedCard.cardValue;

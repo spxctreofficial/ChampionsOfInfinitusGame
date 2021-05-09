@@ -67,7 +67,7 @@ public class CardLogicController : MonoBehaviour
 							PlayerHeart(card, player);
 							break;
 						case CardSuit.CLUB:
-							StartCoroutine(SpadeLogic(card, player));
+							StartCoroutine(ClubLogic(card, player));
 							break;
 						case CardSuit.DIAMOND:
 							StartCoroutine(DiamondLogic(card, player));
