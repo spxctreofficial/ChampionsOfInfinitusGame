@@ -36,6 +36,9 @@ public class GameController : MonoBehaviour
 	public Gamemodes gamemodes;
 	public int roundsElapsed = 0;
 
+	[HideInInspector]
+	public IEnumerator currentPhaseRoutine;
+
 
 	private void Awake()
 	{
@@ -57,6 +60,8 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		if (discardArea.transform.childCount > 7) Destroy(discardArea.transform.GetChild(0).gameObject);
+
+
 	}
 
 	IEnumerator GameStart()
@@ -144,9 +149,10 @@ public class GameController : MonoBehaviour
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
 		champion.hand.Deal(2);
 
+		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnBeginningPhase());
 		yield return new WaitForSeconds(2f);
 
-		StartCoroutine(ActionPhase(champion));
+		SetPhase(ActionPhase(champion));
 	}
 	IEnumerator ActionPhase(ChampionController champion)
 	{
@@ -154,6 +160,7 @@ public class GameController : MonoBehaviour
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
+		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnActionPhase());
 
 		if (champion.isPlayer)
 		{
@@ -170,7 +177,7 @@ public class GameController : MonoBehaviour
 	{
 		if (champion != null)
 		{
-			StartCoroutine(EndPhase(champion));
+			SetPhase(EndPhase(champion));
 			return;
 		}
 
@@ -192,7 +199,7 @@ public class GameController : MonoBehaviour
 			return;
 		}
 
-		StartCoroutine(EndPhase(champion));
+		SetPhase(EndPhase(champion));
 	}
 	IEnumerator EndPhase(ChampionController champion)
 	{
@@ -202,6 +209,7 @@ public class GameController : MonoBehaviour
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
 		champion.discardAmount = champion.hand.transform.childCount > 6 ? champion.hand.transform.childCount - 6 : 0;
 
+		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnEndPhase());
 		yield return new WaitForSeconds(2f);
 
 		if (champion.isPlayer)
@@ -259,7 +267,7 @@ public class GameController : MonoBehaviour
 
 		currentTurnChampion.isMyTurn = false;
 		nextTurnChampion.isMyTurn = true;
-		StartCoroutine(BeginningPhase(nextTurnChampion));
+		SetPhase(BeginningPhase(nextTurnChampion));
 	}
 	private void NextTurnCalculator(string version)
 	{
@@ -300,7 +308,12 @@ public class GameController : MonoBehaviour
 			return;
 		}
 		nextTurnChampion.isMyTurn = true;
-		StartCoroutine(BeginningPhase(nextTurnChampion));
+		SetPhase(BeginningPhase(nextTurnChampion));
+	}
+	private void SetPhase(IEnumerator enumerator)
+	{
+		currentPhaseRoutine = enumerator;
+		StartCoroutine(enumerator);
 	}
 
 	public void OnConfirmButtonClick()

@@ -197,7 +197,7 @@ public class CardLogicController : MonoBehaviour
 						case 5:
 						case 6:
 						default:
-							champion.Heal(5);
+							yield return StartCoroutine(champion.Heal(5));
 							champion.heartsBeforeExhaustion--;
 							Discard(card);
 							StartCoroutine(BotCardLogic(champion));
@@ -210,7 +210,7 @@ public class CardLogicController : MonoBehaviour
 								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
 								continue;
 							}
-							champion.Heal(10);
+							yield return StartCoroutine(champion.Heal(10));
 							champion.heartsBeforeExhaustion -= 2;
 							Discard(card);
 							StartCoroutine(BotCardLogic(champion));
@@ -223,7 +223,7 @@ public class CardLogicController : MonoBehaviour
 								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
 								continue;
 							}
-							champion.Heal(20);
+							yield return StartCoroutine(champion.Heal(20));
 							champion.heartsBeforeExhaustion -= 3;
 							Discard(card);
 							StartCoroutine(BotCardLogic(champion));
@@ -234,7 +234,7 @@ public class CardLogicController : MonoBehaviour
 								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
 								continue;
 							}
-							champion.Heal(40);
+							yield return StartCoroutine(champion.Heal(40));
 							champion.heartsBeforeExhaustion -= 3;
 							Discard(card);
 							StartCoroutine(BotCardLogic(champion));
@@ -317,14 +317,8 @@ public class CardLogicController : MonoBehaviour
 		}
 		attacker.attackingCard.ToggleCardVisibility(true);
 
-		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue)
-		{
-			attacker.Attack(defender);
-		}
-		else if (attacker.attackingCard.cardValue < defender.defendingCard.cardValue)
-		{
-			attacker.Damage(defender.attackDamage, defender.attackDamageType, defender);
-		}
+		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue) yield return StartCoroutine(attacker.Attack(defender));
+		else if (attacker.attackingCard.cardValue < defender.defendingCard.cardValue) yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
 		else
 		{
 			Debug.Log("lol it tie");
@@ -518,7 +512,7 @@ public class CardLogicController : MonoBehaviour
 					if (selectedChampion.hand.transform.childCount == 0)
 					{
 						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
-						selectedChampion.Damage(20, DamageType.Unblockable, champion);
+						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						continue;
 					}
 
@@ -533,7 +527,7 @@ public class CardLogicController : MonoBehaviour
 
 						if (selectedChampion.discardAmount == -1)
 						{
-							selectedChampion.Damage(20, DamageType.Unblockable, champion);
+							yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 							selectedChampion.discardAmount = 0;
 							GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
 						}
@@ -548,7 +542,7 @@ public class CardLogicController : MonoBehaviour
 					float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.75f : 0.5f;
 					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.transform.childCount == 0)
 					{
-						selectedChampion.Damage(20, DamageType.Unblockable, champion);
+						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						continue;
 					}
 
@@ -569,7 +563,7 @@ public class CardLogicController : MonoBehaviour
 			case 9:
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
-					selectedChampion.Heal(10);
+					yield return StartCoroutine(selectedChampion.Heal(10));
 				}
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -577,7 +571,7 @@ public class CardLogicController : MonoBehaviour
 			case 10:
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
-					selectedChampion.Heal(20);
+					yield return StartCoroutine(selectedChampion.Heal(20));
 				}
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
@@ -590,7 +584,7 @@ public class CardLogicController : MonoBehaviour
 				{
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
 
-					selectedChampion.Damage(20, DamageType.Fire, champion);
+					yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Fire, champion));
 
 					yield return new WaitForSeconds(1f);
 				}
@@ -605,7 +599,7 @@ public class CardLogicController : MonoBehaviour
 					if (selectedChampion.hand.transform.childCount == 0)
 					{
 						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
-						selectedChampion.Damage(40, DamageType.Fire, champion);
+						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						continue;
 					}
 
@@ -620,7 +614,7 @@ public class CardLogicController : MonoBehaviour
 
 						if (selectedChampion.discardAmount == -1)
 						{
-							selectedChampion.Damage(40, DamageType.Fire, champion);
+							yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 							selectedChampion.discardAmount = 0;
 							GameController.instance.confirmButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Confirm";
 						}
@@ -635,7 +629,7 @@ public class CardLogicController : MonoBehaviour
 					float chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.5f : 0.15f;
 					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.transform.childCount == 0)
 					{
-						selectedChampion.Damage(40, DamageType.Fire, champion);
+						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						continue;
 					}
 

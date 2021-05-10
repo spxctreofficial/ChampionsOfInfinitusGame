@@ -11,6 +11,8 @@ public class ChampionController : MonoBehaviour
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
+	[HideInInspector]
+	public AbilityDeterminator abilityDeterminator;
 
 	[HideInInspector]
 	public new string name;
@@ -52,7 +54,7 @@ public class ChampionController : MonoBehaviour
 
 	private void Update()
 	{
-		TextManager();
+		TextUpdater();
 	}
 
 	public void ChampionSetup()
@@ -60,6 +62,7 @@ public class ChampionController : MonoBehaviour
 		name = champion.name;
 		avatar = champion.avatar;
 		gender = champion.gender;
+		abilityDeterminator = gameObject.AddComponent<AbilityDeterminator>();
 
 		championButton = gameObject.GetComponent<Button>();
 		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -97,11 +100,11 @@ public class ChampionController : MonoBehaviour
 		}*/
 	}
 
-	public void Attack(ChampionController target)
+	public IEnumerator Attack(ChampionController target)
 	{
-		target.Damage(attackDamage, attackDamageType, this);
+		yield return StartCoroutine(target.Damage(attackDamage, attackDamageType, this));
 	}
-	public void Damage(int amount, DamageType damageType, ChampionController source = null)
+	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null)
 	{
 		currentHP = Mathf.Max(currentHP - amount, 0);
 
@@ -137,11 +140,15 @@ public class ChampionController : MonoBehaviour
 
 		}
 		StartCoroutine(ShakeImage(0.2f, magnitude));
+
+		yield return StartCoroutine(abilityDeterminator.OnDamage());
 	}
-	public void Heal(int amount)
+	public IEnumerator Heal(int amount)
 	{
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		AudioController.instance.Play("Heal");
+
+		yield return StartCoroutine(abilityDeterminator.OnHeal());
 	}
 
 	[HideInInspector]
@@ -156,6 +163,26 @@ public class ChampionController : MonoBehaviour
 	{
 		this.hand = hand;
 		hand.owner = this;
+	}
+	[HideInInspector]
+	private void TextUpdater()
+	{
+		healthText.text = currentHP.ToString();
+		cardsText.text = hand.transform.childCount.ToString();
+		if (currentHP == 0)
+		{
+			healthText.color = new Color32(100, 100, 100, 255);
+			healthText.text = "DEAD";
+			return;
+		}
+		if (currentHP <= 0.6f * maxHP)
+		{
+			healthText.color = currentHP <= 0.3f * maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
+		}
+		else
+		{
+			healthText.color = new Color32(0, 255, 0, 255);
+		}
 	}
 
 	[HideInInspector]
@@ -175,27 +202,6 @@ public class ChampionController : MonoBehaviour
 			GameController.instance.confirmButton.gameObject.SetActive(false);
 		}
 	}
-
-	[HideInInspector]
-	private void TextManager()
-	{
-		healthText.text = currentHP.ToString();
-		cardsText.text = hand.transform.childCount.ToString();
-		if (currentHP == 0)
-		{
-			healthText.color = new Color32(100, 100, 100, 255);
-			healthText.text = "DEAD";
-			return;
-		}
-		if (currentHP <= 0.6f * maxHP)
-		{
-			healthText.color = currentHP <= 0.3f * maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
-		}
-		else
-		{
-			healthText.color = new Color32(0, 255, 0, 255);
-		}
-	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
 	{
 		Vector3 originalPos = transform.localPosition;
@@ -209,5 +215,42 @@ public class ChampionController : MonoBehaviour
 			yield return null;
 		}
 		transform.localPosition = originalPos;
+	}
+
+	public class AbilityDeterminator : MonoBehaviour
+	{
+		public bool CheckForAbility(string keyword)
+		{
+			if (GetComponent<ChampionController>().abilities.Count == 0) return false;
+			foreach (string ability in GetComponent<ChampionController>().abilities) if (keyword == ability) return true;
+			return false;
+		}
+
+		// Triggers
+		public IEnumerator OnBeginningPhase()
+		{
+			yield break;
+		}
+		public IEnumerator OnActionPhase()
+		{
+			yield break;
+		}
+		public IEnumerator OnEndPhase()
+		{
+			yield break;
+		}
+
+		public IEnumerator OnDamage()
+		{
+			yield break;
+		}
+		public IEnumerator OnHeal()
+		{
+			yield break;
+		}
+		public IEnumerator OnDeath()
+		{
+			yield break;
+		}
 	}
 }
