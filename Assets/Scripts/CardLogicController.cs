@@ -129,6 +129,8 @@ public class CardLogicController : MonoBehaviour
 				Debug.Log("The " + champion.name + " refuses to trade in a CLUB worth: " + card.cardValue);
 				continue;
 			}
+
+			yield return StartCoroutine(ClubLogic(card, champion));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.1f, 0.75f));
@@ -143,8 +145,7 @@ public class CardLogicController : MonoBehaviour
 				break;
 			}
 
-			StartCoroutine(DiamondLogic(card, champion));
-			yield break;
+			yield return StartCoroutine(DiamondLogic(card, champion));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
@@ -167,8 +168,7 @@ public class CardLogicController : MonoBehaviour
 				break;
 			}
 
-			StartCoroutine(SpadeLogic(card, champion));
-			yield break;
+			yield return StartCoroutine(SpadeLogic(card, champion));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));

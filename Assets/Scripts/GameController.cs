@@ -18,19 +18,25 @@ public class GameController : MonoBehaviour
 	public CardIndex cardIndex;
 
 	public GameObject gameArea;
+	public GameObject mapSelectionConfig;
 	public Hand playerHand;
 	public GameObject discardArea;
 
+	public GameObject playerPrefab;
 	public GameObject temporaryPrefab;
 	public GameObject handPrefab;
+	public GameObject mapSelectionButtonPrefab;
 	
 	public TMP_Text playerActionTooltip;
 	public Button confirmButton;
 	public Button endTurnButton;
 
+	[HideInInspector]
 	public List<ChampionController> champions = new List<ChampionController>();
 	[Range(2, 4)]
 	public int players;
+	public List<Map> maps = new List<Map>();
+	public Map currentMap;
 
 	public Difficulty difficulty;
 	public Gamemodes gamemodes;
@@ -66,6 +72,13 @@ public class GameController : MonoBehaviour
 
 	IEnumerator GameStart()
 	{
+		playerPrefab = null;
+		currentMap = null;
+
+		yield return StartCoroutine(GamePrep());
+
+		SetMap();
+
 		switch (gamemodes)
 		{
 			case Gamemodes.Competitive2v2:
@@ -310,10 +323,32 @@ public class GameController : MonoBehaviour
 		nextTurnChampion.isMyTurn = true;
 		SetPhase(BeginningPhase(nextTurnChampion));
 	}
+
 	private void SetPhase(IEnumerator enumerator)
 	{
 		currentPhaseRoutine = enumerator;
 		StartCoroutine(enumerator);
+	}
+	private void SetMap()
+	{
+		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
+		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
+		gameArea.GetComponent<AudioSource>().Play();
+	}
+
+	public IEnumerator GamePrep()
+	{
+		gameArea.SetActive(false);
+		mapSelectionConfig.SetActive(true);
+		foreach (Map map in maps)
+		{
+			MapSelectionButton mapSelectionButton = Instantiate(mapSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<MapSelectionButton>();
+			mapSelectionButton.mapComponent = map;
+			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform, false);
+		}
+		yield return new WaitUntil(() => currentMap != null);
+
+		gameArea.SetActive(true);
 	}
 
 	public void OnConfirmButtonClick()
