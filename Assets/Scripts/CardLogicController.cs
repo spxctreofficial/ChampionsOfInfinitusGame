@@ -424,7 +424,7 @@ public class CardLogicController : MonoBehaviour
 
 				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
 
-				StartCoroutine(CombatCalculation(champion, champion.currentTarget));
+				yield return StartCoroutine(CombatCalculation(champion, champion.currentTarget));
 				break;
 		}
 	}
@@ -433,7 +433,6 @@ public class CardLogicController : MonoBehaviour
 		champion.hand.Deal(1);
 		Discard(card);
 
-		if (!champion.isPlayer) StartCoroutine(BotCardLogic(champion));
 		yield break;
 	}
 	private IEnumerator DiamondLogic(Card card, ChampionController champion)
@@ -561,6 +560,7 @@ public class CardLogicController : MonoBehaviour
 				Discard(card);
 				break;
 			case 9:
+				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
 					yield return StartCoroutine(selectedChampion.Heal(10));
@@ -569,6 +569,7 @@ public class CardLogicController : MonoBehaviour
 				Discard(card);
 				break;
 			case 10:
+				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.9f)) break;
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
 					yield return StartCoroutine(selectedChampion.Heal(20));

@@ -8,7 +8,9 @@ public class Champion : ScriptableObject
 	public new string name;
 	public Sprite avatar;
 	public enum Gender { Male, Female, Nonbinary, Undefined }
+	public enum Faction { Castlefel, Regime, Empire, Order, LegionOfWraiths, Undefined }
 	public Gender gender;
+	public Faction faction;
 
 	public int maxHP;
 	public int currentHP;
@@ -17,5 +19,5 @@ public class Champion : ScriptableObject
 	public DamageType attackDamageType;
 	public string attackName;
 
-	public List<string> abilities;
+	public List<Ability> abilities;
 }

@@ -20,6 +20,8 @@ public class ChampionController : MonoBehaviour
 	public Sprite avatar;
 	[HideInInspector]
 	public Champion.Gender gender;
+	[HideInInspector]
+	public Champion.Faction faction;
 
 	[HideInInspector]
 	public Button championButton;
@@ -37,7 +39,7 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public string attackName;
 
-	public List<string> abilities;
+	public List<Ability> abilities;
 
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
@@ -52,6 +54,10 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	public bool isUltReady;
 
+	private void Start()
+	{
+		ChampionSetup();
+	}
 	private void Update()
 	{
 		TextUpdater();
@@ -62,6 +68,7 @@ public class ChampionController : MonoBehaviour
 		name = champion.name;
 		avatar = champion.avatar;
 		gender = champion.gender;
+		faction = champion.faction;
 		abilityDeterminator = gameObject.AddComponent<AbilityDeterminator>();
 
 		championButton = gameObject.GetComponent<Button>();
@@ -167,6 +174,7 @@ public class ChampionController : MonoBehaviour
 	[HideInInspector]
 	private void TextUpdater()
 	{
+		nameText.text = name;
 		healthText.text = currentHP.ToString();
 		cardsText.text = hand.transform.childCount.ToString();
 		if (currentHP == 0)
@@ -219,38 +227,69 @@ public class ChampionController : MonoBehaviour
 
 	public class AbilityDeterminator : MonoBehaviour
 	{
-		public bool CheckForAbility(string keyword)
+		public ChampionController champion;
+
+		private void Start()
 		{
-			if (GetComponent<ChampionController>().abilities.Count == 0) return false;
-			foreach (string ability in GetComponent<ChampionController>().abilities) if (keyword == ability) return true;
+			champion = GetComponent<ChampionController>();
+		}
+
+		public bool CheckForAbility(string searchCriteria)
+		{
+			if (champion.abilities.Count == 0) return false;
+			foreach (Ability ability in champion.abilities) if (searchCriteria == ability.abilityID) return true;
 			return false;
 		}
 
 		// Triggers
+
 		public IEnumerator OnBeginningPhase()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
+			foreach (Ability ability in champion.abilities)
+			{
+				switch (ability.abilityID)
+				{
+					case "QuickAssist":
+						QuickAssist();
+						break;
+				}
+			}
 		}
 		public IEnumerator OnActionPhase()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
 		}
 		public IEnumerator OnEndPhase()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
 		}
 
 		public IEnumerator OnDamage()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
 		}
 		public IEnumerator OnHeal()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
 		}
 		public IEnumerator OnDeath()
 		{
-			yield break;
+			if (champion.abilities.Count == 0) yield break;
+		}
+
+
+		// Ability Coroutines
+
+		private void QuickAssist()
+		{
+			foreach (ChampionController selectedChampion in GameController.instance.champions)
+			{
+				if (!champion.isMyTurn) break;
+				if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction) continue;
+				champion.hand.Deal(1);
+				Debug.Log("Quick Assist has activated! Dealing a card to " + champion.name + ".");
+			}
 		}
 	}
 }

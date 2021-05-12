@@ -19,13 +19,14 @@ public class GameController : MonoBehaviour
 
 	public GameObject gameArea;
 	public GameObject mapSelectionConfig;
+	public GameObject championSelectionConfig;
 	public Hand playerHand;
 	public GameObject discardArea;
 
-	public GameObject playerPrefab;
-	public GameObject temporaryPrefab;
+	public GameObject championTemplate;
 	public GameObject handPrefab;
 	public GameObject mapSelectionButtonPrefab;
+	public GameObject championSelectionButtonPrefab;
 	
 	public TMP_Text playerActionTooltip;
 	public Button confirmButton;
@@ -33,9 +34,11 @@ public class GameController : MonoBehaviour
 
 	[HideInInspector]
 	public List<ChampionController> champions = new List<ChampionController>();
+	public List<Champion> championIndex = new List<Champion>();
+	public Champion playerChampion;
 	[Range(2, 4)]
 	public int players;
-	public List<Map> maps = new List<Map>();
+	public List<Map> mapIndex = new List<Map>();
 	public Map currentMap;
 
 	public Difficulty difficulty;
@@ -72,11 +75,7 @@ public class GameController : MonoBehaviour
 
 	IEnumerator GameStart()
 	{
-		playerPrefab = null;
-		currentMap = null;
-
 		yield return StartCoroutine(GamePrep());
-
 		SetMap();
 
 		switch (gamemodes)
@@ -95,32 +94,37 @@ public class GameController : MonoBehaviour
 		for (int i = 0; i < players; i++)
 		{
 			ChampionController championController;
+			Champion champion;
 			Hand hand;
 			Vector2 championControllerVector2;
 			Vector2 handVector2;
 			switch (i)
 			{
 				case 1:
+					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = new Vector2(864, (float) 412.5);
 					handVector2 = new Vector2(0, 800);
 					break;
 				case 2:
+					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = new Vector2(-864, (float) 412.5);
 					handVector2 = new Vector2(0, 1030);
 					break;
 				case 3:
+					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(864, (float) -213.25): new Vector2(0, 408);
 					handVector2 = new Vector2(0, -800);
 					break;
 				default:
+					champion = playerChampion;
 					championControllerVector2 = new Vector2(-864, (float) -213.25);
 					handVector2 = new Vector2(0, 0);
 					break;
 			}
-			championController = Instantiate(temporaryPrefab, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
+			championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
+			championController.champion = champion;
 			champions.Add(championController);
 			champions[i].transform.SetParent(gameArea.transform, false);
-			champions[i].ChampionSetup();
 
 			hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
@@ -338,16 +342,32 @@ public class GameController : MonoBehaviour
 
 	public IEnumerator GamePrep()
 	{
+		playerChampion = null;
+		currentMap = null;
+
 		gameArea.SetActive(false);
 		mapSelectionConfig.SetActive(true);
-		foreach (Map map in maps)
+
+		foreach (Map map in mapIndex)
 		{
 			MapSelectionButton mapSelectionButton = Instantiate(mapSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<MapSelectionButton>();
 			mapSelectionButton.mapComponent = map;
-			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform, false);
+			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform.GetChild(0), false);
 		}
 		yield return new WaitUntil(() => currentMap != null);
 
+		mapSelectionConfig.SetActive(false);
+		championSelectionConfig.SetActive(true);
+
+		foreach (Champion championSO in championIndex)
+		{
+			ChampionSelectionButton championSelectionButton = Instantiate(championSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<ChampionSelectionButton>();
+			championSelectionButton.championComponent = championSO;
+			championSelectionButton.transform.SetParent(championSelectionConfig.transform.GetChild(0), false);
+		}
+		yield return new WaitUntil(() => playerChampion != null);
+
+		championSelectionConfig.SetActive(false);
 		gameArea.SetActive(true);
 	}
 

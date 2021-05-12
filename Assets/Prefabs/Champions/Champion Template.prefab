@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Champion
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 99136e5d1f2b99f43bc2bffe14bfafe1, type: 2}
-  m_sharedMaterial: {fileID: -6579732335898238143, guid: 99136e5d1f2b99f43bc2bffe14bfafe1,
+  m_fontAsset: {fileID: 11400000, guid: 744aa32a076a2c040aa38ebd74ab5a8b, type: 2}
+  m_sharedMaterial: {fileID: 822571455033926707, guid: 744aa32a076a2c040aa38ebd74ab5a8b,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
-  m_fontSizeBase: 21
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -420,6 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   champion: {fileID: 0}
   hand: {fileID: 0}
+  abilityDeterminator: {fileID: 0}
   name: 
   avatar: {fileID: 0}
   gender: 0
@@ -432,6 +433,7 @@ MonoBehaviour:
   attackDamage: 0
   attackDamageType: 0
   attackName: 
+  abilities: []
   discardAmount: 0
   spadesBeforeExhaustion: 0
   heartsBeforeExhaustion: 0

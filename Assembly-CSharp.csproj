@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Playing Cards\CardIndex.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionIndex.cs" />
     <Compile Include="Assets\Deprecated\Scripts\GameHandler.cs" />
+    <Compile Include="Assets\Scripts\Maps\MapSelectionButton.cs" />
     <Compile Include="Assets\Scripts\Champions\ChampionController.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
     <Compile Include="Assets\Scripts\UI\SmartHover.cs" />
@@ -73,12 +74,13 @@
     <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Deprecated\Scripts\UI Elements\StartMenu.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Maps\Map.cs" />
     <Compile Include="Assets\Scripts\UI\Hand.cs" />
     <Compile Include="Assets\Deprecated\Scripts\Champions\ChampionHandler.cs" />
     <Compile Include="Assets\Deprecated\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Playing Cards\Card.cs" />
-    <Compile Include="Assets\Scripts\Maps\Map.cs" />
-    <Compile Include="Assets\Scripts\Maps\MapSelectionButton.cs" />
+    <Compile Include="Assets\Scripts\Champions\Abilities\Ability.cs" />
+    <Compile Include="Assets\Scripts\Champions\ChampionSelectionButton.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
