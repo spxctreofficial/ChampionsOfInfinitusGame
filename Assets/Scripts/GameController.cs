@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
 	public GameObject discardArea;
 
 	public GameObject championTemplate;
+	public GameObject abilityPrefab;
 	public GameObject handPrefab;
 	public GameObject abilityPanelPrefab;
 	public GameObject mapSelectionButtonPrefab;
@@ -97,6 +98,7 @@ public class GameController : MonoBehaviour
 			ChampionController championController;
 			Champion champion;
 			Hand hand;
+			AbilityPanel abilityPanel;
 			Vector2 championControllerVector2;
 			Vector2 handVector2;
 			switch (i)
@@ -130,6 +132,11 @@ public class GameController : MonoBehaviour
 			hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
 			hand.SetOwner(champions[i]);
+
+			abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
+			abilityPanel.transform.SetParent(gameArea.transform, false);
+			yield return null;
+			abilityPanel.Setup(championController);
 
 			switch (gamemodes)
 			{
@@ -167,7 +174,15 @@ public class GameController : MonoBehaviour
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
 		champion.hand.Deal(2);
 
-		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnBeginningPhase());
+		foreach (ChampionController selectedChampion in champions)
+		{
+			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
+			{
+				AbilityController ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnBeginningPhase());
+			}
+		}
+
 		yield return new WaitForSeconds(2f);
 
 		SetPhase(ActionPhase(champion));
@@ -178,7 +193,15 @@ public class GameController : MonoBehaviour
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
-		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnActionPhase());
+
+		foreach (ChampionController selectedChampion in champions)
+		{
+			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
+			{
+				AbilityController ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnActionPhase());
+			}
+		}
 
 		if (champion.isPlayer)
 		{
@@ -227,7 +250,15 @@ public class GameController : MonoBehaviour
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
 		champion.discardAmount = champion.hand.transform.childCount > 6 ? champion.hand.transform.childCount - 6 : 0;
 
-		foreach (ChampionController selectedChampion in champions) yield return StartCoroutine(selectedChampion.abilityDeterminator.OnEndPhase());
+		foreach (ChampionController selectedChampion in champions)
+		{
+			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
+			{
+				AbilityController ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnEndPhase());
+			}
+		}
+
 		yield return new WaitForSeconds(2f);
 
 		if (champion.isPlayer)

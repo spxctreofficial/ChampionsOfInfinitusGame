@@ -13,7 +13,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	[HideInInspector]
 	public Hand hand;
 	[HideInInspector]
-	public AbilityDeterminator abilityDeterminator;
+	public AbilityPanel abilityPanel;
 
 	[HideInInspector]
 	public new string name;
@@ -70,7 +70,6 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		avatar = champion.avatar;
 		gender = champion.gender;
 		faction = champion.faction;
-		abilityDeterminator = gameObject.AddComponent<AbilityDeterminator>();
 
 		championButton = gameObject.GetComponent<Button>();
 		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -149,14 +148,22 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		}
 		StartCoroutine(ShakeImage(0.2f, magnitude));
 
-		yield return StartCoroutine(abilityDeterminator.OnDamage());
+		foreach (Transform child in abilityPanel.panel.transform)
+		{
+			AbilityController ability = child.GetComponent<AbilityController>();
+			yield return StartCoroutine(ability.OnDamage());
+		}
 	}
 	public IEnumerator Heal(int amount)
 	{
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		AudioController.instance.Play("Heal");
 
-		yield return StartCoroutine(abilityDeterminator.OnHeal());
+		foreach (Transform child in abilityPanel.panel.transform)
+		{
+			AbilityController ability = child.GetComponent<AbilityController>();
+			yield return StartCoroutine(ability.OnHeal());
+		}
 	}
 
 	[HideInInspector]
@@ -215,9 +222,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	{
 		if (eventData.button == PointerEventData.InputButton.Right)
 		{
-			AbilityPanel abilityPanel = Instantiate(GameController.instance.abilityPanelPrefab, new Vector2(0, 50), Quaternion.identity).GetComponent<AbilityPanel>();
-			abilityPanel.transform.SetParent(GameController.instance.gameArea.transform, false);
-			abilityPanel.Setup(this);
+			abilityPanel.OpenPanel();
 		}
 	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
@@ -233,75 +238,5 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 			yield return null;
 		}
 		transform.localPosition = originalPos;
-	}
-
-	
-
-	public class AbilityDeterminator : MonoBehaviour
-	{
-		public ChampionController champion;
-
-		private void Start()
-		{
-			champion = GetComponent<ChampionController>();
-		}
-
-		public bool CheckForAbility(string searchCriteria)
-		{
-			if (champion.abilities.Count == 0) return false;
-			foreach (Ability ability in champion.abilities) if (searchCriteria == ability.abilityID) return true;
-			return false;
-		}
-
-		// Triggers
-
-		public IEnumerator OnBeginningPhase()
-		{
-			if (champion.abilities.Count == 0) yield break;
-			foreach (Ability ability in champion.abilities)
-			{
-				switch (ability.abilityID)
-				{
-					case "QuickAssist":
-						QuickAssist();
-						break;
-				}
-			}
-		}
-		public IEnumerator OnActionPhase()
-		{
-			if (champion.abilities.Count == 0) yield break;
-		}
-		public IEnumerator OnEndPhase()
-		{
-			if (champion.abilities.Count == 0) yield break;
-		}
-
-		public IEnumerator OnDamage()
-		{
-			if (champion.abilities.Count == 0) yield break;
-		}
-		public IEnumerator OnHeal()
-		{
-			if (champion.abilities.Count == 0) yield break;
-		}
-		public IEnumerator OnDeath()
-		{
-			if (champion.abilities.Count == 0) yield break;
-		}
-
-
-		// Ability Coroutines
-
-		private void QuickAssist()
-		{
-			foreach (ChampionController selectedChampion in GameController.instance.champions)
-			{
-				if (!champion.isMyTurn) break;
-				if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction) continue;
-				champion.hand.Deal(1);
-				Debug.Log("Quick Assist has activated! Dealing a card to " + champion.name + ".");
-			}
-		}
 	}
 }
