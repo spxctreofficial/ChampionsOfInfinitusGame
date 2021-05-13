@@ -46,16 +46,37 @@ MonoBehaviour:
   gamePhase: 0
   cardIndex: {fileID: 0}
   gameArea: {fileID: 0}
+  mapSelectionConfig: {fileID: 0}
+  championSelectionConfig: {fileID: 0}
   playerHand: {fileID: 0}
   discardArea: {fileID: 0}
-  temporaryPrefab: {fileID: 7677552574236164398, guid: 5ac4c6b2dc7e39a49997ce7b59f03346,
+  championTemplate: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
+    type: 3}
+  abilityPrefab: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
     type: 3}
   handPrefab: {fileID: 4946762797089187214, guid: 0af8b325fa7cdb145a8b1dbeb367d869,
+    type: 3}
+  abilityPanelPrefab: {fileID: 9144223140626729513, guid: a67bd67a0d080ec4d95c6ec44ea6b865,
+    type: 3}
+  mapSelectionButtonPrefab: {fileID: 751758506132937138, guid: e03449a36ab010a4aa34c382f10f452c,
+    type: 3}
+  championSelectionButtonPrefab: {fileID: 751758506132937138, guid: b8aaa8647ada1d048ac0fcd09bef1d29,
     type: 3}
   playerActionTooltip: {fileID: 0}
   confirmButton: {fileID: 0}
   endTurnButton: {fileID: 0}
   champions: []
+  championIndex:
+  - {fileID: 11400000, guid: 0e59d7aaf4948124d9d3598a54e66410, type: 2}
+  - {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e, type: 2}
+  - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
+  playerChampion: {fileID: 0}
   players: 2
+  mapIndex:
+  - {fileID: 11400000, guid: 2bba4392610a3fa4893f1cb5dfa5f1af, type: 2}
+  - {fileID: 11400000, guid: 14d9a9fc05e29f64e8b7467314f01278, type: 2}
+  - {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880, type: 2}
+  currentMap: {fileID: 0}
   difficulty: 0
+  gamemodes: 2
   roundsElapsed: 0

@@ -72,6 +72,15 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: ShieldBlock
+    clip: {fileID: 8300000, guid: e97ec8514b9ef4d4bb85665b0dc80807, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: FireDamage1
     clip: {fileID: 8300000, guid: 9c79254f50408c947bcc3f43c4178287, type: 3}
     volume: 0.3

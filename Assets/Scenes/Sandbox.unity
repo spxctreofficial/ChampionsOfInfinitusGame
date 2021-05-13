@@ -1390,91 +1390,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f793492e7cca63a478e75e14117d65c1, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[2].name
-      value: SwordClashing
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e97ec8514b9ef4d4bb85665b0dc80807, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[3].name
-      value: ShieldBlock
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9c79254f50408c947bcc3f43c4178287, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[4].name
-      value: FireDamage1
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e5f5140a5fb363a48b03a44357a07a38, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[5].name
-      value: Unblockable1
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7f5dd42291c04f0459f9d6a058b7aae7, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[6].name
-      value: Heal
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 77dc7943d408fa247b950bb490c91ed3, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[7].name
-      value: PlayerTurn
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[8].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[8].name
-      value: MiniClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[8].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
-        type: 3}
-      propertyPath: sounds.Array.data[8].volume
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 305460857126176041, guid: 3e39c12b24d4a684fb387edda7429ac5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1860,17 +1775,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
-        type: 3}
-      propertyPath: summonCard
-      value: 
-      objectReference: {fileID: 1563183462823115899, guid: 554fd10f7af19cb4b9d9000e9315c86d,
-        type: 3}
-    - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
-        type: 3}
-      propertyPath: dealToIndex
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4426096360858846a74f163d0b7322e, type: 3}
 --- !u!224 &7120735544176057318 stripped
@@ -2022,26 +1926,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 975385647}
     m_Modifications:
-    - target: {fileID: 5678735197532505041, guid: 3963cb97d21951f40924dbde00384b0d,
-        type: 3}
-      propertyPath: m_text
-      value: End Turn
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780179091963574232, guid: 3963cb97d21951f40924dbde00384b0d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7780179091963574232, guid: 3963cb97d21951f40924dbde00384b0d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 761402094}
-    - target: {fileID: 7780179091963574232, guid: 3963cb97d21951f40924dbde00384b0d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 7780179091963574233, guid: 3963cb97d21951f40924dbde00384b0d,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2163,11 +2052,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
-      propertyPath: players
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
       propertyPath: gameArea
       value: 
       objectReference: {fileID: 975385646}
@@ -2176,16 +2060,6 @@ PrefabInstance:
       propertyPath: cardIndex
       value: 
       objectReference: {fileID: 422067827}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: gamemodes
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: currentMap
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: playerHand
@@ -2198,18 +2072,6 @@ PrefabInstance:
       objectReference: {fileID: 386640846}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 8027085802262831843, guid: 3f777192606861745b0c8e0fadda708a,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: abilityPrefab
-      value: 
-      objectReference: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 5098982409637595515}
@@ -2220,55 +2082,9 @@ PrefabInstance:
       objectReference: {fileID: 512776267}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
-      propertyPath: maps.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: temporaryPrefab
-      value: 
-      objectReference: {fileID: 8027085802262831843, guid: 3f777192606861745b0c8e0fadda708a,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championTemplate
-      value: 
-      objectReference: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: abilityPanelPrefab
-      value: 
-      objectReference: {fileID: 9144223140626729513, guid: a67bd67a0d080ec4d95c6ec44ea6b865,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
       propertyPath: mapSelectionConfig
       value: 
       objectReference: {fileID: 1742700632}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: maps.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2bba4392610a3fa4893f1cb5dfa5f1af,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: maps.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 14d9a9fc05e29f64e8b7467314f01278,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: maps.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: mapIndex.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: playerActionTooltip
@@ -2276,62 +2092,9 @@ PrefabInstance:
       objectReference: {fileID: 942276466}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
-      propertyPath: mapIndex.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2bba4392610a3fa4893f1cb5dfa5f1af,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: mapIndex.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 14d9a9fc05e29f64e8b7467314f01278,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: mapIndex.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
       propertyPath: championSelectionConfig
       value: 
       objectReference: {fileID: 697805135}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championIndex.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: mapSelectionButtonPrefab
-      value: 
-      objectReference: {fileID: 751758506132937138, guid: e03449a36ab010a4aa34c382f10f452c,
-        type: 3}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championIndex.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e59d7aaf4948124d9d3598a54e66410,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championIndex.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championIndex.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championSelectionButtonPrefab
-      value: 
-      objectReference: {fileID: 751758506132937138, guid: b8aaa8647ada1d048ac0fcd09bef1d29,
-        type: 3}
     - target: {fileID: 8947251701174882739, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: m_RootOrder
