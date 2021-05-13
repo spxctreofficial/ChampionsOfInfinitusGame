@@ -1390,6 +1390,91 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f793492e7cca63a478e75e14117d65c1, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[2].name
+      value: SwordClashing
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e97ec8514b9ef4d4bb85665b0dc80807, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[3].name
+      value: ShieldBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c79254f50408c947bcc3f43c4178287, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[4].name
+      value: FireDamage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5f5140a5fb363a48b03a44357a07a38, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[5].name
+      value: Unblockable1
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f5dd42291c04f0459f9d6a058b7aae7, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[6].name
+      value: Heal
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 77dc7943d408fa247b950bb490c91ed3, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[7].name
+      value: PlayerTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[8].name
+      value: MiniClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[8].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 305460857126176040, guid: 3e39c12b24d4a684fb387edda7429ac5,
+        type: 3}
+      propertyPath: sounds.Array.data[8].volume
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 305460857126176041, guid: 3e39c12b24d4a684fb387edda7429ac5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1779,7 +1864,7 @@ PrefabInstance:
         type: 3}
       propertyPath: summonCard
       value: 
-      objectReference: {fileID: 4497401501057623108, guid: 2ce5a2550fb1de24dbdb9ef88b487a84,
+      objectReference: {fileID: 1563183462823115899, guid: 554fd10f7af19cb4b9d9000e9315c86d,
         type: 3}
     - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
         type: 3}
@@ -2215,7 +2300,7 @@ PrefabInstance:
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: championIndex.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
@@ -2234,6 +2319,12 @@ PrefabInstance:
       propertyPath: championIndex.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e,
+        type: 2}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: championIndex.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f,
         type: 2}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}

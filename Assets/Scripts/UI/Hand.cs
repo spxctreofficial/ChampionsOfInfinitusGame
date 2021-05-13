@@ -6,9 +6,13 @@ public class Hand : MonoBehaviour
 {
 	public ChampionController owner;
 
-	public void Deal(int amount = 4, bool flip = false, bool animate = true)
+	public void Deal(int amount = 4, bool flip = false, bool animate = true, bool abilityCheck = true)
 	{
-		for (int x = 0; x < amount; x++) StartCoroutine(Deal(flip, animate));
+		for (int x = 0; x < amount; x++) StartCoroutine(Deal(flip, animate, abilityCheck));
+	}
+	public void DealSpecificCard(Card specificCard)
+	{
+		StartCoroutine(Deal(specificCard, false, true));
 	}
 	public void SetOwner(ChampionController championController)
 	{
@@ -109,18 +113,18 @@ public class Hand : MonoBehaviour
 		int value = -999;
 		foreach (Transform child in transform)
 		{
-			if (selectedCard == card) continue;
-			if (selectedCard.cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f)
+			if (child.GetComponent<Card>() == card) continue;
+			if (child.GetComponent<Card>().cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f)
 			{
 				Debug.Log("The " + owner.name + " refuses to use a HEART to attack!");
 				continue;
 			}
-			if (owner.currentHP >= 0.5f * owner.maxHP && selectedCard.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+			if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
 			{
-				Debug.Log("The opponent is confident! They refuse to use a value of " + selectedCard.cardValue + " to attack!");
+				Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to attack!");
 				continue;
 			}
-			if (value < selectedCard.cardValue)
+			if (value < child.GetComponent<Card>().cardValue)
 			{
 				selectedCard = child.GetComponent<Card>();
 				value = selectedCard.cardValue;
@@ -135,7 +139,7 @@ public class Hand : MonoBehaviour
 		return selectedCard;
 	}
 	
-	private IEnumerator Deal(bool flip, bool animate)
+	private IEnumerator Deal(bool flip, bool animate, bool abilityCheck = true)
 	{
 		Card card = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 		card.transform.SetParent(transform, false);
@@ -145,6 +149,44 @@ public class Hand : MonoBehaviour
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 		}
+
+		if (abilityCheck)
+		{
+			foreach (ChampionController selectedChampion in GameController.instance.champions)
+			{
+				foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
+				{
+					AbilityController ability = child.GetComponent<AbilityController>();
+					yield return StartCoroutine(ability.OnDeal(card, owner));
+				}
+			}
+		}
+
+		yield return new WaitForSeconds(0.25f);
+	}
+	private IEnumerator Deal(Card specificCard, bool flip, bool animate, bool abilityCheck = true)
+	{
+		Card card = Instantiate(specificCard, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+		card.transform.SetParent(transform, false);
+		if (flip) card.ToggleCardVisibility();
+		if (animate)
+		{
+			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
+		}
+
+		if (abilityCheck)
+		{
+			foreach (ChampionController selectedChampion in GameController.instance.champions)
+			{
+				foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
+				{
+					AbilityController ability = child.GetComponent<AbilityController>();
+					yield return StartCoroutine(ability.OnDeal(card, owner));
+				}
+			}
+		}
+
 		yield return new WaitForSeconds(0.25f);
 	}
 }

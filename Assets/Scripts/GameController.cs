@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
 					break;
 			}
 
-			champions[i].hand.Deal(4);
+			champions[i].hand.Deal(4, false, true, false);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
 

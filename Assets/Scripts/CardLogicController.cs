@@ -22,8 +22,7 @@ public class CardLogicController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha5))
 		{
-			Card card = Instantiate(summonCard.gameObject, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-			card.transform.SetParent(GameController.instance.champions[dealToIndex].hand.transform, false);
+			GameController.instance.champions[dealToIndex].hand.DealSpecificCard(summonCard);
 		}
 	}
 
@@ -161,7 +160,7 @@ public class CardLogicController : MonoBehaviour
 				break;
 			}
 
-			if ((champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.8f) || Random.Range(0f, 1f) < 0.25f)
+			if ((champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.8f) || Random.Range(0f, 1f) < 0.2f)
 			{
 				Debug.Log("The " + champion.name + " doesn't want to attack!");
 				champion.spadesBeforeExhaustion--;
@@ -363,7 +362,7 @@ public class CardLogicController : MonoBehaviour
 			case false:
 				bool gambled = false;
 
-				if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f)
+				if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.75f)
 				{
 					Debug.Log("The " + champion.name + " refuses to use a SPADE worth: " + card.cardValue);
 					yield break;
@@ -374,15 +373,16 @@ public class CardLogicController : MonoBehaviour
 				{
 					if (targetChampion == champion || targetChampion.isDead || targetChampion.team == champion.team) continue;
 
-					float chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.75f;
+					float chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.85f;
 					if ((targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) || targetChampion == champion.currentNemesis)
 					{
 						champion.currentTarget = targetChampion;
 						break;
 					}
 
-					chance = targetChampion.isPlayer ? 0.65f : 0.5f;
-					if (champion.currentHP >= 0.75f * champion.maxHP && Random.Range(0f, 1f) < chance)
+					chance = targetChampion.isPlayer ? 0.7f : 0.55f;
+					chance += champion.currentHP >= 0.75f * champion.maxHP ? 0.15f : 0f;
+					if (Random.Range(0f, 1f) < chance)
 					{
 						champion.currentTarget = targetChampion;
 						break;
@@ -407,9 +407,10 @@ public class CardLogicController : MonoBehaviour
 				}
 
 				// Reviewing Choices
-				float f = champion.currentTarget.currentHP <= 0.25f * champion.currentTarget.maxHP ? 0.8f : 0.5f;
+				float f = champion.currentTarget.currentHP <= 0.25f * champion.currentTarget.maxHP ? 0.4f : 0.75f;
 				if ((champion.attackingCard.cardValue <= card.cardValue ||
-					(card.cardValue >= 9 || champion.attackingCard.cardValue <= 9 || champion.hand.transform.childCount <= 2) && Random.Range(0f, 1f) < f)
+					champion.attackingCard.cardValue <= 9 ||
+					champion.hand.transform.childCount <= 2 && Random.Range(0f, 1f) < f)
 					&& !gambled)
 				{
 					Debug.Log("The " + champion.name + " does not want to attack with the current configuration!");
@@ -430,7 +431,7 @@ public class CardLogicController : MonoBehaviour
 	}
 	private IEnumerator ClubLogic(Card card, ChampionController champion)
 	{
-		champion.hand.Deal(1);
+		champion.hand.Deal(1, false, true, false);
 		Discard(card);
 
 		yield break;
@@ -440,6 +441,7 @@ public class CardLogicController : MonoBehaviour
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8))
 		{
 			GameController.instance.playerActionTooltip.text = "The " + champion.name + " cannot play more DIAMONDS! Choose another card.";
+			yield break;
 		}
 
 		switch (card.cardValue)
@@ -455,6 +457,8 @@ public class CardLogicController : MonoBehaviour
 			case 2:
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
+
+				string tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
@@ -479,6 +483,7 @@ public class CardLogicController : MonoBehaviour
 
 					selectedChampion.discardAmount = 0;
 				}
+				GameController.instance.playerActionTooltip.text = tooltipCache;
 				break;
 			case 3:
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
@@ -504,6 +509,8 @@ public class CardLogicController : MonoBehaviour
 
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
+
+				tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
@@ -551,12 +558,15 @@ public class CardLogicController : MonoBehaviour
 
 					selectedChampion.discardAmount = 0;
 				}
+
+				GameController.instance.playerActionTooltip.text = tooltipCache;
+
 				break;
 			case 5:
 			case 6:
 			case 7:
 			case 8:
-				champion.hand.Deal(1);
+				champion.hand.Deal(1, false, true, false);
 				Discard(card);
 				break;
 			case 9:
@@ -593,6 +603,8 @@ public class CardLogicController : MonoBehaviour
 			case 12:
 				champion.diamondsBeforeExhaustion--;
 				Discard(card);
+
+				tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (ChampionController selectedChampion in GameController.instance.champions)
 				{
@@ -640,13 +652,14 @@ public class CardLogicController : MonoBehaviour
 
 					selectedChampion.discardAmount = 0;
 				}
+
+				GameController.instance.playerActionTooltip.text = tooltipCache;
+
 				break;
 			default:
 				Debug.Log("Not implemented yet. Skipping...");
 				break;
 		}
-
-		if (!champion.isPlayer) StartCoroutine(BotCardLogic(champion));
 	}
 
 	[System.Obsolete("No longer used to calculate combat. Use 'CombatCalculation()' instead.")]
@@ -780,7 +793,7 @@ public class CardLogicController : MonoBehaviour
 			case 5:
 			case 6:
 			default:
-				player.Heal(5);
+				StartCoroutine(player.Heal(5));
 				player.heartsBeforeExhaustion--;
 				Discard(card);
 				break;
@@ -792,7 +805,8 @@ public class CardLogicController : MonoBehaviour
 					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
 					break;
 				}
-				player.Heal(10);
+
+				StartCoroutine(player.Heal(10));
 				player.heartsBeforeExhaustion -= 2;
 				Discard(card);
 				break;
@@ -814,7 +828,8 @@ public class CardLogicController : MonoBehaviour
 					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
 					break;
 				}
-				player.Heal(40);
+
+				StartCoroutine(player.Heal(40));
 				player.heartsBeforeExhaustion -= 3;
 				Discard(card);
 				break;
@@ -1043,10 +1058,16 @@ public class CardLogicController : MonoBehaviour
 
 				Discard(card);
 				player.discardAmount--;
+				GameController.instance.confirmButton.gameObject.SetActive(false);
 
 				if (player.discardAmount != 0)
 				{
 					GameController.instance.playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
+				}
+				else
+				{
+					
+					GameController.instance.playerActionTooltip.text = "";
 				}
 
 				break;

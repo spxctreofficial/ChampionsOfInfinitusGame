@@ -23,6 +23,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	public Champion.Gender gender;
 	[HideInInspector]
 	public Champion.Faction faction;
+	[HideInInspector]
+	public Champion.Race race;
 
 	[HideInInspector]
 	public Button championButton;
@@ -70,6 +72,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		avatar = champion.avatar;
 		gender = champion.gender;
 		faction = champion.faction;
+		race = champion.race;
 
 		championButton = gameObject.GetComponent<Button>();
 		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -111,9 +114,15 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	{
 		yield return StartCoroutine(target.Damage(attackDamage, attackDamageType, this));
 	}
-	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null)
+	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true)
 	{
-		currentHP = Mathf.Max(currentHP - amount, 0);
+		int healthAfterDamage = Mathf.Max(currentHP - amount, 0);
+		foreach (Transform child in abilityPanel.panel.transform)
+		{
+			AbilityController ability = child.GetComponent<AbilityController>();
+			healthAfterDamage -= ability.DamageCalculationBonus(amount, damageType);
+		}
+		currentHP = healthAfterDamage;
 
 		float magnitude;
 		switch (damageType)
@@ -148,17 +157,19 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		}
 		StartCoroutine(ShakeImage(0.2f, magnitude));
 
+		if (abilityCheck == false) yield break;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
 			AbilityController ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnDamage());
 		}
 	}
-	public IEnumerator Heal(int amount)
+	public IEnumerator Heal(int amount, bool abilityCheck = true)
 	{
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		AudioController.instance.Play("Heal");
 
+		if (abilityCheck == false) yield break;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
 			AbilityController ability = child.GetComponent<AbilityController>();

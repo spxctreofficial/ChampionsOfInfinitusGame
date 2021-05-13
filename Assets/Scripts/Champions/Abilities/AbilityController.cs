@@ -40,7 +40,11 @@ public class AbilityController : MonoBehaviour
 	public bool CheckForAbility(string searchCriteria)
 	{
 		if (champion.abilities.Count == 0) return false;
-		foreach (Ability ability in champion.abilities) if (searchCriteria == ability.abilityID) return true;
+		foreach (Ability ability in champion.abilities)
+		{
+			foreach (Champion champion in ability.isExclusiveTo) if (champion == this.champion.champion) return false;
+			if (searchCriteria == ability.abilityID) return true;
+		}
 		return false;
 	}
 
@@ -53,7 +57,7 @@ public class AbilityController : MonoBehaviour
 				StartCoroutine(QuickAssist());
 				break;
 		}
-			yield break;
+		yield break;
 	}
 	public IEnumerator OnActionPhase()
 	{
@@ -63,10 +67,35 @@ public class AbilityController : MonoBehaviour
 	{
 		yield break;
 	}
+	public IEnumerator OnNextTurnCalculate()
+	{
+		yield break;
+	}
 
+	public IEnumerator OnDeal(Card card, ChampionController dealtTo)
+	{
+		switch (ability.abilityID)
+		{
+			case "HopliteTradition":
+				StartCoroutine(HopliteTradition(card, dealtTo));
+				break;
+		}
+		yield break;
+	}
 	public IEnumerator OnDamage()
 	{
 		yield break;
+	}
+	public int DamageCalculationBonus(int amount, DamageType damageType)
+	{
+		switch (ability.abilityID)
+		{
+			case "HopliteShield":
+				return HopliteShield(amount, damageType);
+			default:
+				return 0;
+		}
+		
 	}
 	public IEnumerator OnHeal()
 	{
@@ -86,14 +115,46 @@ public class AbilityController : MonoBehaviour
 
 		foreach (ChampionController selectedChampion in GameController.instance.champions)
 		{
-			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction) continue;
+			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction || selectedChampion.faction == Champion.Faction.Undefined) continue;
 
 			champion.hand.Deal(1);
-			Debug.Log("Quick assist was activated for " + champion.name + ". Dealing that champion a card!");
+			Debug.Log(ability.abilityName + " was activated for " + champion.name + ". Dealing that champion a card!");
 		}
 
 		StartCoroutine(ShakeImage(0.2f, 10f));
 	}
+	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo)
+	{
+		foreach (Champion champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (dealtTo == champion || card.cardValue <= 10) yield break;
+
+		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because " + dealtTo.name + " was dealt a card with a value higher than 10. A 50% chance to heal for 20!");
+
+		if (Random.Range(0f, 1f) < 0.5f && champion.currentHP != champion.maxHP)
+		{
+			Debug.Log("Check succeeded! Healing " + champion.name + " for 15.");
+			yield return StartCoroutine(champion.Heal(20, false));
+			StartCoroutine(ShakeImage(0.2f, 10f));
+			yield break;
+		}
+		Debug.Log("Check failed! Nothing happens.");
+	}
+	private int HopliteShield(int amount, DamageType damageType)
+	{
+		foreach (Champion champion in ability.isExclusiveTo) if (champion != this.champion.champion) return 0;
+
+		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". A 20% chance to negate the damage by half!" +
+			"\n This chance is increased to 50% if the damage is fatal.");
+
+		float chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
+		if (Random.Range(0f, 1f) < chance)
+		{
+			AudioController.instance.Play("ShieldBlock");
+			return -amount / 2;
+		}
+		return 0;
+	}
+
 
 
 
