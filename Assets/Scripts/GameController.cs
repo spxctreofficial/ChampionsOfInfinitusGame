@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
 	public GameObject championTemplate;
 	public GameObject handPrefab;
+	public GameObject abilityPanelPrefab;
 	public GameObject mapSelectionButtonPrefab;
 	public GameObject championSelectionButtonPrefab;
 	

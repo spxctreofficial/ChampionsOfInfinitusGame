@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
-public class ChampionController : MonoBehaviour
+public class ChampionController : MonoBehaviour, IPointerClickHandler
 {
 	public Champion champion;
 	[HideInInspector]
@@ -210,6 +211,15 @@ public class ChampionController : MonoBehaviour
 			GameController.instance.confirmButton.gameObject.SetActive(false);
 		}
 	}
+	public void OnPointerClick(PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Right)
+		{
+			AbilityPanel abilityPanel = Instantiate(GameController.instance.abilityPanelPrefab, new Vector2(0, 50), Quaternion.identity).GetComponent<AbilityPanel>();
+			abilityPanel.transform.SetParent(GameController.instance.gameArea.transform, false);
+			abilityPanel.Setup(this);
+		}
+	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
 	{
 		Vector3 originalPos = transform.localPosition;
@@ -224,6 +234,8 @@ public class ChampionController : MonoBehaviour
 		}
 		transform.localPosition = originalPos;
 	}
+
+	
 
 	public class AbilityDeterminator : MonoBehaviour
 	{
