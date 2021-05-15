@@ -15,6 +15,10 @@ MonoBehaviour:
   abilityName: Hoplite Shield
   abilityID: HopliteShield
   sprite: {fileID: 21300000, guid: 7308811b26083ce4e9fab02eb083871f, type: 3}
+  abilityDescription: 'A 20% chance to negate incoming damage by half.
+
+    If the
+    damage is fatal, the chance increases to 50%.'
   abilityType: 3
   isExclusiveTo:
   - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}

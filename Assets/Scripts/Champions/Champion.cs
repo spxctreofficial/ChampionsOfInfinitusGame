@@ -7,6 +7,8 @@ public class Champion : ScriptableObject
 {
 	public new string name;
 	public Sprite avatar;
+	[TextArea(3, 15)]
+	public string description;
 	public enum Gender { Male, Female, Nonbinary, Undefined }
 	public enum Faction { Castlefel, Regime, Empire, Order, LegionOfWraiths, Undefined }
 	public enum Race { Human, Wraith, Dragon, Dragonborn, Arachnoid, Centaur }

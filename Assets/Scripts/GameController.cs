@@ -69,8 +69,6 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		if (discardArea.transform.childCount > 7) Destroy(discardArea.transform.GetChild(0).gameObject);
-
-
 	}
 
 	private IEnumerator GameStart()

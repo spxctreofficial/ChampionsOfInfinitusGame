@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
-public class ChampionController : MonoBehaviour, IPointerClickHandler
+public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	public Champion champion;
 	[HideInInspector]
@@ -19,6 +21,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	public new string name;
 	[HideInInspector]
 	public Sprite avatar;
+	[HideInInspector]
+	public string description;
 	[HideInInspector]
 	public Champion.Gender gender;
 	[HideInInspector]
@@ -57,6 +61,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	[HideInInspector]
 	public bool isUltReady;
 
+	private static LTDescr delay;
+
 	private void Start()
 	{
 		ChampionSetup();
@@ -70,6 +76,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	{
 		name = champion.name;
 		avatar = champion.avatar;
+		description = champion.description;
 		gender = champion.gender;
 		faction = champion.faction;
 		race = champion.race;
@@ -230,6 +237,51 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		{
 			abilityPanel.OpenPanel();
 		}
+	}
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		delay = LeanTween.delayedCall(0.5f, () => {
+			var body = "Health: " + currentHP + "/" + maxHP;
+
+			string attackType()
+			{
+				return attackDamageType switch
+				{
+					DamageType.Melee => "Melee",
+					DamageType.Ranged => "Ranged",
+					DamageType.Fire => "Fire",
+					DamageType.Lightning => "Lightning",
+					DamageType.Shadow => "Shadow",
+					DamageType.Unblockable => "Unblockable",
+					_ => throw new ArgumentOutOfRangeException()
+				};
+			}
+			string abilityType(Ability ability)
+			{
+				return ability.abilityType switch
+				{
+					Ability.AbilityType.Passive => "Passive",
+					Ability.AbilityType.Active => "Active",
+					Ability.AbilityType.AttackB => "Attack Bonus",
+					Ability.AbilityType.DefenseB => "Defense Bonus",
+					Ability.AbilityType.Ultimate => "Ultimate",
+					_ => throw new ArgumentOutOfRangeException()
+				};
+			}
+
+			body += "\n" + attackName + " (Attack): " + attackDamage + " " + attackType() + " Damage" +
+			        "\nAbilities:";
+
+			foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
+
+			body += "\n Cards: " + hand.transform.childCount;
+			TooltipSystem.instance.Show(body, name);
+		});
+	}
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		LeanTween.cancel(delay.uniqueId);
+		TooltipSystem.instance.Hide();
 	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
 	{

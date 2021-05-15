@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
-public class AbilityController : MonoBehaviour
+public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public ChampionController champion;
 	public Ability ability;
+
+	private static LTDescr delay;
 
 	// Constructors
 	public void Setup(ChampionController champion, Ability ability)
@@ -132,7 +137,7 @@ public class AbilityController : MonoBehaviour
 
 		if (Random.Range(0f, 1f) < 0.5f && champion.currentHP != champion.maxHP)
 		{
-			Debug.Log("Check succeeded! Healing " + champion.name + " for 15.");
+			Debug.Log("Check succeeded! Healing " + champion.name + " for 20.");
 			yield return StartCoroutine(champion.Heal(20, false));
 			StartCoroutine(ShakeImage(0.2f, 10f));
 			yield break;
@@ -174,5 +179,33 @@ public class AbilityController : MonoBehaviour
 			yield return null;
 		}
 		transform.localPosition = originalPos;
+	}
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		delay = LeanTween.delayedCall(0.5f, () => {
+			var body = ability.abilityDescription;
+			
+			string abilityType()
+			{
+				return ability.abilityType switch
+				{
+					Ability.AbilityType.Passive => "Passive",
+					Ability.AbilityType.Active => "Active",
+					Ability.AbilityType.AttackB => "Attack Bonus",
+					Ability.AbilityType.DefenseB => "Defense Bonus",
+					Ability.AbilityType.Ultimate => "Ultimate",
+					_ => throw new ArgumentOutOfRangeException()
+				};
+			}
+			
+			body += "\n Ability Type: " + abilityType();
+			
+			TooltipSystem.instance.Show(body, ability.abilityName);
+		});
+	}
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		LeanTween.cancel(delay.uniqueId);
+		TooltipSystem.instance.Hide();
 	}
 }
