@@ -55,7 +55,7 @@ public class GeneralUISpace : MonoBehaviour {
 		LeanTween.moveY( pauseWindow, pauseWindow.anchoredPosition3D.y + -200f, 0.6f).setEase(LeanTweenType.easeOutSine).setDelay(0.6f);
 
 		// Punch Pause Symbol
-		RectTransform pauseText = pauseWindow.Find("PauseText").GetComponent<RectTransform>();
+		var pauseText = pauseWindow.Find("PauseText").GetComponent<RectTransform>();
 		LeanTween.moveZ( pauseText, pauseText.anchoredPosition3D.z - 80f, 1.5f).setEase(LeanTweenType.punch).setDelay(2.0f);
 
 		// Rotate rings around in opposite directions
@@ -76,7 +76,7 @@ public class GeneralUISpace : MonoBehaviour {
 		LeanTween.scale( chatBar2, new Vector2(1f,0.7f), 1.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong();
 
 		// Write in paragraph text
-		string origText = chatText.text;
+		var origText = chatText.text;
 		chatText.text = "";
 		LeanTween.value(gameObject, 0, (float)origText.Length, 6f).setEase(LeanTweenType.easeOutQuad).setOnUpdate( (float val)=>{
 			chatText.text = origText.Substring( 0, Mathf.RoundToInt( val ) );

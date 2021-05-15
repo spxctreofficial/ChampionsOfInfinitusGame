@@ -29,7 +29,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         isScalingUp = true;
         isScalingDown = false;
 
-        float scaleDuration = 0.5f;
+        var scaleDuration = 0.5f;
         for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration)
         {
             if (isScalingDown) break;
@@ -42,7 +42,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         isScalingUp = false;
         isScalingDown = true;
 
-        float scaleDuration = 0.5f;
+        var scaleDuration = 0.5f;
         for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration)
         {
             if (isScalingUp) break;

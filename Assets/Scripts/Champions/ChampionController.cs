@@ -116,10 +116,10 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	}
 	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true)
 	{
-		int healthAfterDamage = Mathf.Max(currentHP - amount, 0);
+		var healthAfterDamage = Mathf.Max(currentHP - amount, 0);
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
-			AbilityController ability = child.GetComponent<AbilityController>();
+			var ability = child.GetComponent<AbilityController>();
 			healthAfterDamage -= ability.DamageCalculationBonus(amount, damageType);
 		}
 		currentHP = healthAfterDamage;
@@ -160,7 +160,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		if (abilityCheck == false) yield break;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
-			AbilityController ability = child.GetComponent<AbilityController>();
+			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnDamage());
 		}
 	}
@@ -172,25 +172,22 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 		if (abilityCheck == false) yield break;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
-			AbilityController ability = child.GetComponent<AbilityController>();
+			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnHeal());
 		}
 	}
 
-	[HideInInspector]
 	public void ResetExhaustion()
 	{
 		spadesBeforeExhaustion = 1;
 		heartsBeforeExhaustion = 3;
 		diamondsBeforeExhaustion = 1;
 	}
-	[HideInInspector]
 	public void SetHand(Hand hand)
 	{
 		this.hand = hand;
 		hand.owner = this;
 	}
-	[HideInInspector]
 	private void TextUpdater()
 	{
 		nameText.text = name;
@@ -211,11 +208,9 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 			healthText.color = new Color32(0, 255, 0, 255);
 		}
 	}
-
-	[HideInInspector]
 	public void OnClick()
 	{
-		foreach (ChampionController champion in GameController.instance.champions)
+		foreach (var champion in GameController.instance.champions)
 		{
 
 			if (!champion.isAttacking || !champion.isPlayer || isPlayer || isDead) continue;
@@ -238,13 +233,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler
 	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
 	{
-		Vector3 originalPos = transform.localPosition;
+		var originalPos = transform.localPosition;
 
 		for (float t = 0; t < 1; t += Time.deltaTime / duration)
 		{
-			float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
-			float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
-			Vector3 shake = new Vector3(x, y, originalPos.z);
+			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+			var shake = new Vector3(x, y, originalPos.z);
 			transform.localPosition = shake;
 			yield return null;
 		}

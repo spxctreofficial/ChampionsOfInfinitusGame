@@ -26,8 +26,8 @@ public class TestingPunch : MonoBehaviour {
             Debug.Log("on complete move local X");
             }).setOnCompleteOnStart(true);
 
-            GameObject light = GameObject.Find("DirectionalLight");
-            Light lt = light.GetComponent<Light>(); 
+            var light = GameObject.Find("DirectionalLight");
+            var lt = light.GetComponent<Light>(); 
         
             LeanTween.value(lt.gameObject, lt.intensity, 0.0f, 1.5f)
               .setEase(LeanTweenType.linear)
@@ -66,7 +66,7 @@ public class TestingPunch : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Vector3[] pts = new Vector3[] {new Vector3(-1f,0f,0f), new Vector3(0f,0f,0f), new Vector3(4f,0f,0f), new Vector3(20f,0f,0f)};
+            var pts = new Vector3[] {new Vector3(-1f,0f,0f), new Vector3(0f,0f,0f), new Vector3(4f,0f,0f), new Vector3(20f,0f,0f)};
             descr = LeanTween.move(gameObject, pts, 15f).setOrientToPath(true).setDirection(1f).setOnComplete( ()=>{
                 Debug.Log("move path finished");
             });
@@ -89,10 +89,10 @@ public class TestingPunch : MonoBehaviour {
             // LeanTween.move(this.gameObject, new Vector3(0f,0f,1f), 1.0f).setEase(LeanTweenType.punch);
             print("move punch!");
             Time.timeScale = 0.25f;
-            float start = Time.realtimeSinceStartup;
+            var start = Time.realtimeSinceStartup;
             LeanTween.moveX( this.gameObject, 1f, 1f).setOnComplete( destroyOnComp ).setOnCompleteParam( this.gameObject ).setOnComplete( ()=>{
-                float end = Time.realtimeSinceStartup;
-                float diff = end - start;
+                var end = Time.realtimeSinceStartup;
+                var diff = end - start;
                 Debug.Log("start:"+start+" end:"+end+" diff:"+diff+" x:"+this.gameObject.transform.position.x);
             }).setEase(LeanTweenType.easeInBack).setOvershoot( overShootValue ).setPeriod(0.3f);
         }
@@ -101,8 +101,8 @@ public class TestingPunch : MonoBehaviour {
         {
             LeanTween.color( this.gameObject, new Color(1f, 0f, 0f, 0.5f), 1f);
 
-            Color to = new Color(Random.Range(0f,1f),0f,Random.Range(0f,1f),0.0f);
-            GameObject l = GameObject.Find("LCharacter");
+            var to = new Color(Random.Range(0f,1f),0f,Random.Range(0f,1f),0.0f);
+            var l = GameObject.Find("LCharacter");
             LeanTween.color( l, to, 4.0f ).setLoopPingPong(1).setEase(LeanTweenType.easeOutBounce);
         }
 
@@ -128,7 +128,7 @@ public class TestingPunch : MonoBehaviour {
                 transform.position = new Vector3(val.x, transform.position.y, transform.position.z);
             }, new Vector2(0f,0f), new Vector2(5f,100f), 1f ).setEase(LeanTweenType.easeOutBounce);
 
-            GameObject l = GameObject.Find("LCharacter");
+            var l = GameObject.Find("LCharacter");
             Debug.Log("x:"+l.transform.position.x+" y:"+l.transform.position.y);
             LeanTween.value(l, new Vector2( l.transform.position.x, l.transform.position.y), new Vector2( l.transform.position.x, l.transform.position.y+5), 1f ).setOnUpdate( 
             (Vector2 val)=>{
@@ -149,30 +149,30 @@ public class TestingPunch : MonoBehaviour {
     }
 
     void enterMiniGameStart( object val ){
-        object[] arr = (object [])val;
-        int lvl = int.Parse((string)arr[0]);
+        var arr = (object [])val;
+        var lvl = int.Parse((string)arr[0]);
         Debug.Log("level:"+lvl);
     }
 
     void updateColor( Color c ){
-        GameObject l = GameObject.Find("LCharacter");
+        var l = GameObject.Find("LCharacter");
         // Debug.Log("new col:"+c);
         l.GetComponent<Renderer>().material.color = c;
     }
 
     void delayedMethod( object myVal ){
-        string castBack = myVal as string;
+        var castBack = myVal as string;
         Debug.Log("delayed call:"+Time.time +" myVal:"+castBack);
     }
 
     void destroyOnComp( object p ){
-      GameObject g = (GameObject)p;
+      var g = (GameObject)p;
       Destroy( g );
     }
 
     string curveToString( AnimationCurve curve) {
-        string str = "";
-        for(int i = 0; i < curve.length; i++){
+        var str = "";
+        for(var i = 0; i < curve.length; i++){
             str += "new Keyframe("+curve[i].time+"f, "+curve[i].value+"f)";
             if(i<curve.length-1)
                 str += ", ";

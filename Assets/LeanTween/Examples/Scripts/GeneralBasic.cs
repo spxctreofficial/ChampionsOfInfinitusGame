@@ -8,9 +8,9 @@ public class GeneralBasic : MonoBehaviour {
 
 	void Start () {
 		// Setup
-		GameObject avatarRotate = GameObject.Find("AvatarRotate");
-		GameObject avatarScale = GameObject.Find("AvatarScale");
-		GameObject avatarMove = GameObject.Find("AvatarMove");
+		var avatarRotate = GameObject.Find("AvatarRotate");
+		var avatarScale = GameObject.Find("AvatarScale");
+		var avatarMove = GameObject.Find("AvatarMove");
 
 		// Rotate Example
 		LeanTween.rotateAround( avatarRotate, Vector3.forward, 360f, 5f);
@@ -38,13 +38,13 @@ public class GeneralBasic : MonoBehaviour {
 
 	void advancedExamples(){
 		LeanTween.delayedCall(gameObject, 14f, ()=>{
-			for(int i=0; i < 10; i++){
+			for(var i=0; i < 10; i++){
 				// Instantiate Container
-				GameObject rotator = new GameObject("rotator"+i);
+				var rotator = new GameObject("rotator"+i);
 				rotator.transform.position = new Vector3(10.2f,2.85f,0f);
 
 				// Instantiate Avatar
-				GameObject dude = (GameObject)GameObject.Instantiate(prefabAvatar, Vector3.zero, prefabAvatar.transform.rotation );
+				var dude = (GameObject)GameObject.Instantiate(prefabAvatar, Vector3.zero, prefabAvatar.transform.rotation );
 				dude.transform.parent = rotator.transform;
 				dude.transform.localPosition = new Vector3(0f,1.5f,2.5f*i);
 
@@ -53,11 +53,11 @@ public class GeneralBasic : MonoBehaviour {
 				LeanTween.scale(dude, new Vector3(0.65f,0.65f,0.65f), 1f).setDelay(i*0.2f).setEase(LeanTweenType.easeOutBack);
 
 				// Color like the rainbow
-				float period = LeanTween.tau/10*i;
-				float red   = Mathf.Sin(period + LeanTween.tau*0f/3f) * 0.5f + 0.5f;
-	  			float green = Mathf.Sin(period + LeanTween.tau*1f/3f) * 0.5f + 0.5f;
-	  			float blue  = Mathf.Sin(period + LeanTween.tau*2f/3f) * 0.5f + 0.5f;
-				Color rainbowColor = new Color(red, green, blue);
+				var period = LeanTween.tau/10*i;
+				var red   = Mathf.Sin(period + LeanTween.tau*0f/3f) * 0.5f + 0.5f;
+	  			var green = Mathf.Sin(period + LeanTween.tau*1f/3f) * 0.5f + 0.5f;
+	  			var blue  = Mathf.Sin(period + LeanTween.tau*2f/3f) * 0.5f + 0.5f;
+				var rainbowColor = new Color(red, green, blue);
 				LeanTween.color(dude, rainbowColor, 0.3f).setDelay(1.2f + i*0.4f);
 				
 				// Push into the wheel

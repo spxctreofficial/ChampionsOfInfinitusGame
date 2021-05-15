@@ -90,8 +90,8 @@ public class GameHandler : MonoBehaviour
         gameCanvas.SetActive(true);
         DealCards(4);
 
-        GameObject playerGO = Instantiate(playerPrefab, new Vector2(-866, -139), Quaternion.identity);
-        GameObject playerHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(-866, 29), Quaternion.identity);
+        var playerGO = Instantiate(playerPrefab, new Vector2(-866, -139), Quaternion.identity);
+        var playerHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(-866, 29), Quaternion.identity);
         player = playerGO.GetComponent<ChampionHandler>();
         playerGO.transform.SetParent(gameCanvas.transform, false);
         playerHealthTextGO.transform.SetParent(gameCanvas.transform, false);
@@ -105,8 +105,8 @@ public class GameHandler : MonoBehaviour
 			case "The Wraith King":
                 foreach (Transform child in playerArea.transform)
 				{
-                    GameObject selectedCard = child.gameObject;
-                    Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                    var selectedCard = child.gameObject;
+                    var selectedCardComponent = selectedCard.GetComponent<Card>();
                     if (selectedCardComponent.cardSuit == CardSuit.CLUB)
                     {
                         player.clubs++;
@@ -114,10 +114,10 @@ public class GameHandler : MonoBehaviour
                 }
                 Debug.Log(player.clubs);
 
-                GameObject DeathCrownAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -150), Quaternion.identity);
-                GameObject DeathMistAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -110), Quaternion.identity);
-                GameObject UndeadTurningAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -70), Quaternion.identity);
-				GameObject playerAbilityStatusGO4 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -30), Quaternion.identity);
+                var DeathCrownAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -150), Quaternion.identity);
+                var DeathMistAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -110), Quaternion.identity);
+                var UndeadTurningAbilityStatusGO = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -70), Quaternion.identity);
+				var playerAbilityStatusGO4 = Instantiate(playerAbilityStatusPrefab, new Vector2(-547, -30), Quaternion.identity);
                 DeathCrownAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
                 DeathMistAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
                 UndeadTurningAbilityStatusGO.transform.SetParent(gameCanvas.transform, false);
@@ -130,8 +130,8 @@ public class GameHandler : MonoBehaviour
         }
 
 
-        GameObject opponentGO = Instantiate(opponentPrefab, new Vector2(866, 139), Quaternion.identity);
-        GameObject opponentHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
+        var opponentGO = Instantiate(opponentPrefab, new Vector2(866, 139), Quaternion.identity);
+        var opponentHealthTextGO = Instantiate(healthDisplayTextPrefab, new Vector2(866, -29), Quaternion.identity);
         opponent = opponentGO.GetComponent<ChampionHandler>();
         opponentGO.transform.SetParent(gameCanvas.transform, false);
         opponentHealthTextGO.transform.SetParent(gameCanvas.transform, false);
@@ -208,14 +208,14 @@ public class GameHandler : MonoBehaviour
         {
             opponent.discardAmount = opponent.cards - 6;
 
-            for (int i = 0; i < opponent.discardAmount; i++)
+            for (var i = 0; i < opponent.discardAmount; i++)
             {
-                int value = 999;
-                GameObject chosenCard = opponentArea.transform.GetChild(0).gameObject;
+                var value = 999;
+                var chosenCard = opponentArea.transform.GetChild(0).gameObject;
                 foreach (Transform child in opponentArea.transform)
                 {
-                    GameObject selectedCard = child.gameObject;
-                    Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                    var selectedCard = child.gameObject;
+                    var selectedCardComponent = selectedCard.GetComponent<Card>();
                     if (value > selectedCardComponent.cardValue)
                     {
                         value = selectedCardComponent.cardValue;
@@ -259,11 +259,11 @@ public class GameHandler : MonoBehaviour
             case "The Wraith King":
                 if (!player.isDeathMistReady)
                 {
-                    int count = 0;
+                    var count = 0;
                     foreach (Transform child in playerArea.transform)
                     {
-                        GameObject selectedCard = child.gameObject;
-                        Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                        var selectedCard = child.gameObject;
+                        var selectedCardComponent = selectedCard.GetComponent<Card>();
                         if (selectedCardComponent.cardSuit == CardSuit.CLUB)
                         {
                             count++;
@@ -302,7 +302,7 @@ public class GameHandler : MonoBehaviour
 		switch (phase)
 		{
             case GamePhaseDeprecated.PLAYERACTIONPHASE:
-                GameObject attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+                var attackingCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
                 cardLogicHandler.Discard(attackingCard);
                 StartCoroutine(cardLogicHandler.AttackCalc(attackingCard));
                 break;
@@ -369,7 +369,7 @@ public class GameHandler : MonoBehaviour
     {
         championDashboard.SetActive(true);
         gameCanvas.SetActive(false);
-        Image championImage = championDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
+        var championImage = championDashboard.transform.GetChild(1).gameObject.GetComponent<Image>();
         championImage.sprite = sprite;
     }
     [HideInInspector]
@@ -380,17 +380,17 @@ public class GameHandler : MonoBehaviour
     }
     public void DealCardsPlayer(int cards)
     {
-        for (int x = 0; x < cards; x++)
+        for (var x = 0; x < cards; x++)
         {
-            GameObject playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+            var playerCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             playerCard.transform.SetParent(playerArea.transform, false);
         }
     }
     public void DealCardsOpponent(int cards)
     {
-        for (int x = 0; x < cards; x++)
+        for (var x = 0; x < cards; x++)
         {
-            GameObject opponentCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
+            var opponentCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             opponentCard.transform.SetParent(opponentArea.transform, false);
             opponentCard.GetComponent<Card>().ToggleCardVisibility();
         }

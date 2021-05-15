@@ -59,7 +59,7 @@ public class ChampionHandler : MonoBehaviour
         isAttacked = false;
         isUltReady = false;
 
-        Image thisImage = GetComponent<Image>();
+        var thisImage = GetComponent<Image>();
         thisImage.sprite = this.championImage;
         #endregion
 
@@ -77,8 +77,8 @@ public class ChampionHandler : MonoBehaviour
 	[HideInInspector]
     public void Damage(int amount, DamageTypeDeprecated damageType, ChampionHandler source, float shakeMagnitude = 5f)
     {
-        GameHandler gameHandler = FindObjectOfType<GameHandler>();
-        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        var gameHandler = FindObjectOfType<GameHandler>();
+        var audioManager = FindObjectOfType<AudioManager>();
 
         switch (source.championName)
 		{
@@ -140,14 +140,14 @@ public class ChampionHandler : MonoBehaviour
     }
     private IEnumerator ShakeImage(float duration, float shakeRange)
 	{
-        float elapsed = 0.0f;
-        Quaternion originalRotation = transform.rotation;
+        var elapsed = 0.0f;
+        var originalRotation = transform.rotation;
 
         while (elapsed < duration)
         {
 
             elapsed += Time.deltaTime;
-            float z = Random.value * shakeRange - (shakeRange / 2);
+            var z = Random.value * shakeRange - (shakeRange / 2);
             transform.eulerAngles = new Vector3(originalRotation.x, originalRotation.y, originalRotation.z + z);
             yield return null;
         }
@@ -156,13 +156,13 @@ public class ChampionHandler : MonoBehaviour
     }
     private IEnumerator ShakeImageViolent(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.localPosition;
+        var originalPos = transform.localPosition;
 
         for (float t = 0; t < 1; t += Time.deltaTime / duration)
         {
-            float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
-            float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
-            Vector3 ohShit = new Vector3(x, y, originalPos.z);
+            var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+            var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+            var ohShit = new Vector3(x, y, originalPos.z);
             transform.localPosition = ohShit;
             yield return null;
         }
@@ -188,8 +188,8 @@ public class ChampionHandler : MonoBehaviour
 	{
         if (isDeathMistReady)
 		{
-            GameObject newCard = Instantiate(gameHandler.cardIndex.ClubToken, new Vector2(0, 0), Quaternion.identity);
-            int siblingIndex = card.transform.GetSiblingIndex();
+            var newCard = Instantiate(gameHandler.cardIndex.ClubToken, new Vector2(0, 0), Quaternion.identity);
+            var siblingIndex = card.transform.GetSiblingIndex();
 
             gameHandler.cardLogicHandler.Discard(card.gameObject);
             newCard.transform.SetParent(gameHandler.playerArea.transform, false);
@@ -207,7 +207,7 @@ public class ChampionHandler : MonoBehaviour
     public IEnumerator UndeadTurning(GameHandler gameHandler, ChampionHandler target)
 	{
         isUndeadTurningReady = false;
-        for (int x = 0; x < undeadTurningMultiplier; x++)
+        for (var x = 0; x < undeadTurningMultiplier; x++)
 		{
             target.Damage(5, DamageTypeDeprecated.Shadow, this);
             yield return new WaitForSeconds(0.25f);

@@ -83,17 +83,17 @@ namespace DentedPixel.LTExamples
             LeanTween.reset();
 
             // Queue up a bunch of tweens, cancel some of them but expect the remainder to finish
-            GameObject[] cubes = new GameObject[99];
-            int[] tweenIds = new int[cubes.Length];
-            for (int i = 0; i < cubes.Length; i++)
+            var cubes = new GameObject[99];
+            var tweenIds = new int[cubes.Length];
+            for (var i = 0; i < cubes.Length; i++)
             {
-                GameObject c = cubeNamed("cancel" + i);
+                var c = cubeNamed("cancel" + i);
                 tweenIds[i] = LeanTween.moveX(c, 100f, 1f).id;
                 cubes[i] = c;
             }
-            int onCompleteCount = 0;
+            var onCompleteCount = 0;
             LeanTween.delayedCall(cubes[0], 0.2f, () => {
-                for (int i = 0; i < cubes.Length; i++)
+                for (var i = 0; i < cubes.Length; i++)
                 {
                     if (i % 3 == 0)
                     {
@@ -105,7 +105,7 @@ namespace DentedPixel.LTExamples
                     }
                     else if (i % 3 == 2)
                     {
-                        LTDescr descr = LeanTween.descr(tweenIds[i]);
+                        var descr = LeanTween.descr(tweenIds[i]);
                         //                      Debug.Log("descr:"+descr);
                         descr.setOnComplete(() => {
                             onCompleteCount++;
@@ -119,8 +119,8 @@ namespace DentedPixel.LTExamples
                 }
             });
 
-            Vector3[] splineArr = new Vector3[] { new Vector3(-1f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(4f, 0f, 0f), new Vector3(20f, 0f, 0f), new Vector3(30f, 0f, 0f) };
-            LTSpline cr = new LTSpline(splineArr);
+            var splineArr = new Vector3[] { new Vector3(-1f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(4f, 0f, 0f), new Vector3(20f, 0f, 0f), new Vector3(30f, 0f, 0f) };
+            var cr = new LTSpline(splineArr);
             cr.place(cube4.transform, 0.5f);
             LeanTest.expect((Vector3.Distance(cube4.transform.position, new Vector3(10f, 0f, 0f)) <= 0.7f), "SPLINE POSITIONING AT HALFWAY", "position is:" + cube4.transform.position + " but should be:(10f,0f,0f)");
             LeanTween.color(cube4, Color.green, 0.01f);
@@ -129,51 +129,51 @@ namespace DentedPixel.LTExamples
 
             // OnStart Speed Test for ignoreTimeScale vs normal timeScale
 
-            GameObject cubeDest = cubeNamed("cubeDest");
-            Vector3 cubeDestEnd = new Vector3(100f, 20f, 0f);
+            var cubeDest = cubeNamed("cubeDest");
+            var cubeDestEnd = new Vector3(100f, 20f, 0f);
             LeanTween.move(cubeDest, cubeDestEnd, 0.7f);
 
-            GameObject cubeToTrans = cubeNamed("cubeToTrans");
+            var cubeToTrans = cubeNamed("cubeToTrans");
             LeanTween.move(cubeToTrans, cubeDest.transform, 1.2f).setEase(LeanTweenType.easeOutQuad).setOnComplete(() => {
                 LeanTest.expect(cubeToTrans.transform.position == cubeDestEnd, "MOVE TO TRANSFORM WORKS");
             });
 
-            GameObject cubeDestroy = cubeNamed("cubeDestroy");
+            var cubeDestroy = cubeNamed("cubeDestroy");
             LeanTween.moveX(cubeDestroy, 200f, 0.05f).setDelay(0.02f).setDestroyOnComplete(true);
             LeanTween.moveX(cubeDestroy, 200f, 0.1f).setDestroyOnComplete(true).setOnComplete(() => {
                 LeanTest.expect(true, "TWO DESTROY ON COMPLETE'S SUCCEED");
             });
 
-            GameObject cubeSpline = cubeNamed("cubeSpline");
+            var cubeSpline = cubeNamed("cubeSpline");
             LeanTween.moveSpline(cubeSpline, new Vector3[] { new Vector3(0.5f, 0f, 0.5f), new Vector3(0.75f, 0f, 0.75f), new Vector3(1f, 0f, 1f), new Vector3(1f, 0f, 1f) }, 0.1f).setOnComplete(() => {
                 LeanTest.expect(Vector3.Distance(new Vector3(1f, 0f, 1f), cubeSpline.transform.position) < 0.01f, "SPLINE WITH TWO POINTS SUCCEEDS");
             });
 
             // This test works when it is positioned last in the test queue (probably worth fixing when you have time)
-            GameObject jumpCube = cubeNamed("jumpTime");
+            var jumpCube = cubeNamed("jumpTime");
             jumpCube.transform.position = new Vector3(100f, 0f, 0f);
             jumpCube.transform.localScale *= 100f;
-            int jumpTimeId = LeanTween.moveX(jumpCube, 200f, 1f).id;
+            var jumpTimeId = LeanTween.moveX(jumpCube, 200f, 1f).id;
 
             LeanTween.delayedCall(gameObject, 0.2f, () => {
-                LTDescr d = LeanTween.descr(jumpTimeId);
-                float beforeX = jumpCube.transform.position.x;
+                var d = LeanTween.descr(jumpTimeId);
+                var beforeX = jumpCube.transform.position.x;
                 d.setTime(0.5f);
                 LeanTween.delayedCall(0.0f, () => { }).setOnStart(() => {
-                    float diffAmt = 1f;// This variable is dependent on a good frame-rate because it evalutes at the next Update
+                    var diffAmt = 1f;// This variable is dependent on a good frame-rate because it evalutes at the next Update
                     beforeX += Time.deltaTime * 100f * 2f;
                     LeanTest.expect(Mathf.Abs(jumpCube.transform.position.x - beforeX) < diffAmt, "CHANGING TIME DOESN'T JUMP AHEAD", "Difference:" + Mathf.Abs(jumpCube.transform.position.x - beforeX) + " beforeX:" + beforeX + " now:" + jumpCube.transform.position.x + " dt:" + Time.deltaTime);
                 });
             });
 
             // Tween with time of zero is needs to be set to it's final value
-            GameObject zeroCube = cubeNamed("zeroCube");
+            var zeroCube = cubeNamed("zeroCube");
             LeanTween.moveX(zeroCube, 10f, 0f).setOnComplete(() => {
                 LeanTest.expect(zeroCube.transform.position.x == 10f, "ZERO TIME FINSHES CORRECTLY", "final x:" + zeroCube.transform.position.x);
             });
 
             // Scale, and OnStart
-            GameObject cubeScale = cubeNamed("cubeScale");
+            var cubeScale = cubeNamed("cubeScale");
             LeanTween.scale(cubeScale, new Vector3(5f, 5f, 5f), 0.01f).setOnStart(() => {
                 LeanTest.expect(true, "ON START WAS CALLED");
             }).setOnComplete(() => {
@@ -181,19 +181,19 @@ namespace DentedPixel.LTExamples
             });
 
             // Rotate
-            GameObject cubeRotate = cubeNamed("cubeRotate");
+            var cubeRotate = cubeNamed("cubeRotate");
             LeanTween.rotate(cubeRotate, new Vector3(0f, 180f, 0f), 0.02f).setOnComplete(() => {
                 LeanTest.expect(cubeRotate.transform.eulerAngles.y == 180f, "ROTATE", "expected rotate y:" + 180f + " returned:" + cubeRotate.transform.eulerAngles.y);
             });
 
             // RotateAround
-            GameObject cubeRotateA = cubeNamed("cubeRotateA");
+            var cubeRotateA = cubeNamed("cubeRotateA");
             LeanTween.rotateAround(cubeRotateA, Vector3.forward, 90f, 0.3f).setOnComplete(() => {
                 LeanTest.expect(cubeRotateA.transform.eulerAngles.z == 90f, "ROTATE AROUND", "expected rotate z:" + 90f + " returned:" + cubeRotateA.transform.eulerAngles.z);
             });
 
             // RotateAround 360
-            GameObject cubeRotateB = cubeNamed("cubeRotateB");
+            var cubeRotateB = cubeNamed("cubeRotateB");
             cubeRotateB.transform.position = new Vector3(200f, 10f, 8f);
             LeanTween.rotateAround(cubeRotateB, Vector3.forward, 360f, 0.3f).setPoint(new Vector3(5f, 3f, 2f)).setOnComplete(() => {
                 LeanTest.expect(cubeRotateB.transform.position.ToString() == (new Vector3(200f, 10f, 8f)).ToString(), "ROTATE AROUND 360", "expected rotate pos:" + (new Vector3(200f, 10f, 8f)) + " returned:" + cubeRotateB.transform.position);
@@ -207,7 +207,7 @@ namespace DentedPixel.LTExamples
                 LeanTest.expect(cubeAlpha1.GetComponent<Renderer>().material.color.a == 0.5f, "ALPHA");
             });
             // Color
-            float onStartTime = -1f;
+            var onStartTime = -1f;
             LeanTween.color(cubeAlpha2, Color.cyan, 0.3f).setOnComplete(() => {
                 LeanTest.expect(cubeAlpha2.GetComponent<Renderer>().material.color == Color.cyan, "COLOR");
                 LeanTest.expect(onStartTime >= 0f && onStartTime < Time.time, "ON START", "onStartTime:" + onStartTime + " time:" + Time.time);
@@ -215,34 +215,34 @@ namespace DentedPixel.LTExamples
                 onStartTime = Time.time;
             });
             // moveLocalY (make sure uses y values)
-            Vector3 beforePos = cubeAlpha1.transform.position;
+            var beforePos = cubeAlpha1.transform.position;
             LeanTween.moveY(cubeAlpha1, 3f, 0.2f).setOnComplete(() => {
                 LeanTest.expect(cubeAlpha1.transform.position.x == beforePos.x && cubeAlpha1.transform.position.z == beforePos.z, "MOVE Y");
             });
 
-            Vector3 beforePos2 = cubeAlpha2.transform.localPosition;
+            var beforePos2 = cubeAlpha2.transform.localPosition;
             LeanTween.moveLocalZ(cubeAlpha2, 12f, 0.2f).setOnComplete(() => {
                 LeanTest.expect(cubeAlpha2.transform.localPosition.x == beforePos2.x && cubeAlpha2.transform.localPosition.y == beforePos2.y, "MOVE LOCAL Z", "ax:" + cubeAlpha2.transform.localPosition.x + " bx:" + beforePos.x + " ay:" + cubeAlpha2.transform.localPosition.y + " by:" + beforePos2.y);
             });
 
-            AudioClip audioClip = LeanAudio.createAudio(new AnimationCurve(new Keyframe(0f, 1f, 0f, -1f), new Keyframe(1f, 0f, -1f, 0f)), new AnimationCurve(new Keyframe(0f, 0.001f, 0f, 0f), new Keyframe(1f, 0.001f, 0f, 0f)), LeanAudio.options());
+            var audioClip = LeanAudio.createAudio(new AnimationCurve(new Keyframe(0f, 1f, 0f, -1f), new Keyframe(1f, 0f, -1f, 0f)), new AnimationCurve(new Keyframe(0f, 0.001f, 0f, 0f), new Keyframe(1f, 0.001f, 0f, 0f)), LeanAudio.options());
             LeanTween.delayedSound(gameObject, audioClip, new Vector3(0f, 0f, 0f), 0.1f).setDelay(0.2f).setOnComplete(() => {
                 LeanTest.expect(Time.time > 0, "DELAYED SOUND");
             });
 
             // Easing Methods
-            int totalEasingCheck = 0;
-            int totalEasingCheckSuccess = 0;
-            for (int j = 0; j < 2; j++)
+            var totalEasingCheck = 0;
+            var totalEasingCheckSuccess = 0;
+            for (var j = 0; j < 2; j++)
             {
-                bool isCheckingFrom = j == 1;
-                int totalTweenTypeLength = (int)LeanTweenType.easeShake;
-                for (int i = (int)LeanTweenType.notUsed; i < totalTweenTypeLength; i++)
+                var isCheckingFrom = j == 1;
+                var totalTweenTypeLength = (int)LeanTweenType.easeShake;
+                for (var i = (int)LeanTweenType.notUsed; i < totalTweenTypeLength; i++)
                 {
-                    LeanTweenType easeType = (LeanTweenType)i;
-                    GameObject cube = cubeNamed("cube" + easeType);
-                    LTDescr descr = LeanTween.moveLocalX(cube, 5, 0.1f).setOnComplete((object obj) => {
-                        GameObject cubeIn = obj as GameObject;
+                    var easeType = (LeanTweenType)i;
+                    var cube = cubeNamed("cube" + easeType);
+                    var descr = LeanTween.moveLocalX(cube, 5, 0.1f).setOnComplete((object obj) => {
+                        var cubeIn = obj as GameObject;
                         totalEasingCheck++;
                         if (cubeIn.transform.position.x == 5f)
                         {
@@ -260,7 +260,7 @@ namespace DentedPixel.LTExamples
             }
 
             // value2
-            bool value2UpdateCalled = false;
+            var value2UpdateCalled = false;
             LeanTween.value(gameObject, new Vector2(0, 0), new Vector2(256, 96), 0.1f).setOnUpdate((Vector2 value) => {
                 value2UpdateCalled = true;
             });
@@ -277,7 +277,7 @@ namespace DentedPixel.LTExamples
 
         private GameObject cubeNamed(string name)
         {
-            GameObject cube = Instantiate(boxNoCollider) as GameObject;
+            var cube = Instantiate(boxNoCollider) as GameObject;
             cube.name = name;
             return cube;
         }
@@ -286,16 +286,16 @@ namespace DentedPixel.LTExamples
         {
             yield return new WaitForEndOfFrame();
 
-            GameObject cubeNormal = cubeNamed("normalTimeScale");
+            var cubeNormal = cubeNamed("normalTimeScale");
             // float timeElapsedNormal = Time.time;
             LeanTween.moveX(cubeNormal, 12f, 1.5f).setIgnoreTimeScale(false).setOnComplete(() => {
                 timeElapsedNormalTimeScale = Time.time;
             });
 
-            LTDescr[] descr = LeanTween.descriptions(cubeNormal);
+            var descr = LeanTween.descriptions(cubeNormal);
             LeanTest.expect(descr.Length >= 0 && descr[0].to.x == 12f, "WE CAN RETRIEVE A DESCRIPTION");
 
-            GameObject cubeIgnore = cubeNamed("ignoreTimeScale");
+            var cubeIgnore = cubeNamed("ignoreTimeScale");
             LeanTween.moveX(cubeIgnore, 5f, 1.5f).setIgnoreTimeScale(true).setOnComplete(() => {
                 timeElapsedIgnoreTimeScale = Time.time;
             });
@@ -306,34 +306,34 @@ namespace DentedPixel.LTExamples
             //          yield return new WaitForSeconds(100f);
             Time.timeScale = 4f;
 
-            int pauseCount = 0;
+            var pauseCount = 0;
             LeanTween.value(gameObject, 0f, 1f, 1f).setOnUpdate((float val) => {
                 pauseCount++;
             }).pause();
 
             // Bezier should end at exact end position not just 99% close to it
-            Vector3[] roundCirc = new Vector3[] { new Vector3(0f, 0f, 0f), new Vector3(-9.1f, 25.1f, 0f), new Vector3(-1.2f, 15.9f, 0f), new Vector3(-25f, 25f, 0f), new Vector3(-25f, 25f, 0f), new Vector3(-50.1f, 15.9f, 0f), new Vector3(-40.9f, 25.1f, 0f), new Vector3(-50f, 0f, 0f), new Vector3(-50f, 0f, 0f), new Vector3(-40.9f, -25.1f, 0f), new Vector3(-50.1f, -15.9f, 0f), new Vector3(-25f, -25f, 0f), new Vector3(-25f, -25f, 0f), new Vector3(0f, -15.9f, 0f), new Vector3(-9.1f, -25.1f, 0f), new Vector3(0f, 0f, 0f) };
-            GameObject cubeRound = cubeNamed("bRound");
-            Vector3 onStartPos = cubeRound.transform.position;
+            var roundCirc = new Vector3[] { new Vector3(0f, 0f, 0f), new Vector3(-9.1f, 25.1f, 0f), new Vector3(-1.2f, 15.9f, 0f), new Vector3(-25f, 25f, 0f), new Vector3(-25f, 25f, 0f), new Vector3(-50.1f, 15.9f, 0f), new Vector3(-40.9f, 25.1f, 0f), new Vector3(-50f, 0f, 0f), new Vector3(-50f, 0f, 0f), new Vector3(-40.9f, -25.1f, 0f), new Vector3(-50.1f, -15.9f, 0f), new Vector3(-25f, -25f, 0f), new Vector3(-25f, -25f, 0f), new Vector3(0f, -15.9f, 0f), new Vector3(-9.1f, -25.1f, 0f), new Vector3(0f, 0f, 0f) };
+            var cubeRound = cubeNamed("bRound");
+            var onStartPos = cubeRound.transform.position;
             LeanTween.moveLocal(cubeRound, roundCirc, 0.5f).setOnComplete(() => {
                 LeanTest.expect(cubeRound.transform.position == onStartPos, "BEZIER CLOSED LOOP SHOULD END AT START", "onStartPos:" + onStartPos + " onEnd:" + cubeRound.transform.position);
             });
 
             // should be able to retrieve a point
-            LTBezierPath roundCircPath = new LTBezierPath(roundCirc);
-            float ratioPoint = roundCircPath.ratioAtPoint(new Vector3(-25f, 25f, 0f));
+            var roundCircPath = new LTBezierPath(roundCirc);
+            var ratioPoint = roundCircPath.ratioAtPoint(new Vector3(-25f, 25f, 0f));
             LeanTest.expect(Mathf.Equals(ratioPoint, 0.25f), "BEZIER RATIO POINT");
 
             // Spline should end at exact end position not just 99% close to it
-            Vector3[] roundSpline = new Vector3[] { new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(2f, 0f, 0f), new Vector3(0.9f, 2f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f) };
-            GameObject cubeSpline = cubeNamed("bSpline");
-            Vector3 onStartPosSpline = cubeSpline.transform.position;
+            var roundSpline = new Vector3[] { new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(2f, 0f, 0f), new Vector3(0.9f, 2f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f) };
+            var cubeSpline = cubeNamed("bSpline");
+            var onStartPosSpline = cubeSpline.transform.position;
             LeanTween.moveSplineLocal(cubeSpline, roundSpline, 0.5f).setOnComplete(() => {
                 LeanTest.expect(Vector3.Distance(onStartPosSpline, cubeSpline.transform.position) <= 0.01f, "SPLINE CLOSED LOOP SHOULD END AT START", "onStartPos:" + onStartPosSpline + " onEnd:" + cubeSpline.transform.position + " dist:" + Vector3.Distance(onStartPosSpline, cubeSpline.transform.position));
             });
 
             // Sequence test, do three tweens and make sure they end at the right points
-            GameObject cubeSeq = cubeNamed("cSeq");
+            var cubeSeq = cubeNamed("cSeq");
             var seq = LeanTween.sequence().append(LeanTween.moveX(cubeSeq, 100f, 0.2f));
             seq.append(0.1f).append(LeanTween.scaleX(cubeSeq, 2f, 0.1f));
             seq.append(() => {
@@ -342,9 +342,9 @@ namespace DentedPixel.LTExamples
             }).setScale(0.2f);
 
             // Bounds check
-            GameObject cubeBounds = cubeNamed("cBounds");
-            bool didPassBounds = true;
-            Vector3 failPoint = Vector3.zero;
+            var cubeBounds = cubeNamed("cBounds");
+            var didPassBounds = true;
+            var failPoint = Vector3.zero;
             LeanTween.move(cubeBounds, new Vector3(10, 10, 10), 0.1f).setOnUpdate((float val) => {
                 //              Debug.LogWarning("cubeBounds x:"+cubeBounds.transform.position.x + " y:"+ cubeBounds.transform.position.y+" z:"+cubeBounds.transform.position.z);
                 if (cubeBounds.transform.position.x < 0f || cubeBounds.transform.position.x > 10f || cubeBounds.transform.position.y < 0f || cubeBounds.transform.position.y > 10f || cubeBounds.transform.position.z < 0f || cubeBounds.transform.position.z > 10f)
@@ -368,10 +368,10 @@ namespace DentedPixel.LTExamples
             groupTweens = new LTDescr[1200];
             groupGOs = new GameObject[groupTweens.Length];
             groupTweensCnt = 0;
-            int descriptionMatchCount = 0;
-            for (int i = 0; i < groupTweens.Length; i++)
+            var descriptionMatchCount = 0;
+            for (var i = 0; i < groupTweens.Length; i++)
             {
-                GameObject cube = cubeNamed("c" + i);
+                var cube = cubeNamed("c" + i);
                 cube.transform.position = new Vector3(0, 0, i * 3);
 
                 groupGOs[i] = cube;
@@ -379,14 +379,14 @@ namespace DentedPixel.LTExamples
 
             yield return new WaitForEndOfFrame();
 
-            bool hasGroupTweensCheckStarted = false;
-            int setOnStartNum = 0;
-            int setPosNum = 0;
-            bool setPosOnUpdate = true;
-            for (int i = 0; i < groupTweens.Length; i++)
+            var hasGroupTweensCheckStarted = false;
+            var setOnStartNum = 0;
+            var setPosNum = 0;
+            var setPosOnUpdate = true;
+            for (var i = 0; i < groupTweens.Length; i++)
             {
-                Vector3 finalPos = transform.position + Vector3.one * 3f;
-                Dictionary<string, object> finalDict = new Dictionary<string, object> { { "final", finalPos }, { "go", groupGOs[i] } };
+                var finalPos = transform.position + Vector3.one * 3f;
+                var finalDict = new Dictionary<string, object> { { "final", finalPos }, { "go", groupGOs[i] } };
                 groupTweens[i] = LeanTween.move(groupGOs[i], finalPos, 3f).setOnStart(() => {
                     setOnStartNum++;
                 }).setOnUpdate((Vector3 newPosition) => {
@@ -398,9 +398,9 @@ namespace DentedPixel.LTExamples
                 }).
                 setOnCompleteParam(finalDict).
                 setOnComplete((object param) => {
-                    Dictionary<string, object> finalDictRetr = param as Dictionary<string, object>;
-                    Vector3 neededPos = (Vector3)finalDictRetr["final"];
-                    GameObject tweenedGo = finalDictRetr["go"] as GameObject;
+                    var finalDictRetr = param as Dictionary<string, object>;
+                    var neededPos = (Vector3)finalDictRetr["final"];
+                    var tweenedGo = finalDictRetr["go"] as GameObject;
                     if (neededPos.ToString() == tweenedGo.transform.position.ToString())
                         setPosNum++;
                     else
@@ -428,12 +428,12 @@ namespace DentedPixel.LTExamples
                 yield return null;
 
             LeanTest.expect(descriptionMatchCount == groupTweens.Length, "GROUP IDS MATCH");
-            int expectedSearch = groupTweens.Length + 7;
+            var expectedSearch = groupTweens.Length + 7;
             LeanTest.expect(LeanTween.maxSearch <= expectedSearch, "MAX SEARCH OPTIMIZED", "maxSearch:" + LeanTween.maxSearch + " should be:" + expectedSearch);
             LeanTest.expect(LeanTween.isTweening() == true, "SOMETHING IS TWEENING");
 
             // resume item before calling pause should continue item along it's way
-            float previousXlt4 = cube4.transform.position.x;
+            var previousXlt4 = cube4.transform.position.x;
             lt4 = LeanTween.moveX(cube4, 5.0f, 1.1f).setOnComplete(() => {
                 LeanTest.expect(cube4 != null && previousXlt4 != cube4.transform.position.x, "RESUME OUT OF ORDER", "cube4:" + cube4 + " previousXlt4:" + previousXlt4 + " cube4.transform.position.x:" + (cube4 != null ? cube4.transform.position.x : 0));
             }).setDestroyOnComplete(true);
@@ -444,13 +444,13 @@ namespace DentedPixel.LTExamples
             yield return new WaitForEndOfFrame();
             LeanTween.delayedCall(0.1f * 8f + 1f, rotateRepeatAllFinished);
 
-            int countBeforeCancel = LeanTween.tweensRunning;
+            var countBeforeCancel = LeanTween.tweensRunning;
             LeanTween.cancel(lt1Id);
             LeanTest.expect(countBeforeCancel == LeanTween.tweensRunning, "CANCEL AFTER RESET SHOULD FAIL", "expected " + countBeforeCancel + " but got " + LeanTween.tweensRunning);
             LeanTween.cancel(cube2);
 
-            int tweenCount = 0;
-            for (int i = 0; i < groupTweens.Length; i++)
+            var tweenCount = 0;
+            for (var i = 0; i < groupTweens.Length; i++)
             {
                 if (LeanTween.isTweening(groupGOs[i]))
                     tweenCount++;
@@ -466,7 +466,7 @@ namespace DentedPixel.LTExamples
             yield return new WaitForEndOfFrame();
 
             tweenCount = 0;
-            for (int i = 0; i < groupTweens.Length; i++)
+            for (var i = 0; i < groupTweens.Length; i++)
             {
                 if (i % 3 == 0)
                     LeanTween.resume(groupGOs[i]);
@@ -488,22 +488,22 @@ namespace DentedPixel.LTExamples
 
             yield return new WaitForEndOfFrame();
             Time.timeScale = 0.25f;
-            float tweenTime = 0.2f;
-            float expectedTime = tweenTime * (1f / Time.timeScale);
-            float start = Time.realtimeSinceStartup;
-            bool onUpdateWasCalled = false;
+            var tweenTime = 0.2f;
+            var expectedTime = tweenTime * (1f / Time.timeScale);
+            var start = Time.realtimeSinceStartup;
+            var onUpdateWasCalled = false;
             LeanTween.moveX(cube1, -5f, tweenTime).setOnUpdate((float val) => {
                 onUpdateWasCalled = true;
             }).setOnComplete(() => {
-                float end = Time.realtimeSinceStartup;
-                float diff = end - start;
+                var end = Time.realtimeSinceStartup;
+                var diff = end - start;
 
                 LeanTest.expect(Mathf.Abs(expectedTime - diff) < 0.06f, "SCALED TIMING DIFFERENCE", "expected to complete in roughly " + expectedTime + " but completed in " + diff);
                 LeanTest.expect(Mathf.Approximately(cube1.transform.position.x, -5f), "SCALED ENDING POSITION", "expected to end at -5f, but it ended at " + cube1.transform.position.x);
                 LeanTest.expect(onUpdateWasCalled, "ON UPDATE FIRED");
             });
 
-            bool didGetCorrectOnUpdate = false;
+            var didGetCorrectOnUpdate = false;
             LeanTween.value(gameObject, new Vector3(1f, 1f, 1f), new Vector3(10f, 10f, 10f), 1f).setOnUpdate((Vector3 val) => {
                 didGetCorrectOnUpdate = val.x >= 1f && val.y >= 1f && val.z >= 1f;
             }).setOnComplete(() => {
@@ -513,9 +513,9 @@ namespace DentedPixel.LTExamples
             yield return new WaitForSeconds(expectedTime);
             Time.timeScale = 1f;
 
-            int ltCount = 0;
-            GameObject[] allGos = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-            foreach (GameObject go in allGos)
+            var ltCount = 0;
+            var allGos = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+            foreach (var go in allGos)
             {
                 if (go.name == "~LeanTween")
                     ltCount++;
@@ -530,13 +530,13 @@ namespace DentedPixel.LTExamples
             yield return new WaitForEndOfFrame();
 
             Time.timeScale = 4f;
-            int cubeCount = 10;
+            var cubeCount = 10;
 
-            int[] tweensA = new int[cubeCount];
-            GameObject[] aGOs = new GameObject[cubeCount];
-            for (int i = 0; i < aGOs.Length; i++)
+            var tweensA = new int[cubeCount];
+            var aGOs = new GameObject[cubeCount];
+            for (var i = 0; i < aGOs.Length; i++)
             {
-                GameObject cube = Instantiate(boxNoCollider) as GameObject;
+                var cube = Instantiate(boxNoCollider) as GameObject;
                 cube.transform.position = new Vector3(0, 0, i * 2f);
                 cube.name = "a" + i;
                 aGOs[i] = cube;
@@ -546,50 +546,50 @@ namespace DentedPixel.LTExamples
 
             yield return new WaitForSeconds(1.0f);
 
-            int[] tweensB = new int[cubeCount];
-            GameObject[] bGOs = new GameObject[cubeCount];
-            for (int i = 0; i < bGOs.Length; i++)
+            var tweensB = new int[cubeCount];
+            var bGOs = new GameObject[cubeCount];
+            for (var i = 0; i < bGOs.Length; i++)
             {
-                GameObject cube = Instantiate(boxNoCollider) as GameObject;
+                var cube = Instantiate(boxNoCollider) as GameObject;
                 cube.transform.position = new Vector3(0, 0, i * 2f);
                 cube.name = "b" + i;
                 bGOs[i] = cube;
                 tweensB[i] = LeanTween.move(cube, cube.transform.position + new Vector3(10f, 0, 0), 2f).id;
             }
 
-            for (int i = 0; i < aGOs.Length; i++)
+            for (var i = 0; i < aGOs.Length; i++)
             {
                 LeanTween.cancel(aGOs[i]);
-                GameObject cube = aGOs[i];
+                var cube = aGOs[i];
                 tweensA[i] = LeanTween.move(cube, new Vector3(0, 0, i * 2f), 2f).id;
             }
 
             yield return new WaitForSeconds(0.5f);
 
-            for (int i = 0; i < aGOs.Length; i++)
+            for (var i = 0; i < aGOs.Length; i++)
             {
                 LeanTween.cancel(aGOs[i]);
-                GameObject cube = aGOs[i];
+                var cube = aGOs[i];
                 tweensA[i] = LeanTween.move(cube, new Vector3(0, 0, i * 2f) + new Vector3(10f, 0, 0), 2f).id;
             }
 
-            for (int i = 0; i < bGOs.Length; i++)
+            for (var i = 0; i < bGOs.Length; i++)
             {
                 LeanTween.cancel(bGOs[i]);
-                GameObject cube = bGOs[i];
+                var cube = bGOs[i];
                 tweensB[i] = LeanTween.move(cube, new Vector3(0, 0, i * 2f), 2f).id;
             }
 
             yield return new WaitForSeconds(2.1f);
 
-            bool inFinalPlace = true;
-            for (int i = 0; i < aGOs.Length; i++)
+            var inFinalPlace = true;
+            for (var i = 0; i < aGOs.Length; i++)
             {
                 if (Vector3.Distance(aGOs[i].transform.position, new Vector3(0, 0, i * 2f) + new Vector3(10f, 0, 0)) > 0.1f)
                     inFinalPlace = false;
             }
 
-            for (int i = 0; i < bGOs.Length; i++)
+            for (var i = 0; i < bGOs.Length; i++)
             {
                 if (Vector3.Distance(bGOs[i].transform.position, new Vector3(0, 0, i * 2f)) > 0.1f)
                     inFinalPlace = false;
@@ -597,7 +597,7 @@ namespace DentedPixel.LTExamples
 
             LeanTest.expect(inFinalPlace, "AFTER LOTS OF CANCELS");
 
-            GameObject cubePaused = cubeNamed("cPaused");
+            var cubePaused = cubeNamed("cPaused");
             cubePaused.LeanMoveX(10f, 1f).setOnComplete(() => {
                 pauseTweenDidFinish = true;
             });

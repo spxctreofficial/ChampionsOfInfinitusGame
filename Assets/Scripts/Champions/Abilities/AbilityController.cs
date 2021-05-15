@@ -40,9 +40,9 @@ public class AbilityController : MonoBehaviour
 	public bool CheckForAbility(string searchCriteria)
 	{
 		if (champion.abilities.Count == 0) return false;
-		foreach (Ability ability in champion.abilities)
+		foreach (var ability in champion.abilities)
 		{
-			foreach (Champion champion in ability.isExclusiveTo) if (champion == this.champion.champion) return false;
+			foreach (var champion in ability.isExclusiveTo) if (champion == this.champion.champion) return false;
 			if (searchCriteria == ability.abilityID) return true;
 		}
 		return false;
@@ -113,7 +113,7 @@ public class AbilityController : MonoBehaviour
 
 		yield return new WaitForSeconds(1f);
 
-		foreach (ChampionController selectedChampion in GameController.instance.champions)
+		foreach (var selectedChampion in GameController.instance.champions)
 		{
 			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction || selectedChampion.faction == Champion.Faction.Undefined) continue;
 
@@ -125,7 +125,7 @@ public class AbilityController : MonoBehaviour
 	}
 	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo)
 	{
-		foreach (Champion champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
 		if (dealtTo == champion || card.cardValue <= 10) yield break;
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because " + dealtTo.name + " was dealt a card with a value higher than 10. A 50% chance to heal for 20!");
@@ -141,12 +141,12 @@ public class AbilityController : MonoBehaviour
 	}
 	private int HopliteShield(int amount, DamageType damageType)
 	{
-		foreach (Champion champion in ability.isExclusiveTo) if (champion != this.champion.champion) return 0;
+		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) return 0;
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". A 20% chance to negate the damage by half!" +
 			"\n This chance is increased to 50% if the damage is fatal.");
 
-		float chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
+		var chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
 		if (Random.Range(0f, 1f) < chance)
 		{
 			AudioController.instance.Play("ShieldBlock");
@@ -163,13 +163,13 @@ public class AbilityController : MonoBehaviour
 	// Image Shake Borrowed From ChampionController
 	private IEnumerator ShakeImage(float duration, float magnitude)
 	{
-		Vector3 originalPos = transform.localPosition;
+		var originalPos = transform.localPosition;
 
 		for (float t = 0; t < 1; t += Time.deltaTime / duration)
 		{
-			float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
-			float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
-			Vector3 shake = new Vector3(x, y, originalPos.z);
+			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+			var shake = new Vector3(x, y, originalPos.z);
 			transform.localPosition = shake;
 			yield return null;
 		}

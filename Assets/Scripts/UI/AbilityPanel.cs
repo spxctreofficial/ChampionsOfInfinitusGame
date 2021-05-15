@@ -18,9 +18,9 @@ public class AbilityPanel : MonoBehaviour
 		owner = champion;
 		champion.abilityPanel = this;
 
-		foreach (Ability ability in owner.abilities)
+		foreach (var ability in owner.abilities)
 		{
-			AbilityController abilityController = Instantiate(GameController.instance.abilityPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityController>();
+			var abilityController = Instantiate(GameController.instance.abilityPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityController>();
 			abilityController.transform.SetParent(panel.transform, false);
 			abilityController.Setup(champion, ability);
 		}

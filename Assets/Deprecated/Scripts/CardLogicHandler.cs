@@ -23,12 +23,12 @@ public class CardLogicHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            GameObject gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
+            var gameObject = Instantiate(summonObject, new Vector2(0, 0), Quaternion.identity);
             gameObject.transform.SetParent(gameHandler.playerArea.transform, false);
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            GameObject gameObject = Instantiate(summonObjectEnemy, new Vector2(0, 0), Quaternion.identity);
+            var gameObject = Instantiate(summonObjectEnemy, new Vector2(0, 0), Quaternion.identity);
             gameObject.transform.SetParent(gameHandler.opponentArea.transform, false);
         }
     }
@@ -37,7 +37,7 @@ public class CardLogicHandler : MonoBehaviour
     public IEnumerator CardSelect(GameObject card)
     {
         this.card = card.GetComponent<Card>();
-        GameObject parentObject = card.transform.parent.gameObject;
+        var parentObject = card.transform.parent.gameObject;
         cardOfPlayer = parentObject == gameHandler.playerArea;
 
         if (cardOfPlayer)
@@ -54,7 +54,7 @@ public class CardLogicHandler : MonoBehaviour
 								{
                                     if (this.card.cardSuit != CardSuit.CLUB)
 									{
-                                        string defaultString = gameHandler.playerActionTooltip.text;
+                                        var defaultString = gameHandler.playerActionTooltip.text;
                                         gameHandler.playerActionTooltip.text = "Choose a CLUB!";
                                         yield return new WaitForSeconds(1f);
                                         gameHandler.playerActionTooltip.text = defaultString;
@@ -139,8 +139,8 @@ public class CardLogicHandler : MonoBehaviour
 
         foreach (Transform child in gameHandler.opponentArea.transform)
         {
-            GameObject selectedCard = child.gameObject;
-            Card selectedCardComponent = selectedCard.GetComponent<Card>();
+            var selectedCard = child.gameObject;
+            var selectedCardComponent = selectedCard.GetComponent<Card>();
             if (selectedCardComponent.cardSuit == CardSuit.CLUB)
             {
                 if (selectedCardComponent.cardValue >= 10)
@@ -171,8 +171,8 @@ public class CardLogicHandler : MonoBehaviour
 
         foreach (Transform child in gameHandler.opponentArea.transform)
         {
-            GameObject selectedCard = child.gameObject;
-            Card selectedCardComponent = selectedCard.GetComponent<Card>();
+            var selectedCard = child.gameObject;
+            var selectedCardComponent = selectedCard.GetComponent<Card>();
             if (selectedCardComponent.cardSuit == CardSuit.DIAMOND && gameHandler.opponent.diamondsBeforeExhaustion != 0)
             {
                 switch (selectedCardComponent.cardValue)
@@ -290,13 +290,13 @@ public class CardLogicHandler : MonoBehaviour
 
         foreach (Transform child in gameHandler.opponentArea.transform)
         {
-            GameObject selectedCard = child.gameObject;
-            Card selectedCardComponent = selectedCard.GetComponent<Card>();
+            var selectedCard = child.gameObject;
+            var selectedCardComponent = selectedCard.GetComponent<Card>();
             GameObject attackingCard = null;
             Card attackingCardComponent = null;
             if (selectedCardComponent.cardSuit == CardSuit.SPADE && gameHandler.opponent.spadesBeforeExhaustion != 0)
             {
-                int value = -1;
+                var value = -1;
                 if (gameHandler.opponent.cards == 0 || gameHandler.player.cards == 0 && Random.Range(0f, 1f) <= 0.75f)
                 {
                     attackingCard = Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
@@ -328,7 +328,7 @@ public class CardLogicHandler : MonoBehaviour
                     }
                 }
 
-                float f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
+                var f = gameHandler.player.currentHP <= gameHandler.player.maxHP * 0.25f ? 0.35f : 0.10f;
                 if (selectedCardComponent.cardValue >= 8 && Random.Range(0f, 1f) <= f
                     || selectedCardComponent.cardValue >= attackingCardComponent.cardValue
                     || attackingCardComponent.cardValue <= 9 && Random.Range(0f, 1f) <= f
@@ -359,8 +359,8 @@ public class CardLogicHandler : MonoBehaviour
         {
             foreach (Transform child in gameHandler.opponentArea.transform)
             {
-                GameObject selectedCard = child.gameObject;
-                Card selectedCardComponent = selectedCard.GetComponent<Card>();
+                var selectedCard = child.gameObject;
+                var selectedCardComponent = selectedCard.GetComponent<Card>();
                 if (selectedCardComponent.cardSuit == CardSuit.HEART && gameHandler.opponent.heartsBeforeExhaustion != 0)
                 {
                     if (selectedCardComponent.cardValue <= 6)
@@ -412,13 +412,13 @@ public class CardLogicHandler : MonoBehaviour
         gameHandler.gambleButton.SetActive(false);
         GameObject opponentCard = null;
         Card opponentCardComponent;
-        Card attackingCardComponent = attackingCard.GetComponent<Card>();
+        var attackingCardComponent = attackingCard.GetComponent<Card>();
 
-        int value = -1;
+        var value = -1;
         foreach (Transform child in gameHandler.opponentArea.transform)
         {
-            GameObject selectedCard = child.gameObject;
-            Card selectedCardComponent = selectedCard.GetComponent<Card>();
+            var selectedCard = child.gameObject;
+            var selectedCardComponent = selectedCard.GetComponent<Card>();
             if (value < selectedCardComponent.cardValue)
             {
                 if (gameHandler.opponent.currentHP >= 0.5f * gameHandler.opponent.maxHP
@@ -486,9 +486,9 @@ public class CardLogicHandler : MonoBehaviour
         gameHandler.gambleButton.SetActive(false);
 
         Discard(defendingCard, false);
-        GameObject attackingCard = gameHandler.playArea.transform.GetChild(defendingCard.transform.GetSiblingIndex() - 1).gameObject;
-        Card attackingCardComponent = attackingCard.GetComponent<Card>();
-        Card defendingCardComponent = defendingCard.GetComponent<Card>();
+        var attackingCard = gameHandler.playArea.transform.GetChild(defendingCard.transform.GetSiblingIndex() - 1).gameObject;
+        var attackingCardComponent = attackingCard.GetComponent<Card>();
+        var defendingCardComponent = defendingCard.GetComponent<Card>();
 
         attackingCardComponent.ToggleCardVisibility(true);
 
@@ -540,7 +540,7 @@ public class CardLogicHandler : MonoBehaviour
     }
     void PlayerHeart(GameObject card)
 	{
-        Card cardComponent = card.GetComponent<Card>();
+        var cardComponent = card.GetComponent<Card>();
 
         if (gameHandler.player.heartsBeforeExhaustion <= 0)
         {
@@ -587,7 +587,7 @@ public class CardLogicHandler : MonoBehaviour
     }
     IEnumerator PlayerDiamond(GameObject card)
 	{
-        Card cardComponent = card.GetComponent<Card>();
+        var cardComponent = card.GetComponent<Card>();
 
         if (cardComponent.cardValue < 5 || cardComponent.cardValue > 8)
         {
@@ -618,12 +618,12 @@ public class CardLogicHandler : MonoBehaviour
 
                 yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-                for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
+                for (var i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
                     gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
-                    int value = 999;
-                    int siblingIndex = 0;
-                    for (int x = 0; x < gameHandler.opponent.cards; x++)
+                    var value = 999;
+                    var siblingIndex = 0;
+                    for (var x = 0; x < gameHandler.opponent.cards; x++)
                     {
                         if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                         {
@@ -631,7 +631,7 @@ public class CardLogicHandler : MonoBehaviour
                             siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                         }
                     }
-                    GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                    var opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     Discard(opponentCard, true);
                 }
                 gameHandler.opponent.discardAmount = 0;
@@ -644,7 +644,7 @@ public class CardLogicHandler : MonoBehaviour
                 gameHandler.player.diamondsBeforeExhaustion--;
                 break;
             case 4:
-                float chance = gameHandler.opponent.currentHP >= 75 ? 0.75f : 0.5f;
+                var chance = gameHandler.opponent.currentHP >= 75 ? 0.75f : 0.5f;
                 if (Random.Range(0f, 1f) > chance && gameHandler.opponent.currentHP > 20 || gameHandler.opponent.cards == 0)
                 {
                     Discard(card);
@@ -662,12 +662,12 @@ public class CardLogicHandler : MonoBehaviour
 
                 yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
 
-                for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
+                for (var i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
                     gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
-                    int value = 999;
-                    int siblingIndex = 0;
-                    for (int x = 0; x < gameHandler.opponent.cards; x++)
+                    var value = 999;
+                    var siblingIndex = 0;
+                    for (var x = 0; x < gameHandler.opponent.cards; x++)
                     {
                         if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                         {
@@ -675,7 +675,7 @@ public class CardLogicHandler : MonoBehaviour
                             siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                         }
                     }
-                    GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                    var opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     Discard(opponentCard, true);
                 }
                 gameHandler.opponent.discardAmount = 0;
@@ -731,12 +731,12 @@ public class CardLogicHandler : MonoBehaviour
 
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
 
-                for (int i = 0; i < gameHandler.opponent.discardAmount; i++)
+                for (var i = 0; i < gameHandler.opponent.discardAmount; i++)
                 {
                     gameHandler.opponent.cards = gameHandler.opponentArea.transform.childCount;
-                    int value = 999;
-                    int siblingIndex = 0;
-                    for (int x = 0; x < gameHandler.opponent.cards; x++)
+                    var value = 999;
+                    var siblingIndex = 0;
+                    for (var x = 0; x < gameHandler.opponent.cards; x++)
                     {
                         if (value > gameHandler.opponentArea.transform.GetChild(x).gameObject.GetComponent<Card>().cardValue)
                         {
@@ -744,7 +744,7 @@ public class CardLogicHandler : MonoBehaviour
                             siblingIndex = gameHandler.opponentArea.transform.GetChild(x).GetSiblingIndex();
                         }
                     }
-                    GameObject opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
+                    var opponentCard = gameHandler.opponentArea.transform.GetChild(siblingIndex).gameObject;
                     Discard(opponentCard, true);
                 }
                 gameHandler.opponent.discardAmount = 0;

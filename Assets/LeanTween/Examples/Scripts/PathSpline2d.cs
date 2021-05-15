@@ -12,7 +12,7 @@ public class PathSpline2d : MonoBehaviour {
 	private LTSpline visualizePath;
 
 	void Start () {
-		Vector3[] path = new Vector3[] {
+		var path = new Vector3[] {
 			cubes[0].position,
 			cubes[1].position,
 			cubes[2].position,

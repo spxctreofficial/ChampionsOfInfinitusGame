@@ -35,7 +35,7 @@ public class GeneralSimpleUI : MonoBehaviour {
 
 		LeanTween.value(gameObject, Color.red, Color.green, 1f ).setOnUpdate( 
 			(Color val)=>{
-				UnityEngine.UI.Image image = (UnityEngine.UI.Image)button.gameObject.GetComponent( typeof(UnityEngine.UI.Image) );
+				var image = (UnityEngine.UI.Image)button.gameObject.GetComponent( typeof(UnityEngine.UI.Image) );
 				image.color = val;
 			}
 		);

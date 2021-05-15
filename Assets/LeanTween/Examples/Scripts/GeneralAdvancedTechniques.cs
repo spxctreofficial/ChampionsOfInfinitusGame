@@ -33,25 +33,25 @@ public class GeneralAdvancedTechniques : MonoBehaviour {
 
 		// Move to path of transforms that are moving themselves
 		LeanTween.value( avatarMove, 0f, (float)movePts.Length-1, 5f).setOnUpdate((float val)=>{
-			int first = (int)Mathf.Floor(val);
-			int next = first < movePts.Length-1 ? first + 1 : first;
-			float diff = val - (float)first;
+			var first = (int)Mathf.Floor(val);
+			var next = first < movePts.Length-1 ? first + 1 : first;
+			var diff = val - (float)first;
 			// Debug.Log("val:"+val+" first:"+first+" next:"+next);
-			Vector3 diffPos = (movePts[next].position-movePts[first].position);
+			var diffPos = (movePts[next].position-movePts[first].position);
 			avatarMove.transform.position = movePts[first].position + diffPos*diff;
 		}).setEase(LeanTweenType.easeInOutExpo).setLoopPingPong();
 
 		// move the pts
-		for(int i = 0; i < movePts.Length; i++)
+		for(var i = 0; i < movePts.Length; i++)
 			LeanTween.moveY( movePts[i].gameObject, movePts[i].position.y + 1.5f, 1f).setDelay(((float)i)*0.2f).setLoopPingPong();
 
 
 		// move objects at a constant speed
-		for(int i = 0; i < avatarSpeed.Length; i++)
+		for(var i = 0; i < avatarSpeed.Length; i++)
 			LeanTween.moveLocalZ( avatarSpeed[i], (i+1)*5f, 1f).setSpeed(6f).setEase(LeanTweenType.easeInOutExpo).setLoopPingPong(); // any time you set the speed it overrides the time value
 	
 		// move around a circle at a constant speed
-		for(int i = 0; i < avatarSpeed2.Length; i++){
+		for(var i = 0; i < avatarSpeed2.Length; i++){
 			LeanTween.moveLocal( avatarSpeed2[i], i == 0 ? circleSm : circleLrg, 1f).setSpeed(20f).setRepeat(-1);
 		}
 			

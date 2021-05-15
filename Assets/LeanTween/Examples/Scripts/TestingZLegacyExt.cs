@@ -54,7 +54,7 @@ public class TestingZLegacyExt : MonoBehaviour {
 
     void OnGUI()
     {
-        string label = useEstimatedTime ? "useEstimatedTime" : "timeScale:" + Time.timeScale;
+        var label = useEstimatedTime ? "useEstimatedTime" : "timeScale:" + Time.timeScale;
         GUI.Label(new Rect(0.03f * Screen.width, 0.03f * Screen.height, 0.5f * Screen.width, 0.3f * Screen.height), label);
     }
 
@@ -67,7 +67,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         if (exampleIter == 0)
         {
-            int iter = (int)timingType + 1;
+            var iter = (int)timingType + 1;
             if (iter > (int)TimingType.Length)
                 iter = 0;
             timingType = (TimingType)iter;
@@ -92,7 +92,7 @@ public class TestingZLegacyExt : MonoBehaviour {
         gameObject.BroadcastMessage(exampleFunctions[exampleIter]);
 
         // Debug.Log("cycleThroughExamples time:"+Time.time + " useEstimatedTime:"+useEstimatedTime);
-        float delayTime = 1.1f;
+        var delayTime = 1.1f;
 		gameObject.LeanDelayedCall( delayTime, cycleThroughExamples).setUseEstimatedTime(useEstimatedTime);
 
         exampleIter = exampleIter + 1 >= exampleFunctions.Length ? 0 : exampleIter + 1;
@@ -118,7 +118,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     public void loopTestClamp()
     {
         Debug.Log("loopTestClamp Time:" + Time.time);
-		Transform cube1 = GameObject.Find("Cube1").transform;
+		var cube1 = GameObject.Find("Cube1").transform;
         cube1.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		cube1.LeanScaleZ( 4.0f, 1.0f).setEase(LeanTweenType.easeOutElastic).setRepeat(7).setLoopClamp().setUseEstimatedTime(useEstimatedTime);//
     }
@@ -126,7 +126,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     public void loopTestPingPong()
     {
         Debug.Log("loopTestPingPong Time:" + Time.time);
-		Transform cube2 = GameObject.Find("Cube2").transform;
+		var cube2 = GameObject.Find("Cube2").transform;
         cube2.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		cube2.LeanScaleY( 4.0f, 1.0f).setEase(LeanTweenType.easeOutQuad).setLoopPingPong(4).setUseEstimatedTime(useEstimatedTime);
         //LeanTween.scaleY( cube2, 4.0f, 1.0f, LeanTween.options().setEaseOutQuad().setRepeat(8).setLoopPingPong().setUseEstimatedTime(useEstimatedTime) );
@@ -134,7 +134,7 @@ public class TestingZLegacyExt : MonoBehaviour {
 
     public void colorExample()
     {
-        GameObject lChar = GameObject.Find("LCharacter");
+        var lChar = GameObject.Find("LCharacter");
 		lChar.LeanColor( new Color(1.0f, 0.0f, 0.0f, 0.5f), 0.5f).setEase(LeanTweenType.easeOutBounce).setRepeat(2).setLoopPingPong().setUseEstimatedTime(useEstimatedTime);
     }
 
@@ -142,7 +142,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("moveOnACurveExample Time:" + Time.time);
 
-        Vector3[] path = new Vector3[] { origin, pt1.position, pt2.position, pt3.position, pt3.position, pt4.position, pt5.position, origin };
+        var path = new Vector3[] { origin, pt1.position, pt2.position, pt3.position, pt3.position, pt4.position, pt5.position, origin };
 		ltLogo.LeanMove( path, 1.0f).setEase(LeanTweenType.easeOutQuad).setOrientToPath(true).setUseEstimatedTime(useEstimatedTime);
     }
 
@@ -166,7 +166,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("rotateExample");
 
-        Hashtable returnParam = new Hashtable();
+        var returnParam = new Hashtable();
         returnParam.Add("yo", 5.0);
 
 		ltLogo.LeanRotate(new Vector3(0f, 360f, 0f), 1f).setEase(LeanTweenType.easeOutQuad).setOnComplete(rotateFinished).setOnCompleteParam(returnParam).setOnUpdate(rotateOnUpdate).setUseEstimatedTime(useEstimatedTime);
@@ -179,7 +179,7 @@ public class TestingZLegacyExt : MonoBehaviour {
 
     public void rotateFinished(object hash)
     {
-        Hashtable h = hash as Hashtable;
+        var h = hash as Hashtable;
         Debug.Log("rotateFinished hash:" + h["yo"]);
     }
 
@@ -187,14 +187,14 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("scaleExample");
 
-        Vector3 currentScale = ltLogo.localScale;
+        var currentScale = ltLogo.localScale;
 		ltLogo.LeanScale(new Vector3(currentScale.x + 0.2f, currentScale.y + 0.2f, currentScale.z + 0.2f), 1f).setEase(LeanTweenType.easeOutBounce).setUseEstimatedTime(useEstimatedTime);
     }
 
     public void updateValueExample()
     {
         Debug.Log("updateValueExample");
-        Hashtable pass = new Hashtable();
+        var pass = new Hashtable();
         pass.Add("message", "hi");
 		gameObject.LeanValue( (Action<float, object>)updateValueExampleCallback, ltLogo.eulerAngles.y, 270f, 1f).setEase(LeanTweenType.easeOutElastic).setOnUpdateParam(pass).setUseEstimatedTime(useEstimatedTime);
     }
@@ -203,7 +203,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         // Hashtable h = hash as Hashtable;
         // Debug.Log("message:"+h["message"]+" val:"+val);
-        Vector3 tmp = ltLogo.eulerAngles;
+        var tmp = ltLogo.eulerAngles;
         tmp.y = val;
         ltLogo.transform.eulerAngles = tmp;
     }
@@ -218,7 +218,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     public void delayedCallExampleCallback()
     {
         Debug.Log("Delayed function was called");
-        Vector3 currentScale = ltLogo.localScale;
+        var currentScale = ltLogo.localScale;
 
 		ltLogo.LeanScale( new Vector3(currentScale.x - 0.2f, currentScale.y - 0.2f, currentScale.z - 0.2f), 0.5f).setEase(LeanTweenType.easeInOutCirc).setUseEstimatedTime(useEstimatedTime);
     }
@@ -227,7 +227,7 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("alphaExample");
 
-        GameObject lChar = GameObject.Find("LCharacter");
+        var lChar = GameObject.Find("LCharacter");
 		lChar.LeanAlpha( 0.0f, 0.5f).setUseEstimatedTime(useEstimatedTime);
 		lChar.LeanAlpha( 1.0f, 0.5f).setDelay(0.5f).setUseEstimatedTime(useEstimatedTime);
     }
@@ -236,8 +236,8 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("moveLocalExample");
 
-        GameObject lChar = GameObject.Find("LCharacter");
-        Vector3 origPos = lChar.transform.localPosition;
+        var lChar = GameObject.Find("LCharacter");
+        var origPos = lChar.transform.localPosition;
 		lChar.LeanMoveLocal( new Vector3(0.0f, 2.0f, 0.0f), 0.5f).setUseEstimatedTime(useEstimatedTime);
 		lChar.LeanMoveLocal( origPos, 0.5f).setDelay(0.5f).setUseEstimatedTime(useEstimatedTime);
     }
@@ -246,19 +246,19 @@ public class TestingZLegacyExt : MonoBehaviour {
     {
         Debug.Log("rotateAroundExample");
 
-        GameObject lChar = GameObject.Find("LCharacter");
+        var lChar = GameObject.Find("LCharacter");
 		lChar.LeanRotateAround(Vector3.up, 360.0f, 1.0f).setUseEstimatedTime(useEstimatedTime);
     }
 
     public void loopPause()
     {
-        GameObject cube1 = GameObject.Find("Cube1");
+        var cube1 = GameObject.Find("Cube1");
 		cube1.LeanPause();
     }
 
     public void loopResume()
     {
-        GameObject cube1 = GameObject.Find("Cube1");
+        var cube1 = GameObject.Find("Cube1");
 		cube1.LeanResume();
     }
 

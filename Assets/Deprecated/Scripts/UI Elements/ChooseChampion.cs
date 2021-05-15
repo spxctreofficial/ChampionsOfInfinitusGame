@@ -8,7 +8,7 @@ public class ChooseChampion : MonoBehaviour
 {
 	public void ChooseTheWraithKing()
 	{
-        GameHandler gameHandler = FindObjectOfType<GameHandler>();
+        var gameHandler = FindObjectOfType<GameHandler>();
         gameHandler.playerPrefab = gameHandler.championIndex.TheWraithKing;
         gameHandler.GamePlayerChooseTurn();
 	}

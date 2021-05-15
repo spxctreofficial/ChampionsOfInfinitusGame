@@ -29,12 +29,12 @@ public class GeneralEasingTypes : MonoBehaviour {
 	}
 
 	private void demoEaseTypes(){
-		for(int i = 0; i < easeTypes.Length; i++){
-			string easeName = easeTypes[i];
-			Transform obj1 = GameObject.Find(easeName).transform.Find("Line");
-			float obj1val = 0f;
-			LTDescr lt = LeanTween.value( obj1.gameObject, 0f, 1f, 5f).setOnUpdate( (float val)=>{
-				Vector3 vec = obj1.localPosition;
+		for(var i = 0; i < easeTypes.Length; i++){
+			var easeName = easeTypes[i];
+			var obj1 = GameObject.Find(easeName).transform.Find("Line");
+			var obj1val = 0f;
+			var lt = LeanTween.value( obj1.gameObject, 0f, 1f, 5f).setOnUpdate( (float val)=>{
+				var vec = obj1.localPosition;
 				vec.x = obj1val*lineDrawScale;
 				vec.y = val*lineDrawScale;
 
@@ -47,7 +47,7 @@ public class GeneralEasingTypes : MonoBehaviour {
 			if(easeName.IndexOf("AnimationCurve")>=0){
 				lt.setEase(animationCurve);
             }else{
-				MethodInfo theMethod = lt.GetType().GetMethod("set"+easeName);
+				var theMethod = lt.GetType().GetMethod("set"+easeName);
 				theMethod.Invoke(lt, null);
 			}
 
@@ -63,8 +63,8 @@ public class GeneralEasingTypes : MonoBehaviour {
 	}
 
 	private void resetLines(){
-		for(int i = 0; i < easeTypes.Length; i++){
-			Transform obj1 = GameObject.Find(easeTypes[i]).transform.Find("Line");
+		for(var i = 0; i < easeTypes.Length; i++){
+			var obj1 = GameObject.Find(easeTypes[i]).transform.Find("Line");
 			obj1.localPosition = new Vector3(0f,0f,0f);
 		}
 	}

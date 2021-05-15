@@ -47,8 +47,7 @@ public class GameController : MonoBehaviour
 	public Gamemodes gamemodes;
 	public int roundsElapsed = 0;
 
-	[HideInInspector]
-	public IEnumerator currentPhaseRoutine;
+	private IEnumerator currentPhaseRoutine;
 
 
 	private void Awake()
@@ -58,7 +57,6 @@ public class GameController : MonoBehaviour
 		else
 		{
 			Destroy(gameObject);
-			return;
 		}
 	}
 
@@ -75,7 +73,7 @@ public class GameController : MonoBehaviour
 
 	}
 
-	IEnumerator GameStart()
+	private IEnumerator GameStart()
 	{
 		yield return StartCoroutine(GamePrep());
 		SetMap();
@@ -90,15 +88,10 @@ public class GameController : MonoBehaviour
 				players = 2;
 				Debug.LogWarning("Configured number of players will be replaced with: " + players);
 				break;
-			default:
-				break;
 		}
-		for (int i = 0; i < players; i++)
+		for (var i = 0; i < players; i++)
 		{
-			ChampionController championController;
 			Champion champion;
-			Hand hand;
-			AbilityPanel abilityPanel;
 			Vector2 championControllerVector2;
 			Vector2 handVector2;
 			switch (i)
@@ -124,16 +117,16 @@ public class GameController : MonoBehaviour
 					handVector2 = new Vector2(0, 0);
 					break;
 			}
-			championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
+			var championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
 			championController.champion = champion;
 			champions.Add(championController);
 			champions[i].transform.SetParent(gameArea.transform, false);
 
-			hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
+			var hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
 			hand.SetOwner(champions[i]);
 
-			abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
+			var abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
 			abilityPanel.transform.SetParent(gameArea.transform, false);
 			yield return null;
 			abilityPanel.Setup(championController);
@@ -167,18 +160,19 @@ public class GameController : MonoBehaviour
 
 		NextTurnCalculator();
 	}
-	IEnumerator BeginningPhase(ChampionController champion)
+
+	private IEnumerator BeginningPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.BeginningPhase;
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
 		champion.hand.Deal(2);
 
-		foreach (ChampionController selectedChampion in champions)
+		foreach (var selectedChampion in champions)
 		{
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
 			{
-				AbilityController ability = child.GetComponent<AbilityController>();
+				var ability = child.GetComponent<AbilityController>();
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
@@ -187,18 +181,19 @@ public class GameController : MonoBehaviour
 
 		SetPhase(ActionPhase(champion));
 	}
-	IEnumerator ActionPhase(ChampionController champion)
+
+	private IEnumerator ActionPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.ActionPhase;
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
 
-		foreach (ChampionController selectedChampion in champions)
+		foreach (var selectedChampion in champions)
 		{
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
 			{
-				AbilityController ability = child.GetComponent<AbilityController>();
+				var ability = child.GetComponent<AbilityController>();
 				yield return StartCoroutine(ability.OnActionPhase());
 			}
 		}
@@ -209,10 +204,8 @@ public class GameController : MonoBehaviour
 			AudioController.instance.Play("PlayerTurn");
 			yield break;
 		}
-		else
-		{
-			StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
-		}
+
+		StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
 	}
 	public void StartEndPhase(ChampionController champion)
 	{
@@ -228,7 +221,7 @@ public class GameController : MonoBehaviour
 	public void StartEndPhase()
 	{
 		ChampionController champion = null;
-		foreach (ChampionController selectedChampion in champions)
+		foreach (var selectedChampion in champions)
 		{
 			if (!selectedChampion.isMyTurn) continue;
 
@@ -242,19 +235,21 @@ public class GameController : MonoBehaviour
 
 		SetPhase(EndPhase(champion));
 	}
-	IEnumerator EndPhase(ChampionController champion)
+
+	private IEnumerator EndPhase(ChampionController champion)
 	{
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
-		champion.discardAmount = champion.hand.transform.childCount > 6 ? champion.hand.transform.childCount - 6 : 0;
+		int childCount = champion.hand.transform.childCount;
+		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
-		foreach (ChampionController selectedChampion in champions)
+		foreach (var selectedChampion in champions)
 		{
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
 			{
-				AbilityController ability = child.GetComponent<AbilityController>();
+				var ability = child.GetComponent<AbilityController>();
 				yield return StartCoroutine(ability.OnEndPhase());
 			}
 		}
@@ -268,18 +263,16 @@ public class GameController : MonoBehaviour
 			yield return new WaitUntil(() => champion.discardAmount == 0);
 
 			NextTurnCalculator(champion);
-			yield break;
 		}
 		else
 		{
 			if (champion.discardAmount != 0)
 			{
-				for (int discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
+				for (var discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
 				champion.discardAmount = 0;
 			}
 
 			NextTurnCalculator(champion);
-			yield break;
 		}
 	}
 	public void NextTurnCalculator(ChampionController currentTurnChampion)
@@ -324,7 +317,7 @@ public class GameController : MonoBehaviour
 		switch (version)
 		{
 			case "Smart":
-				foreach (ChampionController selectedChampion in champions)
+				foreach (var selectedChampion in champions)
 				{
 					if (!selectedChampion.isMyTurn) continue;
 
@@ -380,9 +373,9 @@ public class GameController : MonoBehaviour
 		gameArea.SetActive(false);
 		mapSelectionConfig.SetActive(true);
 
-		foreach (Map map in mapIndex)
+		foreach (var map in mapIndex)
 		{
-			MapSelectionButton mapSelectionButton = Instantiate(mapSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<MapSelectionButton>();
+			var mapSelectionButton = Instantiate(mapSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<MapSelectionButton>();
 			mapSelectionButton.mapComponent = map;
 			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform.GetChild(0), false);
 		}
@@ -391,9 +384,9 @@ public class GameController : MonoBehaviour
 		mapSelectionConfig.SetActive(false);
 		championSelectionConfig.SetActive(true);
 
-		foreach (Champion championSO in championIndex)
+		foreach (var championSO in championIndex)
 		{
-			ChampionSelectionButton championSelectionButton = Instantiate(championSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<ChampionSelectionButton>();
+			var championSelectionButton = Instantiate(championSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<ChampionSelectionButton>();
 			championSelectionButton.championComponent = championSO;
 			championSelectionButton.transform.SetParent(championSelectionConfig.transform.GetChild(0), false);
 		}
@@ -407,7 +400,7 @@ public class GameController : MonoBehaviour
 	{
 		confirmButton.gameObject.SetActive(false);
 
-		foreach (ChampionController champion in champions)
+		foreach (var champion in champions)
 		{
 			if (!champion.isPlayer || champion.isDead) continue;
 

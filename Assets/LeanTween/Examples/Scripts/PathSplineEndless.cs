@@ -28,7 +28,7 @@ public class PathSplineEndless : MonoBehaviour {
 	void Start () {
 
 		// Setup initial track points
-		for(int i = 0; i < 4; i++){
+		for(var i = 0; i < 4; i++){
 			addRandomTrackPoint();
 		}
 		refreshSpline();
@@ -41,7 +41,7 @@ public class PathSplineEndless : MonoBehaviour {
 	
 	void Update () {
 
-		float zLastDist = (trackPts[ trackPts.Count - 1].z - transform.position.z);
+		var zLastDist = (trackPts[ trackPts.Count - 1].z - transform.position.z);
 		if(zLastDist < 200f){ // if the last node is too close we'll add in a new point and refresh the spline
 			addRandomTrackPoint();
 			refreshSpline();
@@ -56,7 +56,7 @@ public class PathSplineEndless : MonoBehaviour {
 
 
 		// Switch tracks on keyboard input
-		float turn = Input.GetAxis("Horizontal");
+		var turn = Input.GetAxis("Horizontal");
 		if(Input.anyKeyDown){
 			if(turn<0f && trackIter>0){
 				trackIter--;
@@ -81,18 +81,18 @@ public class PathSplineEndless : MonoBehaviour {
 	}
 
 	void addRandomTrackPoint(){
-		float randX = Mathf.PerlinNoise(0f, randomIter);
+		var randX = Mathf.PerlinNoise(0f, randomIter);
 		randomIter += randomIterWidth;
 
-		Vector3 randomInFrontPosition = new Vector3( (randX-0.5f)*20f, 0f, zIter*40f);
+		var randomInFrontPosition = new Vector3( (randX-0.5f)*20f, 0f, zIter*40f);
 
 		// placing the box is just to visualize how the paths get created
-		GameObject box = objectQueue( cubes, ref cubesIter ); 
+		var box = objectQueue( cubes, ref cubesIter ); 
 		box.transform.position = randomInFrontPosition;
 
 		// Line the roads with trees
-		GameObject tree = objectQueue( trees, ref treesIter ); 
-		float treeX = zIter%2==0 ? -15f : 15f;
+		var tree = objectQueue( trees, ref treesIter ); 
+		var treeX = zIter%2==0 ? -15f : 15f;
 		tree.transform.position = new Vector3( randomInFrontPosition.x + treeX, 0f, zIter*40f);
 
 		// Animate in new tree (just for fun)
@@ -114,10 +114,10 @@ public class PathSplineEndless : MonoBehaviour {
 
 	// Make your own LeanAudio sounds at http://leanaudioplay.dentedpixel.com
 	void playSwish(){
-		AnimationCurve volumeCurve = new AnimationCurve( new Keyframe(0f, 0.005464481f, 1.83897f, 0f), new Keyframe(0.1114856f, 2.281785f, 0f, 0f), new Keyframe(0.2482903f, 2.271654f, 0f, 0f), new Keyframe(0.3f, 0.01670286f, 0f, 0f));
-		AnimationCurve frequencyCurve = new AnimationCurve( new Keyframe(0f, 0.00136725f, 0f, 0f), new Keyframe(0.1482391f, 0.005405405f, 0f, 0f), new Keyframe(0.2650336f, 0.002480127f, 0f, 0f));
+		var volumeCurve = new AnimationCurve( new Keyframe(0f, 0.005464481f, 1.83897f, 0f), new Keyframe(0.1114856f, 2.281785f, 0f, 0f), new Keyframe(0.2482903f, 2.271654f, 0f, 0f), new Keyframe(0.3f, 0.01670286f, 0f, 0f));
+		var frequencyCurve = new AnimationCurve( new Keyframe(0f, 0.00136725f, 0f, 0f), new Keyframe(0.1482391f, 0.005405405f, 0f, 0f), new Keyframe(0.2650336f, 0.002480127f, 0f, 0f));
 
-		AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3[]{ new Vector3(0.2f,0.5f,0f)} ).setWaveNoise().setWaveNoiseScale(1000));
+		var audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3[]{ new Vector3(0.2f,0.5f,0f)} ).setWaveNoise().setWaveNoiseScale(1000));
 
 		LeanAudio.play( audioClip ); //a:fvb:8,,.00136725,,,.1482391,.005405405,,,.2650336,.002480127,,,8~8,,.005464481,1.83897,,.1114856,2.281785,,,.2482903,2.271654,,,.3,.01670286,,,8~.2,.5,,~~0~~3,1000,1
 	}

@@ -8,7 +8,7 @@ public class Hand : MonoBehaviour
 
 	public void Deal(int amount = 4, bool flip = false, bool animate = true, bool abilityCheck = true)
 	{
-		for (int x = 0; x < amount; x++) StartCoroutine(Deal(flip, animate, abilityCheck));
+		for (var x = 0; x < amount; x++) StartCoroutine(Deal(flip, animate, abilityCheck));
 	}
 	public void DealSpecificCard(Card specificCard)
 	{
@@ -110,7 +110,7 @@ public class Hand : MonoBehaviour
 	public Card GetAttackingCard(Card card)
 	{
 		Card selectedCard = null;
-		int value = -999;
+		var value = -999;
 		foreach (Transform child in transform)
 		{
 			if (child.GetComponent<Card>() == card) continue;
@@ -141,7 +141,7 @@ public class Hand : MonoBehaviour
 	
 	private IEnumerator Deal(bool flip, bool animate, bool abilityCheck = true)
 	{
-		Card card = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+		var card = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 		card.transform.SetParent(transform, false);
 		if (flip) card.ToggleCardVisibility();
 		if (animate)
@@ -152,11 +152,11 @@ public class Hand : MonoBehaviour
 
 		if (abilityCheck)
 		{
-			foreach (ChampionController selectedChampion in GameController.instance.champions)
+			foreach (var selectedChampion in GameController.instance.champions)
 			{
 				foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
 				{
-					AbilityController ability = child.GetComponent<AbilityController>();
+					var ability = child.GetComponent<AbilityController>();
 					yield return StartCoroutine(ability.OnDeal(card, owner));
 				}
 			}
@@ -166,7 +166,7 @@ public class Hand : MonoBehaviour
 	}
 	private IEnumerator Deal(Card specificCard, bool flip, bool animate, bool abilityCheck = true)
 	{
-		Card card = Instantiate(specificCard, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+		var card = Instantiate(specificCard, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 		card.transform.SetParent(transform, false);
 		if (flip) card.ToggleCardVisibility();
 		if (animate)
@@ -177,11 +177,11 @@ public class Hand : MonoBehaviour
 
 		if (abilityCheck)
 		{
-			foreach (ChampionController selectedChampion in GameController.instance.champions)
+			foreach (var selectedChampion in GameController.instance.champions)
 			{
 				foreach (Transform child in selectedChampion.abilityPanel.panel.transform)
 				{
-					AbilityController ability = child.GetComponent<AbilityController>();
+					var ability = child.GetComponent<AbilityController>();
 					yield return StartCoroutine(ability.OnDeal(card, owner));
 				}
 			}
