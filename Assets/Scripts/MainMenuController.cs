@@ -46,6 +46,10 @@ public class MainMenuController : MonoBehaviour
 			SceneManager.LoadScene("Sandbox");
 		});
 	}
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
 	
 	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude)
 	{
