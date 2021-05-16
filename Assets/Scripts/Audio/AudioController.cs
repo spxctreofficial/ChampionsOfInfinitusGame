@@ -47,5 +47,17 @@ public class AudioController : MonoBehaviour
 
 		s.source.Play();
 	}
+	
+	public void Volume(string sound, float volume)
+	{
+		var s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
+
+		s.source.volume = volume;
+	}
 
 }

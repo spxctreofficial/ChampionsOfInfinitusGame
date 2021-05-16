@@ -17,7 +17,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         StartCoroutine(ScaleUp(new Vector3(1.1f, 1.1f, 1.1f)));
-		AudioController.instance.Play("MiniClick");
+		if (AudioController.instance != null) AudioController.instance.Play("MiniClick");
     }
     [HideInInspector]
     public void OnPointerExit(PointerEventData eventData)

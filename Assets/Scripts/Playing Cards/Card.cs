@@ -133,6 +133,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		delay = LeanTween.delayedCall(0.5f, () => {
+			if (isHidden)
+			{
+				TooltipSystem.instance.Show(null, "Flipped Card");
+				return;
+			}
 			var index = (int)cardSuit;
 			TooltipSystem.instance.Show(CardDescription(), cardValueNames[cardValue] + " of " + cardSuitNames[index]);
 		});

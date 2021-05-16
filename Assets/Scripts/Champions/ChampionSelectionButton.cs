@@ -20,6 +20,8 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 	public void OnClick()
 	{
 		GameController.instance.playerChampion = championComponent;
+		LeanTween.cancel(delay.uniqueId);
+		TooltipSystem.instance.Hide();
 	}
 
 	private IEnumerator Setup()

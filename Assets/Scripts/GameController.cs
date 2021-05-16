@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
 	public GameObject gameArea;
 	public GameObject mapSelectionConfig;
 	public GameObject championSelectionConfig;
+	public GameObject gameEndArea;
 	public Hand playerHand;
 	public GameObject discardArea;
 
@@ -153,6 +154,7 @@ public class GameController : MonoBehaviour
 			champions[i].hand.Deal(4, false, true, false);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
+		StatisticController.instance.StartTrackingStatistics();
 
 		yield return new WaitForSeconds(2f);
 
@@ -273,6 +275,44 @@ public class GameController : MonoBehaviour
 			NextTurnCalculator(champion);
 		}
 	}
+	private IEnumerator GameEnd(ChampionController victoriousChampion)
+	{
+		gamePhase = GamePhase.GameEnd;
+		
+		CardLogicController.instance.StopAllCoroutines();
+		TooltipSystem.instance.StopAllCoroutines();
+		
+		Destroy(playerActionTooltip);
+		switch (gamemodes)
+		{
+			case Gamemodes.Competitive2v2:
+				break;
+			case Gamemodes.FFA:
+				gameEndArea.SetActive(true);
+				gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>().text = victoriousChampion.name + " wins!";
+				gameEndArea.transform.GetChild(1).GetComponent<Image>().sprite = victoriousChampion.avatar;
+
+				StatisticController.instance.TrackRemainingStatistics(victoriousChampion);
+
+				float cachedVolume = gameArea.GetComponent<AudioSource>().volume;
+				for (var i = 0; i < 180; i++)
+				{
+					
+					if (gameArea.GetComponent<AudioSource>().volume > 0.5f * cachedVolume)
+					{
+						gameArea.GetComponent<AudioSource>().volume -= 0.5f / 180;
+					}
+					yield return null;
+				}
+				Debug.Log(gameArea.GetComponent<AudioSource>().volume);
+				
+				yield return new WaitForSeconds(3f);
+
+				SceneManager.LoadScene("SandboxEOG");
+
+				break;
+		}
+	}
 	public void NextTurnCalculator(ChampionController currentTurnChampion)
 	{
 		ChampionController nextTurnChampion;
@@ -350,6 +390,29 @@ public class GameController : MonoBehaviour
 		nextTurnChampion.isMyTurn = true;
 		SetPhase(BeginningPhase(nextTurnChampion));
 	}
+	public IEnumerator GameEndCheck()
+	{
+		switch (gamemodes)
+		{
+			case Gamemodes.FFA:
+				var aliveChampions = new List<ChampionController>();
+
+				foreach (var champion in champions)
+				{
+					if (champion.isDead) continue;
+					aliveChampions.Add(champion);
+				}
+				
+				Debug.Log(aliveChampions.Count);
+
+				if (aliveChampions.Count == 1)
+				{
+					StartCoroutine(GameEnd(aliveChampions[0]));
+				}
+				break;
+		}
+		yield break;
+	}
 
 	private void SetPhase(IEnumerator enumerator)
 	{
@@ -407,6 +470,7 @@ public class GameController : MonoBehaviour
 				case GamePhase.ActionPhase:
 					if (champion.isAttacking && champion.attackingCard != null && champion.currentTarget != null)
 					{
+						champion.GetMatchStatistic().totalAttacks++;
 						StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
 						return;
 					}

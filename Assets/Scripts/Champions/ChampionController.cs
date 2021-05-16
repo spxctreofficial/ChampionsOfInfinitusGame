@@ -51,7 +51,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
 	[HideInInspector]
-	public bool isPlayer, isMyTurn, isAttacking, currentlyTargeted, hasDefended, isDead;
+	public bool isPlayer, isMyTurn, isAttacking, currentlyTargeted, hasDefended;
+	public bool isDead;
 	// [HideInInspector]
 	public string team;
 	[HideInInspector]
@@ -123,13 +124,15 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	}
 	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true)
 	{
-		var healthAfterDamage = Mathf.Max(currentHP - amount, 0);
+		var currentHPCache = currentHP;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
 			var ability = child.GetComponent<AbilityController>();
-			healthAfterDamage -= ability.DamageCalculationBonus(amount, damageType);
+			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
-		currentHP = healthAfterDamage;
+		currentHP = Mathf.Max(currentHP - amount, 0);
+		GetMatchStatistic().totalDamageReceived += currentHPCache - currentHP;
+		if (source != null) source.GetMatchStatistic().totalDamageDealt += currentHPCache - currentHP;
 
 		float magnitude;
 		switch (damageType)
@@ -164,6 +167,10 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 		StartCoroutine(ShakeImage(0.2f, magnitude));
 
+		isDead = DeathCheck();
+		if (isDead && source != null) source.GetMatchStatistic().killCount++;
+		yield return StartCoroutine(GameController.instance.GameEndCheck());
+
 		if (abilityCheck == false) yield break;
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
@@ -173,7 +180,9 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	}
 	public IEnumerator Heal(int amount, bool abilityCheck = true)
 	{
+		var currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
+		GetMatchStatistic().totalAmountHealed += currentHP - currentHPCache;
 		AudioController.instance.Play("Heal");
 
 		if (abilityCheck == false) yield break;
@@ -181,6 +190,23 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		{
 			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnHeal());
+		}
+	}
+
+	private bool DeathCheck()
+	{
+		if (currentHP != 0) return false;
+		StartCoroutine(DeathDiscardAll());
+		return true;
+	}
+	private IEnumerator DeathDiscardAll()
+	{
+		yield return new WaitForSeconds(Random.Range(2f, 5f));
+		
+		foreach (Transform child in hand.transform)
+		{
+			var card = child.gameObject.GetComponent<Card>();
+			CardLogicController.instance.Discard(card);
 		}
 	}
 
@@ -198,12 +224,11 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	private void TextUpdater()
 	{
 		nameText.text = name;
-		healthText.text = currentHP.ToString();
+		healthText.text = isDead ? "DEAD" : currentHP.ToString();
 		cardsText.text = hand.transform.childCount.ToString();
 		if (currentHP == 0)
 		{
 			healthText.color = new Color32(100, 100, 100, 255);
-			healthText.text = "DEAD";
 			return;
 		}
 		if (currentHP <= 0.6f * maxHP)
@@ -215,6 +240,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			healthText.color = new Color32(0, 255, 0, 255);
 		}
 	}
+	public MatchStatistic GetMatchStatistic()
+	{
+		var index = GameController.instance.champions.IndexOf(this);
+		return StatisticController.instance.matchStatistics[index];
+	}
+	
 	public void OnClick()
 	{
 		foreach (var champion in GameController.instance.champions)

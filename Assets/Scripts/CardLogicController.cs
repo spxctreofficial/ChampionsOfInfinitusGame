@@ -304,10 +304,23 @@ public class CardLogicController : MonoBehaviour
 			Discard(defender.defendingCard);
 			defender.defendingCard.ToggleCardVisibility();
 		}
+		defender.GetMatchStatistic().totalDefends++;
 		attacker.attackingCard.ToggleCardVisibility(true);
 
-		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue) yield return StartCoroutine(attacker.Attack(defender));
-		else if (attacker.attackingCard.cardValue < defender.defendingCard.cardValue) yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
+		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue)
+		{
+			yield return StartCoroutine(attacker.Attack(defender));
+
+			attacker.GetMatchStatistic().successfulAttacks++;
+			defender.GetMatchStatistic().failedDefends++;
+		}
+		else if (attacker.attackingCard.cardValue < defender.defendingCard.cardValue)
+		{
+			yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
+
+			attacker.GetMatchStatistic().failedAttacks++;
+			defender.GetMatchStatistic().successfulDefends++;
+		}
 		else
 		{
 			Debug.Log("lol it tie");
@@ -408,6 +421,7 @@ public class CardLogicController : MonoBehaviour
 				Discard(card);
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;
+				champion.GetMatchStatistic().totalAttacks++;
 
 				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
 

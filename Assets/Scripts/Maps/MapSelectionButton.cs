@@ -19,6 +19,8 @@ public class MapSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public void OnClick()
 	{
 		GameController.instance.currentMap = mapComponent;
+		LeanTween.cancel(delay.uniqueId);
+		TooltipSystem.instance.Hide();
 	}
 
 	private IEnumerator Setup()
