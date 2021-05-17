@@ -90,23 +90,20 @@ public class GameController : MonoBehaviour
 		}
 		for (var i = 0; i < players; i++)
 		{
-			Champion champion;
+			Champion champion = null;
 			Vector2 championControllerVector2;
 			Vector2 handVector2;
 			switch (i)
 			{
 				case 1:
-					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = new Vector2(864, (float) 412.5);
 					handVector2 = new Vector2(0, 800);
 					break;
 				case 2:
-					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = new Vector2(-864, (float) 412.5);
 					handVector2 = new Vector2(0, 1030);
 					break;
 				case 3:
-					champion = championIndex[Random.Range(0, championIndex.Count)];
 					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(864, (float) -213.25): new Vector2(0, 408);
 					handVector2 = new Vector2(0, -800);
 					break;
@@ -115,6 +112,13 @@ public class GameController : MonoBehaviour
 					championControllerVector2 = new Vector2(-864, (float) -213.25);
 					handVector2 = new Vector2(0, 0);
 					break;
+			}
+			if (i != 0)
+			{
+				while (champion == playerChampion || champion == null)
+				{
+					champion = championIndex[Random.Range(0, championIndex.Count)];
+				}
 			}
 			var championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
 			championController.champion = champion;
