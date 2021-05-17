@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Apprentice
   avatar: {fileID: 0}
-  description: 'Under the enduring '
+  description: Under the enduring training of Sensei, the Apprentice is well-prepared
+    to duel and defeat armed opponents with his supportive abilities and wooden staff.
   gender: 0
   faction: 2
   race: 0
@@ -23,4 +24,6 @@ MonoBehaviour:
   attackDamage: 30
   attackDamageType: 0
   attackName: Wooden Staff
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 9961ee82303a8304e857dba1cba3dee9, type: 2}
+  - {fileID: 11400000, guid: eff0d2aa010284344a37b2aa26cbf318, type: 2}

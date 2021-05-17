@@ -175,7 +175,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
 			var ability = child.GetComponent<AbilityController>();
-			yield return StartCoroutine(ability.OnDamage());
+			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 	}
 	public IEnumerator Heal(int amount, bool abilityCheck = true)
@@ -189,7 +189,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		foreach (Transform child in abilityPanel.panel.transform)
 		{
 			var ability = child.GetComponent<AbilityController>();
-			yield return StartCoroutine(ability.OnHeal());
+			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 	}
 

@@ -3057,6 +3057,17 @@ PrefabInstance:
       propertyPath: championSelectionConfig
       value: 
       objectReference: {fileID: 697805135}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: championIndex.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: championIndex.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be,
+        type: 2}
     - target: {fileID: 8947251701174882739, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: m_RootOrder

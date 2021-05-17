@@ -87,7 +87,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		yield break;
 	}
-	public IEnumerator OnDamage()
+	public IEnumerator OnDamage(int amount)
 	{
 		yield break;
 	}
@@ -102,12 +102,33 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		
 	}
-	public IEnumerator OnHeal()
+	public IEnumerator OnHeal(int amount)
 	{
+		switch (ability.abilityID)
+		{
+			case "QuickHeal":
+				StartCoroutine(QuickHeal(amount));
+				break;
+		}
 		yield break;
 	}
 	public IEnumerator OnDeath()
 	{
+		yield break;
+	}
+
+	public IEnumerator OnCombatCalculationAttacker(Card attackingCard, Card defendingCard)
+	{
+		yield break;
+	}
+	public IEnumerator OnCombatCalculationDefender(Card attackingCard, Card defendingCard)
+	{
+		switch (ability.abilityID)
+		{
+			case "Bojutsu":
+				StartCoroutine(Bojutsu(attackingCard));
+				break;
+		}
 		yield break;
 	}
 
@@ -127,6 +148,14 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 
 		StartCoroutine(ShakeImage(0.2f, 10f));
+	}
+	private IEnumerator QuickHeal(int amount)
+	{
+		Debug.Log(ability.abilityName + " activated for " + champion.name + ", 50% chance to heal for double the amount!");
+		if (Random.Range(0f, 1f) < 0.5f) yield break;
+
+		yield return new WaitForSeconds(0.5f);
+		yield return StartCoroutine(champion.Heal(amount, false));
 	}
 	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo)
 	{
@@ -158,6 +187,15 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 			return -amount / 2;
 		}
 		return 0;
+	}
+	private IEnumerator Bojutsu(Card attackingCard)
+	{
+		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (attackingCard.cardValue < 10) yield break;
+		
+		attackingCard.cardValue--;
+		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1.");
+		Debug.Log(attackingCard.cardValue);
 	}
 
 

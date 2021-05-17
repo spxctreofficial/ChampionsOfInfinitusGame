@@ -262,7 +262,7 @@ public class CardLogicController : MonoBehaviour
 		card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 		StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 	}
-	public IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender)
+	public IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, bool abilityCheck = true)
 	{
 		if (attacker.attackingCard == null)
 		{
@@ -307,6 +307,21 @@ public class CardLogicController : MonoBehaviour
 		defender.GetMatchStatistic().totalDefends++;
 		attacker.attackingCard.ToggleCardVisibility(true);
 
+		if (abilityCheck)
+		{
+			foreach (Transform child in attacker.abilityPanel.panel.transform)
+			{
+				var ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnCombatCalculationAttacker(attacker.attackingCard, defender.defendingCard));
+			}
+			
+			foreach (Transform child in defender.abilityPanel.panel.transform)
+			{
+				var ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnCombatCalculationDefender(attacker.attackingCard, defender.defendingCard));
+			}
+		}
+		
 		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue)
 		{
 			yield return StartCoroutine(attacker.Attack(defender));
