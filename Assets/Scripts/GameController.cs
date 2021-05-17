@@ -117,6 +117,7 @@ public class GameController : MonoBehaviour
 			{
 				while (champion == playerChampion || champion == null)
 				{
+					Debug.Log("boop");
 					champion = championIndex[Random.Range(0, championIndex.Count)];
 				}
 			}
