@@ -62,7 +62,7 @@ public class CardLogicController : MonoBehaviour
 							StartCoroutine(SpadeLogic(card, player));
 							break;
 						case CardSuit.HEART:
-							PlayerHeart(card, player);
+							StartCoroutine(HeartLogic(card, player));
 							break;
 						case CardSuit.CLUB:
 							StartCoroutine(ClubLogic(card, player));
@@ -128,6 +128,7 @@ public class CardLogicController : MonoBehaviour
 			}
 
 			yield return StartCoroutine(ClubLogic(card, champion));
+			yield return new WaitForSeconds(Random.Range(0.25f, 1f));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.1f, 0.75f));
@@ -143,6 +144,7 @@ public class CardLogicController : MonoBehaviour
 			}
 
 			yield return StartCoroutine(DiamondLogic(card, champion));
+			yield return new WaitForSeconds(Random.Range(0.25f, 1f));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
@@ -166,72 +168,26 @@ public class CardLogicController : MonoBehaviour
 			}
 
 			yield return StartCoroutine(SpadeLogic(card, champion));
+			yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
 
 		foreach (Transform child in champion.hand.transform)
 		{
+			var card = child.GetComponent<Card>();
 			if (champion.currentHP == champion.maxHP) break;
 			if (champion.heartsBeforeExhaustion == 0) break;
-			var card = child.GetComponent<Card>();
+			if (card.cardSuit != CardSuit.HEART) continue;
 
-			switch (card.cardSuit)
+			if (champion.currentHP + 20 >= 0.9f * champion.maxHP && card.cardValue == 13)
 			{
-				case CardSuit.HEART:
-					if (champion.currentHP + 20 >= 0.9f * champion.maxHP && card.cardValue == 13)
-					{
-						Debug.Log("Health would be clamped! The " + champion.name + " decides not to use an ACE of HEARTS to heal!");
-						continue;
-					}
-
-					switch (card.cardValue)
-					{
-						default:
-							yield return StartCoroutine(champion.Heal(5));
-							champion.heartsBeforeExhaustion--;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 7:
-						case 8:
-						case 9:
-							if (champion.heartsBeforeExhaustion - 2 < 0)
-							{
-								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
-								continue;
-							}
-							yield return StartCoroutine(champion.Heal(10));
-							champion.heartsBeforeExhaustion -= 2;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 10:
-						case 11:
-						case 12:
-							if (champion.heartsBeforeExhaustion - 3 < 0)
-							{
-								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
-								continue;
-							}
-							yield return StartCoroutine(champion.Heal(20));
-							champion.heartsBeforeExhaustion -= 3;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-						case 13:
-							if (champion.heartsBeforeExhaustion - 3 < 0)
-							{
-								GameController.instance.playerActionTooltip.text = "Cannot play this card! The " + champion.name + " will be exhausted. Skipping...";
-								continue;
-							}
-							yield return StartCoroutine(champion.Heal(40));
-							champion.heartsBeforeExhaustion -= 3;
-							Discard(card);
-							StartCoroutine(BotCardLogic(champion));
-							yield break;
-					}
+				Debug.Log("Health would be clamped! The " + champion.name + " decides not to use an ACE of HEARTS to heal!");
+				continue;
 			}
+
+			yield return StartCoroutine(HeartLogic(card, champion));
+			yield return new WaitForSeconds(Random.Range(0.5f, 2f));
 		}
 
 		yield return new WaitForSeconds(Random.Range(0.2f, 1f));
@@ -441,6 +397,64 @@ public class CardLogicController : MonoBehaviour
 				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
 
 				yield return StartCoroutine(CombatCalculation(champion, champion.currentTarget));
+				break;
+		}
+	}
+	private IEnumerator HeartLogic(Card card, ChampionController champion)
+	{
+		if (champion.heartsBeforeExhaustion <= 0)
+		{
+			GameController.instance.playerActionTooltip.text = "You cannot play any more HEARTS! Choose another card.";
+			yield break;
+		}
+		if (champion.currentHP >= champion.maxHP)
+		{
+			GameController.instance.playerActionTooltip.text = "Health is full! Choose another card.";
+			yield break;
+		}
+
+		switch (card.cardValue)
+		{
+			default:
+				StartCoroutine(champion.Heal(5));
+				champion.heartsBeforeExhaustion--;
+				Discard(card);
+				break;
+			case 7:
+			case 8:
+			case 9:
+				if (champion.heartsBeforeExhaustion - 2 < 0)
+				{
+					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
+					break;
+				}
+
+				StartCoroutine(champion.Heal(10));
+				champion.heartsBeforeExhaustion -= 2;
+				Discard(card);
+				break;
+			case 10:
+			case 11:
+			case 12:
+				if (champion.heartsBeforeExhaustion - 3 < 0)
+				{
+					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
+					break;
+				}
+				StartCoroutine(champion.Heal(20));
+				champion.heartsBeforeExhaustion -= 3;
+				Discard(card);
+				break;
+			case 13:
+				if (champion.heartsBeforeExhaustion - 3 < 0)
+				{
+					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
+					break;
+				}
+
+				StartCoroutine(champion.Heal(40));
+				champion.heartsBeforeExhaustion -= 3;
+				Discard(card);
 				break;
 		}
 	}
@@ -786,6 +800,7 @@ public class CardLogicController : MonoBehaviour
 		yield return new WaitUntil(() => player.attackingCard != null && player.currentTarget != null);
 		GameController.instance.confirmButton.gameObject.SetActive(true);
 	}
+	[System.Obsolete("No longer used. Use 'HeartLogic()' instead.")]
 	private void PlayerHeart(Card card, ChampionController player)
 	{
 		if (player.heartsBeforeExhaustion <= 0)
