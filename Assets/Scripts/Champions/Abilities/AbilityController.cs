@@ -27,6 +27,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 			case Ability.AbilityType.Passive:
 			case Ability.AbilityType.AttackB:
 			case Ability.AbilityType.DefenseB:
+			case Ability.AbilityType.Ultimate:
 				gameObject.GetComponent<Button>().interactable = false;
 				break;
 			default:
@@ -70,6 +71,12 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 	public IEnumerator OnEndPhase()
 	{
+		switch (ability.abilityID)
+		{
+			case "Rejuvenation":
+				StartCoroutine(Rejuvenation());
+				break;
+		}
 		yield break;
 	}
 	public IEnumerator OnNextTurnCalculate()
@@ -152,7 +159,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	private IEnumerator QuickHeal(int amount)
 	{
 		Debug.Log(ability.abilityName + " activated for " + champion.name + ", 50% chance to heal for double the amount!");
-		if (Random.Range(0f, 1f) < 0.5f) yield break;
+		if (Random.Range(0f, 1f) < 0.5f || champion.currentHP == champion.maxHP) yield break;
 
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(champion.Heal(amount, false));
@@ -196,6 +203,14 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		attackingCard.cardValue--;
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1.");
 		Debug.Log(attackingCard.cardValue);
+	}
+	private IEnumerator Rejuvenation()
+	{
+		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (Random.Range(0f, 1f) < 0.5f || champion.currentHP == champion.maxHP) yield break;
+		
+		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". Healing for 5.");
+		yield return StartCoroutine(champion.Heal(5, false));
 	}
 
 
