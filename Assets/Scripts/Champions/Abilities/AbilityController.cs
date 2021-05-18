@@ -152,9 +152,8 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 			champion.hand.Deal(1);
 			Debug.Log(ability.abilityName + " was activated for " + champion.name + ". Dealing that champion a card!");
+			champion.ShowAbilityFeed(ability.abilityName, 2f);
 		}
-
-		StartCoroutine(ShakeImage(0.2f, 10f));
 	}
 	private IEnumerator QuickHeal(int amount)
 	{
@@ -163,6 +162,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(champion.Heal(amount, false));
+		champion.ShowAbilityFeed(ability.abilityName, 2f);
 	}
 	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo)
 	{
@@ -175,7 +175,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			Debug.Log("Check succeeded! Healing " + champion.name + " for 20.");
 			yield return StartCoroutine(champion.Heal(20, false));
-			StartCoroutine(ShakeImage(0.2f, 10f));
+			champion.ShowAbilityFeed(ability.abilityName, 2f);
 			yield break;
 		}
 		Debug.Log("Check failed! Nothing happens.");
@@ -191,6 +191,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		if (Random.Range(0f, 1f) < chance)
 		{
 			AudioController.instance.Play("ShieldBlock");
+			champion.ShowAbilityFeed(ability.abilityName, 2f);
 			return -amount / 2;
 		}
 		return 0;
@@ -202,7 +203,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		
 		attackingCard.cardValue--;
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1.");
-		Debug.Log(attackingCard.cardValue);
+		champion.ShowAbilityFeed(ability.abilityName);
 	}
 	private IEnumerator Rejuvenation()
 	{
@@ -211,6 +212,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". Healing for 5.");
 		yield return StartCoroutine(champion.Heal(5, false));
+		champion.ShowAbilityFeed(ability.abilityName, 2f);
 	}
 
 

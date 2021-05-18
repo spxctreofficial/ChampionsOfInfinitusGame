@@ -833,7 +833,7 @@ public class CardLogicController : MonoBehaviour
 					GameController.instance.playerActionTooltip.text = "You will be exhausted! Choose another card.";
 					break;
 				}
-				player.Heal(20);
+				StartCoroutine(player.Heal(20));
 				player.heartsBeforeExhaustion -= 3;
 				Discard(card);
 				break;

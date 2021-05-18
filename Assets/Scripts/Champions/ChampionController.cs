@@ -33,7 +33,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public Button championButton;
 	[HideInInspector]
-	public TMP_Text nameText, healthText, cardsText;
+	public TMP_Text nameText, healthText, cardsText, abilityFeed;
 
 	[HideInInspector]
 	public int maxHP;
@@ -86,6 +86,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
 		healthText = transform.GetChild(1).GetComponent<TMP_Text>();
 		cardsText = transform.GetChild(2).GetComponent<TMP_Text>();
+		abilityFeed = transform.GetChild(3).GetComponent<TMP_Text>();
 
 		maxHP = champion.maxHP;
 		currentHP = champion.currentHP;
@@ -199,6 +200,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		StartCoroutine(DeathDiscardAll());
 		return true;
 	}
+	
 	private IEnumerator DeathDiscardAll()
 	{
 		yield return new WaitForSeconds(Random.Range(2f, 5f));
@@ -209,7 +211,6 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			CardLogicController.instance.Discard(card);
 		}
 	}
-
 	public void ResetExhaustion()
 	{
 		spadesBeforeExhaustion = 1;
@@ -240,10 +241,32 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			healthText.color = new Color32(0, 255, 0, 255);
 		}
 	}
+	
 	public MatchStatistic GetMatchStatistic()
 	{
 		var index = GameController.instance.champions.IndexOf(this);
 		return StatisticController.instance.matchStatistics[index];
+	}
+
+	public void ShowAbilityFeed(string text, float duration = 5f)
+	{
+		if (abilityFeed.text != text || !abilityFeed.IsActive())
+		{
+			abilityFeed.gameObject.SetActive(true);
+			abilityFeed.text = text;
+		}
+		
+		abilityFeed.transform.localScale = Vector3.zero;
+		LeanTween.scale(abilityFeed.gameObject, Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
+			// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
+			LeanTween.delayedCall(duration, HideAbilityFeed);
+		});
+	}
+	public void HideAbilityFeed()
+	{
+		LeanTween.scale(abilityFeed.gameObject, Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
+			abilityFeed.gameObject.SetActive(false);
+		});
 	}
 	
 	public void OnClick()
@@ -315,6 +338,20 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		TooltipSystem.instance.Hide();
 	}
 	private IEnumerator ShakeImage(float duration, float magnitude)
+	{
+		var originalPos = transform.localPosition;
+
+		for (float t = 0; t < 1; t += Time.deltaTime / duration)
+		{
+			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+			var shake = new Vector3(x, y, originalPos.z);
+			transform.localPosition = shake;
+			yield return null;
+		}
+		transform.localPosition = originalPos;
+	}
+	private IEnumerator ShakeImage(float duration, float magnitude, Transform transform)
 	{
 		var originalPos = transform.localPosition;
 
