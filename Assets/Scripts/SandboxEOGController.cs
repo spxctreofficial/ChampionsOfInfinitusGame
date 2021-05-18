@@ -42,6 +42,20 @@ public class SandboxEOGController : MonoBehaviour
     {
         Debug.Log("it called");
         initialGoldReward = StatisticController.instance.winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
+        switch (GameController.instance.difficulty)
+        {
+            case GameController.Difficulty.Noob:
+                initialGoldReward /= 5;
+                break;
+            case GameController.Difficulty.Novice:
+                initialGoldReward /= 2;
+                break;
+            case GameController.Difficulty.Warrior:
+                break;
+            case GameController.Difficulty.Champion:
+                initialGoldReward *= (int)1.2f;
+                break;
+        }
 
         titleText.text = StatisticController.instance.winState ? "VICTORY" : "DEFEAT";
         RewardCalculation();

@@ -11,7 +11,7 @@ public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEn
 public class GameController : MonoBehaviour
 {
 	public static GameController instance;
-	public enum Difficulty { Novice, Warrior, Champion }
+	public enum Difficulty { Noob, Novice, Warrior, Champion }
 	public enum Gamemodes { Duel, Competitive2v2, FFA }
 
 	public GamePhase gamePhase;
@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
 	public GameObject gameArea;
 	public GameObject mapSelectionConfig;
 	public GameObject championSelectionConfig;
+	public GameObject difficultySelectionConfig;
 	public GameObject gameEndArea;
 	public Hand playerHand;
 	public GameObject discardArea;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
 	public GameObject abilityPanelPrefab;
 	public GameObject mapSelectionButtonPrefab;
 	public GameObject championSelectionButtonPrefab;
+	public GameObject difficultySelectionButtonPrefab;
 	
 	public TMP_Text playerActionTooltip;
 	public Button confirmButton;
@@ -43,8 +45,10 @@ public class GameController : MonoBehaviour
 	public int players;
 	public List<Map> mapIndex = new List<Map>();
 	public Map currentMap;
-
 	public Difficulty difficulty;
+	[HideInInspector]
+	public bool hasChosenDifficulty;
+	
 	public Gamemodes gamemodes;
 	public int roundsElapsed = 0;
 
@@ -431,10 +435,11 @@ public class GameController : MonoBehaviour
 		gameArea.GetComponent<AudioSource>().Play();
 	}
 
-	public IEnumerator GamePrep()
+	private IEnumerator GamePrep()
 	{
 		playerChampion = null;
 		currentMap = null;
+		hasChosenDifficulty = false;
 
 		gameArea.SetActive(false);
 		mapSelectionConfig.SetActive(true);
@@ -459,6 +464,20 @@ public class GameController : MonoBehaviour
 		yield return new WaitUntil(() => playerChampion != null);
 
 		championSelectionConfig.SetActive(false);
+		difficultySelectionConfig.SetActive(true);
+
+		foreach (var difficulty in (Difficulty[])System.Enum.GetValues(typeof(Difficulty)))
+		{
+			var difficultySelectionButton = Instantiate(difficultySelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<DifficultySelectionButton>();
+			difficultySelectionButton.difficulty = difficulty;
+			difficultySelectionButton.transform.SetParent(difficultySelectionConfig.transform.GetChild(0), false);
+		}
+		difficultySelectionConfig.transform.GetChild(0).GetChild(3).SetAsFirstSibling();
+		difficultySelectionConfig.transform.GetChild(0).GetChild(1).SetAsLastSibling();
+		difficultySelectionConfig.transform.GetChild(0).GetChild(1).SetSiblingIndex(2);
+		yield return new WaitUntil(() => hasChosenDifficulty);
+		
+		difficultySelectionConfig.SetActive(false);
 		gameArea.SetActive(true);
 	}
 

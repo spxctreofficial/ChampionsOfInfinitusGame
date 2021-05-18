@@ -47,15 +47,40 @@ public class Hand : MonoBehaviour
 				value = -999;
 				foreach (Transform child in transform)
 				{
-					if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+					switch (GameController.instance.difficulty)
 					{
-						Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
-						continue;
-					}
-					if (value < child.GetComponent<Card>().cardValue)
-					{
-						selectedCard = child.GetComponent<Card>();
-						value = selectedCard.cardValue;
+						case GameController.Difficulty.Noob:
+							if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
+							if (Random.Range(0f, 1f) < 0.5f) continue;
+							break;
+						case GameController.Difficulty.Novice:
+							if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
+							if (child.GetComponent<Card>().cardValue <= 9) continue;
+							break;
+						case GameController.Difficulty.Warrior:
+							if (owner.currentHP >= 0.3f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+							{
+								Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
+								continue;
+							}
+							if (value < child.GetComponent<Card>().cardValue)
+							{
+								selectedCard = child.GetComponent<Card>();
+								value = selectedCard.cardValue;
+							}
+							break;
+						case GameController.Difficulty.Champion:
+							if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+							{
+								Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
+								continue;
+							}
+							if (value < child.GetComponent<Card>().cardValue)
+							{
+								selectedCard = child.GetComponent<Card>();
+								value = selectedCard.cardValue;
+							}
+							break;
 					}
 				}
 				break;
@@ -66,8 +91,8 @@ public class Hand : MonoBehaviour
 
 		if (selectedCard == null)
 		{
-			Debug.LogWarning("No card within criteria was found! Returning a null.");
-			return null;
+			Debug.LogWarning("No card within criteria was found! Restarting the search.");
+			return GetCard(type);
 		}
 		return selectedCard;
 	}
@@ -114,27 +139,53 @@ public class Hand : MonoBehaviour
 		foreach (Transform child in transform)
 		{
 			if (child.GetComponent<Card>() == card) continue;
-			if (child.GetComponent<Card>().cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f)
+
+			switch (GameController.instance.difficulty)
 			{
-				Debug.Log("The " + owner.name + " refuses to use a HEART to attack!");
-				continue;
-			}
-			if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
-			{
-				Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to attack!");
-				continue;
-			}
-			if (value < child.GetComponent<Card>().cardValue)
-			{
-				selectedCard = child.GetComponent<Card>();
-				value = selectedCard.cardValue;
+				case GameController.Difficulty.Noob:
+					if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
+					if (Random.Range(0f, 1f) < 0.5f) continue;
+					break;
+				case GameController.Difficulty.Novice:
+					if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
+					if (child.GetComponent<Card>().cardValue <= 9) continue;
+					break;
+				case GameController.Difficulty.Warrior:
+					if (owner.currentHP >= 0.25f * owner.maxHP && child.GetComponent<Card>().cardValue >= 10 && Random.Range(0f, 1f) < 0.75f)
+					{
+						Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to attack!");
+						continue;
+					}
+					if (value < child.GetComponent<Card>().cardValue)
+					{
+						selectedCard = child.GetComponent<Card>();
+						value = selectedCard.cardValue;
+					}
+					break;
+				case GameController.Difficulty.Champion:
+					if (child.GetComponent<Card>().cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f)
+					{
+						Debug.Log("The " + owner.name + " refuses to use a HEART to attack!");
+						continue;
+					}
+					if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f)
+					{
+						Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to attack!");
+						continue;
+					}
+					if (value < child.GetComponent<Card>().cardValue)
+					{
+						selectedCard = child.GetComponent<Card>();
+						value = selectedCard.cardValue;
+					}
+					break;
 			}
 		}
 
 		if (selectedCard == null)
 		{
-			Debug.LogWarning("No card within criteria was found! Returning a null.");
-			return null;
+			Debug.LogWarning("No card within criteria was found! Restarting the search.");
+			return GetAttackingCard(card);
 		}
 		return selectedCard;
 	}
@@ -142,6 +193,27 @@ public class Hand : MonoBehaviour
 	private IEnumerator Deal(bool flip, bool animate, bool abilityCheck = true)
 	{
 		var card = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+
+		// Noob mode crutch
+		if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f)
+		{
+			switch (GameController.instance.difficulty)
+			{
+				case GameController.Difficulty.Noob:
+					int rerollValue = Mathf.Min(card.cardValue + 3, 13);
+					foreach (var newCardGO in GameController.instance.cardIndex.playingCards)
+					{
+						var newCard = newCardGO.GetComponent<Card>();
+						if (rerollValue != newCard.cardValue || card.cardSuit != newCard.cardSuit || card == newCard) continue;
+
+						Destroy(card.gameObject);
+						card = Instantiate(newCard, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+					}
+					Debug.Log("oh yes crutch");
+					break;
+			}
+		}
+		
 		card.transform.SetParent(transform, false);
 		if (flip) card.ToggleCardVisibility();
 		if (animate)
