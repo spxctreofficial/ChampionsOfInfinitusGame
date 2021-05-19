@@ -8,6 +8,7 @@ public class StatisticController : MonoBehaviour
 	public List<MatchStatistic> matchStatistics = new List<MatchStatistic>();
 
 	public GameController.Gamemodes gamemode;
+	public GameController.Difficulty difficulty;
 	public bool winState;
 	public MatchStatistic playerChampionStatistic;
 
@@ -31,6 +32,7 @@ public class StatisticController : MonoBehaviour
 		}
 
 		gamemode = GameController.instance.gamemodes;
+		difficulty = GameController.instance.difficulty;
 		playerChampionStatistic = matchStatistics[0];
 	}
 	public void TrackRemainingStatistics(ChampionController champion)

@@ -42,7 +42,7 @@ public class SandboxEOGController : MonoBehaviour
     {
         Debug.Log("it called");
         initialGoldReward = StatisticController.instance.winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
-        switch (GameController.instance.difficulty)
+        switch (StatisticController.instance.difficulty)
         {
             case GameController.Difficulty.Noob:
                 initialGoldReward /= 5;
