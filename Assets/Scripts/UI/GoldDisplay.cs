@@ -13,25 +13,24 @@ public class GoldDisplay : MonoBehaviour
 
     private void Start()
     {
-        goldAmountText.text = PlayerPrefs.GetInt("goldAmount").ToString();
+        goldAmountText.text = DataManager.instance.GetGoldAmount().ToString();
     }
     private void Update()
     {
-        if (PlayerPrefs.GetInt("goldAmount").ToString() == goldAmountText.text || currentTextRoutine != null) return;
+        if (DataManager.instance.GetGoldAmount().ToString() == goldAmountText.text || currentTextRoutine != null) return;
         currentTextRoutine = StartCoroutine(UpdateText());
     }
 
     private IEnumerator UpdateText()
     {
         var goldAmountShown = int.Parse(goldAmountText.text);
-        var goldAmount = PlayerPrefs.GetInt("goldAmount");
-        while (goldAmountShown < goldAmount)
+        while (goldAmountShown < DataManager.instance.GetGoldAmount())
         {
             goldAmountShown++;
             goldAmountText.text = goldAmountShown.ToString();
             yield return null;
         }
-        while (goldAmountShown > goldAmount)
+        while (goldAmountShown > DataManager.instance.GetGoldAmount())
         {
             goldAmountShown--;
             goldAmountText.text = goldAmountShown.ToString();

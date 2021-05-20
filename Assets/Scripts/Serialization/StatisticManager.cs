@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 public class StatisticManager : MonoBehaviour
 {
@@ -119,8 +120,6 @@ public class StatisticManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		Untween();
 
-		int goldAmount = PlayerPrefs.HasKey("goldAmount") ? PlayerPrefs.GetInt("goldAmount") : 0;
-
 		switch (GameController.instance.gamemodes)
 		{
 			case GameController.Gamemodes.FFA:
@@ -135,8 +134,7 @@ public class StatisticManager : MonoBehaviour
 				goldReward += totalDamageReceivedCompensation;
 				goldReward += totalHealthRemainingBonus;
 
-				PlayerPrefs.SetInt("goldAmount", goldAmount + goldReward);
-				PlayerPrefs.Save();
+				DataManager.instance.SetGoldAmount(DataManager.instance.GetGoldAmount() + goldReward);
 				break;
 			default:
 				goldReward = initialGoldReward;
