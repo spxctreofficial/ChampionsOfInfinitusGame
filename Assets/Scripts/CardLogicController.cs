@@ -438,7 +438,11 @@ public class CardLogicController : MonoBehaviour
 				}
 
 				// Attacking Card
-				if (champion.hand.transform.childCount - 1 == 0 || champion.currentTarget.hand.transform.childCount == 0 && Random.Range(0f, 1f) < 0.75f)
+				if (champion.hand.transform.childCount - 1 != 0 || champion.currentTarget.hand.transform.childCount != 0 && Random.Range(0f, 1f) < 0.25f)
+				{
+					champion.attackingCard = champion.hand.GetAttackingCard(card);
+				}
+				else if (champion.attackingCard == null)
 				{
 					switch (GameController.instance.difficulty)
 					{
@@ -448,10 +452,6 @@ public class CardLogicController : MonoBehaviour
 							gambled = true;
 							break;
 					}
-				}
-				else
-				{
-					champion.attackingCard = champion.hand.GetAttackingCard(card);
 				}
 
 				// Reviewing Choices

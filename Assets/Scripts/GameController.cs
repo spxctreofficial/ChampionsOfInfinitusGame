@@ -163,7 +163,7 @@ public class GameController : MonoBehaviour
 			champions[i].hand.Deal(4, false, true, false);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
-		StatisticController.instance.StartTrackingStatistics();
+		StatisticManager.instance.StartTrackingStatistics();
 
 		yield return new WaitForSeconds(2f);
 
@@ -288,9 +288,6 @@ public class GameController : MonoBehaviour
 	{
 		gamePhase = GamePhase.GameEnd;
 		
-		CardLogicController.instance.StopAllCoroutines();
-		TooltipSystem.instance.StopAllCoroutines();
-		
 		Destroy(playerActionTooltip);
 		switch (gamemodes)
 		{
@@ -298,10 +295,19 @@ public class GameController : MonoBehaviour
 				break;
 			case Gamemodes.FFA:
 				gameEndArea.SetActive(true);
-				gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>().text = victoriousChampion.name + " wins!";
-				gameEndArea.transform.GetChild(1).GetComponent<Image>().sprite = victoriousChampion.avatar;
 
-				StatisticController.instance.TrackRemainingStatistics(victoriousChampion);
+				TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
+				Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
+				GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
+				
+				gameEndText.text = victoriousChampion.name + " wins!";
+				winnerAvatar.sprite = victoriousChampion.avatar;
+				rewardPanel.transform.localPosition = new Vector3(-1920, 0, 0);
+
+				foreach (ChampionController champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
+				StatisticManager.instance.winState = victoriousChampion.isPlayer;
+				CardLogicController.instance.StopAllCoroutines();
+				TooltipSystem.instance.StopAllCoroutines();
 
 				float cachedVolume = gameArea.GetComponent<AudioSource>().volume;
 				for (var i = 0; i < 180; i++)
@@ -313,14 +319,26 @@ public class GameController : MonoBehaviour
 					}
 					yield return null;
 				}
-				Debug.Log(gameArea.GetComponent<AudioSource>().volume);
 				
-				yield return new WaitForSeconds(3f);
+				yield return new WaitForSeconds(4f);
 
-				SceneManager.LoadScene("SandboxEOG");
-
+				LeanTween.move(winnerAvatar.gameObject, new Vector2(1200, 0) / 107.9695f, 0.5f).setEaseInOutQuad();
+				LeanTween.move(rewardPanel, Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
+					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
+				});
 				break;
 		}
+	}
+	public void ReturnToMainMenu()
+	{
+		CanvasGroup gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
+		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
+
+		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
+		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
+			Destroy(StatisticManager.instance);
+			SceneManager.LoadScene("MainMenu");
+		});
 	}
 	public void NextTurnCalculator(ChampionController currentTurnChampion)
 	{

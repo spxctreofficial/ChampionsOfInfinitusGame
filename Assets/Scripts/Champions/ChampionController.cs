@@ -245,7 +245,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public MatchStatistic GetMatchStatistic()
 	{
 		var index = GameController.instance.champions.IndexOf(this);
-		return StatisticController.instance.matchStatistics[index];
+		return StatisticManager.instance.matchStatistics[index];
 	}
 
 	public void ShowAbilityFeed(string text, float duration = 5f)

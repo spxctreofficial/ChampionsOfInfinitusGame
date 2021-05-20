@@ -91,8 +91,8 @@ public class Hand : MonoBehaviour
 
 		if (selectedCard == null)
 		{
-			Debug.LogWarning("No card within criteria was found! Restarting the search.");
-			return GetCard(type);
+			Debug.LogWarning("No card within criteria was found! Returtning a null.");
+			return null;
 		}
 		return selectedCard;
 	}
@@ -184,8 +184,8 @@ public class Hand : MonoBehaviour
 
 		if (selectedCard == null)
 		{
-			Debug.LogWarning("No card within criteria was found! Restarting the search.");
-			return GetAttackingCard(card);
+			Debug.LogWarning("No card within criteria was found! Returning a null.");
+			return null;
 		}
 		return selectedCard;
 	}
