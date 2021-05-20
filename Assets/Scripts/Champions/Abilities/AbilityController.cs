@@ -55,7 +55,6 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 	public bool IsExclusive()
 	{
-		bool isExclusive;
 		foreach (var champion in ability.isExclusiveTo)
 		{
 			if (champion == this.champion.champion) return true;

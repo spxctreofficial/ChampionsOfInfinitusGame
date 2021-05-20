@@ -3678,6 +3678,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
+        type: 3}
+      propertyPath: summonCard
+      value: 
+      objectReference: {fileID: 3089723124973942982, guid: 3686b5b9dcca51a45ad091ac94b67255,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4426096360858846a74f163d0b7322e, type: 3}
 --- !u!224 &7120735544176057318 stripped
