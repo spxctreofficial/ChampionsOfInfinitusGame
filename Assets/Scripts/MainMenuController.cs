@@ -26,6 +26,7 @@ public class MainMenuController : MonoBehaviour
 	}
 	private void Start()
 	{
+		overlayCanvas.gameObject.SetActive(true);
 		mainPanel.AddComponent<CanvasGroup>();
 	}
 

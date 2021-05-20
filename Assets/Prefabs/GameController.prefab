@@ -48,6 +48,8 @@ MonoBehaviour:
   gameArea: {fileID: 0}
   mapSelectionConfig: {fileID: 0}
   championSelectionConfig: {fileID: 0}
+  difficultySelectionConfig: {fileID: 0}
+  gameEndArea: {fileID: 0}
   playerHand: {fileID: 0}
   discardArea: {fileID: 0}
   championTemplate: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
@@ -62,6 +64,8 @@ MonoBehaviour:
     type: 3}
   championSelectionButtonPrefab: {fileID: 751758506132937138, guid: b8aaa8647ada1d048ac0fcd09bef1d29,
     type: 3}
+  difficultySelectionButtonPrefab: {fileID: 2439229251068088308, guid: a69e0bec6e3718e4283e02eeb22bb41f,
+    type: 3}
   playerActionTooltip: {fileID: 0}
   confirmButton: {fileID: 0}
   endTurnButton: {fileID: 0}
@@ -70,6 +74,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e59d7aaf4948124d9d3598a54e66410, type: 2}
   - {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e, type: 2}
   - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
+  - {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be, type: 2}
   playerChampion: {fileID: 0}
   players: 2
   mapIndex:
@@ -78,5 +83,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880, type: 2}
   currentMap: {fileID: 0}
   difficulty: 0
+  hasChosenDifficulty: 0
   gamemodes: 2
   roundsElapsed: 0

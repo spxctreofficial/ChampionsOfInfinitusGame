@@ -2415,66 +2415,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157528586}
   m_CullTransparentMesh: 1
---- !u!1 &1272151972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1272151974}
-  - component: {fileID: 1272151973}
-  m_Layer: 0
-  m_Name: StatisticController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1272151973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272151972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176c04b6476c56140a99b29875c469a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matchStatistics: []
-  winState: 0
-  playerChampionStatistic:
-    champion: {fileID: 0}
-    totalAttacks: 0
-    successfulAttacks: 0
-    failedAttacks: 0
-    totalDefends: 0
-    successfulDefends: 0
-    failedDefends: 0
-    totalDamageDealt: 0
-    totalDamageReceived: 0
-    totalAmountHealed: 0
-    remainingHP: 0
-    killCount: 0
-  initialGoldReward: 0
-  goldReward: 0
---- !u!4 &1272151974
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272151972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1283922421
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,6 +3414,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f199183ee7d25048a01e0ddf5cb58e4, type: 3}
+--- !u!1001 &2170963628411741163
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170963627410267215, guid: 15bfe0728318e524981aafefb447cf2d,
+        type: 3}
+      propertyPath: m_Name
+      value: StatisticController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15bfe0728318e524981aafefb447cf2d, type: 3}
 --- !u!1001 &2771826817542323819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3678,12 +3687,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5327886758175611361, guid: c4426096360858846a74f163d0b7322e,
-        type: 3}
-      propertyPath: summonCard
-      value: 
-      objectReference: {fileID: 3089723124973942982, guid: 3686b5b9dcca51a45ad091ac94b67255,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4426096360858846a74f163d0b7322e, type: 3}
 --- !u!224 &7120735544176057318 stripped
@@ -4085,26 +4088,9 @@ PrefabInstance:
       objectReference: {fileID: 697805135}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
-      propertyPath: championIndex.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
       propertyPath: difficultySelectionConfig
       value: 
       objectReference: {fileID: 77381967}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: championIndex.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be,
-        type: 2}
-    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-        type: 3}
-      propertyPath: difficultySelectionButtonPrefab
-      value: 
-      objectReference: {fileID: 2439229251068088308, guid: a69e0bec6e3718e4283e02eeb22bb41f,
-        type: 3}
     - target: {fileID: 8947251701174882739, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: m_RootOrder
