@@ -55,6 +55,7 @@ public class StatisticManager : MonoBehaviour
 		}
 
 		Debug.Log("its being called");
+		
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
 		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
 		int successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;

@@ -48,8 +48,17 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		if (champion.abilities.Count == 0) return false;
 		foreach (var ability in champion.abilities)
 		{
-			foreach (var champion in ability.isExclusiveTo) if (champion == this.champion.champion) return false;
+			if (!IsExclusive()) return false;
 			if (searchCriteria == ability.abilityID) return true;
+		}
+		return false;
+	}
+	public bool IsExclusive()
+	{
+		bool isExclusive;
+		foreach (var champion in ability.isExclusiveTo)
+		{
+			if (champion == this.champion.champion) return true;
 		}
 		return false;
 	}
@@ -166,7 +175,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo)
 	{
-		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (!IsExclusive()) yield break;
 		if (dealtTo == champion || card.cardValue <= 10) yield break;
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because " + dealtTo.name + " was dealt a card with a value higher than 10. A 50% chance to heal for 20!");
@@ -182,7 +191,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 	private int HopliteShield(int amount, DamageType damageType)
 	{
-		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) return 0;
+		if (!IsExclusive()) return 0;
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". A 20% chance to negate the damage by half!" +
 			"\n This chance is increased to 50% if the damage is fatal.");
@@ -198,16 +207,16 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 	private IEnumerator Bojutsu(Card attackingCard)
 	{
-		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (!IsExclusive()) yield break;
 		if (attackingCard.cardValue < 10) yield break;
 		
 		attackingCard.cardValue--;
-		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1.");
+		Debug.Log(ability.abilityName + " was activated for " + champion.name + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.cardValue);
 		champion.ShowAbilityFeed(ability.abilityName);
 	}
 	private IEnumerator Rejuvenation()
 	{
-		foreach (var champion in ability.isExclusiveTo) if (champion != this.champion.champion) yield break;
+		if (!IsExclusive()) yield break;
 		if (Random.Range(0f, 1f) < 0.5f || champion.currentHP == champion.maxHP) yield break;
 		
 		Debug.Log(ability.abilityName + " was activated for " + champion.name + ". Healing for 5.");
