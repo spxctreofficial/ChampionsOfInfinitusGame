@@ -252,11 +252,11 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 			champion.currentTarget = this;
 			GameController.instance.playerActionTooltip.text = (champion.team != this.team) ? "Confirm the attack, or change selected card and/or target." : "This champion is on your team! Confirm the attack, or consider changing the selected target and/or selected card.";
-			GameController.instance.confirmButton.gameObject.SetActive(true);
+			GameController.instance.confirmButton.Show();
 
 			if (champion.attackingCard != null) break;
 			GameController.instance.playerActionTooltip.text = (champion.team != this.team) ? "Choose another card to represent your attack, or change selected target." : "This champion is on your team! Consider changing the selected target, or continue by selecting a card to represent your attack.";
-			GameController.instance.confirmButton.gameObject.SetActive(false);
+			GameController.instance.confirmButton.Hide();
 		}
 	}
 	public void OnPointerClick(PointerEventData eventData) {

@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEnd }
 
@@ -33,7 +35,8 @@ public class GameController : MonoBehaviour {
 	public GameObject difficultySelectionButtonPrefab;
 
 	public TMP_Text playerActionTooltip;
-	public Button confirmButton;
+	public ConfirmButton confirmButton;
+	public GambleButton gambleButton;
 	public Button endTurnButton;
 
 	[HideInInspector]
@@ -436,32 +439,6 @@ public class GameController : MonoBehaviour {
 
 		difficultySelectionConfig.SetActive(false);
 		gameArea.SetActive(true);
-	}
-
-	public void OnConfirmButtonClick() {
-		confirmButton.gameObject.SetActive(false);
-
-		foreach (var champion in champions) {
-			if (!champion.isPlayer || champion.isDead) continue;
-
-			switch (gamePhase) {
-				case GamePhase.ActionPhase:
-					if (champion.isAttacking && champion.attackingCard != null && champion.currentTarget != null) {
-						champion.GetMatchStatistic().totalAttacks++;
-						StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
-						return;
-					}
-					if (champion.currentlyTargeted && champion.defendingCard != null && !champion.isMyTurn) {
-						champion.hasDefended = true;
-						return;
-					}
-					if (champion.discardAmount != 0 && !champion.isMyTurn) {
-						champion.discardAmount = -1;
-						return;
-					}
-					break;
-			}
-		}
 	}
 
 	private void PruneDiscardArea() {
