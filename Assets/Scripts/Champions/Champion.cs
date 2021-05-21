@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Champion", menuName = "New Champion")]
-public class Champion : ScriptableObject
-{
+public class Champion : ScriptableObject {
 	public new string name;
 	public Sprite avatar;
 	[TextArea(3, 15)]

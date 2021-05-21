@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ability", menuName = "New Ability")]
-public class Ability : ScriptableObject
-{
+public class Ability : ScriptableObject {
 	public enum AbilityType { Passive, Active, AttackB, DefenseB, Ultimate }
 	public enum AbilityEffect { Positive, Neutral, Negative }
 

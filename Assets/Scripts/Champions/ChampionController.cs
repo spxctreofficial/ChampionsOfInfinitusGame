@@ -9,8 +9,7 @@ using Random = UnityEngine.Random;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
-public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
-{
+public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
@@ -64,17 +63,14 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 	private static LTDescr delay;
 
-	private void Start()
-	{
+	private void Start() {
 		ChampionSetup();
 	}
-	private void Update()
-	{
+	private void Update() {
 		TextUpdater();
 	}
 
-	public void ChampionSetup()
-	{
+	public void ChampionSetup() {
 		name = champion.name;
 		avatar = champion.avatar;
 		description = champion.description;
@@ -119,15 +115,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}*/
 	}
 
-	public IEnumerator Attack(ChampionController target)
-	{
+	public IEnumerator Attack(ChampionController target) {
 		yield return StartCoroutine(target.Damage(attackDamage, attackDamageType, this));
 	}
-	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true)
-	{
+	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true) {
 		var currentHPCache = currentHP;
-		foreach (Transform child in abilityPanel.panel.transform)
-		{
+		foreach (Transform child in abilityPanel.panel.transform) {
 			var ability = child.GetComponent<AbilityController>();
 			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
@@ -136,11 +129,10 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		if (source != null) source.GetMatchStatistic().totalDamageDealt += currentHPCache - currentHP;
 
 		float magnitude;
-		switch (damageType)
-		{
+		switch (damageType) {
 			case DamageType.Melee:
 				magnitude = 20f;
-				AudioController.instance.Play("Sword" + Random.Range(1,3));
+				AudioController.instance.Play("Sword" + Random.Range(1, 3));
 				break;
 			case DamageType.Ranged:
 				magnitude = 12f;
@@ -173,106 +165,88 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		yield return StartCoroutine(GameController.instance.GameEndCheck());
 
 		if (abilityCheck == false) yield break;
-		foreach (Transform child in abilityPanel.panel.transform)
-		{
+		foreach (Transform child in abilityPanel.panel.transform) {
 			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 	}
-	public IEnumerator Heal(int amount, bool abilityCheck = true)
-	{
+	public IEnumerator Heal(int amount, bool abilityCheck = true) {
 		var currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		GetMatchStatistic().totalAmountHealed += currentHP - currentHPCache;
 		AudioController.instance.Play("Heal");
 
 		if (abilityCheck == false) yield break;
-		foreach (Transform child in abilityPanel.panel.transform)
-		{
+		foreach (Transform child in abilityPanel.panel.transform) {
 			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 	}
 
-	private bool DeathCheck()
-	{
+	private bool DeathCheck() {
 		if (currentHP != 0) return false;
 		StartCoroutine(DeathDiscardAll());
 		return true;
 	}
-	
-	private IEnumerator DeathDiscardAll()
-	{
+
+	private IEnumerator DeathDiscardAll() {
 		yield return new WaitForSeconds(Random.Range(2f, 5f));
-		
-		foreach (Transform child in hand.transform)
-		{
+
+		foreach (Transform child in hand.transform) {
 			var card = child.gameObject.GetComponent<Card>();
 			CardLogicController.instance.Discard(card);
 		}
 	}
-	public void ResetExhaustion()
-	{
+	public void ResetExhaustion() {
 		spadesBeforeExhaustion = 1;
 		heartsBeforeExhaustion = 3;
 		diamondsBeforeExhaustion = 1;
 	}
-	public void SetHand(Hand hand)
-	{
+	public void SetHand(Hand hand) {
 		this.hand = hand;
 		hand.owner = this;
 	}
-	private void TextUpdater()
-	{
+	private void TextUpdater() {
 		nameText.text = name;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
 		cardsText.text = hand.transform.childCount.ToString();
-		if (currentHP == 0)
-		{
+		if (currentHP == 0) {
 			healthText.color = new Color32(100, 100, 100, 255);
 			return;
 		}
-		if (currentHP <= 0.6f * maxHP)
-		{
+		if (currentHP <= 0.6f * maxHP) {
 			healthText.color = currentHP <= 0.3f * maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
 		}
-		else
-		{
+		else {
 			healthText.color = new Color32(0, 255, 0, 255);
 		}
 	}
-	
-	public MatchStatistic GetMatchStatistic()
-	{
+
+	public MatchStatistic GetMatchStatistic() {
 		var index = GameController.instance.champions.IndexOf(this);
 		return StatisticManager.instance.matchStatistics[index];
 	}
 
-	public void ShowAbilityFeed(string text, float duration = 5f)
-	{
-		if (abilityFeed.text != text || !abilityFeed.IsActive())
-		{
+	public void ShowAbilityFeed(string text, float duration = 5f) {
+		if (abilityFeed.text != text || !abilityFeed.IsActive()) {
 			abilityFeed.gameObject.SetActive(true);
 			abilityFeed.text = text;
 		}
-		
+
 		abilityFeed.transform.localScale = Vector3.zero;
 		LeanTween.scale(abilityFeed.gameObject, Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
 			// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
 			LeanTween.delayedCall(duration, HideAbilityFeed);
 		});
 	}
-	public void HideAbilityFeed()
-	{
+	public void HideAbilityFeed() {
 		LeanTween.scale(abilityFeed.gameObject, Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
 			abilityFeed.gameObject.SetActive(false);
 		});
 	}
-	
-	public void OnClick()
-	{
-		foreach (var champion in GameController.instance.champions)
-		{
+
+	public void OnClick() {
+		foreach (var champion in GameController.instance.champions) {
 
 			if (!champion.isAttacking || !champion.isPlayer || isPlayer || isDead) continue;
 
@@ -285,22 +259,17 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			GameController.instance.confirmButton.gameObject.SetActive(false);
 		}
 	}
-	public void OnPointerClick(PointerEventData eventData)
-	{
-		if (eventData.button == PointerEventData.InputButton.Right)
-		{
+	public void OnPointerClick(PointerEventData eventData) {
+		if (eventData.button == PointerEventData.InputButton.Right) {
 			abilityPanel.OpenPanel();
 		}
 	}
-	public void OnPointerEnter(PointerEventData eventData)
-	{
+	public void OnPointerEnter(PointerEventData eventData) {
 		delay = LeanTween.delayedCall(0.5f, () => {
 			var body = "Health: " + currentHP + "/" + maxHP;
 
-			string attackType()
-			{
-				return attackDamageType switch
-				{
+			string attackType() {
+				return attackDamageType switch {
 					DamageType.Melee => "Melee",
 					DamageType.Ranged => "Ranged",
 					DamageType.Fire => "Fire",
@@ -310,10 +279,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 					_ => throw new ArgumentOutOfRangeException()
 				};
 			}
-			string abilityType(Ability ability)
-			{
-				return ability.abilityType switch
-				{
+			string abilityType(Ability ability) {
+				return ability.abilityType switch {
 					Ability.AbilityType.Passive => "Passive",
 					Ability.AbilityType.Active => "Active",
 					Ability.AbilityType.AttackB => "Attack Bonus",
@@ -332,17 +299,14 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			TooltipSystem.instance.Show(body, name);
 		});
 	}
-	public void OnPointerExit(PointerEventData eventData)
-	{
+	public void OnPointerExit(PointerEventData eventData) {
 		LeanTween.cancel(delay.uniqueId);
 		TooltipSystem.instance.Hide();
 	}
-	private IEnumerator ShakeImage(float duration, float magnitude)
-	{
+	private IEnumerator ShakeImage(float duration, float magnitude) {
 		var originalPos = transform.localPosition;
 
-		for (float t = 0; t < 1; t += Time.deltaTime / duration)
-		{
+		for (float t = 0; t < 1; t += Time.deltaTime / duration) {
 			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
 			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
 			var shake = new Vector3(x, y, originalPos.z);
@@ -351,12 +315,10 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 		transform.localPosition = originalPos;
 	}
-	private IEnumerator ShakeImage(float duration, float magnitude, Transform transform)
-	{
+	private IEnumerator ShakeImage(float duration, float magnitude, Transform transform) {
 		var originalPos = transform.localPosition;
 
-		for (float t = 0; t < 1; t += Time.deltaTime / duration)
-		{
+		for (float t = 0; t < 1; t += Time.deltaTime / duration) {
 			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
 			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
 			var shake = new Vector3(x, y, originalPos.z);

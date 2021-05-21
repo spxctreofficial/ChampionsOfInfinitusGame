@@ -2,8 +2,7 @@
 using System;
 using UnityEngine;
 
-public class AudioController : MonoBehaviour
-{
+public class AudioController : MonoBehaviour {
 
 	public static AudioController instance;
 
@@ -11,20 +10,16 @@ public class AudioController : MonoBehaviour
 
 	public Sound[] sounds;
 
-	private void Awake()
-	{
-		if (instance != null)
-		{
+	private void Awake() {
+		if (instance != null) {
 			Destroy(gameObject);
 		}
-		else
-		{
+		else {
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
 
-		foreach (var s in sounds)
-		{
+		foreach (var s in sounds) {
 			s.source = gameObject.AddComponent<AudioSource>();
 			s.source.clip = s.clip;
 			s.source.loop = s.loop;
@@ -33,11 +28,9 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
-	public void Play(string sound)
-	{
+	public void Play(string sound) {
 		var s = Array.Find(sounds, item => item.name == sound);
-		if (s == null)
-		{
+		if (s == null) {
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
@@ -47,12 +40,10 @@ public class AudioController : MonoBehaviour
 
 		s.source.Play();
 	}
-	
-	public void Volume(string sound, float volume)
-	{
+
+	public void Volume(string sound, float volume) {
 		var s = Array.Find(sounds, item => item.name == sound);
-		if (s == null)
-		{
+		if (s == null) {
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}

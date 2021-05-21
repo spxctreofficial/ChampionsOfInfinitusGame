@@ -5,8 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-public class StatisticManager : MonoBehaviour
-{
+public class StatisticManager : MonoBehaviour {
 	public static StatisticManager instance;
 	public List<MatchStatistic> matchStatistics = new List<MatchStatistic>();
 
@@ -16,47 +15,39 @@ public class StatisticManager : MonoBehaviour
 	public int initialGoldReward;
 	public int goldReward;
 
-	private void Awake()
-	{
-		if (instance == null)
-		{
+	private void Awake() {
+		if (instance == null) {
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
-		else
-		{
+		else {
 			Destroy(gameObject);
 		}
 	}
 
-	public void StartTrackingStatistics()
-	{
-		foreach (ChampionController champion in GameController.instance.champions)
-		{
+	public void StartTrackingStatistics() {
+		foreach (ChampionController champion in GameController.instance.champions) {
 			matchStatistics.Add(new MatchStatistic(champion.champion));
 			Debug.Log(matchStatistics[GameController.instance.champions.IndexOf(champion)].champion);
 		}
 		playerChampionStatistic = matchStatistics[0];
 		Debug.Log(playerChampionStatistic.champion);
 	}
-	public void TrackRemainingStatistics(ChampionController champion)
-	{
+	public void TrackRemainingStatistics(ChampionController champion) {
 		var index = GameController.instance.champions.IndexOf(champion);
 		var matchStatistic = matchStatistics[index];
 
 		matchStatistic.remainingHP = champion.currentHP;
 	}
 
-	public IEnumerator RewardCalculation(TMP_Text bonusRewardLog)
-	{
-		void Untween()
-		{
+	public IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
+		void Untween() {
 			LeanTween.move(bonusRewardLog.gameObject, Vector2.zero, 0.25f).setEaseInOutQuad();
 			LeanTween.scale(bonusRewardLog.gameObject, Vector3.zero, 0.25f).setEaseInOutQuad();
 		}
 
 		Debug.Log("its being called");
-		
+
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
 		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
 		int successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;
@@ -67,8 +58,7 @@ public class StatisticManager : MonoBehaviour
 		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
 		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
 		int totalHealthRemainingBonus = (instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP) * 100;
-		switch (GameController.instance.difficulty)
-		{
+		switch (GameController.instance.difficulty) {
 			case GameController.Difficulty.Noob:
 				initialGoldReward /= 5;
 				break;
@@ -120,8 +110,7 @@ public class StatisticManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		Untween();
 
-		switch (GameController.instance.gamemodes)
-		{
+		switch (GameController.instance.gamemodes) {
 			case GameController.Gamemodes.FFA:
 				goldReward = initialGoldReward;
 				goldReward += successfulAttackBonus;
@@ -134,7 +123,7 @@ public class StatisticManager : MonoBehaviour
 				goldReward += totalDamageReceivedCompensation;
 				goldReward += totalHealthRemainingBonus;
 
-				DataManager.instance.SetGoldAmount(DataManager.instance.GetGoldAmount() + goldReward);
+				DataManager.instance.GoldAmount += goldReward;
 				break;
 			default:
 				goldReward = initialGoldReward;
@@ -146,8 +135,7 @@ public class StatisticManager : MonoBehaviour
 
 	[Obsolete("GetChampionStatistics() has been deprecated." +
 	          " For more convenience and cleaner code, use method GetMatchStatistics() of the ChampionController class instead.")]
-	public MatchStatistic GetChampionStatistics(ChampionController champion)
-	{
+	public MatchStatistic GetChampionStatistics(ChampionController champion) {
 		var index = GameController.instance.champions.IndexOf(champion);
 		return matchStatistics[index];
 	}

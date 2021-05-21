@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MatchStatistic
-{
+public class MatchStatistic {
 	public Champion champion;
 
 	public int totalAttacks, successfulAttacks, failedAttacks, totalDefends, successfulDefends, failedDefends;
@@ -12,8 +11,7 @@ public class MatchStatistic
 	public int remainingHP;
 	public int killCount;
 
-	public MatchStatistic(Champion champion)
-	{
+	public MatchStatistic(Champion champion) {
 		this.champion = champion;
 	}
 }

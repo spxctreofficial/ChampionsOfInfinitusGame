@@ -7,31 +7,26 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class MainMenuController : MonoBehaviour
-{
+public class MainMenuController : MonoBehaviour {
 	public static MainMenuController instance;
 
 	public Canvas overlayCanvas;
 	public GameObject mainPanel;
 	public Image logo;
-	
-	private void Awake()
-	{
+
+	private void Awake() {
 		if (instance == null)
 			instance = this;
-		else
-		{
+		else {
 			Destroy(gameObject);
 		}
 	}
-	private void Start()
-	{
+	private void Start() {
 		overlayCanvas.gameObject.SetActive(true);
 		mainPanel.AddComponent<CanvasGroup>();
 	}
 
-	public void Focus()
-	{
+	public void Focus() {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
 		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
 		AudioController.instance.Play("GlassBreak");
@@ -41,23 +36,19 @@ public class MainMenuController : MonoBehaviour
 		});
 
 	}
-	public void LoadSandbox()
-	{
+	public void LoadSandbox() {
 		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
 			SceneManager.LoadScene("Sandbox");
 		});
 	}
-	public void QuitGame()
-	{
+	public void QuitGame() {
 		Application.Quit();
 	}
-	
-	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude)
-	{
+
+	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude) {
 		var originalPos = transform.localPosition;
 
-		for (float t = 0; t < 1; t += Time.deltaTime / duration)
-		{
+		for (float t = 0; t < 1; t += Time.deltaTime / duration) {
 			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
 			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
 			var shake = new Vector3(x, y, originalPos.z);

@@ -5,40 +5,33 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
+public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	[HideInInspector]
 	public Champion championComponent;
 
 	private static LTDescr delay;
 
-	private void Start()
-	{
+	private void Start() {
 		StartCoroutine(Setup());
 	}
 
-	public void OnClick()
-	{
+	public void OnClick() {
 		GameController.instance.playerChampion = championComponent;
 		LeanTween.cancel(delay.uniqueId);
 		TooltipSystem.instance.Hide();
 	}
 
-	private IEnumerator Setup()
-	{
+	private IEnumerator Setup() {
 		yield return null;
 		if (championComponent != null) gameObject.GetComponent<Image>().sprite = championComponent.avatar;
 	}
-	
-	public void OnPointerEnter(PointerEventData eventData)
-	{
+
+	public void OnPointerEnter(PointerEventData eventData) {
 		delay = LeanTween.delayedCall(0.5f, () => {
 			var body = "Health: " + championComponent.maxHP;
 
-			string attackType()
-			{
-				return championComponent.attackDamageType switch
-				{
+			string attackType() {
+				return championComponent.attackDamageType switch {
 					DamageType.Melee => "Melee",
 					DamageType.Ranged => "Ranged",
 					DamageType.Fire => "Fire",
@@ -48,10 +41,8 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 					_ => throw new ArgumentOutOfRangeException()
 				};
 			}
-			string abilityType(Ability ability)
-			{
-				return ability.abilityType switch
-				{
+			string abilityType(Ability ability) {
+				return ability.abilityType switch {
 					Ability.AbilityType.Passive => "Passive",
 					Ability.AbilityType.Active => "Active",
 					Ability.AbilityType.AttackB => "Attack Bonus",
@@ -65,12 +56,11 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 			        "\nAbilities:";
 
 			foreach (var ability in championComponent.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
-			
+
 			TooltipSystem.instance.Show(body, championComponent.name);
 		});
 	}
-	public void OnPointerExit(PointerEventData eventData)
-	{
+	public void OnPointerExit(PointerEventData eventData) {
 		LeanTween.cancel(delay.uniqueId);
 		TooltipSystem.instance.Hide();
 	}
