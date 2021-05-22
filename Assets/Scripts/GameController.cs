@@ -19,15 +19,15 @@ public class GameController : MonoBehaviour {
 	public CardIndex cardIndex;
 
 	public GameObject gameArea;
+	public GameObject gameEndArea;
+	public GameObject discardArea;
 	public GameObject mapSelectionConfig;
 	public GameObject championSelectionConfig;
 	public GameObject difficultySelectionConfig;
-	public GameObject gameEndArea;
 	public Hand playerHand;
-	public GameObject discardArea;
 
 	public GameObject championTemplate;
-	public GameObject abilityPrefab;
+	public GameObject abilityTemplate;
 	public GameObject handPrefab;
 	public GameObject abilityPanelPrefab;
 	public GameObject mapSelectionButtonPrefab;

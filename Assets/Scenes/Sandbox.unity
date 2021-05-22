@@ -4280,6 +4280,12 @@ PrefabInstance:
       objectReference: {fileID: 512776267}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
+      propertyPath: abilityTemplate
+      value: 
+      objectReference: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
+        type: 3}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
       propertyPath: mapSelectionConfig
       value: 
       objectReference: {fileID: 1742700632}
