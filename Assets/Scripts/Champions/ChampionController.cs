@@ -234,13 +234,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 
 		abilityFeed.transform.localScale = Vector3.zero;
-		LeanTween.scale(abilityFeed.gameObject, Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
+		LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
 			// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
 			LeanTween.delayedCall(duration, HideAbilityFeed);
 		});
 	}
 	public void HideAbilityFeed() {
-		LeanTween.scale(abilityFeed.gameObject, Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
+		LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
 			abilityFeed.gameObject.SetActive(false);
 		});
 	}

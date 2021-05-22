@@ -42,8 +42,8 @@ public class StatisticManager : MonoBehaviour {
 
 	public IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
 		void Untween() {
-			LeanTween.move(bonusRewardLog.gameObject, Vector2.zero, 0.25f).setEaseInOutQuad();
-			LeanTween.scale(bonusRewardLog.gameObject, Vector3.zero, 0.25f).setEaseInOutQuad();
+			LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
+			LeanTween.scale(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad();
 		}
 
 		Debug.Log("its being called");

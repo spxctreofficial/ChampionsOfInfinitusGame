@@ -289,8 +289,8 @@ public class GameController : MonoBehaviour {
 
 				yield return new WaitForSeconds(4f);
 
-				LeanTween.move(winnerAvatar.gameObject, new Vector2(1200, 0) / 107.9695f, 0.5f).setEaseInOutQuad();
-				LeanTween.move(rewardPanel, Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
+				LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
+				LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
 					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
 				});
 				break;

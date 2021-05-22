@@ -31,8 +31,8 @@ public class MainMenuController : MonoBehaviour {
 		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
 		AudioController.instance.Play("GlassBreak");
 		Destroy(overlayCanvas.gameObject);
-		LeanTween.scale(logo.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {
-			LeanTween.scale(logo.gameObject, new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
+		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {
+			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
 		});
 
 	}

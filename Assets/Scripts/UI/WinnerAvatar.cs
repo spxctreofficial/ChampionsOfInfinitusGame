@@ -8,11 +8,11 @@ public class WinnerAvatar : MonoBehaviour {
 	private void Awake() {
 		AudioController.instance.Play("GameEnd");
 		LeanTween.delayedCall(1f, () => {
-			LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.25f).setEaseInOutQuad().setOnComplete(() => {
+			LeanTween.scale(GetComponent<RectTransform>(), new Vector3(1, 1, 1), 0.25f).setEaseInOutQuad().setOnComplete(() => {
 				StartCoroutine(ShakeImage(0.25f, 10f));
-				LeanTween.scale(gameObject, new Vector3(0.75f, 0.75f, 0.75f), 2.75f).setEaseInOutQuad();
+				LeanTween.scale(GetComponent<RectTransform>(), new Vector3(0.75f, 0.75f, 0.75f), 2.75f).setEaseInOutQuad();
 			});
-			LeanTween.rotate(gameObject, new Vector3(0, 0, 0), 0.25f).setEaseInOutQuad();
+			LeanTween.rotate(GetComponent<RectTransform>(), new Vector3(0, 0, 0), 0.25f).setEaseInOutQuad();
 		});
 	}
 

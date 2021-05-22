@@ -25,10 +25,10 @@ public class AbilityPanel : MonoBehaviour {
 	public void OpenPanel() {
 		gameObject.transform.localPosition = new Vector3(0, 0, 0);
 		gameObject.transform.localScale = new Vector3(0, 0, 0);
-		LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.5f).setEase(LeanTweenType.easeInOutQuad);
+		LeanTween.scale(GetComponent<RectTransform>(), new Vector3(1, 1, 1), 0.5f).setEase(LeanTweenType.easeInOutQuad);
 	}
 	public void ClosePanel() {
-		LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => MoveOutOfScreen());
+		LeanTween.scale(GetComponent<RectTransform>(), new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => MoveOutOfScreen());
 	}
 
 	private void MoveOutOfScreen() {
