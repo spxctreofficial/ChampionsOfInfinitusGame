@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChampionIndex : MonoBehaviour {
-	public List<GameObject> champions = new List<GameObject>();
-	//Deprecated
-	[HideInInspector]
-	public GameObject TheWraithKing;
+[System.Serializable]
+public class ChampionIndex {
+	public List<Champion> champions = new List<Champion>();
 }

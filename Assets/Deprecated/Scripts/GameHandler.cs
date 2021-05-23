@@ -11,7 +11,6 @@ public class GameHandler : MonoBehaviour
     public GamePhaseDeprecated phase;
     public CardIndex cardIndex;
     public CardLogicHandler cardLogicHandler;
-    public ChampionIndex championIndex;
 
     public GameObject startCanvas;
     public GameObject gameCanvas;

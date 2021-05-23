@@ -26,3 +26,5 @@ MonoBehaviour:
   attackName: Regime Broadsword
   abilities:
   - {fileID: 11400000, guid: 2ce1d7ce0720a0b4f9ea1ed528a5086b, type: 2}
+  unlockability: 0
+  shopCost: 750

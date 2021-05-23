@@ -4,10 +4,13 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Champion", menuName = "New Champion")]
 public class Champion : ScriptableObject {
+	// Identification
 	public new string name;
 	public Sprite avatar;
 	[TextArea(3, 15)]
 	public string description;
+	
+	// Basic Information
 	public enum Gender { Male, Female, Nonbinary, Undefined }
 	public enum Faction { Castlefel, Regime, Empire, Order, LegionOfWraiths, Undefined }
 	public enum Race { Human, Wraith, Dragon, Dragonborn, Arachnoid, Centaur }
@@ -15,6 +18,7 @@ public class Champion : ScriptableObject {
 	public Faction faction;
 	public Race race;
 
+	// Statistics
 	public int maxHP;
 	public int currentHP;
 
@@ -23,4 +27,9 @@ public class Champion : ScriptableObject {
 	public string attackName;
 
 	public List<Ability> abilities;
+	
+	// Shop
+	public enum Unlockability { ShopItem, EarnableItem }
+	public Unlockability unlockability;
+	public int shopCost;
 }

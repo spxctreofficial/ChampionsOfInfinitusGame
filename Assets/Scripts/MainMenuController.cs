@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour {
 
 	public Canvas overlayCanvas;
 	public GameObject mainPanel;
+	public ShopPanel shopPanel;
 	public Image logo;
 
 	private void Awake() {
@@ -24,6 +25,8 @@ public class MainMenuController : MonoBehaviour {
 	private void Start() {
 		overlayCanvas.gameObject.SetActive(true);
 		mainPanel.AddComponent<CanvasGroup>();
+		
+		shopPanel.Setup();
 	}
 
 	public void Focus() {

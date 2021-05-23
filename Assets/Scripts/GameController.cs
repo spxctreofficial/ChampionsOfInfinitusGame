@@ -41,10 +41,10 @@ public class GameController : MonoBehaviour {
 
 	[HideInInspector]
 	public List<ChampionController> champions = new List<ChampionController>();
-	public List<Champion> championIndex = new List<Champion>();
 	public Champion playerChampion;
 	[Range(2, 4)]
 	public int players;
+	public List<Champion> championIndex = new List<Champion>();
 	public List<Map> mapIndex = new List<Map>();
 	public Map currentMap;
 	public Difficulty difficulty;

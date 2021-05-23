@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour {
 	public static DataManager instance;
+	
+	public ChampionIndex championIndex = new ChampionIndex();
 
 	private string saveFolder;
-
 	private int goldAmount = 0;
 	private List<Champion> ownedChampions = new List<Champion>();
 
@@ -41,6 +43,10 @@ public class DataManager : MonoBehaviour {
 
 		Load();
 		Save();
+	}
+
+	private void Start() {
+		championIndex.champions.Sort((x, y) => String.Compare(x.name, y.name, StringComparison.Ordinal));
 	}
 
 	public void Save() {

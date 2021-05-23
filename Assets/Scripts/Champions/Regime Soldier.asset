@@ -26,3 +26,5 @@ MonoBehaviour:
   attackDamageType: 0
   attackName: Regime Broadsword
   abilities: []
+  unlockability: 1
+  shopCost: 0
