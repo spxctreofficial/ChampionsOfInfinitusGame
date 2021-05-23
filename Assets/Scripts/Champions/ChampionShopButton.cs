@@ -21,6 +21,8 @@ public class ChampionShopButton : MonoBehaviour {
     }
 
     public void OnClick() {
+        if (DataManager.instance.GoldAmount - int.Parse(goldCostText.text) < 0) return;
+        
         DataManager.instance.GoldAmount -= int.Parse(goldCostText.text);
         DataManager.instance.OwnedChampions.Add(champion);
         DataManager.instance.Save();
