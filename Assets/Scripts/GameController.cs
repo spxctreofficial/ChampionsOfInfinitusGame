@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
 	public GameObject difficultySelectionButtonPrefab;
 
 	public TMP_Text playerActionTooltip;
+	public TMP_Text phaseIndicator;
 	public ConfirmButton confirmButton;
 	public GambleButton gambleButton;
 	public Button endTurnButton;
@@ -75,6 +76,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	private IEnumerator GameStart() {
+		phaseIndicator.text = "Start of Game";
+		
 		yield return StartCoroutine(GamePrep());
 		SetMap();
 
@@ -162,6 +165,7 @@ public class GameController : MonoBehaviour {
 	private IEnumerator BeginningPhase(ChampionController champion) {
 		gamePhase = GamePhase.BeginningPhase;
 
+		phaseIndicator.text = "Beginning Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
 		champion.hand.Deal(2);
 
@@ -180,6 +184,7 @@ public class GameController : MonoBehaviour {
 	private IEnumerator ActionPhase(ChampionController champion) {
 		gamePhase = GamePhase.ActionPhase;
 
+		phaseIndicator.text = "Action Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
 
@@ -226,6 +231,7 @@ public class GameController : MonoBehaviour {
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
+		phaseIndicator.text = "End Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
 		int childCount = champion.hand.transform.childCount;
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
