@@ -205,6 +205,8 @@ MonoBehaviour:
   mainPanel: {fileID: 2005543670}
   shopPanel: {fileID: 1587334815}
   logo: {fileID: 455752872}
+  confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,
+    type: 3}
 --- !u!4 &310021314
 Transform:
   m_ObjectHideFlags: 0

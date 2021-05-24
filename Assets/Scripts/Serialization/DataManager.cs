@@ -46,27 +46,34 @@ public class DataManager : MonoBehaviour {
 	}
 
 	private void Start() {
-		championIndex.champions.Sort((x, y) => String.Compare(x.name, y.name, StringComparison.Ordinal));
+		championIndex.champions.Sort((x, y) => x.shopCost.CompareTo(y.shopCost));
 	}
 
 	public void Save() {
+		OwnedChampions.Sort((x, y) => String.Compare(x.name, y.name, StringComparison.Ordinal));
 		SaveObject saveObject = new SaveObject {
 			goldAmount = goldAmount,
 			ownedChampions = ownedChampions
 		};
+		
 		string json = JsonUtility.ToJson(saveObject);
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 		File.WriteAllText(saveFolder + "/save.lohsave", json);
 	}
 	public void Load() {
+		// Loads SaveObject
 		if (!File.Exists(saveFolder + "/save.lohsave")) return;
 		string savedJson = File.ReadAllText(saveFolder + "/save.lohsave");
 		Debug.Log(savedJson);
 
 		SaveObject loadedSaveObject = JsonUtility.FromJson<SaveObject>(savedJson);
 
+		// Sets Values
 		goldAmount = loadedSaveObject.goldAmount;
 		ownedChampions = loadedSaveObject.ownedChampions;
+		
+		// Special Behavior
+		if (ownedChampions.Count == 0) ownedChampions.Add(championIndex.champions[0]);
 	}
 
 	public int GetGoldAmount() {

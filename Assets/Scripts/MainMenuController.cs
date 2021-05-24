@@ -15,6 +15,8 @@ public class MainMenuController : MonoBehaviour {
 	public ShopPanel shopPanel;
 	public Image logo;
 
+	public GameObject confirmDialogPrefab;
+	
 	private void Awake() {
 		if (instance == null)
 			instance = this;
