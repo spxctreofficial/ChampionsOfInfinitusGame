@@ -10,12 +10,20 @@ using Random = UnityEngine.Random;
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
 public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+	// Champion
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
 	[HideInInspector]
 	public AbilityPanel abilityPanel;
+	[HideInInspector]
+	public Button championButton;
+	[HideInInspector]
+	public Image championImage;
+	[HideInInspector]
+	public TMP_Text nameText, healthText, cardsText, abilityFeed;
 
+	// Identification & Basic Information
 	[HideInInspector]
 	public new string name;
 	[HideInInspector]
@@ -29,11 +37,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public Champion.Race race;
 
-	[HideInInspector]
-	public Button championButton;
-	[HideInInspector]
-	public TMP_Text nameText, healthText, cardsText, abilityFeed;
-
+	// Statistics
 	[HideInInspector]
 	public int maxHP;
 	public int currentHP;
@@ -70,7 +74,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		TextUpdater();
 	}
 
+	/// <summary>
+	/// Sets up the champion's statistics.
+	/// This is called automatically on Start().
+	/// </summary>
 	public void ChampionSetup() {
+		// Identification & Basic Information
 		name = champion.name;
 		avatar = champion.avatar;
 		description = champion.description;
@@ -78,12 +87,16 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		faction = champion.faction;
 		race = champion.race;
 
+		// References
 		championButton = gameObject.GetComponent<Button>();
+		championImage = gameObject.GetComponent<Image>();
+		championImage.sprite = avatar;
 		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
 		healthText = transform.GetChild(1).GetComponent<TMP_Text>();
 		cardsText = transform.GetChild(2).GetComponent<TMP_Text>();
 		abilityFeed = transform.GetChild(3).GetComponent<TMP_Text>();
 
+		// Statistics
 		maxHP = champion.maxHP;
 		currentHP = champion.currentHP;
 
@@ -100,24 +113,29 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		isAttacking = false;
 		hasDefended = false;
 		isDead = false;
-		// team = null; // this is not needed
 		currentTarget = null;
 		attackingCard = null;
 		isUltReady = false;
 
-		GetComponent<Image>().sprite = avatar;
-
-		/*if (isPlayer || team == "PlayerTeam")
-		{
-			healthText.transform.localPosition = new Vector3(healthText.transform.localPosition.x, -healthText.transform.localPosition.y, healthText.transform.localPosition.z);
-			cardsText.transform.localPosition = new Vector3(cardsText.transform.localPosition.x, -cardsText.transform.localPosition.y, cardsText.transform.localPosition.z);
-			cardsText.verticalAlignment = VerticalAlignmentOptions.Bottom;
-		}*/
 	}
 
+	/// <summary>
+	/// Attacks a defined ChampionController from the perspective of the ChampionController this is called on.
+	/// </summary>
+	/// <param name="target"></param>
+	/// <returns></returns>
 	public IEnumerator Attack(ChampionController target) {
 		yield return StartCoroutine(target.Damage(attackDamage, attackDamageType, this));
 	}
+	/// <summary>
+	/// Damage this ChampionController.
+	/// Set AbilityCheck to false to disable ability checking.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <param name="damageType"></param>
+	/// <param name="source"></param>
+	/// <param name="abilityCheck"></param>
+	/// <returns></returns>
 	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true) {
 		var currentHPCache = currentHP;
 		foreach (Transform child in abilityPanel.panel.transform) {
@@ -170,6 +188,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 	}
+	/// <summary>
+	/// Heals this ChampionController.
+	/// Set AbilityCheck to false to disable ability checking.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <param name="abilityCheck"></param>
+	/// <returns></returns>
 	public IEnumerator Heal(int amount, bool abilityCheck = true) {
 		var currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
@@ -182,13 +207,21 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 	}
-
+	/// <summary>
+	/// Checks if this ChampionController is dead.
+	/// </summary>
+	/// <returns></returns>
 	private bool DeathCheck() {
 		if (currentHP != 0) return false;
 		StartCoroutine(DeathDiscardAll());
 		return true;
 	}
 
+	/// <summary>
+	/// Discards all cards from this champion's hand.
+	/// Currently not quite working.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator DeathDiscardAll() {
 		yield return new WaitForSeconds(Random.Range(2f, 5f));
 
@@ -197,15 +230,26 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			CardLogicController.instance.Discard(card);
 		}
 	}
+	/// <summary>
+	/// Resets this ChampionController's exhaustion.
+	/// </summary>
 	public void ResetExhaustion() {
 		spadesBeforeExhaustion = 1;
 		heartsBeforeExhaustion = 3;
 		diamondsBeforeExhaustion = 1;
 	}
+	/// <summary>
+	/// Sets this ChampionController's hand.
+	/// </summary>
+	/// <param name="hand"></param>
 	public void SetHand(Hand hand) {
 		this.hand = hand;
 		hand.owner = this;
 	}
+	/// <summary>
+	/// Updates visual elements of this ChampionController, such as nameText and healthText.
+	/// This is automatically called in Update(), so there is no need to manually call this.
+	/// </summary>
 	private void TextUpdater() {
 		nameText.text = name;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
@@ -222,11 +266,20 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 	}
 
+	/// <summary>
+	/// Returns this ChampionController's match statistic, based on the index of the ChampionController.
+	/// </summary>
+	/// <returns></returns>
 	public MatchStatistic GetMatchStatistic() {
 		var index = GameController.instance.champions.IndexOf(this);
 		return StatisticManager.instance.matchStatistics[index];
 	}
 
+	/// <summary>
+	/// Show the AbilityFeed.
+	/// </summary>
+	/// <param name="text"></param>
+	/// <param name="duration"></param>
 	public void ShowAbilityFeed(string text, float duration = 5f) {
 		if (abilityFeed.text != text || !abilityFeed.IsActive()) {
 			abilityFeed.gameObject.SetActive(true);
@@ -239,6 +292,9 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			LeanTween.delayedCall(duration, HideAbilityFeed);
 		});
 	}
+	/// <summary>
+	/// Hide the AbilityFeed.
+	/// </summary>
 	public void HideAbilityFeed() {
 		LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
 			abilityFeed.gameObject.SetActive(false);
