@@ -22,8 +22,15 @@ public class CardLogicController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Called when the player clicks on a card.
+	/// </summary>
+	/// <param name="card"></param>
+	/// <returns></returns>
 	public IEnumerator CardSelect(Card card) {
 		var player = GameController.instance.champions[0];
+		
+		// Exits if the player is dead.
 		foreach (var champion in GameController.instance.champions) {
 			if (!champion.isPlayer) continue;
 			player = champion;
@@ -32,9 +39,12 @@ public class CardLogicController : MonoBehaviour {
 				yield break;
 			}
 		}
+		
 		switch (GameController.instance.gamePhase) {
 			case GamePhase.ActionPhase:
+				// Checks if it's the player's turn
 				if (player.isMyTurn) {
+					// When Attacking
 					if (player.isAttacking) {
 						if (GameController.instance.gambleButton.isBlocking) break;
 						if (player.attackingCard != null) player.attackingCard.ToggleCardVisibility(true);
@@ -49,6 +59,7 @@ public class CardLogicController : MonoBehaviour {
 						GameController.instance.confirmButton.Hide();
 						break;
 					}
+					// When Used Normally
 					switch (card.cardSuit) {
 						case CardSuit.SPADE:
 							StartCoroutine(SpadeLogic(card, player));
@@ -66,6 +77,7 @@ public class CardLogicController : MonoBehaviour {
 					break;
 				}
 				else {
+					// When Defense
 					foreach (var champion in GameController.instance.champions) {
 						if (GameController.instance.gambleButton.isBlocking) break;
 						if (champion.currentTarget != player || !champion.isAttacking) continue;
@@ -78,22 +90,33 @@ public class CardLogicController : MonoBehaviour {
 					}
 				}
 
+				// When Forced to Discard
 				if (player.discardAmount > 0) {
 					PlayerDiscard(card, player, "Forced");
 				}
+				// If all else fails, stops the player from using the card.
 				else {
 					Debug.Log("It is not the player's Action Phase!");
 				}
 				break;
 			case GamePhase.EndPhase:
+				// When Discarding Naturally
 				if (player.isMyTurn && player.discardAmount > 0) {
 					PlayerDiscard(card, player, "Forced");
 				}
 				break;
 		}
 	}
+	/// <summary>
+	/// Called to handle the bot's card logic.
+	/// The perceived coherence of the bot will be determined by the difficulty.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <returns></returns>
+	/// <exception cref="ArgumentOutOfRangeException"></exception>
 	public IEnumerator BotCardLogic(ChampionController champion) {
 		float PauseDuration() {
+			// Sets the bot's pause duration to simulate logical breakdown.
 			switch (GameController.instance.difficulty) {
 				case GameController.Difficulty.Noob:
 				case GameController.Difficulty.Novice:
@@ -107,6 +130,7 @@ public class CardLogicController : MonoBehaviour {
 			}
 		}
 		float CardScanDuration() {
+			// Sets the bot's scan duration to simulate the logical scanning of the next card to play.
 			switch (GameController.instance.difficulty) {
 				case GameController.Difficulty.Noob:
 				case GameController.Difficulty.Novice:
@@ -121,15 +145,18 @@ public class CardLogicController : MonoBehaviour {
 		}
 
 		if (champion.isDead) {
+			// Just in case, to handle if logic is called on dead champion.
 			Debug.LogWarning("Attempted to apply logic to dead champion!");
 			GameController.instance.NextTurnCalculator(champion);
 			yield break;
 		}
 
+		// Just to set playerActionTooltip back in case anything happens.
 		GameController.instance.playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 
 		yield return new WaitForSeconds(PauseDuration());
 
+		// Clubs
 		foreach (Transform child in champion.hand.transform) {
 			var card = child.GetComponent<Card>();
 			if (card.cardSuit != CardSuit.CLUB) continue;
@@ -152,6 +179,7 @@ public class CardLogicController : MonoBehaviour {
 
 		yield return new WaitForSeconds(PauseDuration());
 
+		// Diamonds
 		foreach (Transform child in champion.hand.transform) {
 			var card = child.GetComponent<Card>();
 			if (card.cardSuit != CardSuit.DIAMOND) continue;
@@ -209,6 +237,7 @@ public class CardLogicController : MonoBehaviour {
 
 		yield return new WaitForSeconds(PauseDuration());
 
+		// Hearts
 		foreach (Transform child in champion.hand.transform) {
 			var card = child.GetComponent<Card>();
 			if (champion.currentHP == champion.maxHP) break;
@@ -245,6 +274,12 @@ public class CardLogicController : MonoBehaviour {
 			yield return new WaitForSeconds(0.25f);
 		}
 	}
+	/// <summary>
+	/// Discard a specified card from an instance of authority.
+	/// </summary>
+	/// <param name="card"></param>
+	/// <param name="flip"></param>
+	/// <param name="animate"></param>
 	public void Discard(Card card, bool flip = false, bool animate = true) {
 		card.transform.SetParent(GameController.instance.discardArea.transform, false);
 		if (flip) card.ToggleCardVisibility();
@@ -252,14 +287,27 @@ public class CardLogicController : MonoBehaviour {
 		card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 		StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
 	}
+	
+	/// <summary>
+	/// Calculates the result of combat, as well as who should take damage and checking for activated abilities.
+	/// Do not call this randomly, as this could very well break code if run at the wrong time.
+	/// </summary>
+	/// <param name="attacker"></param>
+	/// <param name="defender"></param>
+	/// <param name="abilityCheck"></param>
+	/// <returns></returns>
 	public IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, bool abilityCheck = true) {
 		if (attacker.attackingCard == null) {
+			// Fail safe in case no attackingCard was defined prior to combat calculation.
 			Debug.LogError("No attacking card was specified on an initiated attack!");
 			yield break;
 		}
+		
+		// Sets the defender's values to listen for.
 		defender.currentlyTargeted = true;
 		defender.hasDefended = false;
 
+		// Discarding the attacking card.
 		switch (attacker.isPlayer) {
 			case true:
 				if (!GameController.instance.gambleButton.isBlocking) Discard(attacker.attackingCard);
@@ -268,6 +316,7 @@ public class CardLogicController : MonoBehaviour {
 				Discard(attacker.attackingCard, true);
 				break;
 		}
+		// Wait for or get the defending card.
 		switch (defender.isPlayer) {
 			case true:
 				GameController.instance.playerActionTooltip.text = "The " + attacker.name + " is attacking the " + defender.name + ". Defend with a card.";
@@ -281,6 +330,7 @@ public class CardLogicController : MonoBehaviour {
 				break;
 		}
 
+		// Discards defending card.
 		if (!defender.isPlayer) {
 			yield return new WaitForSeconds(Random.Range(0.5f, 3f));
 			Discard(defender.defendingCard);
@@ -292,6 +342,7 @@ public class CardLogicController : MonoBehaviour {
 		defender.GetMatchStatistic().totalDefends++;
 		attacker.attackingCard.ToggleCardVisibility(true);
 
+		// CombatCalculation Ability heck
 		if (abilityCheck) {
 			foreach (Transform child in attacker.abilityPanel.panel.transform) {
 				var ability = child.GetComponent<AbilityController>();
@@ -304,6 +355,7 @@ public class CardLogicController : MonoBehaviour {
 			}
 		}
 
+		// Calculating Combat Result
 		if (attacker.attackingCard.cardValue > defender.defendingCard.cardValue) {
 			yield return StartCoroutine(attacker.Attack(defender));
 
@@ -323,6 +375,7 @@ public class CardLogicController : MonoBehaviour {
 		Debug.Log(attacker.name + attacker.currentHP);
 		Debug.Log(defender.name + defender.currentHP);
 
+		// Resetting Values to continue game flow.
 		GameController.instance.confirmButton.Hide();
 		GameController.instance.endTurnButton.gameObject.SetActive(true);
 		GameController.instance.playerActionTooltip.text = "The " + attacker.name + "'s Turn: Action Phase";
@@ -333,14 +386,24 @@ public class CardLogicController : MonoBehaviour {
 		defender.hasDefended = false;
 		defender.defendingCard = null;
 	}
+	/// <summary>
+	/// Handles card logic for playing cards of type SPADE.
+	/// </summary>
+	/// <param name="card"></param>
+	/// <param name="champion"></param>
+	/// <returns></returns>
 	private IEnumerator SpadeLogic(Card card, ChampionController champion) {
 		if (champion.spadesBeforeExhaustion <= 0) {
+			// Fail-safe to disallow the champion from using the SPADE.
 			GameController.instance.playerActionTooltip.text = "The" + champion.name + " cannot play any more SPADES! Choose another card.";
 			yield break;
 		}
 
 		switch (champion.isPlayer) {
 			case true:
+				// Player Spade Logic
+				
+				// Initiates an attack.
 				GameController.instance.endTurnButton.gameObject.SetActive(false);
 				GameController.instance.gambleButton.Show();
 				GameController.instance.playerActionTooltip.text = "Choose another card to represent your attack, or choose a target.";
@@ -348,13 +411,17 @@ public class CardLogicController : MonoBehaviour {
 				champion.spadesBeforeExhaustion--;
 				Discard(card);
 
+				// Waits for all required components to attack to be filled in by player, then allows the attack to be confirmed.
 				yield return new WaitUntil(() => champion.attackingCard != null && champion.currentTarget != null);
 				GameController.instance.confirmButton.Show();
 				break;
 			case false:
+				// Bot Spade Logic
+				
 				var gambled = false;
 
 				if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.75f) {
+					// Coherence for using a high spade.
 					Debug.Log("The " + champion.name + " refuses to use a SPADE worth: " + card.cardValue);
 					yield break;
 				}
@@ -432,10 +499,12 @@ public class CardLogicController : MonoBehaviour {
 	}
 	private IEnumerator HeartLogic(Card card, ChampionController champion) {
 		if (champion.heartsBeforeExhaustion <= 0) {
+			// Fail-safe if champion can't play more HEARTS.
 			GameController.instance.playerActionTooltip.text = "You cannot play any more HEARTS! Choose another card.";
 			yield break;
 		}
 		if (champion.currentHP >= champion.maxHP) {
+			// Fail-safe if champion is full health.
 			GameController.instance.playerActionTooltip.text = "Health is full! Choose another card.";
 			yield break;
 		}
@@ -489,6 +558,7 @@ public class CardLogicController : MonoBehaviour {
 	}
 	private IEnumerator DiamondLogic(Card card, ChampionController champion) {
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8)) {
+			// Fail-safe for if the champion can't play more DIAMONDS.
 			GameController.instance.playerActionTooltip.text = "The " + champion.name + " cannot play more DIAMONDS! Choose another card.";
 			yield break;
 		}

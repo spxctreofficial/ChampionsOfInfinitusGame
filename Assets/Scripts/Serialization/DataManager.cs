@@ -76,14 +76,6 @@ public class DataManager : MonoBehaviour {
 		if (ownedChampions.Count == 0) ownedChampions.Add(championIndex.champions[0]);
 	}
 
-	public int GetGoldAmount() {
-		return PlayerPrefs.HasKey("goldAmount") ? PlayerPrefs.GetInt("goldAmount") : 0;
-	}
-	public void SetGoldAmount(int amount) {
-		PlayerPrefs.SetInt("goldAmount", amount);
-		PlayerPrefs.Save();
-	}
-
 	private class SaveObject {
 		public int goldAmount;
 		public List<Champion> ownedChampions;

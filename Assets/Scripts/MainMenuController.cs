@@ -31,6 +31,9 @@ public class MainMenuController : MonoBehaviour {
 		shopPanel.Setup();
 	}
 
+	/// <summary>
+	/// PRESS TO START equivalent.
+	/// </summary>
 	public void Focus() {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
 		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
@@ -41,11 +44,17 @@ public class MainMenuController : MonoBehaviour {
 		});
 
 	}
+	/// <summary>
+	/// Loads the Sandbox scene.
+	/// </summary>
 	public void LoadSandbox() {
 		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
 			SceneManager.LoadScene("Sandbox");
 		});
 	}
+	/// <summary>
+	/// Quits the game.
+	/// </summary>
 	public void QuitGame() {
 		Application.Quit();
 	}

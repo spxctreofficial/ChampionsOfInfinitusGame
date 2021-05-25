@@ -72,15 +72,25 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void Update() {
+		
+		// Prunes DiscardArea
 		if (discardArea.transform.childCount > 7) Destroy(discardArea.transform.GetChild(0).gameObject);
 	}
 
+	/// <summary>
+	/// The GameStart function is called at the start of the game.
+	/// This function sets up all of the game assets and functionality,
+	/// as well as allowing the player to choose their champion and map.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator GameStart() {
 		phaseIndicator.text = "Start of Game";
 		
+		// Game Preparation
 		yield return StartCoroutine(GamePrep());
 		SetMap();
 
+		// Setting Up the Game
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
 				players = 4;
@@ -120,20 +130,25 @@ public class GameController : MonoBehaviour {
 					champion = championIndex[Random.Range(0, championIndex.Count)];
 				}
 			}
+			
+			// Instantiation of Champions
 			var championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
 			championController.champion = champion;
 			champions.Add(championController);
 			champions[i].transform.SetParent(gameArea.transform, false);
 
+			// Instantiation of the Champions' Hands
 			var hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
 			hand.SetOwner(champions[i]);
 
+			// Instantiation of the Abilities (separate objects)
 			var abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
 			abilityPanel.transform.SetParent(gameArea.transform, false);
 			yield return null;
 			abilityPanel.Setup(championController);
 
+			// Configuring & Setting Teams
 			switch (gamemodes) {
 				case Gamemodes.Competitive2v2:
 					if (i == 3 || champions[i].isPlayer) {
@@ -152,6 +167,7 @@ public class GameController : MonoBehaviour {
 					break;
 			}
 
+			// Deal Starting Hand
 			champions[i].hand.Deal(4, false, true, false);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
@@ -162,13 +178,20 @@ public class GameController : MonoBehaviour {
 		NextTurnCalculator();
 	}
 
+	/// <summary>
+	/// The Beginning Phase coroutine.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <returns></returns>
 	private IEnumerator BeginningPhase(ChampionController champion) {
 		gamePhase = GamePhase.BeginningPhase;
 
+		// Updates Text
 		phaseIndicator.text = "Beginning Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
-		champion.hand.Deal(2);
+		champion.hand.Deal(2); // Deals to the player
 
+		// Beginning Phase Ability Check
 		foreach (var selectedChampion in champions) {
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
 				var ability = child.GetComponent<AbilityController>();
@@ -181,13 +204,20 @@ public class GameController : MonoBehaviour {
 		SetPhase(ActionPhase(champion));
 	}
 
+	/// <summary>
+	/// The Action Phase coroutine.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <returns></returns>
 	private IEnumerator ActionPhase(ChampionController champion) {
 		gamePhase = GamePhase.ActionPhase;
 
+		// Updates Text
 		phaseIndicator.text = "Action Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
 
+		// Action Phase Ability Check
 		foreach (var selectedChampion in champions) {
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
 				var ability = child.GetComponent<AbilityController>();
@@ -195,14 +225,21 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		if (champion.isPlayer) {
-			endTurnButton.gameObject.SetActive(true);
-			AudioController.instance.Play("PlayerTurn");
-			yield break;
+		// Action Phase
+		switch (champion.isPlayer) {
+			case true:
+				endTurnButton.gameObject.SetActive(true);
+				AudioController.instance.Play("PlayerTurn");
+				break;
+			case false:
+				StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
+				break;
 		}
-
-		StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
 	}
+	/// <summary>
+	/// Starts the End Phase for the champion defined.
+	/// </summary>
+	/// <param name="champion"></param>
 	public void StartEndPhase(ChampionController champion) {
 		if (champion != null) {
 			SetPhase(EndPhase(champion));
@@ -212,6 +249,9 @@ public class GameController : MonoBehaviour {
 		Debug.LogWarning("No overload was specified! Searching manually for current turn's champion.");
 		StartEndPhase();
 	}
+	/// <summary>
+	/// Searches for the current turn champion, then handles the End Phase for that champion.
+	/// </summary>
 	public void StartEndPhase() {
 		ChampionController champion = null;
 		foreach (var selectedChampion in champions) {
@@ -226,16 +266,22 @@ public class GameController : MonoBehaviour {
 
 		SetPhase(EndPhase(champion));
 	}
-
+	/// <summary>
+	/// The End Phase coroutine.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <returns></returns>
 	private IEnumerator EndPhase(ChampionController champion) {
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
+		// Updates Text
 		phaseIndicator.text = "End Phase - " + champion.name;
 		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
 		int childCount = champion.hand.transform.childCount;
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
+		// End Phase Ability Check
 		foreach (var selectedChampion in champions) {
 			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
 				var ability = child.GetComponent<AbilityController>();
@@ -245,22 +291,28 @@ public class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds(2f);
 
-		if (champion.isPlayer) {
-			playerActionTooltip.text = champion.discardAmount != 0 ? "Please discard " + champion.discardAmount + "." : playerActionTooltip.text;
+		// Discard and Calculate Next Turn
+		switch (champion.isPlayer) {
+			case true:
+				playerActionTooltip.text = champion.discardAmount != 0 ? "Please discard " + champion.discardAmount + "." : playerActionTooltip.text;
 
-			yield return new WaitUntil(() => champion.discardAmount == 0);
-
-			NextTurnCalculator(champion);
+				yield return new WaitUntil(() => champion.discardAmount == 0);
+				break;
+			case false:
+				if (champion.discardAmount != 0) {
+					for (var discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
+					champion.discardAmount = 0;
+				}
+				break;
 		}
-		else {
-			if (champion.discardAmount != 0) {
-				for (var discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
-				champion.discardAmount = 0;
-			}
-
-			NextTurnCalculator(champion);
-		}
+		NextTurnCalculator(champion);
 	}
+	/// <summary>
+	/// GameEnd coroutine.
+	/// Called when GameEndCheck returns successfully, and handles the end of the game according to the gamemode.
+	/// </summary>
+	/// <param name="victoriousChampion"></param>
+	/// <returns></returns>
 	private IEnumerator GameEnd(ChampionController victoriousChampion) {
 		gamePhase = GamePhase.GameEnd;
 
@@ -302,9 +354,12 @@ public class GameController : MonoBehaviour {
 				break;
 		}
 	}
+	/// <summary>
+	/// Fades away scene and returns the game to the main menu.
+	/// </summary>
 	public void ReturnToMainMenu() {
-		CanvasGroup gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
-		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
+		var gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
+		var gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
 
 		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
 		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
@@ -312,6 +367,11 @@ public class GameController : MonoBehaviour {
 			SceneManager.LoadScene("MainMenu");
 		});
 	}
+	/// <summary>
+	/// Sets the champion of the next turn to the next champion in the list.
+	/// If the index is out of range, it will catch an ArgumentOutOfRangeException and elapse a round, then reset back to the first in the index.
+	/// </summary>
+	/// <param name="currentTurnChampion"></param>
 	public void NextTurnCalculator(ChampionController currentTurnChampion) {
 		ChampionController nextTurnChampion;
 		try {
@@ -363,18 +423,27 @@ public class GameController : MonoBehaviour {
 				return;
 		}
 	}
+	/// <summary>
+	/// An overload of NextTurnCalculator.
+	/// Sets the next turn to the first champion in the index.
+	/// Should only be used at GameStart.
+	/// </summary>
 	private void NextTurnCalculator() {
 		ChampionController nextTurnChampion;
 		try {
 			nextTurnChampion = champions[0];
 		}
-		catch (System.NullReferenceException) {
+		catch (NullReferenceException) {
 			Debug.LogError("The first champion was not found! An error most likely occured whilst preparing the game.");
 			return;
 		}
 		nextTurnChampion.isMyTurn = true;
 		SetPhase(BeginningPhase(nextTurnChampion));
 	}
+	/// <summary>
+	/// Checks for if the game should end, based on what gamemode the game is currently playing on.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator GameEndCheck() {
 		switch (gamemodes) {
 			case Gamemodes.FFA:
@@ -394,17 +463,30 @@ public class GameController : MonoBehaviour {
 		}
 		yield break;
 	}
-
+	
+	/// <summary>
+	/// Sets the current phase of the game.
+	/// Used to move through different phases of the game.
+	/// </summary>
+	/// <param name="enumerator"></param>
 	private void SetPhase(IEnumerator enumerator) {
 		currentPhaseRoutine = enumerator;
 		StartCoroutine(enumerator);
 	}
+	/// <summary>
+	/// Sets the map to the map configured by the player at runtime.
+	/// </summary>
 	private void SetMap() {
 		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
 		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
 		gameArea.GetComponent<AudioSource>().Play();
 	}
 
+	/// <summary>
+	/// Prepares the game to the player's configuration.
+	/// Listens and saves the player's configuration of the map, champion, difficulty at runtime, and then reports them back to GameStart.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator GamePrep() {
 		playerChampion = null;
 		currentMap = null;
