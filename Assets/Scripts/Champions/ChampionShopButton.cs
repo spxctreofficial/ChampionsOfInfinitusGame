@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ChampionShopButton : MonoBehaviour {
 	[HideInInspector]
@@ -41,6 +42,7 @@ public class ChampionShopButton : MonoBehaviour {
 		DataManager.instance.GoldAmount -= champion.shopCost;
 		DataManager.instance.OwnedChampions.Add(champion);
 		DataManager.instance.Save();
+		AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
 		UpdateInformation();
 		
 		CancelPurchase();

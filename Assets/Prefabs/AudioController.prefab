@@ -126,6 +126,24 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: CoinToss01
+    clip: {fileID: 8300000, guid: e5dfced68a2f07548b51192001ae9ac5, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: CoinToss02
+    clip: {fileID: 8300000, guid: 463426db144948d4c85a725841c16c07, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: MiniClick
     clip: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
     volume: 0.3
@@ -137,24 +155,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GlassBreak
     clip: {fileID: 8300000, guid: 65ae18e5ce5619d40898e287fa0effac, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: GameWin
-    clip: {fileID: 8300000, guid: 35d76c6d9a8754348aa7a5d2aa3dad88, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: GameLose
-    clip: {fileID: 8300000, guid: 16de725aa914028488848da9118c132d, type: 3}
     volume: 0.3
     volumeVariance: 0
     pitch: 1
