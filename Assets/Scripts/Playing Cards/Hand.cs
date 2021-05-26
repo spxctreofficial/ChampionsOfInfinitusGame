@@ -12,8 +12,11 @@ public class Hand : MonoBehaviour {
 		StartCoroutine(Deal(specificCard, false, true));
 	}
 	public void SetOwner(ChampionController championController) {
-		this.owner = championController;
+		owner = championController;
 		championController.hand = this;
+
+		Debug.Log(owner.championName);
+		name = owner.championName + "'s Hand";
 	}
 	public Card GetCard(string type) {
 		Card selectedCard = null;
@@ -49,7 +52,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Warrior:
 							if (owner.currentHP >= 0.3f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
+								Debug.Log("The " + owner.championName + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
 								continue;
 							}
 							if (value < child.GetComponent<Card>().cardValue) {
@@ -59,7 +62,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Champion:
 							if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log("The " + owner.name + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
+								Debug.Log("The " + owner.championName + " is confident! They refuse to use a value of " + child.GetComponent<Card>().cardValue + " to defend!");
 								continue;
 							}
 							if (value < child.GetComponent<Card>().cardValue) {
@@ -139,7 +142,7 @@ public class Hand : MonoBehaviour {
 					break;
 				case GameController.Difficulty.Champion:
 					if (child.GetComponent<Card>().cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The " + owner.name + " refuses to use a HEART to attack!");
+						Debug.Log("The " + owner.championName + " refuses to use a HEART to attack!");
 						continue;
 					}
 					if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {

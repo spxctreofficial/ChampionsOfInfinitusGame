@@ -140,12 +140,14 @@ public class GameController : MonoBehaviour {
 			// Instantiation of the Champions' Hands
 			var hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
 			hand.transform.SetParent(gameArea.transform, false);
-			hand.SetOwner(champions[i]);
 
 			// Instantiation of the Abilities (separate objects)
 			var abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
 			abilityPanel.transform.SetParent(gameArea.transform, false);
+			
+			// Hand & Ability Setup
 			yield return null;
+			hand.SetOwner(championController);
 			abilityPanel.Setup(championController);
 
 			// Configuring & Setting Teams
@@ -163,7 +165,7 @@ public class GameController : MonoBehaviour {
 					champions[1].team = "OpponentTeam";
 					break;
 				case Gamemodes.FFA:
-					champions[i].team = champions[i].name + i;
+					champions[i].team = champions[i].championName + i;
 					break;
 			}
 
@@ -187,8 +189,8 @@ public class GameController : MonoBehaviour {
 		gamePhase = GamePhase.BeginningPhase;
 
 		// Updates Text
-		phaseIndicator.text = "Beginning Phase - " + champion.name;
-		playerActionTooltip.text = "The " + champion.name + "'s Turn: Beginning Phase";
+		phaseIndicator.text = "Beginning Phase - " + champion.championName;
+		playerActionTooltip.text = "The " + champion.championName + "'s Turn: Beginning Phase";
 		champion.hand.Deal(2); // Deals to the player
 
 		// Beginning Phase Ability Check
@@ -213,8 +215,8 @@ public class GameController : MonoBehaviour {
 		gamePhase = GamePhase.ActionPhase;
 
 		// Updates Text
-		phaseIndicator.text = "Action Phase - " + champion.name;
-		playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
+		phaseIndicator.text = "Action Phase - " + champion.championName;
+		playerActionTooltip.text = "The " + champion.championName + "'s Turn: Action Phase";
 		champion.ResetExhaustion();
 
 		// Action Phase Ability Check
@@ -276,8 +278,8 @@ public class GameController : MonoBehaviour {
 		endTurnButton.gameObject.SetActive(false);
 
 		// Updates Text
-		phaseIndicator.text = "End Phase - " + champion.name;
-		playerActionTooltip.text = "The " + champion.name + "'s Turn: End Phase";
+		phaseIndicator.text = "End Phase - " + champion.championName;
+		playerActionTooltip.text = "The " + champion.championName + "'s Turn: End Phase";
 		int childCount = champion.hand.transform.childCount;
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
@@ -327,7 +329,7 @@ public class GameController : MonoBehaviour {
 				Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
 				GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
 
-				gameEndText.text = victoriousChampion.name + " wins!";
+				gameEndText.text = victoriousChampion.championName + " wins!";
 				winnerAvatar.sprite = victoriousChampion.avatar;
 				rewardPanel.transform.localPosition = new Vector3(-1920, 0, 0);
 

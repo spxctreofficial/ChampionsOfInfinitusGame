@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Champion", menuName = "New Champion")]
 public class Champion : ScriptableObject {
 	// Identification
-	public new string name;
+	public string championName;
 	public Sprite avatar;
 	[TextArea(3, 15)]
 	public string description;

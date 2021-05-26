@@ -57,7 +57,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 
 			foreach (var ability in championComponent.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
 
-			TooltipSystem.instance.Show(body, championComponent.name);
+			TooltipSystem.instance.Show(body, championComponent.championName);
 		});
 	}
 	public void OnPointerExit(PointerEventData eventData) {

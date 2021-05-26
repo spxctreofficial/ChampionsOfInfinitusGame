@@ -50,7 +50,7 @@ public class DataManager : MonoBehaviour {
 	}
 
 	public void Save() {
-		OwnedChampions.Sort((x, y) => String.Compare(x.name, y.name, StringComparison.Ordinal));
+		OwnedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
 		SaveObject saveObject = new SaveObject {
 			goldAmount = goldAmount,
 			ownedChampions = ownedChampions

@@ -152,7 +152,7 @@ public class CardLogicController : MonoBehaviour {
 		}
 
 		// Just to set playerActionTooltip back in case anything happens.
-		GameController.instance.playerActionTooltip.text = "The " + champion.name + "'s Turn: Action Phase";
+		GameController.instance.playerActionTooltip.text = "The " + champion.championName + "'s Turn: Action Phase";
 
 		yield return new WaitForSeconds(PauseDuration());
 
@@ -167,7 +167,7 @@ public class CardLogicController : MonoBehaviour {
 					break;
 				default:
 					if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.9f) {
-						Debug.Log("The " + champion.name + " refuses to trade in a CLUB worth: " + card.cardValue);
+						Debug.Log("The " + champion.championName + " refuses to trade in a CLUB worth: " + card.cardValue);
 						continue;
 					}
 					break;
@@ -184,7 +184,7 @@ public class CardLogicController : MonoBehaviour {
 			var card = child.GetComponent<Card>();
 			if (card.cardSuit != CardSuit.DIAMOND) continue;
 			if (champion.diamondsBeforeExhaustion == 0 && (card.cardValue < 5 || card.cardValue > 8)) {
-				Debug.Log("The " + champion.name + " can't play this DIAMOND.");
+				Debug.Log("The " + champion.championName + " can't play this DIAMOND.");
 				break;
 			}
 
@@ -199,7 +199,7 @@ public class CardLogicController : MonoBehaviour {
 			var card = child.GetComponent<Card>();
 			if (card.cardSuit != CardSuit.SPADE) continue;
 			if (champion.spadesBeforeExhaustion == 0) {
-				Debug.Log("The " + champion.name + " is exhausted. Cannot attack.");
+				Debug.Log("The " + champion.championName + " is exhausted. Cannot attack.");
 				break;
 			}
 
@@ -209,21 +209,21 @@ public class CardLogicController : MonoBehaviour {
 					break;
 				case GameController.Difficulty.Novice:
 					if (champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.25f) {
-						Debug.Log(champion.name + " realizes that they might fuck up and die!");
+						Debug.Log(champion.championName + " realizes that they might fuck up and die!");
 						champion.spadesBeforeExhaustion--;
 						wontAttack = true;
 					}
 					break;
 				case GameController.Difficulty.Warrior:
 					if (champion.currentHP <= 0.2f * champion.maxHP && Random.Range(0f, 1f) < 0.45f) {
-						Debug.Log("The " + champion.name + " doesn't want to attack!");
+						Debug.Log("The " + champion.championName + " doesn't want to attack!");
 						champion.spadesBeforeExhaustion--;
 						wontAttack = true;
 					}
 					break;
 				case GameController.Difficulty.Champion:
 					if ((champion.currentHP <= 0.2f * champion.maxHP && Random.Range(0f, 1f) < 0.65f) || Random.Range(0f, 1f) < 0.15f) {
-						Debug.Log("The " + champion.name + " doesn't want to attack!");
+						Debug.Log("The " + champion.championName + " doesn't want to attack!");
 						champion.spadesBeforeExhaustion--;
 						wontAttack = true;
 					}
@@ -247,7 +247,7 @@ public class CardLogicController : MonoBehaviour {
 			switch (GameController.instance.difficulty) {
 				case GameController.Difficulty.Champion:
 					if (champion.currentHP + 20 >= 0.9f * champion.maxHP && card.cardValue == 13) {
-						Debug.Log("Health would be clamped! The " + champion.name + " decides not to use an ACE of HEARTS to heal!");
+						Debug.Log("Health would be clamped! The " + champion.championName + " decides not to use an ACE of HEARTS to heal!");
 						continue;
 					}
 					break;
@@ -319,7 +319,7 @@ public class CardLogicController : MonoBehaviour {
 		// Wait for or get the defending card.
 		switch (defender.isPlayer) {
 			case true:
-				GameController.instance.playerActionTooltip.text = "The " + attacker.name + " is attacking the " + defender.name + ". Defend with a card.";
+				GameController.instance.playerActionTooltip.text = "The " + attacker.championName + " is attacking the " + defender.championName + ". Defend with a card.";
 				GameController.instance.gambleButton.Show();
 
 				yield return new WaitUntil(() => defender.hasDefended && defender.defendingCard != null);
@@ -372,13 +372,13 @@ public class CardLogicController : MonoBehaviour {
 			Debug.Log("lol it tie");
 			AudioController.instance.Play("SwordClashing");
 		}
-		Debug.Log(attacker.name + attacker.currentHP);
-		Debug.Log(defender.name + defender.currentHP);
+		Debug.Log(attacker.championName + attacker.currentHP);
+		Debug.Log(defender.championName + defender.currentHP);
 
 		// Resetting Values to continue game flow.
 		GameController.instance.confirmButton.Hide();
 		GameController.instance.endTurnButton.gameObject.SetActive(true);
-		GameController.instance.playerActionTooltip.text = "The " + attacker.name + "'s Turn: Action Phase";
+		GameController.instance.playerActionTooltip.text = "The " + attacker.championName + "'s Turn: Action Phase";
 		attacker.isAttacking = false;
 		attacker.attackingCard = null;
 		attacker.currentTarget = null;
@@ -395,7 +395,7 @@ public class CardLogicController : MonoBehaviour {
 	private IEnumerator SpadeLogic(Card card, ChampionController champion) {
 		if (champion.spadesBeforeExhaustion <= 0) {
 			// Fail-safe to disallow the champion from using the SPADE.
-			GameController.instance.playerActionTooltip.text = "The" + champion.name + " cannot play any more SPADES! Choose another card.";
+			GameController.instance.playerActionTooltip.text = "The" + champion.championName + " cannot play any more SPADES! Choose another card.";
 			yield break;
 		}
 
@@ -422,7 +422,7 @@ public class CardLogicController : MonoBehaviour {
 
 				if (card.cardValue > 10 && Random.Range(0f, 1f) < 0.75f) {
 					// Coherence for using a high spade.
-					Debug.Log("The " + champion.name + " refuses to use a SPADE worth: " + card.cardValue);
+					Debug.Log("The " + champion.championName + " refuses to use a SPADE worth: " + card.cardValue);
 					yield break;
 				}
 
@@ -444,7 +444,7 @@ public class CardLogicController : MonoBehaviour {
 					}
 				}
 				if (champion.currentTarget == null) {
-					Debug.Log("The " + champion.name + " decides not to attack!");
+					Debug.Log("The " + champion.championName + " decides not to attack!");
 					champion.spadesBeforeExhaustion--;
 					break;
 				}
@@ -469,7 +469,7 @@ public class CardLogicController : MonoBehaviour {
 						if ((champion.attackingCard.cardValue <= card.cardValue ||
 						     champion.attackingCard.cardValue <= 9)
 						    && !gambled) {
-							Debug.Log("The " + champion.name + " does not want to attack with the current configuration!");
+							Debug.Log("The " + champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
 						}
 						break;
@@ -479,7 +479,7 @@ public class CardLogicController : MonoBehaviour {
 						     champion.attackingCard.cardValue <= 9 ||
 						     champion.hand.transform.childCount <= 2 && Random.Range(0f, 1f) < f)
 						    && !gambled) {
-							Debug.Log("The " + champion.name + " does not want to attack with the current configuration!");
+							Debug.Log("The " + champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
 						}
 						break;
@@ -491,7 +491,7 @@ public class CardLogicController : MonoBehaviour {
 				champion.spadesBeforeExhaustion--;
 				champion.GetMatchStatistic().totalAttacks++;
 
-				Debug.Log("The " + champion.name + " is attacking " + champion.currentTarget.name + " with a card with a value of " + champion.attackingCard.cardValue);
+				Debug.Log("The " + champion.championName + " is attacking " + champion.currentTarget.championName + " with a card with a value of " + champion.attackingCard.cardValue);
 
 				yield return StartCoroutine(CombatCalculation(champion, champion.currentTarget));
 				break;
@@ -559,7 +559,7 @@ public class CardLogicController : MonoBehaviour {
 	private IEnumerator DiamondLogic(Card card, ChampionController champion) {
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8)) {
 			// Fail-safe for if the champion can't play more DIAMONDS.
-			GameController.instance.playerActionTooltip.text = "The " + champion.name + " cannot play more DIAMONDS! Choose another card.";
+			GameController.instance.playerActionTooltip.text = "The " + champion.championName + " cannot play more DIAMONDS! Choose another card.";
 			yield break;
 		}
 
@@ -609,7 +609,7 @@ public class CardLogicController : MonoBehaviour {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
 
 					selectedChampion.discardAmount = 1;
 
@@ -661,7 +661,7 @@ public class CardLogicController : MonoBehaviour {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (quickSelectChampion.currentHP - 20 <= 0) {
-									Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+									Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -676,7 +676,7 @@ public class CardLogicController : MonoBehaviour {
 												enemiesLeft++;
 											}
 											if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.8f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.25f) {
-												Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 												jeopardized = true;
 											}
 										}
@@ -696,7 +696,7 @@ public class CardLogicController : MonoBehaviour {
 				foreach (var selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
 					if (selectedChampion.hand.transform.childCount == 0) {
-						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
+						Debug.Log("The " + selectedChampion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						continue;
 					}
@@ -718,7 +718,7 @@ public class CardLogicController : MonoBehaviour {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
@@ -773,7 +773,7 @@ public class CardLogicController : MonoBehaviour {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (quickSelectChampion.currentHP - 20 <= 0) {
-									Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+									Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -788,7 +788,7 @@ public class CardLogicController : MonoBehaviour {
 												enemiesLeft++;
 											}
 											if (enemiesLeft <= enemiesJeopardized) {
-												Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 												jeopardized = true;
 											}
 										}
@@ -823,7 +823,7 @@ public class CardLogicController : MonoBehaviour {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (quickSelectChampion.currentHP - 40 <= 0) {
-									Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+									Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -838,7 +838,7 @@ public class CardLogicController : MonoBehaviour {
 												enemiesLeft++;
 											}
 											if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.65f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.65f) {
-												Debug.Log("The " + champion.name + " does not want to jeopardize his teammate, " + quickSelectChampion.name + "!");
+												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
 												jeopardized = true;
 											}
 										}
@@ -858,7 +858,7 @@ public class CardLogicController : MonoBehaviour {
 				foreach (var selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
 					if (selectedChampion.hand.transform.childCount == 0) {
-						Debug.Log("The " + selectedChampion.name + " has no cards! Dealing damage automatically...");
+						Debug.Log("The " + selectedChampion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						continue;
 					}
@@ -880,7 +880,7 @@ public class CardLogicController : MonoBehaviour {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.name + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 

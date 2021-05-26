@@ -14,6 +14,7 @@ public class AbilityPanel : MonoBehaviour {
 	public void Setup(ChampionController champion) {
 		owner = champion;
 		champion.abilityPanel = this;
+		name = owner.championName + "'s Abilities";
 
 		foreach (var ability in owner.abilities) {
 			var abilityController = Instantiate(GameController.instance.abilityTemplate, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityController>();

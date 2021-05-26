@@ -25,7 +25,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 	// Identification & Basic Information
 	[HideInInspector]
-	public new string name;
+	public string championName;
 	[HideInInspector]
 	public Sprite avatar;
 	[HideInInspector]
@@ -80,7 +80,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	/// </summary>
 	public void ChampionSetup() {
 		// Identification & Basic Information
-		name = champion.name;
+		championName = champion.championName;
+		name = champion.championName;
 		avatar = champion.avatar;
 		description = champion.description;
 		gender = champion.gender;
@@ -251,7 +252,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	/// This is automatically called in Update(), so there is no need to manually call this.
 	/// </summary>
 	private void TextUpdater() {
-		nameText.text = name;
+		nameText.text = championName;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
 		cardsText.text = hand.transform.childCount.ToString();
 		if (currentHP == 0) {
@@ -352,7 +353,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
 
 			body += "\n Cards: " + hand.transform.childCount;
-			TooltipSystem.instance.Show(body, name);
+			TooltipSystem.instance.Show(body, championName);
 		});
 	}
 	public void OnPointerExit(PointerEventData eventData) {
