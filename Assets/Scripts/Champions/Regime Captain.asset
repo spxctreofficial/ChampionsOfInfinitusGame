@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
   m_Name: Regime Captain
   m_EditorClassIdentifier: 
-  name: Regime Captain
+  championName: Regime Captain
   avatar: {fileID: 21300000, guid: 542ac847b3459cb428e503f441d44c4b, type: 3}
   description: The Regime Captain oversees his squadron, using his leadership abilities
     to strike the enemy on the Regime's command effectively.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
   m_Name: Sensei
   m_EditorClassIdentifier: 
-  name: Sensei
+  championName: Sensei
   avatar: {fileID: 21300000, guid: efba448be4095154aa154f40c01351e6, type: 3}
   description: The master of martial arts and hand-to-hand combat, and a skilled
     expert of dozens of melee weapons, Sensei's knowledge of the art of combat is
@@ -29,3 +29,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c84b82114f255524e80f552ac7c40be5, type: 2}
   - {fileID: 11400000, guid: eff0d2aa010284344a37b2aa26cbf318, type: 2}
   - {fileID: 11400000, guid: 39ff1e6c7791502439b1cfc1f24bde14, type: 2}
+  unlockability: 0
+  shopCost: 0

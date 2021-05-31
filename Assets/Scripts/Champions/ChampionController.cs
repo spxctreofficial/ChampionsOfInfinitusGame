@@ -22,6 +22,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public Image championImage;
 	[HideInInspector]
 	public TMP_Text nameText, healthText, cardsText, abilityFeed;
+	public ChampionParticleController championParticleController;
 
 	// Identification & Basic Information
 	[HideInInspector]
@@ -117,7 +118,6 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		currentTarget = null;
 		attackingCard = null;
 		isUltReady = false;
-
 	}
 
 	/// <summary>
@@ -384,4 +384,6 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 		transform.localPosition = originalPos;
 	}
+	
+	
 }
