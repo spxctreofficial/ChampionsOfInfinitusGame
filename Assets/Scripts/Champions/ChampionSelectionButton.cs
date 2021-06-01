@@ -55,7 +55,14 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 			body += "\n" + championComponent.attackName + " (Attack): " + championComponent.attackDamage + " " + attackType() + " Damage" +
 			        "\nAbilities:";
 
-			foreach (var ability in championComponent.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
+			switch (championComponent.abilities.Count) {
+				case 0:
+					body += " None";
+					break;
+				default:
+					foreach (var ability in championComponent.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
+					break;
+			}
 
 			TooltipSystem.instance.Show(body, championComponent.championName);
 		});

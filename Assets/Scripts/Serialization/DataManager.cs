@@ -2,19 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour {
+	// Singleton
 	public static DataManager instance;
 	
+	// Content Lists
 	public ChampionIndex championIndex = new ChampionIndex();
+	public MapIndex mapIndex = new MapIndex();
 
+	// Serialization Variables
 	private string saveFolder;
 	private int goldAmount = 0;
 	private List<Champion> ownedChampions = new List<Champion>();
-
+	
 	public int GoldAmount {
 		get => goldAmount;
 		set {
@@ -44,13 +47,13 @@ public class DataManager : MonoBehaviour {
 		Load();
 		Save();
 	}
-
 	private void Start() {
 		championIndex.champions.Sort((x, y) => x.shopCost.CompareTo(y.shopCost));
 	}
 
+	// Serialization Methods
 	public void Save() {
-		OwnedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
+		if (OwnedChampions.Count != 0) OwnedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
 		SaveObject saveObject = new SaveObject {
 			goldAmount = goldAmount,
 			ownedChampions = ownedChampions
@@ -76,6 +79,7 @@ public class DataManager : MonoBehaviour {
 		if (ownedChampions.Count == 0) ownedChampions.Add(championIndex.champions[0]);
 	}
 
+	// Class that stores serialized variables to save and load progress
 	private class SaveObject {
 		public int goldAmount;
 		public List<Champion> ownedChampions;

@@ -44,6 +44,7 @@ public class ChampionShopButton : MonoBehaviour {
 		DataManager.instance.Save();
 		AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
 		UpdateInformation();
+		Debug.Log("PURCHASE SUCCESSFUL!");
 		
 		CancelPurchase();
 	}
@@ -53,8 +54,6 @@ public class ChampionShopButton : MonoBehaviour {
 		// Updates information
 		avatar.sprite = champion.avatar;
 		goldCostText.text = champion.shopCost.ToString();
-
-		Debug.Log("PURCHASE SUCCESSFUL!" + DataManager.instance.OwnedChampions);
 
 		foreach (var champion in DataManager.instance.OwnedChampions) {
 			if (champion != this.champion) continue;

@@ -11,13 +11,20 @@ public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEn
 
 
 public class GameController : MonoBehaviour {
+	// Singleton
 	public static GameController instance;
+	
+	// GameController Enums
 	public enum Difficulty { Noob, Novice, Warrior, Champion }
 	public enum Gamemodes { Duel, Competitive2v2, FFA }
 
+	// Current Game Phase
 	public GamePhase gamePhase;
+	
+	// Card Index Reference
 	public CardIndex cardIndex;
 
+	// Panels References
 	public GameObject gameArea;
 	public GameObject gameEndArea;
 	public GameObject discardArea;
@@ -26,6 +33,7 @@ public class GameController : MonoBehaviour {
 	public GameObject difficultySelectionConfig;
 	public Hand playerHand;
 
+	// Prefab References
 	public GameObject championTemplate;
 	public GameObject abilityTemplate;
 	public GameObject handPrefab;
@@ -34,25 +42,34 @@ public class GameController : MonoBehaviour {
 	public GameObject championSelectionButtonPrefab;
 	public GameObject difficultySelectionButtonPrefab;
 
+	// UI-Specific References
 	public TMP_Text playerActionTooltip;
 	public TMP_Text phaseIndicator;
 	public ConfirmButton confirmButton;
 	public GambleButton gambleButton;
 	public Button endTurnButton;
 
-	[HideInInspector]
-	public List<ChampionController> champions = new List<ChampionController>();
-	public Champion playerChampion;
+	// Champion Configuration Variables
 	[Range(2, 4)]
 	public int players;
-	public List<Champion> championIndex = new List<Champion>();
-	public List<Map> mapIndex = new List<Map>();
+	[HideInInspector]
+	public List<ChampionController> champions = new List<ChampionController>();
+	[HideInInspector]
+	public Champion playerChampion;
+	
+	// Map Configuration Variables
+	[HideInInspector]
 	public Map currentMap;
+	
+	// Difficulty Configuration Variables
 	public Difficulty difficulty;
 	[HideInInspector]
 	public bool hasChosenDifficulty;
 
+	// Gamemode Configuration Variables
 	public Gamemodes gamemodes;
+	
+	// In-game Variables
 	public int roundsElapsed = 0;
 
 	private IEnumerator currentPhaseRoutine;
@@ -65,12 +82,10 @@ public class GameController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-
 	private void Start() {
 		cardIndex.PopulatePlayingCardsList();
 		StartCoroutine(GameStart());
 	}
-
 	private void Update() {
 		
 		// Prunes DiscardArea
@@ -127,7 +142,7 @@ public class GameController : MonoBehaviour {
 			if (i != 0) {
 				while (champion == playerChampion || champion == null) {
 					Debug.Log("boop");
-					champion = championIndex[Random.Range(0, championIndex.Count)];
+					champion = DataManager.instance.championIndex.champions[Random.Range(0, DataManager.instance.championIndex.champions.Count)];
 				}
 			}
 			
@@ -490,20 +505,23 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	/// <returns></returns>
 	private IEnumerator GamePrep() {
+		// Resets variables to prevent memory leaks.
 		playerChampion = null;
 		currentMap = null;
 		hasChosenDifficulty = false;
 
+		// Map Selection Config
 		gameArea.SetActive(false);
 		mapSelectionConfig.SetActive(true);
 
-		foreach (var map in mapIndex) {
+		foreach (var map in DataManager.instance.mapIndex.maps) {
 			var mapSelectionButton = Instantiate(mapSelectionButtonPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<MapSelectionButton>();
 			mapSelectionButton.mapComponent = map;
 			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform.GetChild(0), false);
 		}
 		yield return new WaitUntil(() => currentMap != null);
 
+		// Champion Selection Config
 		mapSelectionConfig.SetActive(false);
 		championSelectionConfig.SetActive(true);
 
@@ -514,6 +532,7 @@ public class GameController : MonoBehaviour {
 		}
 		yield return new WaitUntil(() => playerChampion != null);
 
+		// Difficulty Selection Config
 		championSelectionConfig.SetActive(false);
 		difficultySelectionConfig.SetActive(true);
 
