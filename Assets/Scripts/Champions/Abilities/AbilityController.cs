@@ -53,6 +53,10 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	}
 
 	// Triggers
+	/// <summary>
+	/// Checks for abilities on start of Beginning Phase.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator OnBeginningPhase() {
 		switch (ability.abilityID) {
 			case "QuickAssist":
@@ -61,9 +65,17 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities on start of Action Phase.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator OnActionPhase() {
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities on start of End Phase.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator OnEndPhase() {
 		switch (ability.abilityID) {
 			case "Rejuvenation":
@@ -72,10 +84,20 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities when calculating the next turn.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator OnNextTurnCalculate() {
 		yield break;
 	}
 
+	/// <summary>
+	/// Checks for abilities when `dealtTo` is dealt a card.
+	/// </summary>
+	/// <param name="card"></param>
+	/// <param name="dealtTo"></param>
+	/// <returns></returns>
 	public IEnumerator OnDeal(Card card, ChampionController dealtTo) {
 		switch (ability.abilityID) {
 			case "HopliteTradition":
@@ -84,9 +106,29 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities when this ability's champion is damaged.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <returns></returns>
 	public IEnumerator OnDamage(int amount) {
 		yield break;
 	}
+	/// <summary>
+	/// Checks for ability when `damagedChampion` is damaged.
+	/// </summary>
+	/// <param name="damagedChampion"></param>
+	/// <param name="amount"></param>
+	/// <returns></returns>
+	public IEnumerator OnDamage(ChampionController damagedChampion, int amount) {
+		yield break;
+	}
+	/// <summary>
+	/// Checks for abilities, then returns a bonus that is added on to incoming damage.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <param name="damageType"></param>
+	/// <returns></returns>
 	public int DamageCalculationBonus(int amount, DamageType damageType) {
 		switch (ability.abilityID) {
 			case "HopliteShield":
@@ -96,6 +138,11 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 
 	}
+	/// <summary>
+	/// Checks for abilities when this ability's champion is healed.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <returns></returns>
 	public IEnumerator OnHeal(int amount) {
 		switch (ability.abilityID) {
 			case "QuickHeal":
@@ -104,13 +151,38 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		}
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities when `healedChampion` is healed.
+	/// </summary>
+	/// <param name="healedChampion"></param>
+	/// <param name="amount"></param>
+	/// <returns></returns>
+	public IEnumerator OnHeal(ChampionController healedChampion, int amount) {
+		yield break;
+	}
+	/// <summary>
+	/// Checks for abilities when this ability right before this ability's champion dies.
+	/// </summary>
+	/// <returns></returns>
 	public IEnumerator OnDeath() {
 		yield break;
 	}
 
+	/// <summary>
+	/// Checks for abilities when this ability's champion calculates the result of a combat as the attacker.
+	/// </summary>
+	/// <param name="attackingCard"></param>
+	/// <param name="defendingCard"></param>
+	/// <returns></returns>
 	public IEnumerator OnCombatCalculationAttacker(Card attackingCard, Card defendingCard) {
 		yield break;
 	}
+	/// <summary>
+	/// Checks for abilities when this ability's champion calculates the result of a combat as the defender.
+	/// </summary>
+	/// <param name="attackingCard"></param>
+	/// <param name="defendingCard"></param>
+	/// <returns></returns>
 	public IEnumerator OnCombatCalculationDefender(Card attackingCard, Card defendingCard) {
 		switch (ability.abilityID) {
 			case "Bojutsu":

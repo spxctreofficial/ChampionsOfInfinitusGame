@@ -188,6 +188,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
+		foreach (ChampionController champion in GameController.instance.champions) {
+			if (champion == this || champion.isDead) continue;
+			foreach (Transform child in abilityPanel.panel.transform) {
+				var ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnDamage(this, amount));
+			}
+		}
 	}
 	/// <summary>
 	/// Heals this ChampionController.
@@ -206,6 +213,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		foreach (Transform child in abilityPanel.panel.transform) {
 			var ability = child.GetComponent<AbilityController>();
 			yield return StartCoroutine(ability.OnHeal(amount));
+		}
+		foreach (ChampionController champion in GameController.instance.champions) {
+			if (champion == this || champion.isDead) continue;
+			foreach (Transform child in abilityPanel.panel.transform) {
+				var ability = child.GetComponent<AbilityController>();
+				yield return StartCoroutine(ability.OnHeal(this, amount));
+			}
 		}
 	}
 	/// <summary>
