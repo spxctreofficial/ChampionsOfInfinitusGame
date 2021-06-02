@@ -53,7 +53,13 @@ public class DataManager : MonoBehaviour {
 
 	// Serialization Methods
 	public void Save() {
+		// Sort & save owned champions by their ID.
 		if (OwnedChampions.Count != 0) OwnedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
+		List<string> ownedChampions = new List<string>();
+		foreach (var champion in OwnedChampions) {
+			ownedChampions.Add(champion.championID);
+		}
+		
 		SaveObject saveObject = new SaveObject {
 			goldAmount = goldAmount,
 			ownedChampions = ownedChampions
@@ -73,15 +79,21 @@ public class DataManager : MonoBehaviour {
 
 		// Sets Values
 		goldAmount = loadedSaveObject.goldAmount;
-		ownedChampions = loadedSaveObject.ownedChampions;
+		foreach (var id in loadedSaveObject.ownedChampions) {
+			foreach (var champion in championIndex.champions) {
+				if (champion.championID != id) continue;
+				OwnedChampions.Add(champion);
+			}
+		}
 		
 		// Special Behavior
+		Debug.Log(ownedChampions.Count);
 		if (ownedChampions.Count == 0) ownedChampions.Add(championIndex.champions[0]);
 	}
 
 	// Class that stores serialized variables to save and load progress
 	private class SaveObject {
 		public int goldAmount;
-		public List<Champion> ownedChampions;
+		public List<string> ownedChampions;
 	}
 }

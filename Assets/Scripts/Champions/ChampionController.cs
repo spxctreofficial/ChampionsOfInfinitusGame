@@ -28,6 +28,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public string championName;
 	[HideInInspector]
+	public string championID;
+	[HideInInspector]
 	public Sprite avatar;
 	[HideInInspector]
 	public string description;
@@ -83,6 +85,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		// Identification & Basic Information
 		championName = champion.championName;
 		name = champion.championName;
+		championID = champion.championID;
 		avatar = champion.avatar;
 		description = champion.description;
 		gender = champion.gender;

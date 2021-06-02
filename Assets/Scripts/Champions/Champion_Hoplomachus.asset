@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
-  m_Name: Hoplomachus
+  m_Name: Champion_Hoplomachus
   m_EditorClassIdentifier: 
   championName: Hoplomachus
   avatar: {fileID: 21300000, guid: 1b37e05cbf3a8314bbde2d109fb11885, type: 3}

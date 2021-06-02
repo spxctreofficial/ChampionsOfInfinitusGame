@@ -6,6 +6,7 @@ using UnityEngine;
 public class Champion : ScriptableObject {
 	// Identification
 	public string championName;
+	public string championID;
 	public Sprite avatar;
 	[TextArea(3, 15)]
 	public string description;
