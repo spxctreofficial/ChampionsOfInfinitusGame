@@ -87,7 +87,6 @@ public class DataManager : MonoBehaviour {
 		}
 		
 		// Special Behavior
-		Debug.Log(ownedChampions.Count);
 		if (ownedChampions.Count == 0) ownedChampions.Add(championIndex.champions[0]);
 	}
 

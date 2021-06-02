@@ -94,12 +94,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		// References
 		championButton = gameObject.GetComponent<Button>();
-		championImage = gameObject.GetComponent<Image>();
+		championImage = transform.GetChild(0).GetComponent<Image>();
 		championImage.sprite = avatar;
-		nameText = transform.GetChild(0).GetComponent<TMP_Text>();
-		healthText = transform.GetChild(1).GetComponent<TMP_Text>();
-		cardsText = transform.GetChild(2).GetComponent<TMP_Text>();
-		abilityFeed = transform.GetChild(3).GetComponent<TMP_Text>();
+		nameText = transform.GetChild(1).GetComponent<TMP_Text>();
+		healthText = transform.GetChild(2).GetComponent<TMP_Text>();
+		cardsText = transform.GetChild(3).GetComponent<TMP_Text>();
+		abilityFeed = transform.GetChild(4).GetComponent<TMP_Text>();
 
 		// Statistics
 		maxHP = champion.maxHP;

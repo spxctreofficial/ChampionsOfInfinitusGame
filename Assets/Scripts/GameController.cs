@@ -180,7 +180,7 @@ public class GameController : MonoBehaviour {
 					champions[1].team = "OpponentTeam";
 					break;
 				case Gamemodes.FFA:
-					champions[i].team = champions[i].championName + i;
+					champions[i].team = champions[i].championID + i;
 					break;
 			}
 

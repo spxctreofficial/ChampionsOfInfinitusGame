@@ -5,7 +5,7 @@
 **/Library
 /[Oo]bj/
 /[Uu]ser[Ss]ettings/
-/[Ss]aves/
+**/[Ss]aves/
 
 # IDE Caches
 **/.idea
