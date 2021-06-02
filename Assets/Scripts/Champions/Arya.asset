@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
   m_Name: Arya
   m_EditorClassIdentifier: 
-  championName: 
-  avatar: {fileID: 0}
-  description: 
-  gender: 0
+  championName: Arya
+  avatar: {fileID: 21300000, guid: 3c04157aaf6a76e44b89e69aa782ebe0, type: 3}
+  description: Known professionally as the Paladin, Arya seeks to continue her father's
+    legacy and bring honor to her family's name and justice to her kingdom's fate.
+    As Castlefel descended into chaos after the Regime's victory in the Great War,
+    Arya gathered the remaining loyal rebels to form the Castlefel Rebellion in a
+    fight against the Regime's tyrannical rule.
+  gender: 1
   faction: 0
   race: 0
-  maxHP: 0
-  currentHP: 0
-  attackDamage: 0
+  maxHP: 165
+  currentHP: 165
+  attackDamage: 30
   attackDamageType: 0
-  attackName: 
+  attackName: Paladin's Bane
   abilities: []
   unlockability: 0
   shopCost: 0

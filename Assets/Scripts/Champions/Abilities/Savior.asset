@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
   m_Name: Savior
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityID: 
-  sprite: {fileID: 0}
-  abilityDescription: 
+  abilityName: Savior
+  abilityID: Savior
+  sprite: {fileID: 21300000, guid: 7308811b26083ce4e9fab02eb083871f, type: 3}
+  abilityDescription: When a champion is about to die, you can play a HEART to heal
+    them and stop them from dying.
   abilityType: 0
-  isExclusiveTo: []
+  isExclusiveTo:
+  - {fileID: 11400000, guid: 6af9060c51bb3eb4b8afdbce492306bd, type: 2}
   customAudioClips: []
