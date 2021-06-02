@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Champion_Sensei
   m_EditorClassIdentifier: 
   championName: Sensei
+  championID: Champion_Sensei
   avatar: {fileID: 21300000, guid: efba448be4095154aa154f40c01351e6, type: 3}
   description: The master of martial arts and hand-to-hand combat, and a skilled
     expert of dozens of melee weapons, Sensei's knowledge of the art of combat is

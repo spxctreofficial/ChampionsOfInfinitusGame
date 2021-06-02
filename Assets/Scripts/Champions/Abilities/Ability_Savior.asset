@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
-  m_Name: Savior
+  m_Name: Ability_Savior
   m_EditorClassIdentifier: 
   abilityName: Savior
-  abilityID: Savior
+  abilityID: Ability_Savior
   sprite: {fileID: 21300000, guid: 7308811b26083ce4e9fab02eb083871f, type: 3}
   abilityDescription: When a champion is about to die, you can play a HEART to heal
     them and stop them from dying.

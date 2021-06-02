@@ -59,7 +59,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <returns></returns>
 	public IEnumerator OnBeginningPhase() {
 		switch (ability.abilityID) {
-			case "QuickAssist":
+			case "Ability_QuickAssist":
 				StartCoroutine(QuickAssist());
 				break;
 		}
@@ -78,7 +78,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <returns></returns>
 	public IEnumerator OnEndPhase() {
 		switch (ability.abilityID) {
-			case "Rejuvenation":
+			case "Ability_Rejuvenation":
 				StartCoroutine(Rejuvenation());
 				break;
 		}
@@ -100,7 +100,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <returns></returns>
 	public IEnumerator OnDeal(Card card, ChampionController dealtTo) {
 		switch (ability.abilityID) {
-			case "HopliteTradition":
+			case "Ability_HopliteTradition":
 				StartCoroutine(HopliteTradition(card, dealtTo));
 				break;
 		}
@@ -131,7 +131,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <returns></returns>
 	public int DamageCalculationBonus(int amount, DamageType damageType) {
 		switch (ability.abilityID) {
-			case "HopliteShield":
+			case "Ability_HopliteShield":
 				return HopliteShield(amount, damageType);
 			default:
 				return 0;
@@ -145,7 +145,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <returns></returns>
 	public IEnumerator OnHeal(int amount) {
 		switch (ability.abilityID) {
-			case "QuickHeal":
+			case "Ability_QuickHeal":
 				StartCoroutine(QuickHeal(amount));
 				break;
 		}
@@ -158,6 +158,11 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	/// <param name="amount"></param>
 	/// <returns></returns>
 	public IEnumerator OnHeal(ChampionController healedChampion, int amount) {
+		switch (ability.abilityID) {
+			case "Ability_Smite":
+				StartCoroutine(Smite(amount));
+				break;
+		}
 		yield break;
 	}
 	/// <summary>
@@ -257,6 +262,20 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Healing for 5.");
 		yield return StartCoroutine(champion.Heal(5, false));
 		champion.ShowAbilityFeed(ability.abilityName, 2f);
+	}
+	private IEnumerator Smite(int amount) {
+		if (!IsExclusive()) yield break;
+		
+		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ".");
+		foreach (var champion in GameController.instance.champions) {
+			if (champion.isDead || champion == this.champion || champion.team == this.champion.team) continue;
+			if (!(Random.Range(0f, 1f) < 0.5f) && GameController.instance.champions.IndexOf(champion) != GameController.instance.champions.Count - 1) continue;
+			
+			yield return StartCoroutine(champion.Damage(amount, DamageType.Lightning, this.champion, true));
+			AudioController.instance.Play("Smite");
+			this.champion.ShowAbilityFeed(ability.abilityName, 2f);
+			break;
+		}
 	}
 
 

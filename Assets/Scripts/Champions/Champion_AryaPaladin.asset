@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Champion_AryaPaladin
   m_EditorClassIdentifier: 
   championName: Arya
-  championID: 
+  championID: Champion_AryaPaladin
   avatar: {fileID: 21300000, guid: 3c04157aaf6a76e44b89e69aa782ebe0, type: 3}
   description: Known professionally as the Paladin, Arya seeks to continue her father's
     legacy and bring honor to her family's name and justice to her kingdom's fate.
@@ -28,6 +28,8 @@ MonoBehaviour:
   attackDamage: 30
   attackDamageType: 0
   attackName: Paladin's Bane
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: e7ef8c78073f4504298b1cbaede2673c, type: 2}
+  - {fileID: 11400000, guid: 400f7743b174cd34ca585ab66b2188b7, type: 2}
   unlockability: 0
-  shopCost: 0
+  shopCost: 65000

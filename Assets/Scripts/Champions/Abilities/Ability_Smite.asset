@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
-  m_Name: Hoplite Shield
+  m_Name: Ability_Smite
   m_EditorClassIdentifier: 
-  abilityName: Hoplite Shield
-  abilityID: HopliteShield
+  abilityName: Smite
+  abilityID: Ability_Smite
   sprite: {fileID: 21300000, guid: 7308811b26083ce4e9fab02eb083871f, type: 3}
-  abilityDescription: 'A 20% chance to negate incoming damage by half.
-
-    If the
-    damage is fatal, the chance increases to 50%.'
-  abilityType: 3
+  abilityDescription: Upon healing, deal the amount healed of lightning damage to
+    a random opponent.
+  abilityType: 0
   isExclusiveTo:
-  - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
+  - {fileID: 11400000, guid: 6af9060c51bb3eb4b8afdbce492306bd, type: 2}
   customAudioClips: []

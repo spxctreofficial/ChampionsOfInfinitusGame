@@ -90,6 +90,15 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Lightning
+    clip: {fileID: 8300000, guid: d79ade944ce03664bb8e610dd21e6ff2, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: Unblockable1
     clip: {fileID: 8300000, guid: e5f5140a5fb363a48b03a44357a07a38, type: 3}
     volume: 0.3
@@ -101,6 +110,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Heal
     clip: {fileID: 8300000, guid: 7f5dd42291c04f0459f9d6a058b7aae7, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Smite
+    clip: {fileID: 8300000, guid: 74b8e567924db594fbedfe207e9daef4, type: 3}
     volume: 0.3
     volumeVariance: 0
     pitch: 1

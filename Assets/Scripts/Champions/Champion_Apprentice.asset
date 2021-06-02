@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Champion_Apprentice
   m_EditorClassIdentifier: 
   championName: Apprentice
+  championID: Champion_Apprentice
   avatar: {fileID: 21300000, guid: 8225b41c586c4894e8c675a856aab3db, type: 3}
   description: Under the enduring training of Sensei, the Apprentice is well-prepared
     to duel and defeat armed opponents with his supportive abilities and wooden staff.

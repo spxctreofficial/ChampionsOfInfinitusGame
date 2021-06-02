@@ -140,7 +140,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	/// <param name="source"></param>
 	/// <param name="abilityCheck"></param>
 	/// <returns></returns>
-	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool abilityCheck = true) {
+	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool silent = false, bool abilityCheck = true) {
 		var currentHPCache = currentHP;
 		foreach (Transform child in abilityPanel.panel.transform) {
 			var ability = child.GetComponent<AbilityController>();
@@ -154,29 +154,30 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		switch (damageType) {
 			case DamageType.Melee:
 				magnitude = 20f;
-				AudioController.instance.Play("Sword" + Random.Range(1, 3));
+				if (!silent) AudioController.instance.Play("Sword" + Random.Range(1, 3));
 				break;
 			case DamageType.Ranged:
 				magnitude = 12f;
 				break;
 			case DamageType.Fire:
 				magnitude = 8f;
-				AudioController.instance.Play("FireDamage1");
+				if (!silent) AudioController.instance.Play("FireDamage1");
 				break;
 			case DamageType.Lightning:
 				magnitude = 15f;
+				if (!silent) AudioController.instance.Play("Lightning");
 				break;
 			case DamageType.Shadow:
 				magnitude = 10f;
-				AudioController.instance.Play("Unblockable1");
+				if (!silent) AudioController.instance.Play("Unblockable1");
 				break;
 			case DamageType.Unblockable:
 				magnitude = 5f;
-				AudioController.instance.Play("Unblockable1");
+				if (!silent) AudioController.instance.Play("Unblockable1");
 				break;
 			default:
 				magnitude = 5f;
-				AudioController.instance.Play("Unblockable1");
+				if (!silent) AudioController.instance.Play("Unblockable1");
 				break;
 
 		}
@@ -271,7 +272,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	private void TextUpdater() {
 		nameText.text = championName;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
-		cardsText.text = hand.transform.childCount.ToString();
+		if (hand != null) cardsText.text = hand.transform.childCount.ToString();
 		if (currentHP == 0) {
 			healthText.color = new Color32(100, 100, 100, 255);
 			return;

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
-  m_Name: Hoplite Tradition
+  m_Name: Ability_Bojutsu
   m_EditorClassIdentifier: 
-  abilityName: Hoplite Tradition
-  abilityID: HopliteTradition
+  abilityName: Bojutsu
+  abilityID: Ability_Bojutsu
   sprite: {fileID: 21300000, guid: 7308811b26083ce4e9fab02eb083871f, type: 3}
-  abilityDescription: A 50% chance to heal for 20 when another champion is dealt
-    a Queen or higher.
-  abilityType: 0
+  abilityDescription: During defense, if an opponent attacks you with J or higher,
+    the value is attack has a disadvantage of 1. (K = Q, Q = J, J = 10)
+  abilityType: 3
   isExclusiveTo:
-  - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
+  - {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be, type: 2}
+  - {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
   customAudioClips: []
