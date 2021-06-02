@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
@@ -320,6 +321,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		});
 	}
 
+	// Pointer Events
 	public void OnClick() {
 		foreach (var champion in GameController.instance.champions) {
 
@@ -402,6 +404,4 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 		transform.localPosition = originalPos;
 	}
-	
-	
 }

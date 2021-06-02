@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour {
 	public GameObject championSelectionConfig;
 	public GameObject difficultySelectionConfig;
 	public Hand playerHand;
+	public List<ChampionSlot> slots = new List<ChampionSlot>();
 
 	// Prefab References
 	public GameObject championTemplate;
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour {
 	public GameObject mapSelectionButtonPrefab;
 	public GameObject championSelectionButtonPrefab;
 	public GameObject difficultySelectionButtonPrefab;
+	public GameObject championSlotPrefab;
 
 	// UI-Specific References
 	public TMP_Text playerActionTooltip;
@@ -87,6 +89,9 @@ public class GameController : MonoBehaviour {
 		StartCoroutine(GameStart());
 	}
 	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Alpha0)) {
+			Spawn(DataManager.instance.championIndex.champions[0]);
+		}
 		
 		// Prunes DiscardArea
 		if (discardArea.transform.childCount > 7) Destroy(discardArea.transform.GetChild(0).gameObject);
@@ -118,25 +123,17 @@ public class GameController : MonoBehaviour {
 		}
 		for (var i = 0; i < players; i++) {
 			Champion champion = null;
-			Vector2 championControllerVector2;
-			Vector2 handVector2;
-			switch (i) {
-				case 1:
-					championControllerVector2 = new Vector2(864, (float)412.5);
-					handVector2 = new Vector2(0, 800);
-					break;
-				case 2:
-					championControllerVector2 = new Vector2(-864, (float)412.5);
-					handVector2 = new Vector2(0, 1030);
-					break;
-				case 3:
-					championControllerVector2 = gamemodes == Gamemodes.Competitive2v2 ? new Vector2(864, (float)-213.25) : new Vector2(0, 408);
-					handVector2 = new Vector2(0, -800);
-					break;
-				default:
-					champion = playerChampion;
-					championControllerVector2 = new Vector2(-864, (float)-213.25);
-					handVector2 = new Vector2(0, 0);
+			ChampionSlot slot = null;
+			switch (gamemodes) {
+				case Gamemodes.FFA:
+					switch (i) {
+						case 0:
+							slot = slots[i];
+							break;
+						default:
+							slot = slots[i + 1];
+							break;
+					}
 					break;
 			}
 			if (i != 0) {
@@ -145,34 +142,20 @@ public class GameController : MonoBehaviour {
 					champion = DataManager.instance.championIndex.champions[Random.Range(0, DataManager.instance.championIndex.champions.Count)];
 				}
 			}
-			
-			// Instantiation of Champions
-			var championController = Instantiate(championTemplate, championControllerVector2, Quaternion.identity).GetComponent<ChampionController>();
-			championController.champion = champion;
-			champions.Add(championController);
-			champions[i].transform.SetParent(gameArea.transform, false);
+			else {
+				champion = playerChampion;
+			}
 
-			// Instantiation of the Champions' Hands
-			var hand = i == 0 ? playerHand : Instantiate(handPrefab, handVector2, Quaternion.identity).GetComponent<Hand>();
-			hand.transform.SetParent(gameArea.transform, false);
-
-			// Instantiation of the Abilities (separate objects)
-			var abilityPanel = Instantiate(abilityPanelPrefab, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityPanel>();
-			abilityPanel.transform.SetParent(gameArea.transform, false);
-			
-			// Hand & Ability Setup
-			yield return null;
-			hand.SetOwner(championController);
-			abilityPanel.Setup(championController);
+			var championController = Spawn(champion, slot, i == 0);
 
 			// Configuring & Setting Teams
 			switch (gamemodes) {
 				case Gamemodes.Competitive2v2:
-					if (i == 3 || champions[i].isPlayer) {
-						champions[i].team = "PlayerTeam";
+					if (i == 3 || championController.isPlayer) {
+						championController.team = "PlayerTeam";
 					}
 					else {
-						champions[i].team = "OpponentTeam";
+						championController.team = "OpponentTeam";
 					}
 					break;
 				case Gamemodes.Duel:
@@ -180,12 +163,9 @@ public class GameController : MonoBehaviour {
 					champions[1].team = "OpponentTeam";
 					break;
 				case Gamemodes.FFA:
-					champions[i].team = champions[i].championID + i;
+					championController.team = championController.championID + i;
 					break;
 			}
-
-			// Deal Starting Hand
-			champions[i].hand.Deal(4, false, true, false);
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
 		StatisticManager.instance.StartTrackingStatistics();
@@ -536,7 +516,7 @@ public class GameController : MonoBehaviour {
 		championSelectionConfig.SetActive(false);
 		difficultySelectionConfig.SetActive(true);
 
-		foreach (var difficulty in (Difficulty[])System.Enum.GetValues(typeof(Difficulty))) {
+		foreach (var difficulty in (Difficulty[])Enum.GetValues(typeof(Difficulty))) {
 			var difficultySelectionButton = Instantiate(difficultySelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<DifficultySelectionButton>();
 			difficultySelectionButton.difficulty = difficulty;
 			difficultySelectionButton.transform.SetParent(difficultySelectionConfig.transform.GetChild(0), false);
@@ -548,6 +528,48 @@ public class GameController : MonoBehaviour {
 
 		difficultySelectionConfig.SetActive(false);
 		gameArea.SetActive(true);
+		
+		// Configuring Slots
+		ChampionSlot.CreateDefaultSlots();
+	}
+	
+	// Spawn Methods
+	/// <summary>
+	/// Spawns and returns a new ChampionController.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <param name="slot"></param>
+	/// <param name="spawnAsPlayer"></param>
+	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false) {
+		// Prerequisites
+		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
+		
+		// Spawning
+		var championController = Instantiate(championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		championController.champion = champion;
+		champions.Add(championController);
+		slot.SetOccupant(championController);
+		championController.transform.SetParent(gameArea.transform, false);
+		
+		// Champion Dependencies
+		var hand = spawnAsPlayer ? playerHand : Instantiate(handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		hand.transform.SetParent(gameArea.transform, false);
+
+		var abilityPanel = Instantiate(abilityPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityPanel>();
+		abilityPanel.transform.SetParent(gameArea.transform, false);
+
+		// Dependency Setup
+		IEnumerator Setup() {
+			yield return null;
+			hand.SetOwner(championController);
+			abilityPanel.Setup(championController);
+			
+			championController.hand.Deal(4, false, true, false);
+		}
+		StartCoroutine(Setup());
+
+		// Returning the Spawned Champion
+		return championController;
 	}
 
 	private void PruneDiscardArea() {
