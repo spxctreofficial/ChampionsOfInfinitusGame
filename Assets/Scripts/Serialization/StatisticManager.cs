@@ -114,7 +114,7 @@ public class StatisticManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
-		bonusRewardLog.text = "Health Remaining Bonus (" + playerChampionStatistic.remainingHP / playerChampionStatistic.champion.maxHP + "%)\n+" + totalHealthRemainingBonus;
+		bonusRewardLog.text = "Health Remaining Bonus (" + (playerChampionStatistic.remainingHP / playerChampionStatistic.champion.maxHP) * 100 + "%)\n+" + totalHealthRemainingBonus;
 		AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 		Untween();

@@ -295,8 +295,9 @@ public class CardLogicController : MonoBehaviour {
 			case true:
 				GameController.instance.playerActionTooltip.text = "The " + attacker.championName + " is attacking the " + defender.championName + ". Defend with a card.";
 				GameController.instance.gambleButton.Show();
-
-				yield return new WaitUntil(() => defender.hasDefended && defender.defendingCard != null);
+				yield return new WaitUntil(() => defender.defendingCard != null);
+				GameController.instance.gambleButton.Hide();
+				yield return new WaitUntil(() => defender.hasDefended);
 				break;
 			case false:
 				defender.defendingCard = defender.hand.GetCard("Defense");
@@ -427,7 +428,7 @@ public class CardLogicController : MonoBehaviour {
 				if (champion.hand.GetCardCount() - 1 != 0 || champion.currentTarget.hand.GetCardCount() != 0 && Random.Range(0f, 1f) < 0.25f) {
 					champion.attackingCard = champion.hand.GetAttackingCard(card);
 				}
-				else if (champion.attackingCard == null) {
+				if (champion.attackingCard == null) {
 					switch (GameController.instance.difficulty) {
 						case GameController.Difficulty.Warrior:
 						case GameController.Difficulty.Champion:
@@ -445,6 +446,7 @@ public class CardLogicController : MonoBehaviour {
 						    && !gambled) {
 							Debug.Log("The " + champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
+							yield break;
 						}
 						break;
 					case GameController.Difficulty.Champion:
@@ -455,6 +457,7 @@ public class CardLogicController : MonoBehaviour {
 						    && !gambled) {
 							Debug.Log("The " + champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
+							yield break;
 						}
 						break;
 				}
@@ -525,8 +528,8 @@ public class CardLogicController : MonoBehaviour {
 		}
 	}
 	private IEnumerator ClubLogic(Card card, ChampionController champion) {
-		yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 		yield return StartCoroutine(champion.hand.Discard(card));
+		yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 	}
 	private IEnumerator DiamondLogic(Card card, ChampionController champion) {
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8)) {
@@ -558,11 +561,12 @@ public class CardLogicController : MonoBehaviour {
 					if (wontUse) break;
 				}
 
+				champion.diamondsBeforeExhaustion--;
+				yield return StartCoroutine(champion.hand.Discard(card));
+				
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.hand.Deal(2));
 				}
-				champion.diamondsBeforeExhaustion--;
-				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 2:
 				champion.diamondsBeforeExhaustion--;
@@ -615,11 +619,12 @@ public class CardLogicController : MonoBehaviour {
 					if (wontUse) break;
 				}
 
+				champion.diamondsBeforeExhaustion--;
+				yield return StartCoroutine(champion.hand.Discard(card));
+				
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.hand.Deal());
 				}
-				champion.diamondsBeforeExhaustion--;
-				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 4:
 				if (!champion.isPlayer) {
@@ -714,24 +719,24 @@ public class CardLogicController : MonoBehaviour {
 			case 6:
 			case 7:
 			case 8:
-				yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 				yield return StartCoroutine(champion.hand.Discard(card));
+				yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 				break;
 			case 9:
 				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
+				champion.diamondsBeforeExhaustion--;
+				yield return StartCoroutine(champion.hand.Discard(card));
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.Heal(10));
 				}
-				champion.diamondsBeforeExhaustion--;
-				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 10:
 				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.9f)) break;
+				champion.diamondsBeforeExhaustion--;
+				yield return StartCoroutine(champion.hand.Discard(card));
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.Heal(20));
 				}
-				champion.diamondsBeforeExhaustion--;
-				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 11:
 				if (!champion.isPlayer) {

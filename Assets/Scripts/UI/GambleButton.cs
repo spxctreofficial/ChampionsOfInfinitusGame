@@ -32,6 +32,7 @@ public class GambleButton : MonoBehaviour {
 							player.defendingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
 							player.defendingCard.ToggleCardVisibility(true);
 							player.defendingCard.transform.SetParent(GameController.instance.discardArea.transform, false);
+							player.hasDefended = true;
 							isBlocking = true;
 						}
 						break;
