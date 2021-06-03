@@ -40,6 +40,7 @@ public class DataManager : MonoBehaviour {
 		}
 		else {
 			Destroy(gameObject);
+			return;
 		}
 
 		saveFolder = Application.dataPath + "/Saves";
@@ -58,7 +59,9 @@ public class DataManager : MonoBehaviour {
 		List<string> ownedChampions = new List<string>();
 		foreach (var champion in OwnedChampions) {
 			ownedChampions.Add(champion.championID);
+			Debug.Log(champion.championID);
 		}
+		Debug.Log(ownedChampions);
 		
 		SaveObject saveObject = new SaveObject {
 			goldAmount = goldAmount,
