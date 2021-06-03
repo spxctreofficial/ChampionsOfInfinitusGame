@@ -206,7 +206,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		foreach (var selectedChampion in GameController.instance.champions) {
 			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction || selectedChampion.faction == Champion.Faction.Undefined) continue;
 
-			champion.hand.Deal(1);
+			yield return StartCoroutine(champion.hand.Deal(1));
 			Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Dealing that champion a card!");
 			champion.ShowAbilityFeed(ability.abilityName, 2f);
 		}

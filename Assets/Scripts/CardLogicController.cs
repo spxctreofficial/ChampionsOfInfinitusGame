@@ -261,32 +261,6 @@ public class CardLogicController : MonoBehaviour {
 
 		GameController.instance.StartEndPhase(champion);
 	}
-
-	public IEnumerator Deal(Hand hand, int amount = 4, bool flip = false, bool animate = true) {
-		for (var x = 0; x < amount; x++) {
-			var card = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-			card.transform.SetParent(hand.transform, false);
-			if (flip) card.ToggleCardVisibility();
-			if (animate) {
-				card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
-			}
-			yield return new WaitForSeconds(0.25f);
-		}
-	}
-	/// <summary>
-	/// Discard a specified card from an instance of authority.
-	/// </summary>
-	/// <param name="card"></param>
-	/// <param name="flip"></param>
-	/// <param name="animate"></param>
-	public void Discard(Card card, bool flip = false, bool animate = true) {
-		card.transform.SetParent(GameController.instance.discardArea.transform, false);
-		if (flip) card.ToggleCardVisibility();
-		if (!animate) return;
-		card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-		StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
-	}
 	
 	/// <summary>
 	/// Calculates the result of combat, as well as who should take damage and checking for activated abilities.
@@ -310,10 +284,10 @@ public class CardLogicController : MonoBehaviour {
 		// Discarding the attacking card.
 		switch (attacker.isPlayer) {
 			case true:
-				if (!GameController.instance.gambleButton.isBlocking) Discard(attacker.attackingCard);
+				if (!GameController.instance.gambleButton.isBlocking) yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard));
 				break;
 			case false:
-				Discard(attacker.attackingCard, true);
+				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
 				break;
 		}
 		// Wait for or get the defending card.
@@ -333,10 +307,10 @@ public class CardLogicController : MonoBehaviour {
 		// Discards defending card.
 		if (!defender.isPlayer) {
 			yield return new WaitForSeconds(Random.Range(0.5f, 3f));
-			Discard(defender.defendingCard);
+			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
 		}
 		else {
-			Discard(defender.defendingCard);
+			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
 			defender.defendingCard.ToggleCardVisibility();
 		}
 		defender.GetMatchStatistic().totalDefends++;
@@ -409,7 +383,7 @@ public class CardLogicController : MonoBehaviour {
 				GameController.instance.playerActionTooltip.text = "Choose another card to represent your attack, or choose a target.";
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 
 				// Waits for all required components to attack to be filled in by player, then allows the attack to be confirmed.
 				yield return new WaitUntil(() => champion.attackingCard != null && champion.currentTarget != null);
@@ -430,7 +404,7 @@ public class CardLogicController : MonoBehaviour {
 				foreach (var targetChampion in GameController.instance.champions) {
 					if (targetChampion == champion || targetChampion.isDead || targetChampion.team == champion.team) continue;
 
-					var chance = targetChampion.hand.transform.childCount <= 3 ? 1f : 0.85f;
+					var chance = targetChampion.hand.GetCardCount() <= 3 ? 1f : 0.85f;
 					if ((targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) || targetChampion == champion.currentNemesis) {
 						champion.currentTarget = targetChampion;
 						break;
@@ -450,7 +424,7 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				// Attacking Card
-				if (champion.hand.transform.childCount - 1 != 0 || champion.currentTarget.hand.transform.childCount != 0 && Random.Range(0f, 1f) < 0.25f) {
+				if (champion.hand.GetCardCount() - 1 != 0 || champion.currentTarget.hand.GetCardCount() != 0 && Random.Range(0f, 1f) < 0.25f) {
 					champion.attackingCard = champion.hand.GetAttackingCard(card);
 				}
 				else if (champion.attackingCard == null) {
@@ -477,7 +451,7 @@ public class CardLogicController : MonoBehaviour {
 						var f = champion.currentTarget.currentHP <= 0.25f * champion.currentTarget.maxHP ? 0.4f : 0.75f;
 						if ((champion.attackingCard.cardValue <= card.cardValue ||
 						     champion.attackingCard.cardValue <= 9 ||
-						     champion.hand.transform.childCount <= 2 && Random.Range(0f, 1f) < f)
+						     champion.hand.GetCardCount() <= 2 && Random.Range(0f, 1f) < f)
 						    && !gambled) {
 							Debug.Log("The " + champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
@@ -486,7 +460,7 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				// Confirming Attack
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;
 				champion.GetMatchStatistic().totalAttacks++;
@@ -513,7 +487,7 @@ public class CardLogicController : MonoBehaviour {
 			default:
 				StartCoroutine(champion.Heal(5));
 				champion.heartsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 7:
 			case 8:
@@ -525,7 +499,7 @@ public class CardLogicController : MonoBehaviour {
 
 				StartCoroutine(champion.Heal(10));
 				champion.heartsBeforeExhaustion -= 2;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 10:
 			case 11:
@@ -536,7 +510,7 @@ public class CardLogicController : MonoBehaviour {
 				}
 				StartCoroutine(champion.Heal(20));
 				champion.heartsBeforeExhaustion -= 3;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 13:
 				if (champion.heartsBeforeExhaustion - 3 < 0) {
@@ -546,15 +520,13 @@ public class CardLogicController : MonoBehaviour {
 
 				StartCoroutine(champion.Heal(40));
 				champion.heartsBeforeExhaustion -= 3;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 		}
 	}
 	private IEnumerator ClubLogic(Card card, ChampionController champion) {
-		champion.hand.Deal(1, false, true, false);
-		Discard(card);
-
-		yield break;
+		yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
+		yield return StartCoroutine(champion.hand.Discard(card));
 	}
 	private IEnumerator DiamondLogic(Card card, ChampionController champion) {
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardValue < 5 || card.cardValue > 8)) {
@@ -572,12 +544,12 @@ public class CardLogicController : MonoBehaviour {
 						case GameController.Difficulty.Novice:
 							break;
 						case GameController.Difficulty.Warrior:
-							if (champion.hand.transform.childCount >= 4) wontUse = true;
+							if (champion.hand.GetCardCount() >= 4) wontUse = true;
 							break;
 						case GameController.Difficulty.Champion:
 							foreach (var selectedChampion in GameController.instance.champions) {
 								if (selectedChampion == champion || selectedChampion.isDead
-								                                 || selectedChampion.hand.transform.childCount < 5 && selectedChampion.currentHP - champion.attackDamage > 0) continue;
+								                                 || selectedChampion.hand.GetCardCount() < 5 && selectedChampion.currentHP - champion.attackDamage > 0) continue;
 								wontUse = true;
 								break;
 							}
@@ -587,19 +559,19 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				foreach (var selectedChampion in GameController.instance.champions) {
-					selectedChampion.hand.Deal(2);
+					yield return StartCoroutine(selectedChampion.hand.Deal(2));
 				}
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 2:
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 
 				var tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (var selectedChampion in GameController.instance.champions) {
-					if (selectedChampion.hand.transform.childCount == 0 || selectedChampion == champion || selectedChampion.isDead) continue;
+					if (selectedChampion.hand.GetCardCount() == 0 || selectedChampion == champion || selectedChampion.isDead) continue;
 					if (selectedChampion.isPlayer) {
 						selectedChampion.discardAmount = 1;
 						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
@@ -615,7 +587,7 @@ public class CardLogicController : MonoBehaviour {
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
-					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
+					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) yield return StartCoroutine(selectedChampion.hand.Discard(selectedChampion.hand.GetCard("Lowest")));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -629,12 +601,12 @@ public class CardLogicController : MonoBehaviour {
 						case GameController.Difficulty.Novice:
 							break;
 						case GameController.Difficulty.Warrior:
-							if (champion.hand.transform.childCount >= 3) wontUse = true;
+							if (champion.hand.GetCardCount() >= 3) wontUse = true;
 							break;
 						case GameController.Difficulty.Champion:
 							foreach (var selectedChampion in GameController.instance.champions) {
 								if (selectedChampion == champion || selectedChampion.isDead
-								                                 || selectedChampion.hand.transform.childCount < 5 && selectedChampion.currentHP - champion.attackDamage > 0) continue;
+								                                 || selectedChampion.hand.GetCardCount() < 5 && selectedChampion.currentHP - champion.attackDamage > 0) continue;
 								wontUse = true;
 								break;
 							}
@@ -644,10 +616,10 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				foreach (var selectedChampion in GameController.instance.champions) {
-					selectedChampion.hand.Deal();
+					yield return StartCoroutine(selectedChampion.hand.Deal());
 				}
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 4:
 				if (!champion.isPlayer) {
@@ -689,20 +661,20 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 
 				tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (var selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
-					if (selectedChampion.hand.transform.childCount == 0) {
+					if (selectedChampion.hand.GetCardCount() == 0) {
 						Debug.Log("The " + selectedChampion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						continue;
 					}
 
 					if (selectedChampion.isPlayer) {
-						selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 2);
+						selectedChampion.discardAmount = Mathf.Min(champion.hand.GetCardCount(), 2);
 						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
 						GameController.instance.confirmButton.Show();
 						GameController.instance.confirmButton.textBox.text = "Skip";
@@ -723,14 +695,14 @@ public class CardLogicController : MonoBehaviour {
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 					var chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.75f : 0.5f;
-					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.transform.childCount == 0) {
+					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 20 > 0 || selectedChampion.hand.GetCardCount() == 0) {
 						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						continue;
 					}
 
-					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 2);
+					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.GetCardCount(), 2);
 
-					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
+					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) yield return StartCoroutine(selectedChampion.hand.Discard(selectedChampion.hand.GetCard("Lowest")));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -742,8 +714,8 @@ public class CardLogicController : MonoBehaviour {
 			case 6:
 			case 7:
 			case 8:
-				champion.hand.Deal(1, false, true, false);
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 9:
 				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
@@ -751,7 +723,7 @@ public class CardLogicController : MonoBehaviour {
 					yield return StartCoroutine(selectedChampion.Heal(10));
 				}
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 10:
 				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.9f)) break;
@@ -759,7 +731,7 @@ public class CardLogicController : MonoBehaviour {
 					yield return StartCoroutine(selectedChampion.Heal(20));
 				}
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 				break;
 			case 11:
 				if (!champion.isPlayer) {
@@ -801,7 +773,7 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 
 				foreach (var selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
@@ -851,20 +823,20 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				champion.diamondsBeforeExhaustion--;
-				Discard(card);
+				yield return StartCoroutine(champion.hand.Discard(card));
 
 				tooltipCache = GameController.instance.playerActionTooltip.text;
 
 				foreach (var selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
-					if (selectedChampion.hand.transform.childCount == 0) {
+					if (selectedChampion.hand.GetCardCount() == 0) {
 						Debug.Log("The " + selectedChampion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						continue;
 					}
 
 					if (selectedChampion.isPlayer) {
-						selectedChampion.discardAmount = Mathf.Min(champion.hand.transform.childCount, 4);
+						selectedChampion.discardAmount = Mathf.Min(champion.hand.GetCardCount(), 4);
 						GameController.instance.playerActionTooltip.text = "Please discard " + selectedChampion.discardAmount + ".";
 						GameController.instance.confirmButton.Show();
 						GameController.instance.confirmButton.textBox.text = "Skip";
@@ -885,14 +857,14 @@ public class CardLogicController : MonoBehaviour {
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
 					var chance = selectedChampion.currentHP >= 0.75f * selectedChampion.maxHP ? 0.5f : 0.15f;
-					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.transform.childCount == 0) {
+					if (Random.Range(0f, 1f) < chance && selectedChampion.currentHP - 40 > 0 || selectedChampion.hand.GetCardCount() == 0) {
 						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						continue;
 					}
 
-					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.transform.childCount, 4);
+					selectedChampion.discardAmount = Mathf.Min(selectedChampion.hand.GetCardCount(), 4);
 
-					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) Discard(selectedChampion.hand.GetCard("Lowest"));
+					for (var discarded = 0; discarded < selectedChampion.discardAmount; discarded++) yield return StartCoroutine(selectedChampion.hand.Discard(selectedChampion.hand.GetCard("Lowest")));
 
 					selectedChampion.discardAmount = 0;
 				}
@@ -909,7 +881,7 @@ public class CardLogicController : MonoBehaviour {
 		switch (type) {
 			case "Normal":
 
-				Discard(card);
+				StartCoroutine(player.hand.Discard(card));
 				player.discardAmount--;
 
 				switch (player.discardAmount) {
@@ -923,7 +895,7 @@ public class CardLogicController : MonoBehaviour {
 				break;
 			case "Forced":
 
-				Discard(card);
+				StartCoroutine(player.hand.Discard(card));
 				player.discardAmount--;
 				GameController.instance.confirmButton.Hide();
 

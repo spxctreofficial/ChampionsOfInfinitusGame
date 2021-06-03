@@ -186,7 +186,7 @@ public class GameController : MonoBehaviour {
 		// Updates Text
 		phaseIndicator.text = "Beginning Phase - " + champion.championName;
 		playerActionTooltip.text = "The " + champion.championName + "'s Turn: Beginning Phase";
-		champion.hand.Deal(2); // Deals to the player
+		yield return StartCoroutine(champion.hand.Deal(2)); // Deals to the player
 
 		// Beginning Phase Ability Check
 		foreach (var selectedChampion in champions) {
@@ -275,7 +275,7 @@ public class GameController : MonoBehaviour {
 		// Updates Text
 		phaseIndicator.text = "End Phase - " + champion.championName;
 		playerActionTooltip.text = "The " + champion.championName + "'s Turn: End Phase";
-		int childCount = champion.hand.transform.childCount;
+		int childCount = champion.hand.GetCardCount();
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
 		// End Phase Ability Check
@@ -297,7 +297,7 @@ public class GameController : MonoBehaviour {
 				break;
 			case false:
 				if (champion.discardAmount != 0) {
-					for (var discarded = 0; discarded < champion.discardAmount; discarded++) CardLogicController.instance.Discard(champion.hand.GetCard("Lowest"));
+					for (var discarded = 0; discarded < champion.discardAmount; discarded++) yield return StartCoroutine(champion.hand.Discard(champion.hand.GetCard("Lowest")));
 					champion.discardAmount = 0;
 				}
 				break;
@@ -564,7 +564,7 @@ public class GameController : MonoBehaviour {
 			hand.SetOwner(championController);
 			abilityPanel.Setup(championController);
 			
-			championController.hand.Deal(4, false, true, false);
+			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
 		}
 		StartCoroutine(Setup());
 

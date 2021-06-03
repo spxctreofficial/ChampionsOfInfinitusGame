@@ -247,7 +247,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		foreach (Transform child in hand.transform) {
 			var card = child.gameObject.GetComponent<Card>();
-			CardLogicController.instance.Discard(card);
+			yield return StartCoroutine(hand.Discard(card));
 		}
 	}
 	/// <summary>
@@ -273,7 +273,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	private void TextUpdater() {
 		nameText.text = championName;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
-		if (hand != null) cardsText.text = hand.transform.childCount.ToString();
+		if (hand != null) cardsText.text = hand.GetCardCount().ToString();
 		if (currentHP == 0) {
 			healthText.color = new Color32(100, 100, 100, 255);
 			return;
@@ -372,7 +372,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 			foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
 
-			body += "\n Cards: " + hand.transform.childCount;
+			body += "\n Cards: " + hand.GetCardCount();
 			TooltipSystem.instance.Show(body, championName);
 		});
 	}
