@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using UnityEditor;
 using Random = UnityEngine.Random;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
@@ -64,7 +63,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	// [HideInInspector]
 	public string team;
 	[HideInInspector]
-	public ChampionController currentTarget, currentNemesis;
+	public ChampionController currentTarget, currentNemesis, currentOwner;
 	[HideInInspector]
 	public Card attackingCard, defendingCard;
 	[HideInInspector]
@@ -112,9 +111,11 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		isPlayer = this == GameController.instance.champions[0];
 		isMyTurn = false;
 		isAttacking = false;
+		currentlyTargeted = false;
 		hasDefended = false;
 		isDead = false;
 		currentTarget = null;
+		currentNemesis = null;
 		attackingCard = null;
 		isUltReady = false;
 	}
@@ -221,6 +222,46 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 				yield return StartCoroutine(ability.OnHeal(this, amount));
 			}
 		}
+	}
+	/// <summary>
+	/// Spawns and returns a ChampionController as a minion of this ChampionController.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <param name="slot"></param>
+	/// <param name="spawnAsPlayer"></param>
+	/// <returns></returns>
+	public ChampionController SpawnAsMinion(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false) {
+		// Prerequisites
+		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
+
+		// Spawning
+		var championController = Instantiate(GameController.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		championController.champion = champion;
+		championController.team = team;
+		championController.currentOwner = this;
+		GameController.instance.champions.Add(championController);
+		slot.SetOccupant(championController);
+		championController.transform.SetParent(GameController.instance.gameArea.transform, false);
+
+		// Champion Dependencies
+		var hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(GameController.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		hand.transform.SetParent(GameController.instance.gameArea.transform, false);
+
+		var abilityPanel = Instantiate(GameController.instance.abilityPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityPanel>();
+		abilityPanel.transform.SetParent(GameController.instance.gameArea.transform, false);
+
+		// Dependency Setup
+		IEnumerator Setup() {
+			yield return null;
+			hand.SetOwner(championController);
+			abilityPanel.Setup(championController);
+
+			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
+		}
+		StartCoroutine(Setup());
+
+		// Returning the Spawned Champion
+		return championController;
 	}
 	/// <summary>
 	/// Checks if this ChampionController is dead.

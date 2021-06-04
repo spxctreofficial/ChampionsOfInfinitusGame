@@ -449,7 +449,7 @@ public class GameController : MonoBehaviour {
 				var aliveChampions = new List<ChampionController>();
 
 				foreach (var champion in champions) {
-					if (champion.isDead) continue;
+					if (champion.isDead || champion.currentOwner != null) continue;
 					aliveChampions.Add(champion);
 				}
 
