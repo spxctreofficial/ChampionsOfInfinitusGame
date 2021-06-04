@@ -158,6 +158,8 @@ MonoBehaviour:
   logo: {fileID: 455752872}
   confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,
     type: 3}
+  miniConfirmDialogPrefab: {fileID: 7144247891518153869, guid: d000c1fa21fb93240b1701bb2ffd71e7,
+    type: 3}
 --- !u!4 &310021314
 Transform:
   m_ObjectHideFlags: 0

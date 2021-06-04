@@ -46,19 +46,24 @@ MonoBehaviour:
   gamePhase: 0
   cardIndex: {fileID: 0}
   gameArea: {fileID: 0}
+  gameEndArea: {fileID: 0}
+  discardArea: {fileID: 0}
   mapSelectionConfig: {fileID: 0}
   championSelectionConfig: {fileID: 0}
   difficultySelectionConfig: {fileID: 0}
-  gameEndArea: {fileID: 0}
   playerHand: {fileID: 0}
-  discardArea: {fileID: 0}
+  slots: []
   championTemplate: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
     type: 3}
-  abilityPrefab: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
+  abilityTemplate: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
     type: 3}
-  handPrefab: {fileID: 4946762797089187214, guid: 0af8b325fa7cdb145a8b1dbeb367d869,
+  handPrefab: {fileID: 4946762797089187214, guid: bc3109111313bd741b38917c5750758a,
     type: 3}
   abilityPanelPrefab: {fileID: 9144223140626729513, guid: a67bd67a0d080ec4d95c6ec44ea6b865,
+    type: 3}
+  confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,
+    type: 3}
+  miniConfirmDialogPrefab: {fileID: 7144247891518153869, guid: d000c1fa21fb93240b1701bb2ffd71e7,
     type: 3}
   mapSelectionButtonPrefab: {fileID: 751758506132937138, guid: e03449a36ab010a4aa34c382f10f452c,
     type: 3}
@@ -66,21 +71,16 @@ MonoBehaviour:
     type: 3}
   difficultySelectionButtonPrefab: {fileID: 2439229251068088308, guid: a69e0bec6e3718e4283e02eeb22bb41f,
     type: 3}
+  championSlotPrefab: {fileID: 5131478056581540558, guid: 184ff8f329e956e4e9dab68774275d37,
+    type: 3}
   playerActionTooltip: {fileID: 0}
+  phaseIndicator: {fileID: 0}
   confirmButton: {fileID: 0}
+  gambleButton: {fileID: 0}
   endTurnButton: {fileID: 0}
-  champions: []
-  championIndex:
-  - {fileID: 11400000, guid: 0e59d7aaf4948124d9d3598a54e66410, type: 2}
-  - {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e, type: 2}
-  - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
-  - {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be, type: 2}
-  playerChampion: {fileID: 0}
   players: 2
-  mapIndex:
-  - {fileID: 11400000, guid: 2bba4392610a3fa4893f1cb5dfa5f1af, type: 2}
-  - {fileID: 11400000, guid: 14d9a9fc05e29f64e8b7467314f01278, type: 2}
-  - {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880, type: 2}
+  champions: []
+  playerChampion: {fileID: 0}
   currentMap: {fileID: 0}
   difficulty: 0
   hasChosenDifficulty: 0

@@ -16,6 +16,7 @@ public class MainMenuController : MonoBehaviour {
 	public Image logo;
 
 	public GameObject confirmDialogPrefab;
+	public GameObject miniConfirmDialogPrefab;
 	
 	private void Awake() {
 		if (instance == null)
@@ -56,7 +57,14 @@ public class MainMenuController : MonoBehaviour {
 	/// Quits the game.
 	/// </summary>
 	public void QuitGame() {
-		Application.Quit();
+		var confirmDialog = ConfirmDialog.CreateNew_Mini("QUIT", "Are you sure you want to quit the game?", () => {
+			ConfirmDialog.instance.Hide();
+		}, () => {
+			DataManager.instance.Save();
+			Application.Quit();
+		});
+		confirmDialog.transform.SetParent(mainPanel.transform, false);
+		confirmDialog.GetComponent<RectTransform>().localPosition = new Vector2(0, -270);
 	}
 
 	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude) {

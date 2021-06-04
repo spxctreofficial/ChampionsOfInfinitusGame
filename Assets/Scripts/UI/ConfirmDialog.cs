@@ -41,6 +41,14 @@ public class ConfirmDialog : MonoBehaviour {
         instance = confirmDialog;
         return confirmDialog;
     }
+    public static ConfirmDialog CreateNew_Mini(string title, string description, UnityAction negativeButtonAction, UnityAction positiveButtonAction, string negativeButtonText = "CANCEL", string positiveButtonText = "CONFIRM", bool tweenToView = true) {
+        var confirmDialogPrefab = MainMenuController.instance == null ? GameController.instance.miniConfirmDialogPrefab : MainMenuController.instance.miniConfirmDialogPrefab;
+        var confirmDialog = Instantiate(confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
+        
+        confirmDialog.Setup(title, description, negativeButtonAction, positiveButtonAction, negativeButtonText, positiveButtonText, tweenToView);
+        instance = confirmDialog;
+        return confirmDialog;
+    }
     
     /// <summary>
     /// Sets up a Confirm Dialog's properties.
