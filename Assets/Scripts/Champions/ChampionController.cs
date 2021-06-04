@@ -17,12 +17,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public Hand hand;
 	[HideInInspector]
 	public AbilityPanel abilityPanel;
-	[HideInInspector]
-	public Button championButton;
-	[HideInInspector]
-	public Image championImage;
-	[HideInInspector]
-	public TMP_Text nameText, healthText, cardsText, abilityFeed;
+	public ChampionAbilityFeed abilityFeed;
+	[SerializeField]
+	private Button championButton;
+	[SerializeField]
+	private Image championImage;
+	[SerializeField]
+	private TMP_Text nameText, healthText, cardsText;
 	public ChampionParticleController championParticleController;
 
 	// Identification & Basic Information
@@ -94,13 +95,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		race = champion.race;
 
 		// References
-		championButton = gameObject.GetComponent<Button>();
-		championImage = transform.GetChild(0).GetComponent<Image>();
 		championImage.sprite = avatar;
-		nameText = transform.GetChild(1).GetComponent<TMP_Text>();
-		healthText = transform.GetChild(2).GetComponent<TMP_Text>();
-		cardsText = transform.GetChild(3).GetComponent<TMP_Text>();
-		abilityFeed = transform.GetChild(4).GetComponent<TMP_Text>();
 
 		// Statistics
 		maxHP = champion.maxHP;
@@ -295,31 +290,31 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		return StatisticManager.instance.matchStatistics[index];
 	}
 
-	/// <summary>
-	/// Show the AbilityFeed.
-	/// </summary>
-	/// <param name="text"></param>
-	/// <param name="duration"></param>
-	public void ShowAbilityFeed(string text, float duration = 5f) {
-		if (abilityFeed.text != text || !abilityFeed.IsActive()) {
-			abilityFeed.gameObject.SetActive(true);
-			abilityFeed.text = text;
-		}
-
-		abilityFeed.transform.localScale = Vector3.zero;
-		LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
-			// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
-			LeanTween.delayedCall(duration, HideAbilityFeed);
-		});
-	}
-	/// <summary>
-	/// Hide the AbilityFeed.
-	/// </summary>
-	public void HideAbilityFeed() {
-		LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
-			abilityFeed.gameObject.SetActive(false);
-		});
-	}
+	// /// <summary>
+	// /// Show the AbilityFeed.
+	// /// </summary>
+	// /// <param name="text"></param>
+	// /// <param name="duration"></param>
+	// public void ShowAbilityFeed(string text, float duration = 5f) {
+	// 	if (abilityFeed.text != text || !abilityFeed.IsActive()) {
+	// 		abilityFeed.gameObject.SetActive(true);
+	// 		abilityFeed.text = text;
+	// 	}
+	//
+	// 	abilityFeed.transform.localScale = Vector3.zero;
+	// 	LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
+	// 		// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
+	// 		LeanTween.delayedCall(duration, HideAbilityFeed);
+	// 	});
+	// }
+	// /// <summary>
+	// /// Hide the AbilityFeed.
+	// /// </summary>
+	// public void HideAbilityFeed() {
+	// 	LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
+	// 		abilityFeed.gameObject.SetActive(false);
+	// 	});
+	// }
 
 	// Pointer Events
 	public void OnClick() {

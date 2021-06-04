@@ -208,7 +208,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 			yield return StartCoroutine(champion.hand.Deal(1));
 			Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Dealing that champion a card!");
-			champion.ShowAbilityFeed(ability.abilityName, 2f);
+			champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 		}
 	}
 	private IEnumerator QuickHeal(int amount) {
@@ -217,7 +217,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(champion.Heal(amount, false));
-		champion.ShowAbilityFeed(ability.abilityName, 2f);
+		champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 	}
 	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo) {
 		if (!IsExclusive()) yield break;
@@ -228,7 +228,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		if (Random.Range(0f, 1f) < 0.5f && champion.currentHP != champion.maxHP) {
 			Debug.Log("Check succeeded! Healing " + champion.championName + " for 20.");
 			yield return StartCoroutine(champion.Heal(20, false));
-			champion.ShowAbilityFeed(ability.abilityName, 2f);
+			champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 			yield break;
 		}
 		Debug.Log("Check failed! Nothing happens.");
@@ -242,7 +242,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		var chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
 		if (Random.Range(0f, 1f) < chance) {
 			AudioController.instance.Play("ShieldBlock");
-			champion.ShowAbilityFeed(ability.abilityName, 2f);
+			champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 			return -amount / 2;
 		}
 		return 0;
@@ -253,7 +253,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		attackingCard.cardValue--;
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.cardValue);
-		champion.ShowAbilityFeed(ability.abilityName);
+		champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName);
 	}
 	private IEnumerator Rejuvenation() {
 		if (!IsExclusive()) yield break;
@@ -261,7 +261,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Healing for 5.");
 		yield return StartCoroutine(champion.Heal(5, false));
-		champion.ShowAbilityFeed(ability.abilityName, 2f);
+		champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 	}
 	private IEnumerator Smite(int amount) {
 		if (!IsExclusive()) yield break;
@@ -273,7 +273,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 			
 			yield return StartCoroutine(champion.Damage(amount, DamageType.Lightning, this.champion, true));
 			AudioController.instance.Play("Smite");
-			this.champion.ShowAbilityFeed(ability.abilityName, 2f);
+			this.champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 			break;
 		}
 	}
