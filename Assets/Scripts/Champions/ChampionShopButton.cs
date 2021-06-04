@@ -26,27 +26,21 @@ public class ChampionShopButton : MonoBehaviour {
 	private void StartPurchase() {
 		if (DataManager.instance.GoldAmount - int.Parse(goldCostText.text) < 0) return;
 
-		var confirmDialog = Instantiate(MainMenuController.instance.confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
+		var confirmDialog = ConfirmDialog.CreateNew("Purchase", "Are you sure you want to purchase this item for " + goldCostText.text + " gold?", () => {
+			ConfirmDialog.instance.Hide();
+		}, () => {
+			DataManager.instance.GoldAmount -= champion.shopCost;
+			DataManager.instance.OwnedChampions.Add(champion);
+			DataManager.instance.Save();
+			AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
+			UpdateInformation();
+			Debug.Log("PURCHASE SUCCESSFUL!");
+			
+			ConfirmDialog.instance.Hide();
+		});
 		confirmDialog.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
-		confirmDialog.Setup("Purchase", "Are you sure you want to purchase this item for " + goldCostText.text + " gold?", CancelPurchase, ConfirmPurchase, true);
 
 
-	}
-	private void CancelPurchase() {
-		foreach (Transform child in MainMenuController.instance.shopPanel.transform) {
-			if (child == transform || child.GetComponent<ConfirmDialog>() == null) continue;
-			child.GetComponent<ConfirmDialog>().Hide();
-		}
-	}
-	private void ConfirmPurchase() {
-		DataManager.instance.GoldAmount -= champion.shopCost;
-		DataManager.instance.OwnedChampions.Add(champion);
-		DataManager.instance.Save();
-		AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
-		UpdateInformation();
-		Debug.Log("PURCHASE SUCCESSFUL!");
-		
-		CancelPurchase();
 	}
 	
 	
