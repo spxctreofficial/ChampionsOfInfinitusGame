@@ -170,6 +170,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		playerActionTooltip.text = "Welcome to the Land of Heroes. Players: " + champions.Count;
+		AudioController.instance.Play(gameArea.GetComponent<AudioSource>());
 		StatisticManager.instance.StartTrackingStatistics();
 
 		yield return new WaitForSeconds(2f);
@@ -335,11 +336,12 @@ public class GameController : MonoBehaviour {
 				CardLogicController.instance.StopAllCoroutines();
 				TooltipSystem.instance.StopAllCoroutines();
 
-				float cachedVolume = gameArea.GetComponent<AudioSource>().volume;
+				AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
+				float cachedVolume = musicSource.volume;
 				for (var i = 0; i < 180; i++) {
 
-					if (gameArea.GetComponent<AudioSource>().volume > 0.5f * cachedVolume) {
-						gameArea.GetComponent<AudioSource>().volume -= 0.5f / 180;
+					if (musicSource.volume > 0.5f * cachedVolume) {
+						musicSource.volume -= 0.5f / 180;
 					}
 					yield return null;
 				}
@@ -363,6 +365,7 @@ public class GameController : MonoBehaviour {
 		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
 		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
 			Destroy(StatisticManager.instance);
+			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
 			SceneManager.LoadScene("MainMenu");
 		});
 	}
@@ -478,7 +481,6 @@ public class GameController : MonoBehaviour {
 	private void SetMap() {
 		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
 		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
-		gameArea.GetComponent<AudioSource>().Play();
 	}
 
 	/// <summary>
