@@ -425,6 +425,7 @@ MonoBehaviour:
   team: 
   currentTarget: {fileID: 0}
   currentNemesis: {fileID: 0}
+  currentOwner: {fileID: 0}
   attackingCard: {fileID: 0}
   defendingCard: {fileID: 0}
   isUltReady: 0
