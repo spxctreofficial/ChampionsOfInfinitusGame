@@ -73,5 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dcb8cb584e4cafa6f47fee8e87610a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedEntries: []
+  abilityFeedEntries: []
+  stateFeedEntries: []
   abilityFeedEntryPrefab: {fileID: 6606551844829264020, guid: 0de8477aa6629c5468f0099f400f193b,
+    type: 3}
+  stateFeedEntryPrefab: {fileID: 6606551844829264020, guid: 7c258ac947bfb604ca82e67c4fca5177,
     type: 3}
