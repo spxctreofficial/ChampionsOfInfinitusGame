@@ -723,7 +723,11 @@ public class CardLogicController : MonoBehaviour {
 				yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 				break;
 			case 9:
-				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
+				switch (champion.isPlayer) {
+					case false:
+						if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
+						break;
+				}
 				champion.diamondsBeforeExhaustion--;
 				yield return StartCoroutine(champion.hand.Discard(card));
 				foreach (var selectedChampion in GameController.instance.champions) {
@@ -731,7 +735,11 @@ public class CardLogicController : MonoBehaviour {
 				}
 				break;
 			case 10:
-				if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.9f)) break;
+				switch (champion.isPlayer) {
+					case false:
+						if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.9f)) break;
+						break;
+				}
 				champion.diamondsBeforeExhaustion--;
 				yield return StartCoroutine(champion.hand.Discard(card));
 				foreach (var selectedChampion in GameController.instance.champions) {

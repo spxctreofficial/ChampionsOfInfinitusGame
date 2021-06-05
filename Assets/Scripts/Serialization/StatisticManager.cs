@@ -49,15 +49,15 @@ public class StatisticManager : MonoBehaviour {
 		Debug.Log("its being called");
 
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
-		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
-		int successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;
-		int failedAttacksBonus = instance.playerChampionStatistic.failedAttacks;
-		int failedDefendsPenalty = instance.playerChampionStatistic.failedDefends;
+		var successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
+		var successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;
+		var failedAttacksBonus = instance.playerChampionStatistic.failedAttacks;
+		var failedDefendsPenalty = instance.playerChampionStatistic.failedDefends;
 
-		int killCountBonus = instance.playerChampionStatistic.killCount * 100;
-		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
-		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
-		int totalHealthRemainingBonus = (instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP) * 100;
+		var killCountBonus = instance.playerChampionStatistic.killCount * 100;
+		var totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
+		var totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
+		var totalHealthRemainingBonus = instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
 		switch (GameController.instance.difficulty) {
 			case GameController.Difficulty.Noob:
 				initialGoldReward /= 5;
@@ -114,7 +114,7 @@ public class StatisticManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
-		bonusRewardLog.text = "Health Remaining Bonus (" + (playerChampionStatistic.remainingHP / playerChampionStatistic.champion.maxHP) * 100 + "%)\n+" + totalHealthRemainingBonus;
+		bonusRewardLog.text = "Health Remaining Bonus (" + totalHealthRemainingBonus + "%)\n+" + totalHealthRemainingBonus;
 		AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 		Untween();

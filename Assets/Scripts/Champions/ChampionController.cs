@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EZCameraShake;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -179,6 +180,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		}
 		StartCoroutine(ShakeImage(0.2f, magnitude));
+		CameraShaker.Instance.ShakeOnce(magnitude / 4, magnitude / 4, 0.1f, 0.2f);
 
 		isDead = DeathCheck();
 		if (isDead && source != null) source.GetMatchStatistic().killCount++;

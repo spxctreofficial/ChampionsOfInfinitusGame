@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EZCameraShake;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,7 @@ public class WinnerAvatar : MonoBehaviour {
 		LeanTween.delayedCall(1f, () => {
 			LeanTween.scale(GetComponent<RectTransform>(), new Vector3(1, 1, 1), 0.25f).setEaseInOutQuad().setOnComplete(() => {
 				StartCoroutine(ShakeImage(0.25f, 10f));
+				CameraShaker.Instance.ShakeOnce(2f, 1f, 0.1f, 0.25f);
 				LeanTween.scale(GetComponent<RectTransform>(), new Vector3(0.75f, 0.75f, 0.75f), 2.75f).setEaseInOutQuad();
 			});
 			LeanTween.rotate(GetComponent<RectTransform>(), new Vector3(0, 0, 0), 0.25f).setEaseInOutQuad();

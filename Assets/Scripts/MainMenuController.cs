@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EZCameraShake;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,8 +38,11 @@ public class MainMenuController : MonoBehaviour {
 	/// </summary>
 	public void Focus() {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
-		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
 		AudioController.instance.Play(logo.GetComponent<AudioSource>().clip);
+		
+		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
+		CameraShaker.Instance.ShakeOnce(4.5f, 4f, 0.1f, 0.35f);
+		
 		Destroy(overlayCanvas.gameObject);
 		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {
 			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
