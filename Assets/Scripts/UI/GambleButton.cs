@@ -20,7 +20,7 @@ public class GambleButton : MonoBehaviour {
 					case true:
 						if (player.isAttacking && player.isMyTurn && player.attackingCard == null) {
 							player.attackingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-							player.attackingCard.ToggleCardVisibility(true);
+							player.attackingCard.Flip(true);
 							player.attackingCard.transform.SetParent(GameController.instance.discardArea.transform, false);
 							isBlocking = true;
 						}
@@ -30,7 +30,7 @@ public class GambleButton : MonoBehaviour {
 							if (selectedChampion == player || !selectedChampion.isAttacking || selectedChampion.currentTarget != player || selectedChampion.isDead) continue;
 
 							player.defendingCard = Instantiate(GameController.instance.cardIndex.playingCards[Random.Range(0, GameController.instance.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
-							player.defendingCard.ToggleCardVisibility(true);
+							player.defendingCard.Flip(true);
 							player.defendingCard.transform.SetParent(GameController.instance.discardArea.transform, false);
 							player.hasDefended = true;
 							isBlocking = true;

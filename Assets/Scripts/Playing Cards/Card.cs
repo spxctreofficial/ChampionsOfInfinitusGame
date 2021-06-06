@@ -94,8 +94,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	public void CardSelect() {
 		if (CardOfPlayer()) StartCoroutine(CardLogicController.instance.CardSelect(this));
 	}
-	[HideInInspector]
-	public void ToggleCardVisibility(bool doFlipAnimation = false) {
+	public void Flip(bool doFlipAnimation = false) {
 		var image = GetComponent<Image>();
 		if (!isHidden) {
 			isHidden = true;

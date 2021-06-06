@@ -391,7 +391,7 @@ public class GameHandler : MonoBehaviour
         {
             var opponentCard = Instantiate(cardIndex.playingCards[Random.Range(0, cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
             opponentCard.transform.SetParent(opponentArea.transform, false);
-            opponentCard.GetComponent<Card>().ToggleCardVisibility();
+            opponentCard.GetComponent<Card>().Flip();
         }
     }
     public void DealCards(int cards)

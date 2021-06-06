@@ -47,9 +47,9 @@ public class CardLogicController : MonoBehaviour {
 					// When Attacking
 					if (player.isAttacking) {
 						if (GameController.instance.gambleButton.isBlocking) break;
-						if (player.attackingCard != null) player.attackingCard.ToggleCardVisibility(true);
+						if (player.attackingCard != null) player.attackingCard.Flip(true);
 						player.attackingCard = card;
-						card.ToggleCardVisibility(true);
+						card.Flip(true);
 						GameController.instance.playerActionTooltip.text = "Confirm the attack, or change selected card and/or target.";
 						GameController.instance.confirmButton.Show();
 						GameController.instance.gambleButton.Hide();
@@ -82,9 +82,9 @@ public class CardLogicController : MonoBehaviour {
 						if (GameController.instance.gambleButton.isBlocking) break;
 						if (champion.currentTarget != player || !champion.isAttacking) continue;
 
-						if (player.defendingCard != null) player.defendingCard.ToggleCardVisibility(true);
+						if (player.defendingCard != null) player.defendingCard.Flip(true);
 						player.defendingCard = card;
-						card.ToggleCardVisibility(true);
+						card.Flip(true);
 						GameController.instance.playerActionTooltip.text = "Confirm the defense, or change selected card.";
 						GameController.instance.confirmButton.Show();
 					}
@@ -312,10 +312,10 @@ public class CardLogicController : MonoBehaviour {
 		}
 		else {
 			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
-			defender.defendingCard.ToggleCardVisibility();
+			defender.defendingCard.Flip();
 		}
 		defender.GetMatchStatistic().totalDefends++;
-		attacker.attackingCard.ToggleCardVisibility(true);
+		attacker.attackingCard.Flip(true);
 
 		// CombatCalculation Ability heck
 		if (abilityCheck) {

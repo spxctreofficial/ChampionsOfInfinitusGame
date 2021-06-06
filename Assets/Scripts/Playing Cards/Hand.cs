@@ -237,7 +237,7 @@ public class Hand : MonoBehaviour {
 			cards.Add(card);
 		
 			// Extra parameters.
-			if (flip) card.ToggleCardVisibility();
+			if (flip) card.Flip();
 			if (animate) {
 				card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 				StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
@@ -260,7 +260,7 @@ public class Hand : MonoBehaviour {
 		card.owner = owner;
 		cards.Add(card);
 		
-		if (flip) card.ToggleCardVisibility();
+		if (flip) card.Flip();
 		if (animate) {
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
@@ -302,7 +302,7 @@ public class Hand : MonoBehaviour {
 		cards.Remove(card);
 		
 		// Extra parameters.
-		if (flip) card.ToggleCardVisibility();
+		if (flip) card.Flip();
 		if (animate) {
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));

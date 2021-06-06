@@ -19,7 +19,7 @@ public class CardLogicHandler : MonoBehaviour
         PurgePlayArea();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            card.ToggleCardVisibility();
+            card.Flip();
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
@@ -301,7 +301,7 @@ public class CardLogicHandler : MonoBehaviour
                 {
                     attackingCard = Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
                     attackingCardComponent = attackingCard.GetComponent<Card>();
-                    attackingCardComponent.ToggleCardVisibility();
+                    attackingCardComponent.Flip();
                 }
                 else
                 {
@@ -435,7 +435,7 @@ public class CardLogicHandler : MonoBehaviour
         if (opponentCard == null)
 		{
             opponentCard = Instantiate(gameHandler.cardIndex.playingCards[Random.Range(0, gameHandler.cardIndex.playingCards.Count)], new Vector2(0, 0), Quaternion.identity);
-            opponentCard.GetComponent<Card>().ToggleCardVisibility();
+            opponentCard.GetComponent<Card>().Flip();
         }
         opponentCardComponent = opponentCard.GetComponent<Card>();
 
@@ -446,7 +446,7 @@ public class CardLogicHandler : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
-        attackingCardComponent.ToggleCardVisibility(true);
+        attackingCardComponent.Flip(true);
         Discard(opponentCard, true);
 
         if (attackingCardComponent.cardValue > opponentCardComponent.cardValue)
@@ -490,7 +490,7 @@ public class CardLogicHandler : MonoBehaviour
         var attackingCardComponent = attackingCard.GetComponent<Card>();
         var defendingCardComponent = defendingCard.GetComponent<Card>();
 
-        attackingCardComponent.ToggleCardVisibility(true);
+        attackingCardComponent.Flip(true);
 
         if (defendingCardComponent.cardValue > attackingCardComponent.cardValue)
         {
@@ -514,7 +514,7 @@ public class CardLogicHandler : MonoBehaviour
     public void Discard(GameObject card, bool flip = false, bool animate = true)
 	{
         card.transform.SetParent(gameHandler.playArea.transform, false);
-        if (flip) card.GetComponent<Card>().ToggleCardVisibility();
+        if (flip) card.GetComponent<Card>().Flip();
         if (animate)
         {
             card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
