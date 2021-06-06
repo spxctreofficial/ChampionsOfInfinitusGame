@@ -28,10 +28,8 @@ public class StatisticManager : MonoBehaviour {
 	public void StartTrackingStatistics() {
 		foreach (ChampionController champion in GameController.instance.champions) {
 			matchStatistics.Add(new MatchStatistic(champion.champion));
-			Debug.Log(matchStatistics[GameController.instance.champions.IndexOf(champion)].champion);
 		}
 		playerChampionStatistic = matchStatistics[0];
-		Debug.Log(playerChampionStatistic.champion);
 	}
 	public void TrackRemainingStatistics(ChampionController champion) {
 		var index = GameController.instance.champions.IndexOf(champion);

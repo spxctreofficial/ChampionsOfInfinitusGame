@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 
 	// Panels References
 	public GameObject gameArea;
-	public GameObject gameEndArea;
+	public GameObject gameEndArea, gameEndAreaTeam;
 	public GameObject discardArea;
 	public GameObject mapSelectionConfig;
 	public GameObject championSelectionConfig;
@@ -122,6 +122,12 @@ public class GameController : MonoBehaviour {
 			case Gamemodes.Duel:
 				players = 2;
 				Debug.LogWarning("Configured number of players will be replaced with: " + players);
+				break;
+			case Gamemodes.FFA:
+				if (difficulty == Difficulty.Champion) {
+					players++;
+					Debug.Log("Since the difficulty is " + Difficulty.Champion + ", there will be two bots.");
+				}
 				break;
 		}
 		for (var i = 0; i < players; i++) {
@@ -317,37 +323,57 @@ public class GameController : MonoBehaviour {
 	private IEnumerator GameEnd(ChampionController victoriousChampion) {
 		gamePhase = GamePhase.GameEnd;
 
+		TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
+		TMP_Text gameEndTextTeam = gameEndAreaTeam.transform.GetChild(0).GetComponent<TMP_Text>();
+		Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
+		GameObject winnerAvatars = gameEndAreaTeam.transform.GetChild(1).gameObject;
+		GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
+		GameObject rewardPanelTeam = gameEndAreaTeam.transform.GetChild(2).gameObject;
+		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
+		float cachedVolume = musicSource.volume;
+
 		Destroy(playerActionTooltip);
+		foreach (var champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
+		CardLogicController.instance.StopAllCoroutines();
+		TooltipSystem.instance.StopAllCoroutines();
+		StatisticManager.instance.winState = victoriousChampion.isPlayer;
+
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
+				gameEndAreaTeam.SetActive(true);
+
+				gameEndTextTeam.text = victoriousChampion.championName + "'s Team wins!";
+				foreach (var champion in champions) {
+					if (champion.team != victoriousChampion.team) continue;
+					var newWinnerAvatar = Instantiate(winnerAvatar, Vector2.zero, Quaternion.identity).GetComponent<Image>();
+					newWinnerAvatar.sprite = champion.avatar;
+					newWinnerAvatar.transform.SetParent(winnerAvatars.transform, false);
+				}
+				rewardPanelTeam.transform.localPosition = new Vector2(-1920, 0);
+
+				while (musicSource.volume > 0.5f * cachedVolume) {
+					musicSource.volume -= 0.5f * cachedVolume / 180;
+					yield return null;
+				}
+				Debug.Log(musicSource.volume);
+
+				LeanTween.move(winnerAvatars.GetComponent<RectTransform>(), new Vector2(1920, 0), 0.5f).setEaseInOutQuad();
+				LeanTween.move(rewardPanelTeam.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
+					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
+				});
 				break;
 			case Gamemodes.FFA:
 				gameEndArea.SetActive(true);
 
-				TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
-				Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
-				GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
-
 				gameEndText.text = victoriousChampion.championName + " wins!";
 				winnerAvatar.sprite = victoriousChampion.avatar;
-				rewardPanel.transform.localPosition = new Vector3(-1920, 0, 0);
+				rewardPanel.transform.localPosition = new Vector2(-1920, 0);
 
-				foreach (ChampionController champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
-				StatisticManager.instance.winState = victoriousChampion.isPlayer;
-				CardLogicController.instance.StopAllCoroutines();
-				TooltipSystem.instance.StopAllCoroutines();
-
-				AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
-				float cachedVolume = musicSource.volume;
-				for (var i = 0; i < 180; i++) {
-
-					if (musicSource.volume > 0.5f * cachedVolume) {
-						musicSource.volume -= 0.5f / 180;
-					}
+				while (musicSource.volume > 0.5f * cachedVolume) {
+					musicSource.volume -= 0.5f * cachedVolume / 180;
 					yield return null;
 				}
-
-				yield return new WaitForSeconds(4f);
+				Debug.Log(musicSource.volume);
 
 				LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
 				LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
@@ -448,10 +474,27 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	/// <returns></returns>
 	public IEnumerator GameEndCheck() {
+		var aliveChampions = new List<ChampionController>();
 		switch (gamemodes) {
-			case Gamemodes.FFA:
-				var aliveChampions = new List<ChampionController>();
+			case Gamemodes.Competitive2v2:
+				var aliveTeams = new List<string>();
+				foreach (var champion in champions) {
+					switch (champion.isDead) {
+						case false:
+							if (!aliveTeams.Contains(champion.team)) aliveTeams.Add(champion.team);
+							aliveChampions.Add(champion);
+							break;
+					}
+				}
 
+				Debug.Log(aliveChampions.Count);
+				Debug.Log(aliveTeams.Count);
+
+				if (aliveTeams.Count == 1) {
+					StartCoroutine(GameEnd(aliveChampions[Random.Range(0, aliveChampions.Count)]));
+				}
+				break;
+			case Gamemodes.FFA:
 				foreach (var champion in champions) {
 					if (champion.isDead || champion.currentOwner != null) continue;
 					aliveChampions.Add(champion);

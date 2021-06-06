@@ -15,7 +15,6 @@ public class Hand : MonoBehaviour {
 		owner = championController;
 		championController.hand = this;
 
-		Debug.Log(owner.championName);
 		name = owner.championName + "'s Hand";
 	}
 	
@@ -289,10 +288,13 @@ public class Hand : MonoBehaviour {
 	/// <returns></returns>
 	public IEnumerator Discard(Card card, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		// Authority Check
-		if ((!cards.Contains(card) || card.owner != owner) && (card == owner.attackingCard || card == owner.defendingCard)) {
-			Debug.LogError("This hand does not have authority to discard another hand's card!");
-			yield break;
+		if (card != owner.attackingCard || card != owner.defendingCard) {
+			if (!cards.Contains(card) || card.owner != owner) {
+				Debug.LogError("This hand does not have authority to discard another hand's card!");
+				yield break;
+			}
 		}
+		
 		
 		// Sets card to the discard area, removing the card's specified owner, and removing the card from the list of cards from this hand to avoid memory leaks.
 		card.transform.SetParent(GameController.instance.discardArea.transform, false);
