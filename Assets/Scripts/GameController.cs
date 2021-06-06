@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using EZCameraShake;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -55,7 +54,7 @@ public class GameController : MonoBehaviour {
 	public Button endTurnButton;
 
 	// Champion Configuration Variables
-	[Range(2, 4)]
+	[Range(2, 6)]
 	public int players;
 	[HideInInspector]
 	public List<ChampionController> champions = new List<ChampionController>();
