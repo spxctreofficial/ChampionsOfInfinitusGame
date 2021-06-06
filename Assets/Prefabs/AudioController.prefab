@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixerGroup: {fileID: 0}
+  lowPassFilter: {fileID: 0}
   sounds:
   - name: Sword1
     clip: {fileID: 8300000, guid: 4efbd47c059a870429bf8ddd4b34166b, type: 3}
@@ -65,15 +66,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SwordClashing
     clip: {fileID: 8300000, guid: f793492e7cca63a478e75e14117d65c1, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: ShieldBlock
-    clip: {fileID: 8300000, guid: e97ec8514b9ef4d4bb85665b0dc80807, type: 3}
     volume: 0.3
     volumeVariance: 0
     pitch: 1
@@ -110,15 +102,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Heal
     clip: {fileID: 8300000, guid: 7f5dd42291c04f0459f9d6a058b7aae7, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Smite
-    clip: {fileID: 8300000, guid: 74b8e567924db594fbedfe207e9daef4, type: 3}
     volume: 0.3
     volumeVariance: 0
     pitch: 1
@@ -164,15 +147,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MiniClick
     clip: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: GlassBreak
-    clip: {fileID: 8300000, guid: 65ae18e5ce5619d40898e287fa0effac, type: 3}
     volume: 0.3
     volumeVariance: 0
     pitch: 1

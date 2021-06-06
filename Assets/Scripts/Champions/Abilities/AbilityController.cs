@@ -241,7 +241,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		var chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
 		if (Random.Range(0f, 1f) < chance) {
-			AudioController.instance.Play("ShieldBlock");
+			AudioController.instance.Play(ability.customAudioClips[0]);
 			champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 			return -amount / 2;
 		}
@@ -272,7 +272,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 			if (!(Random.Range(0f, 1f) < 0.5f) && GameController.instance.champions.IndexOf(champion) != GameController.instance.champions.Count - 1) continue;
 			
 			yield return StartCoroutine(champion.Damage(amount, DamageType.Lightning, this.champion, true));
-			AudioController.instance.Play("Smite");
+			AudioController.instance.Play(ability.customAudioClips[0]);
 			this.champion.abilityFeed.NewAbilityFeedEntry(ability.abilityName, 2f);
 			break;
 		}
