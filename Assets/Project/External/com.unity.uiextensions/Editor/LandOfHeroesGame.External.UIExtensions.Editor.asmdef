@@ -1,11 +1,12 @@
 {
-    "name": "LandOfHeroesGame.External",
+    "name": "LandOfHeroesGame.External.UIExtensions.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:4c0f12776753fc343a2c31691dbe5151"
+        "GUID:b67d21122c6ddf14ca7f3f9a87f45259"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
