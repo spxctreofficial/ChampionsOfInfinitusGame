@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76ca61494a873f43b98ae3100cee2be, type: 3}
+  m_Name: 5OfClubs
+  m_EditorClassIdentifier: 
+  cardValue: 4
+  cardSuit: 2
+  cardFront: {fileID: 21300000, guid: 92232adcba7d71848999a41c4619d99f, type: 3}
+  cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
+  cardName: 5 of Clubs
+  cardDescription: 'When played normally, trades for another card.
+
+
+    When played
+    in combat, this has a base combat value of 4.'
