@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8947251701174882749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8947251701174882739}
+  - component: {fileID: 8947251701174882738}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8947251701174882739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8947251701174882749}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8947251701174882738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8947251701174882749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0becb61aa923d7e40a7ab2160b34dbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePhase: 0
+  cardIndex: {fileID: 0}
+  gameArea: {fileID: 0}
+  gameEndArea: {fileID: 0}
+  discardArea: {fileID: 0}
+  mapSelectionConfig: {fileID: 0}
+  championSelectionConfig: {fileID: 0}
+  difficultySelectionConfig: {fileID: 0}
+  playerHand: {fileID: 0}
+  slots: []
+  championTemplate: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
+    type: 3}
+  abilityTemplate: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
+    type: 3}
+  handPrefab: {fileID: 4946762797089187214, guid: bc3109111313bd741b38917c5750758a,
+    type: 3}
+  abilityPanelPrefab: {fileID: 9144223140626729513, guid: a67bd67a0d080ec4d95c6ec44ea6b865,
+    type: 3}
+  confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,
+    type: 3}
+  miniConfirmDialogPrefab: {fileID: 7144247891518153869, guid: d000c1fa21fb93240b1701bb2ffd71e7,
+    type: 3}
+  mapSelectionButtonPrefab: {fileID: 751758506132937138, guid: e03449a36ab010a4aa34c382f10f452c,
+    type: 3}
+  championSelectionButtonPrefab: {fileID: 751758506132937138, guid: b8aaa8647ada1d048ac0fcd09bef1d29,
+    type: 3}
+  difficultySelectionButtonPrefab: {fileID: 2439229251068088308, guid: a69e0bec6e3718e4283e02eeb22bb41f,
+    type: 3}
+  championSlotPrefab: {fileID: 5131478056581540558, guid: 184ff8f329e956e4e9dab68774275d37,
+    type: 3}
+  playerActionTooltip: {fileID: 0}
+  phaseIndicator: {fileID: 0}
+  confirmButton: {fileID: 0}
+  gambleButton: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  players: 2
+  champions: []
+  playerChampion: {fileID: 0}
+  currentMap: {fileID: 0}
+  difficulty: 0
+  hasChosenDifficulty: 0
+  gamemodes: 2
+  roundsElapsed: 0

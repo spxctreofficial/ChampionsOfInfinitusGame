@@ -1,3 +1,36 @@
+# Unity Project User-specific Files
 **/Temp
 **/Logs
 **/Build
+**/Library
+/[Oo]bj/
+/[Uu]ser[Ss]ettings/
+**/[Ss]aves/
+
+# IDE Caches
+**/.idea
+**/.vscode
+**/.vs
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+
+# Project Files
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
+  m_Name: Ability_Stealth
+  m_EditorClassIdentifier: 
+  abilityName: Stealth
+  abilityID: Ability_Stealth
+  sprite: {fileID: 21300000, guid: 865ee4a18bc7a4f439d5de3fe6a3851c, type: 3}
+  abilityDescription: Out of this champion's turn, if this champion haven't played
+    a SPADE, HEART, or DIAMOND this turn, they cannot be targeted by an attack.
+  abilityType: 0
+  isExclusiveTo: []
+  customAudioClips:
+  - {fileID: 8300000, guid: e69c0aa441f8eec41a47001ca276ede6, type: 3}
