@@ -34,3 +34,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+
+# Game-Save Files
+*.lohsave
