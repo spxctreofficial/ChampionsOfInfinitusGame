@@ -46,6 +46,18 @@ public class CardLogicController : MonoBehaviour {
 				yield break;
 			}
 		}
+
+		// Exits if the card is not the player's.
+		if (card.owner == null) {
+			TooltipSystem.instance.ShowError("This is not your card!");
+			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+			yield break;
+		}
+		else if (!card.owner.isPlayer) {
+			TooltipSystem.instance.ShowError("This is not your card!");
+			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+			yield break;
+		}
 		
 		switch (GameController.instance.gamePhase) {
 			case GamePhase.BeginningPhase:
@@ -63,7 +75,11 @@ public class CardLogicController : MonoBehaviour {
 					case true:
 						// When Attacking
 						if (player.isAttacking && !player.hasAttacked) {
-							if (GameController.instance.gambleButton.isBlocking) yield break;
+							if (GameController.instance.gambleButton.isBlocking) {
+								TooltipSystem.instance.ShowError("You cannot select another combat card after gambling!");
+								LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+								yield break;
+							}
 							if (player.attackingCard != null) {
 								player.attackingCard.halo.Stop();
 								player.attackingCard.halo.Clear();
@@ -97,7 +113,11 @@ public class CardLogicController : MonoBehaviour {
 					case false:
 						// When Defense
 						foreach (var champion in GameController.instance.champions) {
-							if (GameController.instance.gambleButton.isBlocking) break;
+							if (GameController.instance.gambleButton.isBlocking) {
+								TooltipSystem.instance.ShowError("You cannot select another combat card after gambling!");
+								LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+								break;
+							}
 							if (champion.currentTarget != player || !champion.isAttacking) continue;
 
 							if (player.defendingCard != null) player.defendingCard.Flip(true);
@@ -463,37 +483,37 @@ public class CardLogicController : MonoBehaviour {
 				}
 
 				// Targeting Champion
-				foreach (var targetChampion in GameController.instance.champions) {
-					bool skipThisChampion = false;
-					foreach (Transform child in targetChampion.abilityPanel.panel.transform) {
-						var ability = child.GetComponent<AbilityController>();
-						skipThisChampion = ability.CanBeTargetedByAttack();
-						skipThisChampion = !skipThisChampion;
-						if (skipThisChampion) break;
-					}
-					if (targetChampion == champion || targetChampion.isDead || targetChampion.teamMembers.Contains(champion) || skipThisChampion) continue;
+				if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis != null && !champion.currentNemesis.isDead) {
+					Debug.Log(champion.championName + " is furious! Targeting their nemesis immediately.");
+					champion.currentTarget = champion.currentNemesis;
+					break;
+				}
+				else {
+					foreach (var targetChampion in GameController.instance.champions) {
+						bool skipThisChampion = false;
+						foreach (Transform child in targetChampion.abilityPanel.panel.transform) {
+							var ability = child.GetComponent<AbilityController>();
+							skipThisChampion = ability.CanBeTargetedByAttack();
+							skipThisChampion = !skipThisChampion;
+							if (skipThisChampion) break;
+						}
+						if (targetChampion == champion || targetChampion.isDead || targetChampion.teamMembers.Contains(champion) || skipThisChampion) continue;
 
-					// Nemesis Targeting
-					if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis != null) {
-						Debug.Log(champion.championName + " is furious! Targeting their nemesis immediately.");
-						champion.currentTarget = champion.currentNemesis;
-						break;
-					}
+						// Low-HP Targeting
+						var chance = targetChampion.hand.GetCardCount() <= 3 ? 1f : 0.85f;
+						if (targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) {
+							champion.currentTarget = targetChampion;
+							break;
+						}
 
-					// Low-HP Targeting
-					var chance = targetChampion.hand.GetCardCount() <= 3 ? 1f : 0.85f;
-					if (targetChampion.currentHP - champion.attackDamage <= 0 && Random.Range(0f, 1f) < chance) {
-						champion.currentTarget = targetChampion;
-						break;
-					}
-
-					// Standard Targeting
-					chance = targetChampion.isPlayer ? 0.75f : 0.65f;
-					chance += champion.currentHP >= 0.75f * champion.maxHP ? 0.1f : 0f;
-					chance += !targetChampion.isPlayer && targetChampion.currentHP - champion.attackDamage <= 0 ? 0.1f : 0f;
-					if (Random.Range(0f, 1f) < chance) {
-						champion.currentTarget = targetChampion;
-						break;
+						// Standard Targeting
+						chance = targetChampion.isPlayer ? 0.75f : 0.65f;
+						chance += champion.currentHP >= 0.75f * champion.maxHP ? 0.1f : 0f;
+						chance += !targetChampion.isPlayer && targetChampion.currentHP - champion.attackDamage <= 0 ? 0.1f : 0f;
+						if (Random.Range(0f, 1f) < chance) {
+							champion.currentTarget = targetChampion;
+							break;
+						}
 					}
 				}
 				if (champion.currentTarget == null) {

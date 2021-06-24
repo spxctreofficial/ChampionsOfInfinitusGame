@@ -41,7 +41,7 @@ public class MainMenuController : MonoBehaviour {
 		AudioController.instance.Play(logo.GetComponent<AudioSource>().clip);
 		
 		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
-		CameraShaker.Instance.ShakeOnce(4.5f, 4f, 0.1f, 0.35f);
+		CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
 		
 		Destroy(overlayCanvas.gameObject);
 		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {

@@ -60,7 +60,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	
 	// Pointer Events
 	public void CardSelect() {
-		if (owner.isPlayer && owner != null) StartCoroutine(CardLogicController.instance.CardSelect(this));
+		StartCoroutine(CardLogicController.instance.CardSelect(this));
 	}
 	public void OnPointerEnter(PointerEventData eventData) {
 		delay = LeanTween.delayedCall(1f, () => {

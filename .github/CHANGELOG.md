@@ -2,6 +2,19 @@
 
 This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, as well as allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
+## v0.1.1 Beta
+
+v0.1.1 is a minor beta release that addresses some bugs and issues that arose when play-testing v0.1, specifically with play-testing lower-difficulty Sandbox matches. No major additions have been added.
+
+- Bug Fixes:
+	- In a scenario where the player clicks a discarded card (happens more often than you think), the game would producce a NullReferenceException. This has been fixed.
+		- If the player starts an attack, and then clicks a discarded card, they will select that discarded card as their "combat card". This has also been fixed.
+	- In a rare scenario where a bot is looking for a target, they would target a nemesis (even if they were dead.) This loophole bug has been fixed.
+- Miscellaneous Notes:
+	- Moved "Main Canvas" of the Main Menu to World Space, fixing the camera shake that was quite weird previously. (Although the values of the "focus shake" was slightly altered too.)
+	- Added a "CLICK TO START" prompt in the Main Menu, in case anyone was confused about the blur.
+	- Various error tooltips have been added along with the bug fixes addressed in this minor update.
+
 ## v0.1 Beta
 
 This is the first official (beta) release of Land of Heroes! Since this is the first official version, I will document all of the notable additions and point-of-interest mechanics in the changelog. Keep in mind that a lot of things have already been added, and I may have missed a thing or two.
