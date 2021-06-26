@@ -9,7 +9,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 	[HideInInspector]
 	public Champion championComponent;
 
-	private static LTDescr delay;
+	private static int delayID;
 
 	private void Start() {
 		StartCoroutine(Setup());
@@ -17,7 +17,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 
 	public void OnClick() {
 		GameController.instance.playerChampion = championComponent;
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 
@@ -27,7 +27,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(0.5f, () => {
+		delayID = LeanTween.delayedCall(0.5f, () => {
 			string attackType() {
 				return championComponent.attackDamageType switch {
 					DamageType.Melee => "Melee",
@@ -64,10 +64,10 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 			} // print all abilities
 
 			TooltipSystem.instance.Show(body, championComponent.championName); // show the tooltip
-		});
+		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }

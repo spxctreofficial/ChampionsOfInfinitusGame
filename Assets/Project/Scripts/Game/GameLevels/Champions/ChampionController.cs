@@ -71,7 +71,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public bool isUltReady;
 
-	private static LTDescr delay;
+	private static int delayID;
 
 	private void Start() {
 		ChampionSetup();
@@ -467,7 +467,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		}
 	}
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(0.5f, () => {
+		delayID = LeanTween.delayedCall(0.5f, () => {
 			string attackType() {
 				return attackDamageType switch {
 					DamageType.Melee => "Melee",
@@ -495,14 +495,19 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			body += "\nCards: " + hand.GetCardCount(); // card amount
 
 			body += "\nAbilities:"; // abilities
-			foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
+			if (abilities.Count != 0) {
+				foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
+			}
+			else {
+				body += " None";
+			}
 
 			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.championName; // nemesis
 			TooltipSystem.instance.Show(body, championName); // show the tooltip
-		});
+		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }

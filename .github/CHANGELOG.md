@@ -2,6 +2,15 @@
 
 This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, as well as allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
+## v0.1.2 Beta
+
+v0.1.2 is a minor beta release that improves theoretical stability and updates some UI elements for the sake of appearance.
+
+- Bug Fixes:
+	- Champions without abilities now correctly display "None".
+- Stability Updates:
+	- Theoretical stability improvement by switching all LeanTween `LTDescr` references to `int` references of the unique ID. Since LeanTween's implementation of unique IDs can be changed on the fly, some UI animations may fail to finish before they are accidentally cancelled (due to a misreference of the tween event's unique ID.) By storing that unique ID, we have a reference to the unique ID of that tween event, and nothing else, theoretically improving animation stability and removing any animation glitches.
+
 ## v0.1.1 Beta
 
 v0.1.1 is a minor beta release that addresses some bugs and issues that arose when play-testing v0.1, specifically with play-testing lower-difficulty Sandbox matches. No major additions have been added.

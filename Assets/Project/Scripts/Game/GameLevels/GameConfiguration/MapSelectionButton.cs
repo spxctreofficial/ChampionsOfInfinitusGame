@@ -8,7 +8,7 @@ public class MapSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[HideInInspector]
 	public Map mapComponent;
 
-	private static LTDescr delay;
+	private static int delayID;
 
 	private void Start() {
 		StartCoroutine(Setup());
@@ -16,7 +16,7 @@ public class MapSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 	public void OnClick() {
 		GameController.instance.currentMap = mapComponent;
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 
@@ -26,12 +26,10 @@ public class MapSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(0.5f, () => {
-			TooltipSystem.instance.Show(null, mapComponent.mapName);
-		});
+		delayID = LeanTween.delayedCall(0.5f, () => TooltipSystem.instance.Show(null, mapComponent.mapName)).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }

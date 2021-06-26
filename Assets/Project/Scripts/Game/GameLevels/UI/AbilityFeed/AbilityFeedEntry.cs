@@ -9,7 +9,7 @@ public class AbilityFeedEntry : MonoBehaviour {
 	[HideInInspector]
 	public int count = 1;
 
-	private LTDescr delay;
+	private int delayID;
 
 	public static AbilityFeedEntry New(Ability ability, ChampionController champion, float duration = 5f) {
 		// Instantiate
@@ -37,13 +37,13 @@ public class AbilityFeedEntry : MonoBehaviour {
 		// Animation
 		abilityFeedEntry.GetComponent<RectTransform>().localScale = Vector2.zero;
 		LeanTween.scale(abilityFeedEntry.GetComponent<RectTransform>(), Vector2.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
-			abilityFeedEntry.delay = LeanTween.delayedCall(duration, () => {
+			abilityFeedEntry.delayID = LeanTween.delayedCall(duration, () => {
 				if (abilityFeedEntry == null) return;
 				LeanTween.scale(abilityFeedEntry.GetComponent<RectTransform>(), Vector2.zero, 0.15f).setEaseInOutQuad().setDestroyOnComplete(true).setOnComplete(() => {
 					champion.abilityFeed.feedEntries.Remove(abilityFeedEntry.gameObject);
 					champion.abilityFeed.abilityFeedEntries.Remove(abilityFeedEntry);
 				});
-			});
+			}).uniqueId;
 		});
 
 		return abilityFeedEntry;

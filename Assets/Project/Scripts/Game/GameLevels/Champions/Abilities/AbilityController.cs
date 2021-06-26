@@ -16,7 +16,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	[HideInInspector]
 	public List<string> tags = new List<string>();
 
-	private static LTDescr delay;
+	private static int delayID;
 
 	// Constructors
 	public void Setup(ChampionController champion, Ability ability) {
@@ -324,7 +324,7 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 	// Image Shake Borrowed From ChampionController
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(0.5f, () => {
+		delayID = LeanTween.delayedCall(0.5f, () => {
 			var body = ability.abilityDescription;
 
 			string abilityType() {
@@ -341,10 +341,10 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 			body += "\n Ability Type: " + abilityType();
 
 			TooltipSystem.instance.Show(body, ability.abilityName);
-		});
+		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }

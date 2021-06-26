@@ -21,7 +21,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	public bool isHidden;
 	public List<string> tags = new List<string>();
 
-	private static LTDescr delay;
+	private static int delayID;
 	
 	private void Start() {
 		gameObject.name = cardScriptableObject.cardName;
@@ -63,16 +63,16 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		StartCoroutine(CardLogicController.instance.CardSelect(this));
 	}
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(1f, () => {
+		delayID = LeanTween.delayedCall(1f, () => {
 			if (isHidden) {
 				TooltipSystem.instance.Show(null, "Flipped Card");
 				return;
 			}
 			TooltipSystem.instance.Show(cardScriptableObject.cardDescription, cardScriptableObject.cardName);
-		});
+		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay.uniqueId);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }

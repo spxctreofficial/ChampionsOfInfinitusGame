@@ -16,7 +16,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField]
 	private TMP_Text goldCostText;
 
-	private static int delay;
+	private static int delayID;
 
 	private void Start() {
 		UpdateInformation();
@@ -61,7 +61,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 	// Pointer Events
 	public void OnPointerEnter(PointerEventData eventData) {
-		delay = LeanTween.delayedCall(0.5f, () => {
+		delayID = LeanTween.delayedCall(0.5f, () => {
 			string attackType() {
 				return champion.attackDamageType switch {
 					DamageType.Melee => "Melee",
@@ -88,7 +88,13 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + attackType() + " Damage"; // attack & damage
 
 			body += "\nAbilities:"; // abilities
-			foreach (var ability in champion.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
+
+			if (champion.abilities.Count != 0) {
+				foreach (var ability in champion.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
+			}
+			else {
+				body += " None";
+			}
 
 			body += "\n\nCost: " + champion.shopCost; // cost to buy (assumes that the champion is a shop item)
 
@@ -96,7 +102,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}).id;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delay);
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
 }
