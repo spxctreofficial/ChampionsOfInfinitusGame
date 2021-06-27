@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour {
 
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
+	public GameObject notificationDialogPrefab;
 	
 	private void Awake() {
 		if (instance == null)

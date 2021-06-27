@@ -10,6 +10,8 @@ v0.1.2 is a minor beta release that improves theoretical stability and updates s
 	- Champions without abilities now correctly display "None".
 - Stability Updates:
 	- Theoretical stability improvement by switching all LeanTween `LTDescr` references to `int` references of the unique ID. Since LeanTween's implementation of unique IDs can be changed on the fly, some UI animations may fail to finish before they are accidentally cancelled (due to a misreference of the tween event's unique ID.) By storing that unique ID, we have a reference to the unique ID of that tween event, and nothing else, theoretically improving animation stability and removing any animation glitches.
+- Miscellaneous Notes:
+	- Added a Notification Dialog Prefab that can be used to indicate or notify the player of certain objects.
 
 ## v0.1.1 Beta
 

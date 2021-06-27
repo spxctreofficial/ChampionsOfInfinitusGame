@@ -17,12 +17,6 @@ public class ConfirmDialog : MonoBehaviour {
     [SerializeField]
     private Button positiveButton;
 
-	private void Update() {
-		if (transform.localScale.x < Vector3.one.x) {
-            Debug.Log("still running");
-		}
-	}
-
 	/// <summary>
 	/// Create a new Confirm Dialog with these properties pre-set.
 	/// Also sets this Confirm Dialog as the static instance of the Confirm Dialog.

@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour {
 	public GameObject abilityPanelPrefab;
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
+	public GameObject notificationDialogPrefab;
 	public GameObject gamemodeSelectionButtonPrefab;
 	public GameObject mapSelectionButtonPrefab;
 	public GameObject championSelectionButtonPrefab;

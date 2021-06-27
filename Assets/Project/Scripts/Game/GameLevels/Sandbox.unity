@@ -6163,6 +6163,12 @@ PrefabInstance:
       objectReference: {fileID: 1849323119}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
+      propertyPath: notificationDialogPrefab
+      value: 
+      objectReference: {fileID: 6871602132392911196, guid: fe9a9cc722c6b7848bd7f460b3b1d232,
+        type: 3}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
       propertyPath: difficultySelectionConfig
       value: 
       objectReference: {fileID: 77381967}

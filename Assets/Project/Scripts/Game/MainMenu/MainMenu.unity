@@ -295,6 +295,8 @@ MonoBehaviour:
     type: 3}
   miniConfirmDialogPrefab: {fileID: 7144247891518153869, guid: d000c1fa21fb93240b1701bb2ffd71e7,
     type: 3}
+  notificationDialogPrefab: {fileID: 6871602132392911196, guid: fe9a9cc722c6b7848bd7f460b3b1d232,
+    type: 3}
 --- !u!4 &310021314
 Transform:
   m_ObjectHideFlags: 0
