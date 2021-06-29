@@ -16,9 +16,13 @@ public class MainMenuController : MonoBehaviour {
 	public ShopPanel shopPanel;
 	public Image logo;
 
+	public GameObject dialogueSystemPrefab;
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
 	public GameObject notificationDialogPrefab;
+
+	[SerializeField]
+	private DialogueSession testSession;
 	
 	private void Awake() {
 		if (instance == null)

@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
 	public GameObject cardTemplate;
 	public GameObject handPrefab;
 	public GameObject abilityPanelPrefab;
+	public GameObject dialogueSystemPrefab;
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
 	public GameObject notificationDialogPrefab;

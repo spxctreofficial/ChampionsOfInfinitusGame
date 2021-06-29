@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Champion", menuName = "New Champion")]
+[CreateAssetMenu(fileName = "Champion", menuName = "LandOfHeroesGame/Champion/New Champion")]
 public class Champion : ScriptableObject {
 	// Identification
 	public string championName;

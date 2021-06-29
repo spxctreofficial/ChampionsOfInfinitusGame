@@ -1,6 +1,15 @@
 # Land of Heroes Official Changelog
 
-This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, as well as allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
+This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
+
+## v0.1.3 Beta
+
+v0.1.3 is a beta release that adds new features and improvements to the game, primarily focusing on the UI elements and UI animations of the game.
+
+- Miscellaneous Notes:
+	- Added (but not implemented) a dynamic and flexible Dialogue System to pave the way for Campaign and Tutorial mode.
+		- Includes custom SFXs and animations.
+	- The context menu for creating new ScriptableObjects for the game has been altered.
 
 ## v0.1.2 Beta
 

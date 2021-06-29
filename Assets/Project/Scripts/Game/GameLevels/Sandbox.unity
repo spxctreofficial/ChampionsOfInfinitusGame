@@ -6153,6 +6153,12 @@ PrefabInstance:
       objectReference: {fileID: 942276466}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
+      propertyPath: dialogueSystemPrefab
+      value: 
+      objectReference: {fileID: 3198770602355789731, guid: b777e0e00befcff44a1f0af1334201ec,
+        type: 3}
+    - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
       propertyPath: championSelectionConfig
       value: 
       objectReference: {fileID: 697805135}

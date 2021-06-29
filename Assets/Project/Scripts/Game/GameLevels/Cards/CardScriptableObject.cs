@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CardSuit { SPADE, HEART, CLUB, DIAMOND };
 
-[CreateAssetMenu(fileName = "Card", menuName = "New Card")]
+[CreateAssetMenu(fileName = "Card", menuName = "LandOfHeroesGame/Game/New Card")]
 public class CardScriptableObject : ScriptableObject {
 	[Header("Card Values")]
 	public int cardValue;

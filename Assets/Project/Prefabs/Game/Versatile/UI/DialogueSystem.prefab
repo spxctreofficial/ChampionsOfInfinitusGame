@@ -255,7 +255,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3198770601660778724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7842163580756405033}
+        m_TargetAssemblyTypeName: DialogueSystem, LandOfHeroesGame
+        m_MethodName: OnButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3198770602355789731
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +281,7 @@ GameObject:
   - component: {fileID: 3198770602355789406}
   - component: {fileID: 7842163580756405033}
   m_Layer: 5
-  m_Name: DialogueBox
+  m_Name: DialogueSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,11 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20b480c4ca1c3449ae37064982b8e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speakingChampion: {fileID: 0}
   characterName: {fileID: 3198770601584693804}
   characterAvatar: {fileID: 3198770602869440476}
   dialogueBox: {fileID: 3198770602724308373}
   nextLineButton: {fileID: 3198770601660778731}
+  beep: {fileID: 8300000, guid: a6530e437f3e92543bb054570a1975a8, type: 3}
 --- !u!1 &3198770602554266454
 GameObject:
   m_ObjectHideFlags: 0
