@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour {
 	// Singleton
@@ -15,8 +14,11 @@ public class DataManager : MonoBehaviour {
 
 	// Serialization Variables
 	private string saveFolder;
+
 	private int goldAmount = 0;
 	private List<Champion> ownedChampions = new List<Champion>();
+
+	private bool firstRunGame = false, firstRunShop = false, firstRunTutorial = false;
 	
 	public int GoldAmount {
 		get => goldAmount;
@@ -33,6 +35,28 @@ public class DataManager : MonoBehaviour {
 		}
 	}
 
+	public bool FirstRunGame {
+		get => firstRunGame;
+		set {
+			firstRunGame = value;
+			Save();
+		}
+	}
+	public bool FirstRunShop {
+		get => firstRunShop;
+		set {
+			firstRunShop = value;
+			Save();
+		}
+	}
+	public bool FirstRunTutorial {
+		get => firstRunTutorial;
+		set {
+			firstRunTutorial = value;
+			Save();
+		}
+	}
+
 	private void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -45,7 +69,8 @@ public class DataManager : MonoBehaviour {
 
 		saveFolder = Application.dataPath + "/Saves";
 
-		Load();
+		LoadDefaultSave();
+		LoadFirstRunSave();
 		Save();
 	}
 	private void Start() {
@@ -61,16 +86,23 @@ public class DataManager : MonoBehaviour {
 			ownedChampions.Add(champion.championID);
 		}
 		
-		SaveObject saveObject = new SaveObject {
+		DefaultSaveObject defaultSaveObject = new DefaultSaveObject {
 			goldAmount = goldAmount,
 			ownedChampions = ownedChampions
 		};
+		FirstRunSaveObject firstRunSaveObject = new FirstRunSaveObject {
+			firstRunGame = firstRunGame,
+			firstRunShop = firstRunShop,
+			firstRunTutorial = firstRunTutorial
+		};
 		
-		string json = JsonUtility.ToJson(saveObject, true);
+		string defaultSaveJson = JsonUtility.ToJson(defaultSaveObject, true);
+		string firstRunSaveJson = JsonUtility.ToJson(firstRunSaveObject, true);
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
-		File.WriteAllText(saveFolder + "/save.lohsave", json);
+		File.WriteAllText(saveFolder + "/save.lohsave", defaultSaveJson);
+		File.WriteAllText(saveFolder + "/firstrun.lohsave", firstRunSaveJson);
 	}
-	public void Load() {
+	public void LoadDefaultSave() {
 		// Loads SaveObject
 		if (!File.Exists(saveFolder + "/save.lohsave")) {
 			// Fail-safe that auto-adds the Regime Soldier if the player does not have any champions.
@@ -78,28 +110,44 @@ public class DataManager : MonoBehaviour {
 			return;
 		}
 
-		string savedJson = File.ReadAllText(saveFolder + "/save.lohsave");
-		Debug.Log(savedJson);
-
-		SaveObject loadedSaveObject = JsonUtility.FromJson<SaveObject>(savedJson);
-
+		string defaultSavedJson = File.ReadAllText(saveFolder + "/save.lohsave");
+		
+		Debug.Log(defaultSavedJson);
+		DefaultSaveObject loadedDefaultSaveObject = JsonUtility.FromJson<DefaultSaveObject>(defaultSavedJson);
+		
 		// Sets Values
-		goldAmount = loadedSaveObject.goldAmount;
-		foreach (var id in loadedSaveObject.ownedChampions) {
+		goldAmount = loadedDefaultSaveObject.goldAmount;
+		foreach (var id in loadedDefaultSaveObject.ownedChampions) {
 			foreach (var champion in championIndex.champions) {
 				if (champion.championID != id) continue;
-				OwnedChampions.Add(champion);
+				ownedChampions.Add(champion);
 			}
 		}
-
 		if (!ownedChampions.Contains(championIndex.champions[0])) {
 			ownedChampions.Add(championIndex.champions[0]);
 		}
 	}
+	public void LoadFirstRunSave() {
+		// Loads SaveObject
+		if (!File.Exists(saveFolder + "/firstrun.lohsave")) return;
 
-	// Class that stores serialized variables to save and load progress
-	private class SaveObject {
+		string firstRunSavedJson = File.ReadAllText(saveFolder + "/firstrun.lohsave");
+
+		Debug.Log(firstRunSavedJson);
+		FirstRunSaveObject loadedFirstRunSaveObject = JsonUtility.FromJson<FirstRunSaveObject>(firstRunSavedJson);
+
+		// Sets Values
+		firstRunGame = loadedFirstRunSaveObject.firstRunGame;
+		firstRunShop = loadedFirstRunSaveObject.firstRunShop;
+		firstRunTutorial = loadedFirstRunSaveObject.firstRunTutorial;
+	}
+
+	// Classes that stores serialized variables to save and load progress
+	private class DefaultSaveObject {
 		public int goldAmount;
 		public List<string> ownedChampions;
+	}
+	private class FirstRunSaveObject {
+		public bool firstRunGame, firstRunShop, firstRunTutorial;
 	}
 }

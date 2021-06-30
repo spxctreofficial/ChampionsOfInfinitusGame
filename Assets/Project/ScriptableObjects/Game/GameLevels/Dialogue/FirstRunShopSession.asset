@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90286e90629125e418b8efe6aa1b4f27, type: 3}
+  m_Name: FirstRunShopSession
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: This is the shop.
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: Here you can purchase in-game cosmetics and recruit new champions with
+      gold.
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: Gold can be regularly acquired by playing Sandbox mode. The higher
+      the difficulty, the more gold rewarded per match of Sandbox mode.
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: Gold can also be acquired in Campaign mode. However, Campaign mode
+      has yet to be implemented, so this feature will be coming soon.
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: Happy shopping!

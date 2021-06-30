@@ -6,13 +6,18 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 
 v0.1.3 is a beta release that adds new features and improvements to the game, primarily focusing on the UI elements and UI animations of the game.
 
-- Miscellaneous Notes:
-	- Added (but not implemented) a dynamic and flexible Dialogue System to pave the way for Campaign and Tutorial mode.
+- Additions:
+	- Added a dynamic and flexible Dialogue System to pave the way for Campaign and Tutorial mode.
 		- Includes custom SFXs and animations.
 		- The typing animation has a variable speed, dependent on whether the character is white-space or punctuation.
 		- The skip button allows the current sentence to be automatically finished.
 		- The continue button will advance to the next sentence.
+		- This dialogue system is currently used to introduce new users to the UI of the game. In the future, this dialogue system will be used throughout the game to advance the plot of the story.
+- Changes:
+	- The window slide animation's easing effect has been changed from EaseInOutQuad to EaseOutQuad (the difference is that easing is no longer applied at the beginning of the game.)
+- Miscellaneous Notes:
 	- The context menu for creating new ScriptableObjects for the game has been altered.
+	- The DataManager saves new variables to a new file for first-run variables: variables that allow the game to know if it is the first time the game has been launched by that user.
 
 ## v0.1.2 Beta
 

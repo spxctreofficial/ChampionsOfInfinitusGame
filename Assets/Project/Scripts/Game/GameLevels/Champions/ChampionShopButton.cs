@@ -23,6 +23,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 
 	public void OnClick() {
+		if (!DataManager.instance.FirstRunShop) return;
 		StartPurchase();
 	}
 

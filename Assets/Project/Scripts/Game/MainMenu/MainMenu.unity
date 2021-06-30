@@ -299,7 +299,10 @@ MonoBehaviour:
     type: 3}
   notificationDialogPrefab: {fileID: 6871602132392911196, guid: fe9a9cc722c6b7848bd7f460b3b1d232,
     type: 3}
-  testSession: {fileID: 11400000, guid: 284250dc3f71370469bd99a1e8ec0940, type: 2}
+  firstRunGameSession: {fileID: 11400000, guid: 284250dc3f71370469bd99a1e8ec0940,
+    type: 2}
+  firstRunShopSession: {fileID: 11400000, guid: af8271bdd6bcae3468a54bcb669e6e55,
+    type: 2}
 --- !u!4 &310021314
 Transform:
   m_ObjectHideFlags: 0

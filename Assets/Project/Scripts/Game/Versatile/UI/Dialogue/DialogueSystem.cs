@@ -30,6 +30,7 @@ public class DialogueSystem : MonoBehaviour {
 
 		foreach (var dialogue in dialogueSession.dialogues) dialogueSystem.dialogues.Enqueue(dialogue);
 		if (endOfConversationAction != null) dialogueSystem.endOfConversationAction = endOfConversationAction;
+		Debug.Log(dialogueSystem.endOfConversationAction);
 
 		LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseOutQuad();
 		dialogueSystem.LoadNextSentence();
@@ -69,7 +70,7 @@ public class DialogueSystem : MonoBehaviour {
 	}
 	private IEnumerator TypeSentence(string sentence) {
 		foreach (char c in sentence.ToCharArray()) {
-			var waitTime = char.IsWhiteSpace(c) || char.IsPunctuation(c) ? Random.Range(0.1f, 0.16f) : Random.Range(0.04f, 0.07f);
+			var waitTime = char.IsWhiteSpace(c) || char.IsPunctuation(c) ? Random.Range(0.08f, 0.11f) : Random.Range(0.05f, 0.07f);
 
 			dialogueBox.text += c;
 			AudioController.instance.Play(beep, false, 0.5f);

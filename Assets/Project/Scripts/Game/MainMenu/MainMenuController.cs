@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using EZCameraShake;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using EZCameraShake;
 
 public class MainMenuController : MonoBehaviour {
 	public static MainMenuController instance;
@@ -21,8 +19,7 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject miniConfirmDialogPrefab;
 	public GameObject notificationDialogPrefab;
 
-	[SerializeField]
-	private DialogueSession testSession;
+	public DialogueSession firstRunGameSession, firstRunShopSession;
 	
 	private void Awake() {
 		if (instance == null)
@@ -39,7 +36,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// PRESS TO START equivalent.
+	/// PRESS TO START.
 	/// </summary>
 	public void Focus() {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
@@ -53,12 +50,13 @@ public class MainMenuController : MonoBehaviour {
 			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
 		});
 
-		DialogueSystem.Create(testSession, new Vector2(0, -270)).transform.SetParent(mainPanel.transform, false);
+		if (!DataManager.instance.FirstRunGame) DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () => DataManager.instance.FirstRunGame = true).transform.SetParent(mainPanel.transform, false);
 	}
 	/// <summary>
 	/// Loads the Sandbox scene.
 	/// </summary>
 	public void LoadSandbox() {
+		if (!DataManager.instance.FirstRunGame) return;
 		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
 			SceneManager.LoadScene("Sandbox");
 		});
@@ -67,6 +65,8 @@ public class MainMenuController : MonoBehaviour {
 	/// Quits the game.
 	/// </summary>
 	public void QuitGame() {
+		if (!DataManager.instance.FirstRunGame) return;
+
 		var confirmDialog = ConfirmDialog.CreateNew("QUIT", "Are you sure you want to quit the game?", () => {
 			ConfirmDialog.instance.Hide();
 		}, () => {
