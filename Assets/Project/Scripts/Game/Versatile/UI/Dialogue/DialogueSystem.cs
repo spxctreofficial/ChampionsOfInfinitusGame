@@ -8,6 +8,7 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour {
 	private Queue<Dialogue> dialogues = new Queue<Dialogue>();
+	private Dialogue currentDialogue;
 	private UnityAction endOfConversationAction;
 
 	[SerializeField]
@@ -17,7 +18,7 @@ public class DialogueSystem : MonoBehaviour {
 	[SerializeField]
 	private TMP_Text dialogueBox;
 	[SerializeField]
-	private Button nextLineButton;
+	private Button continueButton, skipButton;
 	[SerializeField]
 	private AudioClip beep;
 
@@ -35,7 +36,7 @@ public class DialogueSystem : MonoBehaviour {
 		return dialogueSystem;
 	}
 
-	public void OnButtonClick() {
+	public void OnContinueButtonClick() {
 		if (dialogues.Count == 0) {
 			Debug.Log("End of conversation.");
 			LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - (GetComponent<RectTransform>().rect.height / 2)), 0.5f).setEaseOutQuad().setOnComplete(() => {
@@ -46,22 +47,35 @@ public class DialogueSystem : MonoBehaviour {
 
 		LoadNextSentence();
 	}
+	public void OnSkipButtonClick() {
+		skipButton.gameObject.SetActive(false);
+		continueButton.gameObject.SetActive(true);
+
+		StopAllCoroutines();
+		dialogueBox.text = currentDialogue.sentence;
+		AudioController.instance.Play(beep, false, 0.5f);
+	}
 
 	private void LoadNextSentence() {
-		var dialogue = dialogues.Dequeue();
+		continueButton.gameObject.SetActive(false);
+		skipButton.gameObject.SetActive(true);
 
-		characterName.text = dialogue.speakingChampion.championName;
-		characterAvatar.sprite = dialogue.speakingChampion.avatar;
-		StartCoroutine(TypeSentence(dialogue.sentence));
+		currentDialogue = dialogues.Dequeue();
+
+		characterName.text = currentDialogue.speakingChampion.championName;
+		characterAvatar.sprite = currentDialogue.speakingChampion.avatar;
+		dialogueBox.text = "";
+		StartCoroutine(TypeSentence(currentDialogue.sentence));
 	}
 	private IEnumerator TypeSentence(string sentence) {
-		dialogueBox.text = "";
 		foreach (char c in sentence.ToCharArray()) {
-			var waitTime = char.IsWhiteSpace(c) ? Random.Range(0.1f, 0.16f) : Random.Range(0.06f, 0.09f);
+			var waitTime = char.IsWhiteSpace(c) || char.IsPunctuation(c) ? Random.Range(0.1f, 0.16f) : Random.Range(0.04f, 0.07f);
 
 			dialogueBox.text += c;
 			AudioController.instance.Play(beep, false, 0.5f);
 			yield return new WaitForSeconds(waitTime);
 		}
+		continueButton.gameObject.SetActive(true);
+		skipButton.gameObject.SetActive(false);
 	}
 }

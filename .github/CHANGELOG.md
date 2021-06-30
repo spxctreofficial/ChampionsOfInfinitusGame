@@ -9,6 +9,9 @@ v0.1.3 is a beta release that adds new features and improvements to the game, pr
 - Miscellaneous Notes:
 	- Added (but not implemented) a dynamic and flexible Dialogue System to pave the way for Campaign and Tutorial mode.
 		- Includes custom SFXs and animations.
+		- The typing animation has a variable speed, dependent on whether the character is white-space or punctuation.
+		- The skip button allows the current sentence to be automatically finished.
+		- The continue button will advance to the next sentence.
 	- The context menu for creating new ScriptableObjects for the game has been altered.
 
 ## v0.1.2 Beta

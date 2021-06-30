@@ -53,6 +53,7 @@ public class MainMenuController : MonoBehaviour {
 			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
 		});
 
+		DialogueSystem.Create(testSession, new Vector2(0, -270)).transform.SetParent(mainPanel.transform, false);
 	}
 	/// <summary>
 	/// Loads the Sandbox scene.
