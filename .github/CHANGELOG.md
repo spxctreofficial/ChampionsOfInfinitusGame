@@ -16,6 +16,7 @@ v0.1.3 is a beta release that adds new features and improvements to the game, pr
 - Changes & Fixes:
 	- The window slide animation's easing effect has been changed from EaseInOutQuad to EaseOutQuad (the difference is that easing is no longer applied at the beginning of the game.)
 	- The ChampionShopButton and the GoldDisplay prefabs have been renovated to include Layout Groups and Layout Elements in order to keep the aesthetic clean and self-manageable (where previously would break after a certain amount of characters were placed in the textboxes.)
+	- Vsync has been turned back on to remove tearing artifacts (since this isn't even a FPS or AAA title).
 	- Fixed an issue where the discard area wasn't being pruned effectively, so it would gradually grow until it reached the edge of the screen.
 		- Implementations to fix this were to prune during the Beginning Phase and when the gamble button was clicked.
 	- Various UI issues have been resolved:
