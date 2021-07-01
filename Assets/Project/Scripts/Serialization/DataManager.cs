@@ -99,8 +99,23 @@ public class DataManager : MonoBehaviour {
 		string defaultSaveJson = JsonUtility.ToJson(defaultSaveObject, true);
 		string firstRunSaveJson = JsonUtility.ToJson(firstRunSaveObject, true);
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
+
+		if (File.Exists(saveFolder + "/save.lohsave")) {
+			var defaultSaveAttributes = File.GetAttributes(saveFolder + "/save.lohsave");
+			var firstRunSaveAttributes = File.GetAttributes(saveFolder + "/firstrun.lohsave");
+
+			if ((defaultSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) defaultSaveAttributes &= ~FileAttributes.Hidden;
+			if ((firstRunSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) firstRunSaveAttributes &= ~FileAttributes.Hidden;
+			
+			File.SetAttributes(saveFolder + "/save.lohsave", defaultSaveAttributes);
+			File.SetAttributes(saveFolder + "/firstrun.lohsave", firstRunSaveAttributes);
+		}
+		
 		File.WriteAllText(saveFolder + "/save.lohsave", defaultSaveJson);
 		File.WriteAllText(saveFolder + "/firstrun.lohsave", firstRunSaveJson);
+		
+		File.SetAttributes(saveFolder + "/save.lohsave", File.GetAttributes(saveFolder + "/save.lohsave") | FileAttributes.Hidden);
+		File.SetAttributes(saveFolder + "/firstrun.lohsave", File.GetAttributes(saveFolder + "/firstrun.lohsave") | FileAttributes.Hidden);
 	}
 	public void LoadDefaultSave() {
 		// Loads SaveObject

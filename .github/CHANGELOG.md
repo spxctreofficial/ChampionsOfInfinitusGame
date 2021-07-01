@@ -13,6 +13,9 @@ v0.1.3 is a beta release that adds new features and improvements to the game, pr
 		- The skip button allows the current sentence to be automatically finished.
 		- The continue button will advance to the next sentence.
 		- This dialogue system is currently used to introduce new users to the UI of the game. In the future, this dialogue system will be used throughout the game to advance the plot of the story.
+	- Serialized files storing data are now hidden by default.
+		- Serialized files will always hide themselves after saving.
+		- This change was made to conceal the save files just a bit. This certainly will not stop people from changing the files however.
 - Changes & Fixes:
 	- The window slide animation's easing effect has been changed from EaseInOutQuad to EaseOutQuad (the difference is that easing is no longer applied at the beginning of the game.)
 	- The ChampionShopButton and the GoldDisplay prefabs have been renovated to include Layout Groups and Layout Elements in order to keep the aesthetic clean and self-manageable (where previously would break after a certain amount of characters were placed in the textboxes.)
