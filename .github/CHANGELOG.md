@@ -27,6 +27,7 @@ v0.1.3 is a beta release that adds new features and improvements to the game, pr
 		- Bots are now more likely to target overall.
 	- A player's nemesis will now always reset to "None" after the nemesis has died.
 	- Fixed an issue where the serialization of the gold amount at the end of a Sandbox match didn't work.
+	- Fixed issues regarding the resolution of the game, and other gimmicks that have been found to resize the game.
 - Miscellaneous Notes:
 	- The context menu for creating new ScriptableObjects for the game has been altered.
 	- The DataManager saves new variables to a new file for first-run variables: variables that allow the game to know if it is the first time the game has been launched by that user.
