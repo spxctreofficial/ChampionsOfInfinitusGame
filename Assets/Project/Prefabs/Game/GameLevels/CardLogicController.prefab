@@ -43,113 +43,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b44879d9a495245bff77af1cf2ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playingCards: []
-  AceOfSpades: {fileID: 6538825376666039054, guid: 3686b5b9dcca51a45ad091ac94b67255,
-    type: 3}
-  KingOfSpades: {fileID: 3477009149478043703, guid: 2c3053fb11f918744975a13346f59f1f,
-    type: 3}
-  QueenOfSpades: {fileID: 7345369708487161779, guid: 554fd10f7af19cb4b9d9000e9315c86d,
-    type: 3}
-  JackOfSpades: {fileID: 2907870641525700353, guid: 916443a780ddaf04680db1c995b10a18,
-    type: 3}
-  TenOfSpades: {fileID: 3126450627881537317, guid: ce8600775ddb76b4e9a9d20ea37fd9e7,
-    type: 3}
-  NineOfSpades: {fileID: 352258970215331777, guid: e3ce35858bf099f4baa2af9f1afcde10,
-    type: 3}
-  EightOfSpades: {fileID: 6478599014872839469, guid: 705c0822f70fa4c46a7ee243c1d0aa42,
-    type: 3}
-  SevenOfSpades: {fileID: 4234109630336851606, guid: bcd609b1efd8c3743b40fd256cd90d0b,
-    type: 3}
-  SixOfSpades: {fileID: 2163204315909064743, guid: cf6faf892105b2540b269cb323a259ce,
-    type: 3}
-  FiveOfSpades: {fileID: 5636130760055697292, guid: 4e564670784a8d94a8f76465a3b6b3d4,
-    type: 3}
-  FourOfSpades: {fileID: 8947766543040078026, guid: 64d47826784e6034cb999d6bd20dce7f,
-    type: 3}
-  ThreeOfSpades: {fileID: 6584978184511462940, guid: fc0e3fe727a82bb418518f5ddd220f3f,
-    type: 3}
-  TwoOfSpades: {fileID: 4947735208680391520, guid: 953b1ed9a78e60b49a8318b9b6626c46,
-    type: 3}
-  AceOfHearts: {fileID: 6538825376666039054, guid: 4feb88dcec018e746ba9ffd58de5e11f,
-    type: 3}
-  KingOfHearts: {fileID: 3477009149478043703, guid: 4100240481cb74840a6a143ced7d1b0d,
-    type: 3}
-  QueenOfHearts: {fileID: 7345369708487161779, guid: d44219047219c234686da9e9579e2124,
-    type: 3}
-  JackOfHearts: {fileID: 2907870641525700353, guid: 542a9e2f2e8a9b34dab7817f61fa40c2,
-    type: 3}
-  TenOfHearts: {fileID: 3126450627881537317, guid: e57be4524dc326f4198011f1cb265dac,
-    type: 3}
-  NineOfHearts: {fileID: 352258970215331777, guid: 9eea8fe2d6cfd4e4ca80c187415b1c4b,
-    type: 3}
-  EightOfHearts: {fileID: 6478599014872839469, guid: 88ad9c1d22862e14697c5322e87414cc,
-    type: 3}
-  SevenOfHearts: {fileID: 4234109630336851606, guid: 9289700f9234f664faf713627022dfe6,
-    type: 3}
-  SixOfHearts: {fileID: 2163204315909064743, guid: d962846f67b8a9245858b2eb7a597303,
-    type: 3}
-  FiveOfHearts: {fileID: 5636130760055697292, guid: fe0d2e2103660894c93043e847f7480f,
-    type: 3}
-  FourOfHearts: {fileID: 8947766543040078026, guid: 500965c1547dafe4f93f5da03724735e,
-    type: 3}
-  ThreeOfHearts: {fileID: 6584978184511462940, guid: f0796eb1e04ff2e45af653b237bc30fd,
-    type: 3}
-  TwoOfHearts: {fileID: 4947735208680391520, guid: 50d78c3666f805a44ac9fed1ac7f1db0,
-    type: 3}
-  AceOfClubs: {fileID: 6538825376666039054, guid: d49f0a48dfc1a484a90980c589dc8795,
-    type: 3}
-  KingOfClubs: {fileID: 3477009149478043703, guid: 9608bcaa42e971a4994c59723ad2dcc0,
-    type: 3}
-  QueenOfClubs: {fileID: 7345369708487161779, guid: cce9d5e71dc8d7546931afcf15b54f5b,
-    type: 3}
-  JackOfClubs: {fileID: 2907870641525700353, guid: 30cc7b543664fd94f83c5485db89b08d,
-    type: 3}
-  TenOfClubs: {fileID: 3126450627881537317, guid: b3c3a30157daf894990517fd342b7623,
-    type: 3}
-  NineOfClubs: {fileID: 352258970215331777, guid: 531d71db70930ad4088f7fcaf1ce89b1,
-    type: 3}
-  EightOfClubs: {fileID: 6478599014872839469, guid: dfec4435a7f33cd4fa0b3bac36382a8c,
-    type: 3}
-  SevenOfClubs: {fileID: 4234109630336851606, guid: 2602698c9266d3145af8b5d7dab28282,
-    type: 3}
-  SixOfClubs: {fileID: 2163204315909064743, guid: 310edbbe7a171644ab84fee3e749e8d6,
-    type: 3}
-  FiveOfClubs: {fileID: 5636130760055697292, guid: 8d7693ef3165d284b9d05e3a717944ec,
-    type: 3}
-  FourOfClubs: {fileID: 8947766543040078026, guid: fac8376286015184f935ee7b0f107128,
-    type: 3}
-  ThreeOfClubs: {fileID: 6584978184511462940, guid: c1df54e5ab2609f4f9804a1401c2a465,
-    type: 3}
-  TwoOfClubs: {fileID: 4947735208680391520, guid: c426a7ece85d10047926dcaa9ee8d019,
-    type: 3}
-  ClubToken: {fileID: 235601047450549964, guid: 2fb873c8d15a1034a8370821694bd6fa,
-    type: 3}
-  AceOfDiamonds: {fileID: 2484265156037721842, guid: aa9613f2ee96f0c4e8a872f3f53a69bc,
-    type: 3}
-  KingOfDiamonds: {fileID: 3477009149478043703, guid: 7c8696ecab3342a41af45e71d1f18008,
-    type: 3}
-  QueenOfDiamonds: {fileID: 7345369708487161779, guid: f186b54a6142be24bb91b0af2c817bf3,
-    type: 3}
-  JackOfDiamonds: {fileID: 2907870641525700353, guid: 087b7eb13949669429e441141698a0c9,
-    type: 3}
-  TenOfDiamonds: {fileID: 3126450627881537317, guid: 1b849ed66b1397d4789d8f745dce5cbd,
-    type: 3}
-  NineOfDiamonds: {fileID: 352258970215331777, guid: 3dfb66cacbb5b9347ab0cb29fff652c7,
-    type: 3}
-  EightOfDiamonds: {fileID: 6478599014872839469, guid: 6c5584c00c7745442b6da2f40a281c81,
-    type: 3}
-  SevenOfDiamonds: {fileID: 4234109630336851606, guid: fde737b16ed69474898177349b294f50,
-    type: 3}
-  SixOfDiamonds: {fileID: 2163204315909064743, guid: 326e2260afc46614f80c7cbdb8f647ac,
-    type: 3}
-  FiveOfDiamonds: {fileID: 5636130760055697292, guid: 2ce5a2550fb1de24dbdb9ef88b487a84,
-    type: 3}
-  FourOfDiamonds: {fileID: 8947766543040078026, guid: 946a749e971e3e84aa260deecf296aed,
-    type: 3}
-  ThreeOfDiamonds: {fileID: 6584978184511462940, guid: e98521a8e9aad004bb1b12d4404fd28a,
-    type: 3}
-  TwoOfDiamonds: {fileID: 4947735208680391520, guid: 9110268404c0b9c418aa25edb1bf5b3e,
-    type: 3}
+  spades:
+  - {fileID: 11400000, guid: 5b756ca124919f648bb6d131cf87e7af, type: 2}
+  - {fileID: 11400000, guid: 754ea32173ac01b4187159487b695c5b, type: 2}
+  - {fileID: 11400000, guid: 130b712c0138e1846869c8ad1d83ac37, type: 2}
+  - {fileID: 11400000, guid: 02fe2c0739f786b4cb6e1b2eff7afb7a, type: 2}
+  - {fileID: 11400000, guid: 03316c59c010cae44995162192c2e0ba, type: 2}
+  - {fileID: 11400000, guid: a9a47689c5ef62347962eb7569ab79a7, type: 2}
+  - {fileID: 11400000, guid: 5c3e65adf4c762643ad3456ffee888e0, type: 2}
+  - {fileID: 11400000, guid: 98458529f258ffc42b77e15882662820, type: 2}
+  - {fileID: 11400000, guid: 55fde222e988a8a45bbfd977c674920d, type: 2}
+  - {fileID: 11400000, guid: 2b830335cd2179a44a4e75c024ace632, type: 2}
+  - {fileID: 11400000, guid: c2bf3cef12d6d004a8cf11c7c071a726, type: 2}
+  - {fileID: 11400000, guid: 04f42ef86ce08a94482e42136f8422fc, type: 2}
+  - {fileID: 11400000, guid: 0d2706fe810d21943901b3b845a0c003, type: 2}
+  hearts:
+  - {fileID: 11400000, guid: d4c5a887394b40745ac3ec83d6005c80, type: 2}
+  - {fileID: 11400000, guid: dfdd9fe25cfd869478591a0f458cf8a2, type: 2}
+  - {fileID: 11400000, guid: 92581cd1f71c8e747a6a8eae253cb1d8, type: 2}
+  - {fileID: 11400000, guid: 32933a6eab98461479af2956f26830f9, type: 2}
+  - {fileID: 11400000, guid: 97ec277ab3941e54299f5a751f7384ef, type: 2}
+  - {fileID: 11400000, guid: b36ad24c4d36e404591d2245859b2e7d, type: 2}
+  - {fileID: 11400000, guid: e61f744c3b27f7041a3b643c4a7225b8, type: 2}
+  - {fileID: 11400000, guid: d2b5edc625fed91408212ca0bf1d2849, type: 2}
+  - {fileID: 11400000, guid: da0dca55f1f584343af20cbb2a97a6e1, type: 2}
+  - {fileID: 11400000, guid: e5efa49b46850bb45857d4951eb6b9aa, type: 2}
+  - {fileID: 11400000, guid: 71bde89bf434789479f8d9112a0f0b40, type: 2}
+  - {fileID: 11400000, guid: 76375004f045beb4e915228de3ce0dcb, type: 2}
+  - {fileID: 11400000, guid: 4070df0d332a30a418474778be961736, type: 2}
+  clubs:
+  - {fileID: 11400000, guid: 3f80640080ece17488523b8a0dbaa556, type: 2}
+  - {fileID: 11400000, guid: b4df37aa907d7a0429c3c49ca14f6f40, type: 2}
+  - {fileID: 11400000, guid: acbefc705e347ca45a5303d1ae4e8977, type: 2}
+  - {fileID: 11400000, guid: 3b03460cf85c39f43ac6c0bf897b63c7, type: 2}
+  - {fileID: 11400000, guid: 3dd779ec5c51bae4fa02236b9e1bf69b, type: 2}
+  - {fileID: 11400000, guid: fa77d11d5eacac343b1159df9eccae20, type: 2}
+  - {fileID: 11400000, guid: 05867ce1e73134a46816c5cd05c7c04d, type: 2}
+  - {fileID: 11400000, guid: d7c6cd9a48529234db7166a264f8ec31, type: 2}
+  - {fileID: 11400000, guid: dc1b26b400dff814db73637a5f45986f, type: 2}
+  - {fileID: 11400000, guid: 357918ef72cee7e4f9e20fb38b05de6c, type: 2}
+  - {fileID: 11400000, guid: 2a1304db183a27f459f0e5ea850cd726, type: 2}
+  - {fileID: 11400000, guid: 7e71470088f81ed44a1c059d35e1b368, type: 2}
+  - {fileID: 11400000, guid: d86d5b68275a32b43814ca379e7988cd, type: 2}
+  diamonds:
+  - {fileID: 11400000, guid: 4ea8f89519f83e443a5f56fb7f3f7e38, type: 2}
+  - {fileID: 11400000, guid: 8777c0a928e68a44c909341631f6b3dc, type: 2}
+  - {fileID: 11400000, guid: 9c532c25f82a0804db16acf99f38dd27, type: 2}
+  - {fileID: 11400000, guid: 0defc91dacb00324ba7fdb14ecc3dd5f, type: 2}
+  - {fileID: 11400000, guid: 6b991021a2f582a45830b35e339c8d40, type: 2}
+  - {fileID: 11400000, guid: a4b4c161729ab9a4d9b94251ae74e5d7, type: 2}
+  - {fileID: 11400000, guid: 5bacd3709f71f544bb6117ad5e733b1e, type: 2}
+  - {fileID: 11400000, guid: 1cb706440ea04614c93909c797d88243, type: 2}
+  - {fileID: 11400000, guid: 6faa7dc6224b5e541966492cc554445f, type: 2}
+  - {fileID: 11400000, guid: 60ebe87d88a24ad4ca9729161d88ed80, type: 2}
+  - {fileID: 11400000, guid: 247c2cfb589eb6c46bb8b31b108388f6, type: 2}
+  - {fileID: 11400000, guid: 4b590099d4136204487ec478098f6ec4, type: 2}
+  - {fileID: 11400000, guid: 3a32f50b41032d14a865748c52b97d04, type: 2}
 --- !u!1 &5327886758175610910
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40278b6ede321c14b96a57fb9d61c029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  summonCard: {fileID: 3089723124973942982, guid: 3686b5b9dcca51a45ad091ac94b67255,
-    type: 3}
-  dealToIndex: 1
+  currentlyHandlingCard: 0
+  summonCard: {fileID: 11400000, guid: 9c532c25f82a0804db16acf99f38dd27, type: 2}
+  dealToIndex: 0

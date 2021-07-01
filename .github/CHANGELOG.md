@@ -4,7 +4,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 
 ## v0.1.3 Beta
 
-v0.1.3 is a beta release that adds new features and improvements to the game, primarily focusing on the UI elements and UI animations of the game.
+v0.1.3 is a beta release that adds new features and improvements to the game, primarily focusing on the UI elements and UI animations of the game. It also addresses some major bugs that have been found while play-testing with a friend.
 
 - Additions:
 	- Added a dynamic and flexible Dialogue System to pave the way for Campaign and Tutorial mode.
@@ -13,8 +13,19 @@ v0.1.3 is a beta release that adds new features and improvements to the game, pr
 		- The skip button allows the current sentence to be automatically finished.
 		- The continue button will advance to the next sentence.
 		- This dialogue system is currently used to introduce new users to the UI of the game. In the future, this dialogue system will be used throughout the game to advance the plot of the story.
-- Changes:
+- Changes & Fixes:
 	- The window slide animation's easing effect has been changed from EaseInOutQuad to EaseOutQuad (the difference is that easing is no longer applied at the beginning of the game.)
+	- The ChampionShopButton and the GoldDisplay prefabs have been renovated to include Layout Groups and Layout Elements in order to keep the aesthetic clean and self-manageable (where previously would break after a certain amount of characters were placed in the textboxes.)
+	- Fixed an issue where the discard area wasn't being pruned effectively, so it would gradually grow until it reached the edge of the screen.
+		- Implementations to fix this were to prune during the Beginning Phase and when the gamble button was clicked.
+	- Various UI issues have been resolved:
+		- Fixed an UI issue where an error tooltip was shown when discarding a card after gambling during defense.
+		- Fixed an UI issue where a "DISCARDED" feed wouldn't show up when a bot discarded at the end of their turn.
+		- Fixed an UI issue where the (now deprecated) PlayerActionTooltip would linger after defending.
+	- The bot targeting system when using a SPADE has been slightly changed:
+		- Bots are now more likely to target overall.
+	- A player's nemesis will now always reset to "None" after the nemesis has died.
+	- Fixed an issue where the serialization of the gold amount at the end of a Sandbox match didn't work.
 - Miscellaneous Notes:
 	- The context menu for creating new ScriptableObjects for the game has been altered.
 	- The DataManager saves new variables to a new file for first-run variables: variables that allow the game to know if it is the first time the game has been launched by that user.

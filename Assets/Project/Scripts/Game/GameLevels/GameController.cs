@@ -256,6 +256,13 @@ public class GameController : MonoBehaviour {
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
+		
+		// Discard Area Prune
+		if (discardArea.transform.childCount > 8) {
+			for (int i = discardArea.transform.childCount; i > 8; i--) {
+				Destroy(discardArea.transform.GetChild(0).gameObject);
+			}
+		}
 
 		yield return new WaitForSeconds(2f);
 
@@ -356,7 +363,12 @@ public class GameController : MonoBehaviour {
 				break;
 			case false:
 				if (champion.discardAmount != 0) {
-					for (var discarded = 0; discarded < champion.discardAmount; discarded++) yield return StartCoroutine(champion.hand.Discard(champion.hand.GetCard("Lowest")));
+					for (var discarded = 0; discarded < champion.discardAmount; discarded++) {
+						var discard = champion.hand.GetCard("Lowest");
+						discard.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
+						discard.advantageFeed.text = "DISCARDED";
+						yield return StartCoroutine(champion.hand.Discard(discard));
+					}
 					champion.discardAmount = 0;
 				}
 				break;
@@ -437,6 +449,7 @@ public class GameController : MonoBehaviour {
 	public void ReturnToMainMenu() {
 		var gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
 		var gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
+		var gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
 
 		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
 		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
@@ -444,6 +457,7 @@ public class GameController : MonoBehaviour {
 			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
 			SceneManager.LoadScene("MainMenu");
 		});
+		LeanTween.alphaCanvas(gameEndAreaTeamCanvasGroup, 0f, 1f);
 	}
 	/// <summary>
 	/// Sets the champion of the next turn to the next champion in the list.

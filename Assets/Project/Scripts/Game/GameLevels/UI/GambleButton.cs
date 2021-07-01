@@ -41,6 +41,12 @@ public class GambleButton : MonoBehaviour {
 						}
 						break;
 				}
+				
+				if (GameController.instance.discardArea.transform.childCount > 8) {
+					for (int i = GameController.instance.discardArea.transform.childCount; i > 8; i--) {
+						Destroy(GameController.instance.discardArea.transform.GetChild(0).gameObject);
+					}
+				}
 				break;
 		}
 		Hide();

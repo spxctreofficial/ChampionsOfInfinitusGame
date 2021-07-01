@@ -330,23 +330,21 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	/// <returns></returns>
 	private bool DeathCheck() {
 		if (currentHP != 0) return false;
-		StartCoroutine(DeathDiscardAll());
+
+		while (hand.cards.Count > 0) {
+			var card = hand.GetCard("Lowest");
+			StartCoroutine(hand.Discard(card, false, true, false));
+			card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.black);
+			card.advantageFeed.text = "DEAD";
+		}
+		foreach (var champion in GameController.instance.champions) {
+			if (champion.currentNemesis != this) continue;
+			champion.currentNemesis = null;
+		}
+
 		return true;
 	}
-
-	/// <summary>
-	/// Discards all cards from this champion's hand.
-	/// Currently not quite working.
-	/// </summary>
-	/// <returns></returns>
-	private IEnumerator DeathDiscardAll() {
-		yield return new WaitForSeconds(Random.Range(2f, 5f));
-
-		foreach (Transform child in hand.transform) {
-			var card = child.gameObject.GetComponent<Card>();
-			yield return StartCoroutine(hand.Discard(card));
-		}
-	}
+	
 	/// <summary>
 	/// Resets this ChampionController's exhaustion.
 	/// </summary>

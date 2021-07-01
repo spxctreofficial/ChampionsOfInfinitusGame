@@ -303,7 +303,11 @@ public class Hand : MonoBehaviour {
 		// Sets card to the discard area, removing the card's specified owner, and removing the card from the list of cards from this hand to avoid memory leaks.
 		AudioController.instance.Play("Flip");
 		card.transform.SetParent(GameController.instance.discardArea.transform, false);
-		if (GameController.instance.discardArea.transform.childCount > 8) Destroy(GameController.instance.discardArea.transform.GetChild(0).gameObject);
+		if (GameController.instance.discardArea.transform.childCount > 8) {
+			for (int i = GameController.instance.discardArea.transform.childCount; i > 8; i--) {
+				Destroy(GameController.instance.discardArea.transform.GetChild(0).gameObject);
+			}
+		}
 		if (card.owner != null) {
 			card.owner.GetMatchStatistic().totalCardsDiscarded++;
 			card.caption.text = "Played by " + card.owner.championName;

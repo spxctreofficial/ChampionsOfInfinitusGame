@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: {fileID: 0}
+  fixedTooltip: {fileID: 0}

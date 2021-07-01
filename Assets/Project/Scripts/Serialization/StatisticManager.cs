@@ -119,7 +119,7 @@ public class StatisticManager : MonoBehaviour {
 		Untween();
 
 		switch (GameController.instance.gamemodes) {
-			case GameController.Gamemodes.FFA:
+			default:
 				goldReward = initialGoldReward;
 				goldReward += successfulAttackBonus;
 				goldReward += successfulDefendBonus;
@@ -132,9 +132,7 @@ public class StatisticManager : MonoBehaviour {
 				goldReward += totalHealthRemainingBonus;
 
 				DataManager.instance.GoldAmount += goldReward;
-				break;
-			default:
-				goldReward = initialGoldReward;
+				AudioController.instance.Play("Tutorial0" + Random.Range(1, 4));
 				break;
 		}
 

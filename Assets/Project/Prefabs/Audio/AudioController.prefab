@@ -172,3 +172,30 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Tutorial01
+    clip: {fileID: 8300000, guid: 50eba82ef78f48b4e96d690df09bd59f, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Tutorial02
+    clip: {fileID: 8300000, guid: eb29b96d50c216549b594895e8ba4805, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Tutorial03
+    clip: {fileID: 8300000, guid: 4b125a1fc54c9cd4698e181af9acf0fc, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

@@ -81,7 +81,7 @@ public class ConfirmDialog : MonoBehaviour {
     /// Set an UnityAction to be triggered by the Negative Button (left).
     /// </summary>
     /// <param name="call"></param>
-    public void SetNegativeButton(UnityAction call) {
+    private void SetNegativeButton(UnityAction call) {
         negativeButton.onClick.RemoveAllListeners();
         negativeButton.onClick.AddListener(call);
     }
@@ -89,7 +89,7 @@ public class ConfirmDialog : MonoBehaviour {
     /// Set an UnityAction to be triggered by the Positive Button (right).
     /// </summary>
     /// <param name="call"></param>
-    public void SetPositiveButton(UnityAction call) {
+    private void SetPositiveButton(UnityAction call) {
         positiveButton.onClick.RemoveAllListeners();
         positiveButton.onClick.AddListener(call);
     }

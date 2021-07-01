@@ -113,11 +113,6 @@ public class CardLogicController : MonoBehaviour {
 					case false:
 						// When Defense
 						foreach (var champion in GameController.instance.champions) {
-							if (GameController.instance.gambleButton.isBlocking) {
-								TooltipSystem.instance.ShowError("You cannot select another combat card after gambling!");
-								LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-								break;
-							}
 							if (champion.currentTarget != player || !champion.isAttacking) continue;
 
 							if (player.defendingCard != null) player.defendingCard.Flip(true);
@@ -507,8 +502,8 @@ public class CardLogicController : MonoBehaviour {
 						}
 
 						// Standard Targeting
-						chance = targetChampion.isPlayer ? 0.75f : 0.65f;
-						chance += champion.currentHP >= 0.75f * champion.maxHP ? 0.1f : 0f;
+						chance = targetChampion.isPlayer ? 0.8f : 0.7f;
+						chance += champion.currentHP >= 0.75f * champion.maxHP ? 0.5f : 0f;
 						chance += !targetChampion.isPlayer && targetChampion.currentHP - champion.attackDamage <= 0 ? 0.1f : 0f;
 						if (Random.Range(0f, 1f) < chance) {
 							champion.currentTarget = targetChampion;
