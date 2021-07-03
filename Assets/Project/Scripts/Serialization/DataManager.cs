@@ -42,8 +42,6 @@ public class DataManager : MonoBehaviour {
 
 	// Serialization Methods
 	public void Save() {
-		Debug.Log("being called");
-		
 		// Sort & save owned champions by their ID.
 		if (this.ownedChampions.Count != 0) this.ownedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
 		List<string> ownedChampions = new List<string>();
@@ -63,9 +61,6 @@ public class DataManager : MonoBehaviour {
 		
 		string defaultSaveJson = JsonUtility.ToJson(defaultSaveObject, true);
 		string firstRunSaveJson = JsonUtility.ToJson(firstRunSaveObject, true);
-		foreach (var champion in this.ownedChampions) {
-			Debug.Log(champion.championID);
-		}
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
 		if (File.Exists(saveFolder + "/save.lohsave")) {

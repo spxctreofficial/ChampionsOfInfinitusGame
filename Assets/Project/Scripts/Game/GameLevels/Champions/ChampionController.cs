@@ -16,7 +16,6 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
-	public GameObject abilityObjects;
 	public ChampionAbilityFeed abilityFeed;
 	[SerializeField]
 	private Button championButton;
@@ -24,6 +23,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private Image championImage;
 	[SerializeField]
 	private TMP_Text nameText, healthText, cardsText;
+	[SerializeField]
+	private GameObject abilityObjects;
 	public ChampionParticleController championParticleController;
 
 	// Identification & Basic Information

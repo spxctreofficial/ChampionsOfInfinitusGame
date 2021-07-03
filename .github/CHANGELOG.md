@@ -10,6 +10,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- Shown right-clicking when selecting a champion in Sandbox mode.
 		- Shown clicking and holding on a champion in Sandbox mode during an active match.
 - Changes & Fixes:
+	- AbilityPanel has been removed from the game.
 	- A mask has been properly added to the shop menu.
 
 ## v0.1.3 Beta

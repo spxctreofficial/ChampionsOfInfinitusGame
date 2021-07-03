@@ -5233,7 +5233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   champion: {fileID: 0}
   hand: {fileID: 0}
-  abilityPanel: {fileID: 0}
+  abilityObjects: {fileID: 6748404536497085940}
   abilityFeed: {fileID: 8602308402636751037}
   championButton: {fileID: 2510454741023338584}
   championImage: {fileID: 6840094927019828204}
