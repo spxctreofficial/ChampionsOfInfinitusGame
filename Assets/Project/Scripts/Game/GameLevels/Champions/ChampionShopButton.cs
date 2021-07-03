@@ -25,13 +25,13 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 		UpdateInformation();
 	}
 	private void Update() {
-		if (!DataManager.instance.OwnedChampions.Contains(champion) && !hasBeenPurchased) return;
+		if (!DataManager.instance.ownedChampions.Contains(champion) && !hasBeenPurchased) return;
 		UpdateInformation();
 		hasBeenPurchased = true;
 	}
 
 	public void OnClick() {
-		if (!DataManager.instance.FirstRunShop) return;
+		if (!DataManager.instance.firstRunShop) return;
 		currentInfoPanel = ChampionInfoPanel.Create(champion);
 		currentInfoPanel.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 	}
@@ -41,7 +41,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 		avatar.sprite = champion.avatar;
 		goldCostText.text = champion.shopCost.ToString();
 
-		foreach (var champion in DataManager.instance.OwnedChampions) {
+		foreach (var champion in DataManager.instance.ownedChampions) {
 			if (champion != this.champion) continue;
 			goldCostText.text = "PURCHASED";
 			goldCostText.color = new Color32(128, 128, 128, 255);
@@ -52,39 +52,9 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	// Pointer Events
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
-			string attackType() {
-				return champion.attackDamageType switch {
-					DamageType.Melee => "Melee",
-					DamageType.Ranged => "Ranged",
-					DamageType.Fire => "Fire",
-					DamageType.Lightning => "Lightning",
-					DamageType.Shadow => "Shadow",
-					DamageType.Unblockable => "Unblockable",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-			string abilityType(Ability ability) {
-				return ability.abilityType switch {
-					Ability.AbilityType.Passive => "Passive",
-					Ability.AbilityType.Active => "Active",
-					Ability.AbilityType.AttackB => "Attack Bonus",
-					Ability.AbilityType.DefenseB => "Defense Bonus",
-					Ability.AbilityType.Ultimate => "Ultimate",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-
 			var body = "Health: " + champion.maxHP; // max health
-			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + attackType() + " Damage"; // attack & damage
-
-			body += "\nAbilities:"; // abilities
-
-			if (champion.abilities.Count != 0) {
-				foreach (var ability in champion.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
-			}
-			else {
-				body += " None";
-			}
+			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
+			body += "\nCLICK FOR MORE INFO";
 
 			body += "\n\nCost: " + champion.shopCost; // cost to buy (assumes that the champion is a shop item)
 

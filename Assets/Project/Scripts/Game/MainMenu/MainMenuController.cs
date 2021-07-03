@@ -51,13 +51,16 @@ public class MainMenuController : MonoBehaviour {
 			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
 		});
 
-		if (!DataManager.instance.FirstRunGame) DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () => DataManager.instance.FirstRunGame = true).transform.SetParent(mainPanel.transform, false);
+		if (!DataManager.instance.firstRunGame) DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () => {
+			DataManager.instance.firstRunGame = true;
+			DataManager.instance.Save();
+		}).transform.SetParent(mainPanel.transform, false);
 	}
 	/// <summary>
 	/// Loads the Sandbox scene.
 	/// </summary>
 	public void LoadSandbox() {
-		if (!DataManager.instance.FirstRunGame) return;
+		if (!DataManager.instance.firstRunGame) return;
 		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
 			SceneManager.LoadScene("Sandbox");
 		});
@@ -66,7 +69,7 @@ public class MainMenuController : MonoBehaviour {
 	/// Quits the game.
 	/// </summary>
 	public void QuitGame() {
-		if (!DataManager.instance.FirstRunGame) return;
+		if (!DataManager.instance.firstRunGame) return;
 
 		var confirmDialog = ConfirmDialog.CreateNew("QUIT", "Are you sure you want to quit the game?", () => {
 			ConfirmDialog.instance.Hide();

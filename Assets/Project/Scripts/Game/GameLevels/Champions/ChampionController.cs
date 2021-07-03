@@ -10,7 +10,7 @@ using TMPro;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
-public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 	// Champion
 	public Champion champion;
 	[HideInInspector]
@@ -70,6 +70,10 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public Card attackingCard, defendingCard;
 	[HideInInspector]
 	public bool isUltReady;
+	
+	// Click & Hold
+	private float secondsHeld = 0f;
+	private bool isHolding = false;
 
 	private static int delayID;
 
@@ -78,6 +82,16 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	}
 	private void Update() {
 		AppearanceUpdater();
+
+		if (isHolding) {
+			secondsHeld += Time.deltaTime;
+			
+			if (secondsHeld >= 1f) {
+				secondsHeld = 0f;
+				isHolding = false;
+				ChampionInfoPanel.Create(champion).transform.SetParent(GameController.instance.gameArea.transform, false);
+			}
+		}
 	}
 
 	/// <summary>
@@ -507,5 +521,15 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public void OnPointerExit(PointerEventData eventData) {
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+	}
+	public void OnPointerDown(PointerEventData eventData) {
+		if (eventData.button == PointerEventData.InputButton.Left) {
+			TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+			LeanTween.cancel(delayID);
+			isHolding = true;
+		}
+	}
+	public void OnPointerUp(PointerEventData eventData) {
+		isHolding = false;
 	}
 }

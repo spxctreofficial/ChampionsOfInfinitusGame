@@ -7,6 +7,8 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 - Additions:
 	- A ChampionInfoPanel has been added to the game. This gives a more verbose description of the champions and their respective abilities.
 		- This replaces the traditional prompt when purchasing a champion from the shop.
+		- Shown right-clicking when selecting a champion in Sandbox mode.
+		- Shown clicking and holding on a champion in Sandbox mode during an active match.
 - Changes & Fixes:
 	- A mask has been properly added to the shop menu.
 

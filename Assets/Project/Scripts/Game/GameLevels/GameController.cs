@@ -640,7 +640,7 @@ public class GameController : MonoBehaviour {
 		mapSelectionConfig.SetActive(false);
 		championSelectionConfig.SetActive(true);
 
-		foreach (var championSO in DataManager.instance.OwnedChampions) {
+		foreach (var championSO in DataManager.instance.ownedChampions) {
 			var championSelectionButton = Instantiate(championSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionSelectionButton>();
 			championSelectionButton.championComponent = championSO;
 			championSelectionButton.transform.SetParent(championSelectionConfig.transform.GetChild(0), false);

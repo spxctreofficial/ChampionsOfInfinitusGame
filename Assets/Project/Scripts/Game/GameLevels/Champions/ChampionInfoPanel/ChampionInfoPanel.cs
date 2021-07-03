@@ -55,7 +55,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 			LayoutRebuilder.ForceRebuildLayoutImmediate(abilityOverviewEntry.GetComponent<RectTransform>());
 		}
 
-		if (DataManager.instance.OwnedChampions.Contains(champion)) {
+		if (DataManager.instance.ownedChampions.Contains(champion)) {
 			purchaseButton.gameObject.SetActive(false);
 		}
 		else if (champion.unlockability == Champion.Unlockability.ShopItem) {
@@ -64,7 +64,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 		}
 	}
 	private void StartPurchase() {
-		if (DataManager.instance.GoldAmount - champion.shopCost < 0) {
+		if (DataManager.instance.goldAmount - champion.shopCost < 0) {
 			TooltipSystem.instance.ShowError("Insufficient funds!");
 			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 			return;
@@ -78,8 +78,9 @@ public class ChampionInfoPanel : MonoBehaviour {
 			Destroy();
 
 			Debug.Log("PURCHASE SUCCESSFUL!");
-			DataManager.instance.GoldAmount -= champion.shopCost;
-			DataManager.instance.OwnedChampions.Add(champion);
+			DataManager.instance.goldAmount -= champion.shopCost;
+			DataManager.instance.ownedChampions.Add(champion);
+			DataManager.instance.Save();
 			AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
 		});
 		confirmDialog.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ChampionSelectionButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 	[HideInInspector]
 	public Champion championComponent;
 
@@ -28,46 +28,19 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerEnterHandler, IPoi
 
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
-			string attackType() {
-				return championComponent.attackDamageType switch {
-					DamageType.Melee => "Melee",
-					DamageType.Ranged => "Ranged",
-					DamageType.Fire => "Fire",
-					DamageType.Lightning => "Lightning",
-					DamageType.Shadow => "Shadow",
-					DamageType.Unblockable => "Unblockable",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-			string abilityType(Ability ability) {
-				return ability.abilityType switch {
-					Ability.AbilityType.Passive => "Passive",
-					Ability.AbilityType.Active => "Active",
-					Ability.AbilityType.AttackB => "Attack Bonus",
-					Ability.AbilityType.DefenseB => "Defense Bonus",
-					Ability.AbilityType.Ultimate => "Ultimate",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-
 			var body = "Health: " + championComponent.maxHP; // max health
-			body += "\n" + championComponent.attackName + " (Attack): " + championComponent.attackDamage + " " + attackType() + " Damage" +
-			        "\nAbilities:"; // abilities
-
-			switch (championComponent.abilities.Count) {
-				case 0:
-					body += " None";
-					break;
-				default:
-					foreach (var ability in championComponent.abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")";
-					break;
-			} // print all abilities
-
+			body += "\n" + championComponent.attackName + " (Attack): " + championComponent.attackDamage + " " + championComponent.attackDamageType + " Damage";
+			body += "\nRIGHT CLICK FOR MORE INFO";
 			TooltipSystem.instance.Show(body, championComponent.championName); // show the tooltip
 		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+	}
+	public void OnPointerClick(PointerEventData eventData) {
+		if (eventData.button == PointerEventData.InputButton.Right) {
+			ChampionInfoPanel.Create(championComponent).transform.SetParent(GameController.instance.championSelectionConfig.transform, false);
+		}
 	}
 }

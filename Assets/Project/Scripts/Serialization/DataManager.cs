@@ -15,48 +15,11 @@ public class DataManager : MonoBehaviour {
 	// Serialization Variables
 	private string saveFolder;
 
-	private int goldAmount = 0;
-	private List<Champion> ownedChampions = new List<Champion>();
+	public int goldAmount;
+	public List<Champion> ownedChampions = new List<Champion>();
 
-	private bool firstRunGame = false, firstRunShop = false, firstRunTutorial = false;
+	public bool firstRunGame, firstRunShop, firstRunTutorial;
 	
-	public int GoldAmount {
-		get => goldAmount;
-		set {
-			goldAmount = value;
-			Save();
-		}
-	}
-	public List<Champion> OwnedChampions {
-		get => ownedChampions;
-		set {
-			ownedChampions = value;
-			Save();
-		}
-	}
-
-	public bool FirstRunGame {
-		get => firstRunGame;
-		set {
-			firstRunGame = value;
-			Save();
-		}
-	}
-	public bool FirstRunShop {
-		get => firstRunShop;
-		set {
-			firstRunShop = value;
-			Save();
-		}
-	}
-	public bool FirstRunTutorial {
-		get => firstRunTutorial;
-		set {
-			firstRunTutorial = value;
-			Save();
-		}
-	}
-
 	private void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -79,10 +42,12 @@ public class DataManager : MonoBehaviour {
 
 	// Serialization Methods
 	public void Save() {
+		Debug.Log("being called");
+		
 		// Sort & save owned champions by their ID.
-		if (OwnedChampions.Count != 0) OwnedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
+		if (this.ownedChampions.Count != 0) this.ownedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
 		List<string> ownedChampions = new List<string>();
-		foreach (var champion in OwnedChampions) {
+		foreach (var champion in this.ownedChampions) {
 			ownedChampions.Add(champion.championID);
 		}
 		
@@ -98,6 +63,9 @@ public class DataManager : MonoBehaviour {
 		
 		string defaultSaveJson = JsonUtility.ToJson(defaultSaveObject, true);
 		string firstRunSaveJson = JsonUtility.ToJson(firstRunSaveObject, true);
+		foreach (var champion in this.ownedChampions) {
+			Debug.Log(champion.championID);
+		}
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
 		if (File.Exists(saveFolder + "/save.lohsave")) {

@@ -131,7 +131,8 @@ public class StatisticManager : MonoBehaviour {
 				goldReward += totalDamageReceivedCompensation;
 				goldReward += totalHealthRemainingBonus;
 
-				DataManager.instance.GoldAmount += goldReward;
+				DataManager.instance.goldAmount += goldReward;
+				DataManager.instance.Save();
 				AudioController.instance.Play("Tutorial0" + Random.Range(1, 4));
 				break;
 		}

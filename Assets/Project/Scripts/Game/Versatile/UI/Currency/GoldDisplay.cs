@@ -11,21 +11,21 @@ public class GoldDisplay : MonoBehaviour {
 	private Coroutine currentTextRoutine;
 
 	private void Start() {
-		goldAmountText.text = DataManager.instance.GoldAmount.ToString();
+		goldAmountText.text = DataManager.instance.goldAmount.ToString();
 	}
 	private void Update() {
-		if (DataManager.instance.GoldAmount.ToString() == goldAmountText.text || currentTextRoutine != null) return;
+		if (DataManager.instance.goldAmount.ToString() == goldAmountText.text || currentTextRoutine != null) return;
 		currentTextRoutine = StartCoroutine(UpdateText());
 	}
 
 	private IEnumerator UpdateText() {
 		var goldAmountShown = int.Parse(goldAmountText.text);
-		while (goldAmountShown < DataManager.instance.GoldAmount) {
+		while (goldAmountShown < DataManager.instance.goldAmount) {
 			goldAmountShown++;
 			goldAmountText.text = goldAmountShown.ToString();
 			yield return null;
 		}
-		while (goldAmountShown > DataManager.instance.GoldAmount) {
+		while (goldAmountShown > DataManager.instance.goldAmount) {
 			goldAmountShown--;
 			goldAmountText.text = goldAmountShown.ToString();
 			yield return null;

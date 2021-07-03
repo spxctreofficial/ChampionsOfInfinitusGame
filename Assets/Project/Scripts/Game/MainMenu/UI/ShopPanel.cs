@@ -12,14 +12,17 @@ public class ShopPanel : MonoBehaviour {
 	private ChampionShopButton championShopButtonPrefab;
 	
 	public void Show() {
-		if (!DataManager.instance.FirstRunGame) return;
+		if (!DataManager.instance.firstRunGame) return;
 		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), new Vector2(-1920, 0), 1f).setEaseOutQuad();
 		LeanTween.move(GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseOutQuad().setOnComplete(() => {
-			if (!DataManager.instance.FirstRunShop) DialogueSystem.Create(MainMenuController.instance.firstRunShopSession, new Vector2(0, -270), () => DataManager.instance.FirstRunShop = true).transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
+			if (!DataManager.instance.firstRunShop) DialogueSystem.Create(MainMenuController.instance.firstRunShopSession, new Vector2(0, -270), () => {
+				DataManager.instance.firstRunShop = true;
+				DataManager.instance.Save();
+			}).transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 		});
 	}
 	public void Hide() {
-		if (!DataManager.instance.FirstRunShop) return;
+		if (!DataManager.instance.firstRunShop) return;
 		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseOutQuad();
 		LeanTween.move(GetComponent<RectTransform>(), new Vector2(1920, 0), 1f).setEaseOutQuad();
 	}
