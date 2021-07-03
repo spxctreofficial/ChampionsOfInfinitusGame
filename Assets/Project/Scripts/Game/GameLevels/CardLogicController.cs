@@ -365,13 +365,11 @@ public class CardLogicController : MonoBehaviour {
 
 		// CombatCalculation Ability heck
 		if (abilityCheck) {
-			foreach (Transform child in attacker.abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in attacker.abilities) {
 				yield return StartCoroutine(ability.OnCombatCalculationAttacker(attacker.attackingCard, defender.defendingCard));
 			}
 
-			foreach (Transform child in defender.abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in defender.abilities) {
 				yield return StartCoroutine(ability.OnCombatCalculationDefender(attacker.attackingCard, defender.defendingCard));
 			}
 		}
@@ -486,8 +484,7 @@ public class CardLogicController : MonoBehaviour {
 				else {
 					foreach (var targetChampion in GameController.instance.champions) {
 						bool skipThisChampion = false;
-						foreach (Transform child in targetChampion.abilityPanel.panel.transform) {
-							var ability = child.GetComponent<AbilityController>();
+						foreach (var ability in targetChampion.abilities) {
 							skipThisChampion = ability.CanBeTargetedByAttack();
 							skipThisChampion = !skipThisChampion;
 							if (skipThisChampion) break;

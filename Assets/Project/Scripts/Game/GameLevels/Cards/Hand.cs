@@ -247,8 +247,7 @@ public class Hand : MonoBehaviour {
 			}
 			if (abilityCheck) {
 				foreach (var selectedChampion in GameController.instance.champions) {
-					foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-						var ability = child.GetComponent<AbilityController>();
+					foreach (var ability in selectedChampion.abilities) {
 						yield return StartCoroutine(ability.OnDeal(card, owner));
 					}
 				}
@@ -272,8 +271,7 @@ public class Hand : MonoBehaviour {
 
 		if (abilityCheck) {
 			foreach (var selectedChampion in GameController.instance.champions) {
-				foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-					var ability = child.GetComponent<AbilityController>();
+				foreach (var ability in selectedChampion.abilities) {
 					yield return StartCoroutine(ability.OnDeal(card, owner));
 				}
 			}
@@ -323,8 +321,7 @@ public class Hand : MonoBehaviour {
 		}
 		if (abilityCheck) {
 			foreach (var selectedChampion in GameController.instance.champions) {
-				foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-					var ability = child.GetComponent<AbilityController>();
+				foreach (var ability in selectedChampion.abilities) {
 					// ABILITY CHECK HERE
 				}
 			}

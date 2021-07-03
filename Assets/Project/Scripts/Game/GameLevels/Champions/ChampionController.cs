@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.Common.Tree;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -10,13 +11,12 @@ using TMPro;
 
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
-public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
+public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 	// Champion
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
-	[HideInInspector]
-	public AbilityPanel abilityPanel;
+	public GameObject abilityObjects;
 	public ChampionAbilityFeed abilityFeed;
 	[SerializeField]
 	private Button championButton;
@@ -54,7 +54,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	[HideInInspector]
 	public string attackName;
 
-	public List<Ability> abilities;
+	public List<AbilityController> abilities;
 
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
@@ -72,8 +72,8 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 	public bool isUltReady;
 	
 	// Click & Hold
-	private float secondsHeld = 0f;
-	private bool isHolding = false;
+	private float secondsHeld;
+	private bool isHolding;
 
 	private static int delayID;
 
@@ -120,7 +120,13 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		attackDamageType = champion.attackDamageType;
 		attackName = champion.attackName;
 
-		abilities = champion.abilities;
+		foreach (var ability in champion.abilities) {
+			var abilityController = Instantiate(GameController.instance.abilityTemplate, Vector2.zero, Quaternion.identity).GetComponent<AbilityController>();
+			abilityController.transform.SetParent(abilityObjects.transform, false);
+			abilityController.Setup(this, ability);
+			
+			abilities.Add(abilityController);
+		}
 
 		discardAmount = 0;
 		ResetExhaustion();
@@ -164,8 +170,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		// Damage Calculation
 		var currentHPCache = currentHP;
-		foreach (Transform child in abilityPanel.panel.transform) {
-			var ability = child.GetComponent<AbilityController>();
+		foreach (var ability in abilities) {
 			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
 		currentHP = Mathf.Max(currentHP - amount, 0);
@@ -254,14 +259,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		// Ability Check
 		if (abilityCheck == false) yield break;
-		foreach (Transform child in abilityPanel.panel.transform) {
-			var ability = child.GetComponent<AbilityController>();
+		foreach (var ability in abilities) {
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (Transform child in abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in abilities) {
 				yield return StartCoroutine(ability.OnDamage(this, amount));
 			}
 		}
@@ -285,14 +288,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		AudioController.instance.Play("Heal");
 
 		if (abilityCheck == false) yield break;
-		foreach (Transform child in abilityPanel.panel.transform) {
-			var ability = child.GetComponent<AbilityController>();
+		foreach (var ability in abilities) {
 			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (Transform child in abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in abilities) {
 				yield return StartCoroutine(ability.OnHeal(this, amount));
 			}
 		}
@@ -322,14 +323,11 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 		var hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(GameController.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(GameController.instance.gameArea.transform, false);
 
-		var abilityPanel = Instantiate(GameController.instance.abilityPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityPanel>();
-		abilityPanel.transform.SetParent(GameController.instance.gameArea.transform, false);
 
 		// Dependency Setup
 		IEnumerator Setup() {
 			yield return null;
 			hand.SetOwner(championController);
-			abilityPanel.Setup(championController);
 
 			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
 		}
@@ -445,8 +443,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			if (!champion.isAttacking || !champion.isPlayer || isDead) continue;
 			
 			bool canBeTargeted = true;
-			foreach (Transform child in abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in abilities) {
 				canBeTargeted = ability.CanBeTargetedByAttack();
 			}
 			if (!canBeTargeted) return;
@@ -473,11 +470,7 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			GameController.instance.confirmButton.Hide();
 		}
 	}
-	public void OnPointerClick(PointerEventData eventData) {
-		if (eventData.button == PointerEventData.InputButton.Right) {
-			abilityPanel.OpenPanel();
-		}
-	}
+	
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
 			string attackType() {
@@ -507,12 +500,12 @@ public class ChampionController : MonoBehaviour, IPointerClickHandler, IPointerE
 			body += "\nCards: " + hand.GetCardCount(); // card amount
 
 			body += "\nAbilities:"; // abilities
-			if (abilities.Count != 0) {
-				foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
-			}
-			else {
-				body += " None";
-			}
+			// if (abilities.Count != 0) {
+			// 	foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
+			// }
+			// else {
+			// 	body += " None";
+			// }
 
 			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.championName; // nemesis
 			TooltipSystem.instance.Show(body, championName); // show the tooltip

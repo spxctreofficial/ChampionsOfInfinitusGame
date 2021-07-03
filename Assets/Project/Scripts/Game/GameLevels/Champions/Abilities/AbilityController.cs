@@ -1,13 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using TMPro;
 
-public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class AbilityController : MonoBehaviour {
 	public ChampionController champion;
 	public Ability ability;
 
@@ -16,27 +12,10 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	[HideInInspector]
 	public List<string> tags = new List<string>();
 
-	private static int delayID;
-
 	// Constructors
 	public void Setup(ChampionController champion, Ability ability) {
-		// Setting up variables
 		this.champion = champion;
 		this.ability = ability;
-
-		// Setting up appearance
-		gameObject.GetComponent<Image>().sprite = ability.sprite;
-		switch (ability.abilityType) {
-			case Ability.AbilityType.Passive:
-			case Ability.AbilityType.AttackB:
-			case Ability.AbilityType.DefenseB:
-			case Ability.AbilityType.Ultimate:
-				gameObject.GetComponent<Button>().interactable = false;
-				break;
-			default:
-				gameObject.AddComponent<SmartHover>();
-				break;
-		}
 	}
 
 	// Click Event
@@ -44,8 +23,8 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 	// Checks
 	public bool CheckForAbility(string searchCriteria) {
-		if (champion.abilities.Count == 0) return false;
-		foreach (var ability in champion.abilities) {
+		if (champion.champion.abilities.Count == 0) return false;
+		foreach (var ability in champion.champion.abilities) {
 			if (!IsExclusive()) return false;
 			if (searchCriteria == ability.abilityID) return true;
 		}
@@ -316,35 +295,29 @@ public class AbilityController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		yield return StartCoroutine(champion.hand.Deal(1));
 		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
 	}
-
-
-
-
-
-
 	// Image Shake Borrowed From ChampionController
-	public void OnPointerEnter(PointerEventData eventData) {
-		delayID = LeanTween.delayedCall(0.5f, () => {
-			var body = ability.abilityDescription;
-
-			string abilityType() {
-				return ability.abilityType switch {
-					Ability.AbilityType.Passive => "Passive",
-					Ability.AbilityType.Active => "Active",
-					Ability.AbilityType.AttackB => "Attack Bonus",
-					Ability.AbilityType.DefenseB => "Defense Bonus",
-					Ability.AbilityType.Ultimate => "Ultimate",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-
-			body += "\n Ability Type: " + abilityType();
-
-			TooltipSystem.instance.Show(body, ability.abilityName);
-		}).uniqueId;
-	}
-	public void OnPointerExit(PointerEventData eventData) {
-		LeanTween.cancel(delayID);
-		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
-	}
+	// public void OnPointerEnter(PointerEventData eventData) {
+	// 	delayID = LeanTween.delayedCall(0.5f, () => {
+	// 		var body = ability.abilityDescription;
+	//
+	// 		string abilityType() {
+	// 			return ability.abilityType switch {
+	// 				Ability.AbilityType.Passive => "Passive",
+	// 				Ability.AbilityType.Active => "Active",
+	// 				Ability.AbilityType.AttackB => "Attack Bonus",
+	// 				Ability.AbilityType.DefenseB => "Defense Bonus",
+	// 				Ability.AbilityType.Ultimate => "Ultimate",
+	// 				_ => throw new ArgumentOutOfRangeException()
+	// 			};
+	// 		}
+	//
+	// 		body += "\n Ability Type: " + abilityType();
+	//
+	// 		TooltipSystem.instance.Show(body, ability.abilityName);
+	// 	}).uniqueId;
+	// }
+	// public void OnPointerExit(PointerEventData eventData) {
+	// 	LeanTween.cancel(delayID);
+	// 	TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+	// }
 }

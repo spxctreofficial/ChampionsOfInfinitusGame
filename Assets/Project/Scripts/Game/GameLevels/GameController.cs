@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour {
 	public GameObject abilityTemplate;
 	public GameObject cardTemplate;
 	public GameObject handPrefab;
-	public GameObject abilityPanelPrefab;
 	public GameObject dialogueSystemPrefab;
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
@@ -252,8 +251,7 @@ public class GameController : MonoBehaviour {
 
 		// Beginning Phase Ability Check
 		foreach (var selectedChampion in champions) {
-			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
@@ -284,8 +282,7 @@ public class GameController : MonoBehaviour {
 
 		// Action Phase Ability Check
 		foreach (var selectedChampion in champions) {
-			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnActionPhase());
 			}
 		}
@@ -347,8 +344,7 @@ public class GameController : MonoBehaviour {
 
 		// End Phase Ability Check
 		foreach (var selectedChampion in champions) {
-			foreach (Transform child in selectedChampion.abilityPanel.panel.transform) {
-				var ability = child.GetComponent<AbilityController>();
+			foreach (var ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnEndPhase());
 			}
 		}
@@ -701,15 +697,11 @@ public class GameController : MonoBehaviour {
 		// Champion Dependencies
 		var hand = spawnAsPlayer ? playerHand : Instantiate(handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(gameArea.transform, false);
-
-		var abilityPanel = Instantiate(abilityPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityPanel>();
-		abilityPanel.transform.SetParent(gameArea.transform, false);
-
+		
 		// Dependency Setup
 		IEnumerator Setup() {
 			yield return null;
 			hand.SetOwner(championController);
-			abilityPanel.Setup(championController);
 
 			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
 		}

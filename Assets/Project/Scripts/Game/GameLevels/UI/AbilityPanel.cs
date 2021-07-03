@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Obsolete]
 public class AbilityPanel : MonoBehaviour {
 	[HideInInspector]
 	public ChampionController owner;
@@ -13,10 +14,10 @@ public class AbilityPanel : MonoBehaviour {
 
 	public void Setup(ChampionController champion) {
 		owner = champion;
-		champion.abilityPanel = this;
+		// champion.abilityPanel = this;
 		name = owner.championName + "'s Abilities";
 
-		foreach (var ability in owner.abilities) {
+		foreach (var ability in owner.champion.abilities) {
 			var abilityController = Instantiate(GameController.instance.abilityTemplate, new Vector2(0, 0), Quaternion.identity).GetComponent<AbilityController>();
 			abilityController.transform.SetParent(panel.transform, false);
 			abilityController.Setup(champion, ability);
