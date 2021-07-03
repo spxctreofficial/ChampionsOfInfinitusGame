@@ -16,44 +16,33 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField]
 	private TMP_Text goldCostText;
 
+	private ChampionInfoPanel currentInfoPanel;
+	private bool hasBeenPurchased = false;
+
 	private static int delayID;
 
 	private void Start() {
 		UpdateInformation();
 	}
+	private void Update() {
+		if (!DataManager.instance.OwnedChampions.Contains(champion) && !hasBeenPurchased) return;
+		UpdateInformation();
+		hasBeenPurchased = true;
+	}
 
 	public void OnClick() {
 		if (!DataManager.instance.FirstRunShop) return;
-		StartPurchase();
-	}
-
-	private void StartPurchase() {
-		if (DataManager.instance.GoldAmount - int.Parse(goldCostText.text) < 0) return;
-
-		string description = "Are you sure you want to purchase " + champion.championName + " for " + goldCostText.text + " gold? This purchase is irreversible, and is therefore a permanent purchase.";
-		var confirmDialog = ConfirmDialog.CreateNew("Purchase", description, () => {
-			ConfirmDialog.instance.Hide();
-		}, () => {
-			ConfirmDialog.instance.Hide();
-
-			Debug.Log("PURCHASE SUCCESSFUL!");
-			DataManager.instance.GoldAmount -= champion.shopCost;
-			DataManager.instance.OwnedChampions.Add(champion);
-			AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
-			UpdateInformation();
-		});
-		confirmDialog.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
+		currentInfoPanel = ChampionInfoPanel.Create(champion);
+		currentInfoPanel.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 	}
 	
-	
-	private void UpdateInformation() {
+	public void UpdateInformation() {
 		// Updates information
 		avatar.sprite = champion.avatar;
 		goldCostText.text = champion.shopCost.ToString();
 
 		foreach (var champion in DataManager.instance.OwnedChampions) {
 			if (champion != this.champion) continue;
-			GetComponent<Button>().enabled = false;
 			goldCostText.text = "PURCHASED";
 			goldCostText.color = new Color32(128, 128, 128, 255);
 			break;

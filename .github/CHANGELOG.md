@@ -2,6 +2,14 @@
 
 This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
+## v0.2 Beta
+
+- Additions:
+	- A ChampionInfoPanel has been added to the game. This gives a more verbose description of the champions and their respective abilities.
+		- This replaces the traditional prompt when purchasing a champion from the shop.
+- Changes & Fixes:
+	- A mask has been properly added to the shop menu.
+
 ## v0.1.3 Beta
 
 v0.1.3 is a beta release that adds new features and improvements to the game, primarily focusing on the UI elements and UI animations of the game. It also addresses some major bugs that have been found while play-testing with a friend.

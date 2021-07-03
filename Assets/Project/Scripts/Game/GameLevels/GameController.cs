@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour {
 	public GameObject championSelectionButtonPrefab;
 	public GameObject difficultySelectionButtonPrefab;
 	public GameObject championSlotPrefab;
+	public GameObject championInfoPanelPrefab;
 
 	// UI-Specific References
 	[Header("UI References")]

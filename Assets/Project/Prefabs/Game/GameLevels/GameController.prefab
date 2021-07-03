@@ -83,6 +83,8 @@ MonoBehaviour:
     type: 3}
   championSlotPrefab: {fileID: 5131478056581540558, guid: 184ff8f329e956e4e9dab68774275d37,
     type: 3}
+  championInfoPanelPrefab: {fileID: 1505575829721910574, guid: 0fc4a4d526563a9438bf7ddb3e3135c7,
+    type: 3}
   phaseIndicator: {fileID: 0}
   playerActionTooltip: {fileID: 0}
   confirmButton: {fileID: 0}
