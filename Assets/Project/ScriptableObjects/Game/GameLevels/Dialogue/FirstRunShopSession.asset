@@ -15,14 +15,32 @@ MonoBehaviour:
   dialogues:
   - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
     sentence: This is the shop.
+    caretBehaviour: 1
+    continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
     sentence: Here you can purchase in-game cosmetics and recruit new champions with
       gold.
+    caretBehaviour: 1
+    continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
     sentence: Gold can be regularly acquired by playing Sandbox mode. The higher
       the difficulty, the more gold rewarded per match of Sandbox mode.
+    caretBehaviour: 1
+    continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
     sentence: Gold can also be acquired in Campaign mode. However, Campaign mode
       has yet to be implemented, so this feature will be coming soon.
+    caretBehaviour: 1
+    continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
     sentence: Happy shopping!
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: DISCLAIMER I AM NOT RESPONSIBLE FOR YOUR RECKLESS PURCHASES-
+    caretBehaviour: 3
+    continueWithoutInput: 1
+  - speakingChampion: {fileID: 11400000, guid: aed9bd93affc7fe4a99c9a10d26835bd, type: 2}
+    sentence: AND I CANNOT REFUND YOU YOUR GOLD AFTER YOU HAVE MADE A PURCHASE-
+    caretBehaviour: 3
+    continueWithoutInput: 1
