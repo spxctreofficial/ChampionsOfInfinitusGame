@@ -9,6 +9,12 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- This replaces the traditional prompt when purchasing a champion from the shop.
 		- Shown right-clicking when selecting a champion in Sandbox mode.
 		- Shown clicking and holding on a champion in Sandbox mode during an active match.
+	- The DialogueSystem has received some optimizations and improvements.
+		- There is now a range of speeds that the caret (the typing of the characters) can use.
+			- Unfiltered: This is the simplest, using a `0.05f` static rate per character.
+			- Natural: A natural speed for expressing dialogue, with slightly longer pauses for punctuation.
+			- Long Pause: This is a complicated speed, pausing longer on punctuation (excluding commas).
+			- Fast: Just twice the speed of Natural.
 - Changes & Fixes:
 	- AbilityPanel has been removed from the game.
 	- A mask has been properly added to the shop menu.

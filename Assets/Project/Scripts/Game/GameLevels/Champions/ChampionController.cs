@@ -474,41 +474,13 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
-			string attackType() {
-				return attackDamageType switch {
-					DamageType.Melee => "Melee",
-					DamageType.Ranged => "Ranged",
-					DamageType.Fire => "Fire",
-					DamageType.Lightning => "Lightning",
-					DamageType.Shadow => "Shadow",
-					DamageType.Unblockable => "Unblockable",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
-			string abilityType(Ability ability) {
-				return ability.abilityType switch {
-					Ability.AbilityType.Passive => "Passive",
-					Ability.AbilityType.Active => "Active",
-					Ability.AbilityType.AttackB => "Attack Bonus",
-					Ability.AbilityType.DefenseB => "Defense Bonus",
-					Ability.AbilityType.Ultimate => "Ultimate",
-					_ => throw new ArgumentOutOfRangeException()
-				};
-			}
 
 			var body = "Health: " + currentHP + "/" + maxHP; // health
-			body += "\n" + attackName + " (Attack): " + attackDamage + " " + attackType() + " Damage"; // attack & damage
+			body += "\n" + attackName + " (Attack): " + attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCards: " + hand.GetCardCount(); // card amount
 
-			body += "\nAbilities:"; // abilities
-			// if (abilities.Count != 0) {
-			// 	foreach (var ability in abilities) body += "\n" + ability.abilityName + " (" + abilityType(ability) + ")"; // print all abilities
-			// }
-			// else {
-			// 	body += " None";
-			// }
-
 			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.championName; // nemesis
+			body += "\n\nCLICK & HOLD FOR MORE INFO";
 			TooltipSystem.instance.Show(body, championName); // show the tooltip
 		}).uniqueId;
 	}

@@ -9,7 +9,11 @@ public class DialogueSession : ScriptableObject {
 
 [Serializable]
 public class Dialogue {
+	public enum CaretBehaviour { Unfiltered, Natural, LongPause, Fast }
+	
 	public Champion speakingChampion;
 	[TextArea(3, 10)]
 	public string sentence;
+	public CaretBehaviour caretBehaviour;
+	public bool continueWithoutInput;
 }
