@@ -9,8 +9,8 @@ using EZCameraShake;
 public class CardLogicController : MonoBehaviour {
 	public static CardLogicController instance;
 
-	public bool currentlyHandlingCard = false;
-	
+	public bool currentlyHandlingCard;
+
 	[SerializeField]
 	private CardScriptableObject summonCard; // debugging
 	[SerializeField]
@@ -35,122 +35,143 @@ public class CardLogicController : MonoBehaviour {
 	/// <param name="card"></param>
 	/// <returns></returns>
 	public IEnumerator CardSelect(Card card) {
-		var player = GameController.instance.champions[0];
-		
-		// Exits if the player is dead.
-		foreach (var champion in GameController.instance.champions) {
-			if (!champion.isPlayer) continue;
-			player = champion;
-			if (player.isDead) {
-				Debug.Log("The player is dead!");
+		foreach (var player in GameController.instance.champions) {
+			if (!player.isPlayer || player.isDead) continue;
+
+			// Exits if the card is not the player's.
+			if (card.owner == null) {
+				TooltipSystem.instance.ShowError("This is not your card!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 				yield break;
+			}
+			if (!card.owner.isPlayer) {
+				TooltipSystem.instance.ShowError("This is not your card!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
+			}
+
+			switch (GameController.instance.gamePhase) {
+				case GamePhase.BeginningPhase:
+					TooltipSystem.instance.ShowError(player.isMyTurn ? "You cannot play a card during the Beginning Phase!" : "It is not your turn!");
+					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+					break;
+				case GamePhase.ActionPhase:
+					if (currentlyHandlingCard) {
+						Debug.Log("Cannot play! Currently handling another card.");
+						yield break;
+					}
+
+					// If it's the player's turn
+					switch (player.isMyTurn) {
+						case true:
+							// When Attacking
+							if (player.isAttacking && !player.hasAttacked) {
+								if (GameController.instance.gambleButton.isBlocking) {
+									TooltipSystem.instance.ShowError("You cannot select another combat card after gambling!");
+									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+									yield break;
+								}
+								if (player.attackingCard != null) {
+									player.attackingCard.halo.Stop();
+									player.attackingCard.halo.Clear();
+								}
+								player.attackingCard = card;
+								card.halo.Stop();
+								card.halo.Play();
+								GameController.instance.confirmButton.Show();
+								GameController.instance.gambleButton.Hide();
+
+								if (player.currentTarget != null) yield break;
+								GameController.instance.confirmButton.Hide();
+								yield break;
+							}
+							
+							// When Used Normally
+							switch (card.cardScriptableObject.cardSuit) {
+								case CardSuit.SPADE:
+									StartCoroutine(SpadeLogic(card, player));
+									yield break;
+								case CardSuit.HEART:
+									StartCoroutine(HeartLogic(card, player));
+									yield break;
+								case CardSuit.CLUB:
+									StartCoroutine(ClubLogic(card, player));
+									yield break;
+								case CardSuit.DIAMOND:
+									StartCoroutine(DiamondLogic(card, player));
+									yield break;
+							}
+							break;
+						case false:
+							// When Defense
+							foreach (var champion in GameController.instance.champions) {
+								if (champion.currentTarget != player || !champion.isAttacking) continue;
+
+								if (player.defendingCard != null) player.defendingCard.Flip(true);
+								player.defendingCard = card;
+								card.Flip(true);
+
+								GameController.instance.playerActionTooltip.text = "Confirm the defense, or change selected card.";
+								GameController.instance.confirmButton.Show();
+								GameController.instance.confirmButton.textBox.text = "Confirm";
+								yield break;
+							}
+							break;
+					}
+
+					// When Forced to Discard
+					if (player.discardAmount > 0) {
+						yield return StartCoroutine(player.hand.Discard(card));
+						
+						player.discardAmount--;
+						card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
+						card.advantageFeed.text = "DISCARDED";
+						GameController.instance.confirmButton.Hide();
+
+						if (player.discardAmount != 0) {
+							GameController.instance.playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
+						}
+						else {
+
+							GameController.instance.playerActionTooltip.text = "";
+						}
+					}
+					// If all else fails, stops the player from using the card.
+					else {
+						TooltipSystem.instance.ShowError("It is not your turn!");
+						LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+					}
+					break;
+				case GamePhase.EndPhase:
+					switch (player.isMyTurn) {
+						case true:
+							// When Discarding Naturally
+							if (player.discardAmount > 0) {
+								yield return StartCoroutine(player.hand.Discard(card));
+								
+								player.discardAmount--;
+								card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
+								card.advantageFeed.text = "DISCARDED";
+								GameController.instance.confirmButton.Hide();
+
+								if (player.discardAmount != 0) {
+									GameController.instance.playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
+								}
+								else {
+
+									GameController.instance.playerActionTooltip.text = "";
+								}
+							}
+							yield break;
+						case false:
+							TooltipSystem.instance.ShowError("It is not your turn!");
+							LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+							yield break;
+					}
 			}
 		}
 
-		// Exits if the card is not the player's.
-		if (card.owner == null) {
-			TooltipSystem.instance.ShowError("This is not your card!");
-			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-			yield break;
-		}
-		else if (!card.owner.isPlayer) {
-			TooltipSystem.instance.ShowError("This is not your card!");
-			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-			yield break;
-		}
-		
-		switch (GameController.instance.gamePhase) {
-			case GamePhase.BeginningPhase:
-				TooltipSystem.instance.ShowError(player.isMyTurn ? "You cannot play a card during the Beginning Phase!" : "It is not your turn!");
-				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-				break;
-			case GamePhase.ActionPhase:
-				if (currentlyHandlingCard) {
-					Debug.Log("Cannot play! Currently handling another card.");
-					yield break;
-				}
 
-				// If it's the player's turn
-				switch (player.isMyTurn) {
-					case true:
-						// When Attacking
-						if (player.isAttacking && !player.hasAttacked) {
-							if (GameController.instance.gambleButton.isBlocking) {
-								TooltipSystem.instance.ShowError("You cannot select another combat card after gambling!");
-								LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-								yield break;
-							}
-							if (player.attackingCard != null) {
-								player.attackingCard.halo.Stop();
-								player.attackingCard.halo.Clear();
-							}
-							player.attackingCard = card;
-							card.halo.Stop();
-							card.halo.Play();
-							GameController.instance.confirmButton.Show();
-							GameController.instance.gambleButton.Hide();
-
-							if (player.currentTarget != null) yield break;
-							GameController.instance.confirmButton.Hide();
-							yield break;
-						}
-						// When Used Normally
-						switch (card.cardScriptableObject.cardSuit) {
-							case CardSuit.SPADE:
-								StartCoroutine(SpadeLogic(card, player));
-								yield break;
-							case CardSuit.HEART:
-								StartCoroutine(HeartLogic(card, player));
-								yield break;
-							case CardSuit.CLUB:
-								StartCoroutine(ClubLogic(card, player));
-								yield break;
-							case CardSuit.DIAMOND:
-								StartCoroutine(DiamondLogic(card, player));
-								yield break;
-						}
-						break;
-					case false:
-						// When Defense
-						foreach (var champion in GameController.instance.champions) {
-							if (champion.currentTarget != player || !champion.isAttacking) continue;
-
-							if (player.defendingCard != null) player.defendingCard.Flip(true);
-							player.defendingCard = card;
-							card.Flip(true);
-
-							GameController.instance.playerActionTooltip.text = "Confirm the defense, or change selected card.";
-							GameController.instance.confirmButton.Show();
-							GameController.instance.confirmButton.textBox.text = "Confirm";
-							yield break;
-						}
-						break;
-				}
-
-				// When Forced to Discard
-				if (player.discardAmount > 0) {
-					PlayerDiscard(card, player, "Forced");
-				}
-				// If all else fails, stops the player from using the card.
-				else {
-					TooltipSystem.instance.ShowError("It is not your turn!");
-					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-				}
-				break;
-			case GamePhase.EndPhase:
-				switch (player.isMyTurn) {
-					case true:
-						// When Discarding Naturally
-						if (player.discardAmount > 0) {
-							PlayerDiscard(card, player, "Forced");
-						}
-						yield break;
-					case false:
-						TooltipSystem.instance.ShowError("It is not your turn!");
-						LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-						yield break;
-				}
-		}
 	}
 	/// <summary>
 	/// Called to handle the bot's card logic.
@@ -299,7 +320,7 @@ public class CardLogicController : MonoBehaviour {
 
 		GameController.instance.StartEndPhase(champion);
 	}
-	
+
 	/// <summary>
 	/// Calculates the result of combat, as well as who should take damage and checking for activated abilities.
 	/// Do not call this randomly, as this could very well break code if run at the wrong time.
@@ -314,7 +335,7 @@ public class CardLogicController : MonoBehaviour {
 			Debug.LogError("No attacking card was specified on an initiated attack!");
 			yield break;
 		}
-		
+
 		// Sets the values to listen for.
 		attacker.hasAttacked = true;
 		defender.currentlyTargeted = true;
@@ -373,7 +394,7 @@ public class CardLogicController : MonoBehaviour {
 				yield return StartCoroutine(ability.OnCombatCalculationDefender(attacker.attackingCard, defender.defendingCard));
 			}
 		}
-		
+
 		var attackerDamageHistory = (DamageHistory)null;
 		foreach (var damageHistory in attacker.GetMatchStatistic().damageHistories) {
 			if (damageHistory.dealtAgainst != defender) continue;
@@ -440,7 +461,7 @@ public class CardLogicController : MonoBehaviour {
 		switch (champion.isPlayer) {
 			case true:
 				// Player Spade Logic
-				
+
 				// Initiates an attack.
 				GameController.instance.endTurnButton.gameObject.SetActive(false);
 				GameController.instance.gambleButton.Show();
@@ -681,7 +702,7 @@ public class CardLogicController : MonoBehaviour {
 
 				champion.diamondsBeforeExhaustion--;
 				yield return StartCoroutine(champion.hand.Discard(card));
-				
+
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.hand.Deal(2));
 				}
@@ -744,7 +765,7 @@ public class CardLogicController : MonoBehaviour {
 
 				champion.diamondsBeforeExhaustion--;
 				yield return StartCoroutine(champion.hand.Discard(card));
-				
+
 				foreach (var selectedChampion in GameController.instance.champions) {
 					yield return StartCoroutine(selectedChampion.hand.Deal());
 				}
@@ -1028,40 +1049,5 @@ public class CardLogicController : MonoBehaviour {
 		}
 
 		currentlyHandlingCard = false;
-	}
-	private void PlayerDiscard(Card card, ChampionController player, string type = "Normal") {
-		switch (type) {
-			case "Normal":
-
-				StartCoroutine(player.hand.Discard(card));
-				player.discardAmount--;
-
-				switch (player.discardAmount) {
-					case 0:
-						GameController.instance.NextTurnCalculator(player);
-						break;
-					default:
-						GameController.instance.playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
-						break;
-				}
-				break;
-			case "Forced":
-
-				StartCoroutine(player.hand.Discard(card));
-				player.discardAmount--;
-				card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
-				card.advantageFeed.text = "DISCARDED";
-				GameController.instance.confirmButton.Hide();
-
-				if (player.discardAmount != 0) {
-					GameController.instance.playerActionTooltip.text = "Please discard " + player.discardAmount + ".";
-				}
-				else {
-
-					GameController.instance.playerActionTooltip.text = "";
-				}
-
-				break;
-		}
 	}
 }
