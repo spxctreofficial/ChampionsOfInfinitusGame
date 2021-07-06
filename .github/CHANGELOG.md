@@ -18,6 +18,11 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 - Changes & Fixes:
 	- AbilityPanel has been removed from the game.
 	- A mask has been properly added to the shop menu.
+- Miscellaneous Notes:
+	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
+		- GameController has been abstracted.
+		- CardLogicController has been abstracted.
+		- StatisticManager has been abstracted.
 
 ## v0.1.3 Beta
 

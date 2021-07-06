@@ -26,7 +26,7 @@ public class GamemodeSelectionButton : MonoBehaviour {
 	}
 
 	public void OnClick() {
-		GameController.instance.hasChosenGamemode = true;
-		GameController.instance.gamemodes = gamemode;
+		SandboxGameController.instance.hasChosenGamemode = true;
+		SandboxGameController.instance.gamemodes = gamemode;
 	}
 }

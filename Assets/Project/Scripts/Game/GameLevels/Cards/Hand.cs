@@ -236,7 +236,7 @@ public class Hand : MonoBehaviour {
 			// Sets card to the hand and adds it to the list of cards of this hand for easy reference.
 			card.transform.SetParent(transform, false);
 			card.owner = owner;
-			card.owner.GetMatchStatistic().totalCardsDealt++;
+			card.owner.matchStatistic.totalCardsDealt++;
 			cards.Add(card);
 		
 			// Extra parameters.
@@ -307,7 +307,7 @@ public class Hand : MonoBehaviour {
 			}
 		}
 		if (card.owner != null) {
-			card.owner.GetMatchStatistic().totalCardsDiscarded++;
+			card.owner.matchStatistic.totalCardsDiscarded++;
 			card.caption.text = "Played by " + card.owner.championName;
 		}
 		card.owner = null;

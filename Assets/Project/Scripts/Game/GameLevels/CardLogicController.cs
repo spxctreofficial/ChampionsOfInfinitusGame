@@ -6,24 +6,24 @@ using Random = UnityEngine.Random;
 using TMPro;
 using EZCameraShake;
 
-public class CardLogicController : MonoBehaviour {
+public abstract class CardLogicController : MonoBehaviour {
 	public static CardLogicController instance;
 
 	public bool currentlyHandlingCard;
 
 	[SerializeField]
-	private CardScriptableObject summonCard; // debugging
+	protected CardScriptableObject summonCard; // debugging
 	[SerializeField]
-	private int dealToIndex; // debugging
+	protected int dealToIndex; // debugging
 
-	private void Awake() {
+	protected virtual void Awake() {
 		if (instance == null)
 			instance = this;
 		else {
 			Destroy(gameObject);
 		}
 	}
-	private void Update() {
+	protected virtual void Update() {
 		if (Input.GetKeyDown(KeyCode.Alpha5)) {
 			GameController.instance.champions[dealToIndex].hand.DealSpecificCard(summonCard);
 		}
@@ -34,7 +34,7 @@ public class CardLogicController : MonoBehaviour {
 	/// </summary>
 	/// <param name="card"></param>
 	/// <returns></returns>
-	public IEnumerator CardSelect(Card card) {
+	public virtual IEnumerator CardSelect(Card card) {
 		foreach (var player in GameController.instance.champions) {
 			if (!player.isPlayer || player.isDead) continue;
 
@@ -180,7 +180,7 @@ public class CardLogicController : MonoBehaviour {
 	/// <param name="champion"></param>
 	/// <returns></returns>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
-	public IEnumerator BotCardLogic(ChampionController champion) {
+	public virtual IEnumerator BotCardLogic(ChampionController champion) {
 		float PauseDuration() {
 			// Sets the bot's pause duration to simulate logical breakdown.
 			switch (GameController.instance.difficulty) {
@@ -381,7 +381,7 @@ public class CardLogicController : MonoBehaviour {
 			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
 			defender.defendingCard.Flip();
 		}
-		defender.GetMatchStatistic().totalDefends++;
+		defender.matchStatistic.totalDefends++;
 		attacker.attackingCard.Flip(true);
 
 		// CombatCalculation Ability heck
@@ -396,26 +396,26 @@ public class CardLogicController : MonoBehaviour {
 		}
 
 		var attackerDamageHistory = (DamageHistory)null;
-		foreach (var damageHistory in attacker.GetMatchStatistic().damageHistories) {
+		foreach (var damageHistory in attacker.matchStatistic.damageHistories) {
 			if (damageHistory.dealtAgainst != defender) continue;
 			attackerDamageHistory = damageHistory;
 		}
 		attackerDamageHistory ??= new DamageHistory(defender);
-		attacker.GetMatchStatistic().damageHistories.Add(attackerDamageHistory);
+		attacker.matchStatistic.damageHistories.Add(attackerDamageHistory);
 		attackerDamageHistory.attacksAgainst++;
 
 		// Calculating Combat Result
 		if (attacker.attackingCard.cardScriptableObject.cardValue > defender.defendingCard.cardScriptableObject.cardValue) {
 			yield return StartCoroutine(attacker.Attack(defender));
 
-			attacker.GetMatchStatistic().successfulAttacks++;
-			defender.GetMatchStatistic().failedDefends++;
+			attacker.matchStatistic.successfulAttacks++;
+			defender.matchStatistic.failedDefends++;
 		}
 		else if (attacker.attackingCard.cardScriptableObject.cardValue < defender.defendingCard.cardScriptableObject.cardValue) {
 			yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
 
-			attacker.GetMatchStatistic().failedAttacks++;
-			defender.GetMatchStatistic().successfulDefends++;
+			attacker.matchStatistic.failedAttacks++;
+			defender.matchStatistic.successfulDefends++;
 		}
 		else {
 			Debug.Log("lol it tie");
@@ -448,7 +448,7 @@ public class CardLogicController : MonoBehaviour {
 	/// <param name="card"></param>
 	/// <param name="champion"></param>
 	/// <returns></returns>
-	private IEnumerator SpadeLogic(Card card, ChampionController champion, int tries = 0) {
+	protected virtual IEnumerator SpadeLogic(Card card, ChampionController champion, int tries = 0) {
 		if (champion.spadesBeforeExhaustion <= 0) {
 			// Fail-safe to disallow the champion from using the SPADE.
 			if (champion.isPlayer) {
@@ -581,7 +581,7 @@ public class CardLogicController : MonoBehaviour {
 				champion.currentTarget.championParticleController.PlayEffect(champion.currentTarget.championParticleController.RedGlow);
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;
-				champion.GetMatchStatistic().totalAttacks++;
+				champion.matchStatistic.totalAttacks++;
 
 				yield return new WaitForSeconds(Random.Range(0.25f, 1.5f));
 				Debug.Log("The " + champion.championName + " is attacking " + champion.currentTarget.championName + " with a card with a value of " + champion.attackingCard.cardScriptableObject.cardValue);
@@ -590,7 +590,7 @@ public class CardLogicController : MonoBehaviour {
 				break;
 		}
 	}
-	private IEnumerator HeartLogic(Card card, ChampionController champion) {
+	protected virtual IEnumerator HeartLogic(Card card, ChampionController champion) {
 		if (champion.heartsBeforeExhaustion <= 0) {
 			// Fail-safe if champion can't play more HEARTS.
 			if (champion.isPlayer) {
@@ -661,11 +661,11 @@ public class CardLogicController : MonoBehaviour {
 
 		currentlyHandlingCard = false;
 	}
-	private IEnumerator ClubLogic(Card card, ChampionController champion) {
+	protected virtual IEnumerator ClubLogic(Card card, ChampionController champion) {
 		yield return StartCoroutine(champion.hand.Discard(card));
 		yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 	}
-	private IEnumerator DiamondLogic(Card card, ChampionController champion) {
+	protected virtual IEnumerator DiamondLogic(Card card, ChampionController champion) {
 		if (champion.diamondsBeforeExhaustion <= 0 && (card.cardScriptableObject.cardValue < 5 || card.cardScriptableObject.cardValue > 8)) {
 			// Fail-safe for if the champion can't play more DIAMONDS.
 			if (champion.isPlayer) {
@@ -773,35 +773,33 @@ public class CardLogicController : MonoBehaviour {
 			case 4:
 				if (!champion.isPlayer) {
 					bool jeopardized = false;
-					foreach (var quickSelectChampion in GameController.instance.champions) {
-						if (!quickSelectChampion.teamMembers.Contains(champion) || quickSelectChampion == champion || quickSelectChampion.isDead) continue;
+					foreach (var teammate in GameController.instance.champions) {
+						if (!teammate.teamMembers.Contains(champion) || teammate == champion || teammate.isDead) continue;
 
 						switch (GameController.instance.difficulty) {
 							case GameController.Difficulty.Noob:
 							case GameController.Difficulty.Novice:
 								break;
 							case GameController.Difficulty.Warrior:
-								if (quickSelectChampion.currentHP - 20 <= 0) {
-									Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+								if (teammate.currentHP - 20 <= 0) {
+									Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + teammate.championName + "!");
 									jeopardized = true;
 								}
 								break;
 							case GameController.Difficulty.Champion:
-								switch (GameController.instance.gamemodes) {
-									case GameController.Gamemodes.Competitive2v2:
-										if (quickSelectChampion.currentHP - 20 <= 0) {
-											int enemiesJeopardized = 0, enemiesLeft = 0;
-											foreach (var enemyChampion in GameController.instance.champions) {
-												if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == quickSelectChampion || enemyChampion.isDead) continue;
-												if (enemyChampion.currentHP - 20 > 0) enemiesJeopardized++;
-												enemiesLeft++;
-											}
-											if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.8f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.25f) {
-												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
-												jeopardized = true;
-											}
+								if (teammate.currentHP - 20 <= 0) {
+									int enemiesJeopardized = 0, enemiesLeft = 0;
+									foreach (var enemyChampion in GameController.instance.champions) {
+										if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == teammate || enemyChampion.isDead) continue;
+										if (enemyChampion.currentHP - 20 > 0) enemiesJeopardized++;
+										else {
+											enemiesLeft++;
 										}
-										break;
+									}
+									if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.8f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.25f) {
+										Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + teammate.championName + "!");
+										jeopardized = true;
+									}
 								}
 								break;
 						}
@@ -914,21 +912,19 @@ public class CardLogicController : MonoBehaviour {
 								}
 								break;
 							case GameController.Difficulty.Champion:
-								switch (GameController.instance.gamemodes) {
-									case GameController.Gamemodes.Competitive2v2:
-										if (quickSelectChampion.currentHP - 20 <= 0) {
-											int enemiesJeopardized = 0, enemiesLeft = 0;
-											foreach (var enemyChampion in GameController.instance.champions) {
-												if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == quickSelectChampion || enemyChampion.isDead) continue;
-												if (enemyChampion.currentHP - 20 > 0) enemiesJeopardized++;
-												enemiesLeft++;
-											}
-											if (enemiesLeft <= enemiesJeopardized) {
-												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
-												jeopardized = true;
-											}
+								if (quickSelectChampion.currentHP - 20 <= 0) {
+									int enemiesJeopardized = 0, enemiesLeft = 0;
+									foreach (var enemyChampion in GameController.instance.champions) {
+										if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == quickSelectChampion || enemyChampion.isDead) continue;
+										if (enemyChampion.currentHP - 20 > 0) enemiesJeopardized++;
+										else {
+											enemiesLeft++;
 										}
-										break;
+									}
+									if (enemiesLeft <= enemiesJeopardized) {
+										Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+										jeopardized = true;
+									}
 								}
 								break;
 						}
@@ -964,21 +960,19 @@ public class CardLogicController : MonoBehaviour {
 								}
 								break;
 							case GameController.Difficulty.Champion:
-								switch (GameController.instance.gamemodes) {
-									case GameController.Gamemodes.Competitive2v2:
-										if (quickSelectChampion.currentHP - 40 <= 0) {
-											int enemiesJeopardized = 0, enemiesLeft = 0;
-											foreach (var enemyChampion in GameController.instance.champions) {
-												if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == quickSelectChampion || enemyChampion.isDead) continue;
-												if (enemyChampion.currentHP - 40 > 0) enemiesJeopardized++;
-												enemiesLeft++;
-											}
-											if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.65f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.65f) {
-												Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
-												jeopardized = true;
-											}
+								if (quickSelectChampion.currentHP - 40 <= 0) {
+									int enemiesJeopardized = 0, enemiesLeft = 0;
+									foreach (var enemyChampion in GameController.instance.champions) {
+										if (enemyChampion.teamMembers.Contains(champion) || enemyChampion == champion || enemyChampion == quickSelectChampion || enemyChampion.isDead) continue;
+										if (enemyChampion.currentHP - 40 > 0) enemiesJeopardized++;
+										else {
+											enemiesLeft++;
 										}
-										break;
+									}
+									if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.65f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.65f) {
+										Debug.Log("The " + champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+										jeopardized = true;
+									}
 								}
 								break;
 						}

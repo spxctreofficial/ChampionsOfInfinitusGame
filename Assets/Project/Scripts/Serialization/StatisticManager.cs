@@ -19,18 +19,16 @@ public class StatisticManager : MonoBehaviour {
 	private void Awake() {
 		if (instance == null) {
 			instance = this;
-			DontDestroyOnLoad(gameObject);
 		}
 		else {
 			Destroy(gameObject);
 		}
 	}
 
-	public void StartTrackingStatistics() {
-		foreach (ChampionController champion in GameController.instance.champions) {
-			matchStatistics.Add(new MatchStatistic(champion.champion));
-		}
-		playerChampionStatistic = matchStatistics[0];
+	public void StartTrackingStatistics(ChampionController champion) {
+		champion.matchStatistic = new MatchStatistic(champion.champion);
+		matchStatistics.Add(champion.matchStatistic);
+		playerChampionStatistic = champion.isPlayer ? champion.matchStatistic : playerChampionStatistic;
 	}
 	public void TrackRemainingStatistics(ChampionController champion) {
 		var index = GameController.instance.champions.IndexOf(champion);
@@ -118,32 +116,21 @@ public class StatisticManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 		Untween();
 
-		switch (GameController.instance.gamemodes) {
-			default:
-				goldReward = initialGoldReward;
-				goldReward += successfulAttackBonus;
-				goldReward += successfulDefendBonus;
-				goldReward += failedAttacksBonus;
-				goldReward -= failedDefendsPenalty;
+		goldReward = initialGoldReward;
+		goldReward += successfulAttackBonus;
+		goldReward += successfulDefendBonus;
+		goldReward += failedAttacksBonus;
+		goldReward -= failedDefendsPenalty;
 
-				goldReward += killCountBonus;
-				goldReward += totalDamageDealtBonus;
-				goldReward += totalDamageReceivedCompensation;
-				goldReward += totalHealthRemainingBonus;
+		goldReward += killCountBonus;
+		goldReward += totalDamageDealtBonus;
+		goldReward += totalDamageReceivedCompensation;
+		goldReward += totalHealthRemainingBonus;
 
-				DataManager.instance.goldAmount += goldReward;
-				DataManager.instance.Save();
-				AudioController.instance.Play("Tutorial0" + Random.Range(1, 4));
-				break;
-		}
+		DataManager.instance.goldAmount += goldReward;
+		DataManager.instance.Save();
+		AudioController.instance.Play("Tutorial0" + Random.Range(1, 4));
 
 		bonusRewardLog.transform.parent.GetChild(2).gameObject.SetActive(true);
-	}
-
-	[Obsolete("GetChampionStatistics() has been deprecated." +
-	          " For more convenience and cleaner code, use method GetMatchStatistics() of the ChampionController class instead.")]
-	public MatchStatistic GetChampionStatistics(ChampionController champion) {
-		var index = GameController.instance.champions.IndexOf(champion);
-		return matchStatistics[index];
 	}
 }

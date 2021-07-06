@@ -14,7 +14,7 @@ public class ConfirmButton : MonoBehaviour {
                 case GamePhase.ActionPhase:
                     // Confirming Attack
                     if (champion.isAttacking && champion.attackingCard != null && champion.currentTarget != null) {
-                        champion.GetMatchStatistic().totalAttacks++;
+                        champion.matchStatistic.totalAttacks++;
                         StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
                         break;
                     }

@@ -3,7 +3,40 @@ guid: 0becb61aa923d7e40a7ab2160b34dbcb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cardIndex: {instanceID: 0}
+  - gameArea: {instanceID: 0}
+  - gameEndArea: {instanceID: 0}
+  - gameEndAreaTeam: {instanceID: 0}
+  - discardArea: {instanceID: 0}
+  - playerHand: {instanceID: 0}
+  - championTemplate: {fileID: 2077964528263133328, guid: 496317d6ef8dd8b49ba19bfa16b09f95,
+      type: 3}
+  - abilityTemplate: {fileID: 2077964528263133328, guid: 245249f10cc04b341ab2a39bf36b2dc8,
+      type: 3}
+  - cardTemplate: {fileID: 2484265156037721842, guid: aa9613f2ee96f0c4e8a872f3f53a69bc,
+      type: 3}
+  - handPrefab: {fileID: 4946762797089187214, guid: bc3109111313bd741b38917c5750758a,
+      type: 3}
+  - dialogueSystemPrefab: {fileID: 3198770602355789731, guid: b777e0e00befcff44a1f0af1334201ec,
+      type: 3}
+  - confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,
+      type: 3}
+  - miniConfirmDialogPrefab: {fileID: 7144247891518153869, guid: d000c1fa21fb93240b1701bb2ffd71e7,
+      type: 3}
+  - notificationDialogPrefab: {fileID: 6871602132392911196, guid: fe9a9cc722c6b7848bd7f460b3b1d232,
+      type: 3}
+  - championSlotPrefab: {fileID: 5131478056581540558, guid: 184ff8f329e956e4e9dab68774275d37,
+      type: 3}
+  - championInfoPanelPrefab: {fileID: 1505575829721910574, guid: 0fc4a4d526563a9438bf7ddb3e3135c7,
+      type: 3}
+  - phaseIndicator: {instanceID: 0}
+  - playerActionTooltip: {instanceID: 0}
+  - confirmButton: {instanceID: 0}
+  - gambleButton: {instanceID: 0}
+  - endTurnButton: {instanceID: 0}
+  - playerChampion: {instanceID: 0}
+  - currentMap: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

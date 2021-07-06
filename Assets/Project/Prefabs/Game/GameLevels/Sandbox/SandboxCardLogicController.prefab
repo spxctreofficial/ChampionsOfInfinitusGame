@@ -108,9 +108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5327886758175611360}
-  - component: {fileID: 5327886758175611361}
+  - component: {fileID: -3142473555979756745}
   m_Layer: 0
-  m_Name: CardLogicController
+  m_Name: SandboxCardLogicController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5327886758175611361
+--- !u!114 &-3142473555979756745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5327886758175610910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40278b6ede321c14b96a57fb9d61c029, type: 3}
+  m_Script: {fileID: 11500000, guid: 619de28f0d672264398153a26d3d2fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentlyHandlingCard: 0
-  summonCard: {fileID: 11400000, guid: 9c532c25f82a0804db16acf99f38dd27, type: 2}
+  summonCard: {fileID: 0}
   dealToIndex: 0

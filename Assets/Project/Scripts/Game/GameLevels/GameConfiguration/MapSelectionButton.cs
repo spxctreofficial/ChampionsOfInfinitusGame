@@ -15,7 +15,7 @@ public class MapSelectionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 
 	public void OnClick() {
-		GameController.instance.currentMap = mapComponent;
+		SandboxGameController.instance.currentMap = mapComponent;
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}

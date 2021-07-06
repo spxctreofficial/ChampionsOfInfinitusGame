@@ -9,7 +9,7 @@ using TMPro;
 
 public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEnd }
 
-public class GameController : MonoBehaviour {
+public abstract class GameController : MonoBehaviour {
 	// Singleton
 	public static GameController instance;
 
@@ -28,10 +28,6 @@ public class GameController : MonoBehaviour {
 	public GameObject gameArea;
 	public GameObject gameEndArea, gameEndAreaTeam;
 	public GameObject discardArea;
-	public GameObject gamemodeSelectionConfig;
-	public GameObject mapSelectionConfig;
-	public GameObject championSelectionConfig;
-	public GameObject difficultySelectionConfig;
 	public Hand playerHand;
 	public List<ChampionSlot> slots = new List<ChampionSlot>();
 
@@ -45,17 +41,13 @@ public class GameController : MonoBehaviour {
 	public GameObject confirmDialogPrefab;
 	public GameObject miniConfirmDialogPrefab;
 	public GameObject notificationDialogPrefab;
-	public GameObject gamemodeSelectionButtonPrefab;
-	public GameObject mapSelectionButtonPrefab;
-	public GameObject championSelectionButtonPrefab;
-	public GameObject difficultySelectionButtonPrefab;
 	public GameObject championSlotPrefab;
 	public GameObject championInfoPanelPrefab;
 
 	// UI-Specific References
 	[Header("UI References")]
 	public TMP_Text phaseIndicator;
-	[Obsolete("PlayerActionTooltip is no longer used.")]
+	// [Obsolete("PlayerActionTooltip is no longer used.")]
 	public TMP_Text playerActionTooltip;
 	public ConfirmButton confirmButton;
 	public GambleButton gambleButton;
@@ -63,15 +55,10 @@ public class GameController : MonoBehaviour {
 
 	// Champion Configuration Variables
 	[Header("Game Settings")]
-	[Range(2, 6)]
-	public int players;
-	[HideInInspector]
+	public List<Champion> players;
 	public List<ChampionController> champions = new List<ChampionController>();
-	[HideInInspector]
-	public Champion playerChampion;
 
 	// Map Configuration Variables
-	[HideInInspector]
 	public Map currentMap;
 
 	// Difficulty Configuration Variables
@@ -79,145 +66,38 @@ public class GameController : MonoBehaviour {
 	[HideInInspector]
 	public bool hasChosenDifficulty;
 
-	// Gamemode Configuration Variables
-	public Gamemodes gamemodes;
-	[HideInInspector]
-	public bool hasChosenGamemode;
-
 	// In-game Variables
 	public int roundsElapsed = 0;
 
-	private IEnumerator currentPhaseRoutine;
-
-
-	private void Awake() {
+	protected virtual void Awake() {
 		if (instance == null)
 			instance = this;
 		else {
 			Destroy(gameObject);
 		}
+		Debug.Log(instance);
 	}
 	private void Start() {
-		StartCoroutine(GameStart());
+		StartCoroutine(GameStart(GamePrep()));
 	}
 
+	private IEnumerator GameStart(IEnumerator enumerator) {
+		Debug.Log("lol one");
+		yield return StartCoroutine(enumerator);
+		Debug.Log("lol two");
+		StartCoroutine(GameStart());
+	}
 	/// <summary>
 	/// The GameStart function is called at the start of the game.
 	/// This function sets up all of the game assets and functionality,
 	/// as well as allowing the player to choose their champion and map.
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator GameStart() {
+	protected virtual IEnumerator GameStart() {
 		phaseIndicator.text = "Start of Game";
 
 		// Game Preparation
-		yield return StartCoroutine(GamePrep());
-		SetMap();
-
-		// Setting Up the Game
-		switch (gamemodes) {
-			case Gamemodes.Competitive2v2:
-				players = 4;
-				Debug.LogWarning("Configured number of players will be replaced with: " + players);
-				break;
-			case Gamemodes.Duel:
-				players = 2;
-				Debug.LogWarning("Configured number of players will be replaced with: " + players);
-				break;
-			case Gamemodes.FFA:
-				players = 3;
-				if (difficulty == Difficulty.Champion) {
-					players++;
-					Debug.Log("Since the difficulty is " + Difficulty.Champion + ", there will be four bots.");
-				}
-				break;
-		}
-		for (var i = 0; i < players; i++) {
-			Champion champion = null;
-			ChampionSlot slot = null;
-
-			// Champion Slot Setup
-			switch (gamemodes) {
-				case Gamemodes.FFA:
-					switch (i) {
-						case 0:
-							slot = slots[i];
-							break;
-						default:
-							slot = slots[i + 1];
-							break;
-					}
-					break;
-				case Gamemodes.Competitive2v2:
-					slot = slots[i];
-					break;
-			}
-
-			// Champion Setup
-			if (i != 0) {
-				List<Champion> otherChampions = new List<Champion>();
-				foreach (var anotherChampion in champions) {
-					otherChampions.Add(anotherChampion.champion);
-				}
-
-				switch (difficulty) {
-					case Difficulty.Noob:
-						foreach (var anotherChampion in DataManager.instance.championIndex.champions) {
-							if (anotherChampion.championID != "Champion_RegimeSoldier" || anotherChampion.championID != "Champion_RegimeCaptain" || Random.Range(0f, 1f) < 0.5f && DataManager.instance.championIndex.champions.IndexOf(anotherChampion) == DataManager.instance.championIndex.champions.Count - 1) continue;
-							champion = anotherChampion;
-							break;
-						}
-						break;
-					case Difficulty.Novice:
-						int repeats = 0;
-						while ((champion == playerChampion || otherChampions.Contains(champion) || champion == null || champion.shopCost > 2000) && repeats <= 6) {
-							Debug.Log("novice boop");
-							champion = DataManager.instance.championIndex.champions[Random.Range(0, DataManager.instance.championIndex.champions.Count)];
-							repeats++;
-						}
-
-						if (repeats > 6) champion = DataManager.instance.championIndex.champions[Random.Range(0, 2)];
-						break;
-					case Difficulty.Warrior:
-					case Difficulty.Champion:
-						repeats = 0;
-						while ((champion == playerChampion || otherChampions.Contains(champion) || champion == null) && repeats <= 8) {
-							Debug.Log("high difficulty boop");
-							champion = DataManager.instance.championIndex.champions[Random.Range(0, DataManager.instance.championIndex.champions.Count)];
-							repeats++;
-						}
-
-						if (repeats > 8) champion = DataManager.instance.championIndex.champions[Random.Range(0, 2)];
-						break;
-				}
-			}
-			else {
-				champion = playerChampion;
-			}
-
-			var championController = Spawn(champion, slot, i == 0);
-
-			// Configuring & Setting Teams
-			switch (gamemodes) {
-				case Gamemodes.Competitive2v2:
-					if (i < 2) {
-						championController.team = "PlayerTeam";
-					}
-					else {
-						championController.team = "OpponentTeam";
-					}
-					break;
-				case Gamemodes.Duel:
-					champions[0].team = "PlayerTeam";
-					champions[1].team = "OpponentTeam";
-					break;
-				case Gamemodes.FFA:
-					championController.team = championController.championID + i;
-					break;
-			}
-		}
-		AudioController.instance.Play(gameArea.GetComponent<AudioSource>());
-		StatisticManager.instance.StartTrackingStatistics();
+		yield return StartCoroutine(GameSetup());
 
 		// Adds the team members to each champion's list.
 		foreach (var champion in champions) {
@@ -241,7 +121,7 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	/// <param name="champion"></param>
 	/// <returns></returns>
-	private IEnumerator BeginningPhase(ChampionController champion) {
+	protected virtual IEnumerator BeginningPhase(ChampionController champion) {
 		gamePhase = GamePhase.BeginningPhase;
 
 		// Updates Text
@@ -265,7 +145,7 @@ public class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds(2f);
 
-		SetPhase(ActionPhase(champion));
+		StartCoroutine(ActionPhase(champion));
 	}
 
 	/// <summary>
@@ -273,7 +153,7 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	/// <param name="champion"></param>
 	/// <returns></returns>
-	private IEnumerator ActionPhase(ChampionController champion) {
+	protected virtual IEnumerator ActionPhase(ChampionController champion) {
 		gamePhase = GamePhase.ActionPhase;
 
 		// Updates Text
@@ -302,9 +182,9 @@ public class GameController : MonoBehaviour {
 	/// Starts the End Phase for the champion defined.
 	/// </summary>
 	/// <param name="champion"></param>
-	public void StartEndPhase(ChampionController champion) {
+	public virtual void StartEndPhase(ChampionController champion) {
 		if (champion != null) {
-			SetPhase(EndPhase(champion));
+			StartCoroutine(EndPhase(champion));
 			return;
 		}
 
@@ -314,7 +194,7 @@ public class GameController : MonoBehaviour {
 	/// <summary>
 	/// Searches for the current turn champion, then handles the End Phase for that champion.
 	/// </summary>
-	public void StartEndPhase() {
+	public virtual void StartEndPhase() {
 		ChampionController champion = null;
 		foreach (var selectedChampion in champions) {
 			if (!selectedChampion.isMyTurn) continue;
@@ -326,14 +206,14 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 
-		SetPhase(EndPhase(champion));
+		StartCoroutine(EndPhase(champion));
 	}
 	/// <summary>
 	/// The End Phase coroutine.
 	/// </summary>
 	/// <param name="champion"></param>
 	/// <returns></returns>
-	private IEnumerator EndPhase(ChampionController champion) {
+	protected virtual IEnumerator EndPhase(ChampionController champion) {
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
@@ -378,17 +258,10 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	/// <param name="victoriousChampion"></param>
 	/// <returns></returns>
-	private IEnumerator GameEnd(ChampionController victoriousChampion) {
+	protected virtual void GameEnd(ChampionController victoriousChampion) {
 		gamePhase = GamePhase.GameEnd;
 
-		TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
-		TMP_Text gameEndTextTeam = gameEndAreaTeam.transform.GetChild(0).GetComponent<TMP_Text>();
-		Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
-		GameObject winnerAvatars = gameEndAreaTeam.transform.GetChild(1).gameObject;
-		GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
-		GameObject rewardPanelTeam = gameEndAreaTeam.transform.GetChild(2).gameObject;
-		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
-		float cachedVolume = musicSource.volume;
+
 
 		Destroy(playerActionTooltip);
 		foreach (var champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
@@ -396,77 +269,71 @@ public class GameController : MonoBehaviour {
 		TooltipSystem.instance.StopAllCoroutines();
 		StatisticManager.instance.winState = victoriousChampion.isPlayer;
 
-		switch (gamemodes) {
-			case Gamemodes.Competitive2v2:
-				gameEndAreaTeam.SetActive(true);
-
-				gameEndTextTeam.text = victoriousChampion.championName + "'s Team wins!";
-				foreach (var champion in champions) {
-					if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
-					var newWinnerAvatar = Instantiate(winnerAvatar, Vector2.zero, Quaternion.identity).GetComponent<Image>();
-					newWinnerAvatar.sprite = champion.avatar;
-					newWinnerAvatar.transform.SetParent(winnerAvatars.transform, false);
-				}
-				rewardPanelTeam.transform.localPosition = new Vector2(-1920, 0);
-
-				while (musicSource.volume > 0.5f * cachedVolume) {
-					musicSource.volume -= 0.5f * cachedVolume / 180;
-					yield return null;
-				}
-				yield return new WaitForSeconds(3f);
-
-				LeanTween.move(winnerAvatars.GetComponent<RectTransform>(), new Vector2(1920, 0), 0.5f).setEaseInOutQuad();
-				LeanTween.move(rewardPanelTeam.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
-					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanelTeam.transform.GetChild(0).GetComponent<TMP_Text>()));
-				});
-				break;
-			case Gamemodes.FFA:
-				gameEndArea.SetActive(true);
-
-				gameEndText.text = victoriousChampion.championName + " wins!";
-				winnerAvatar.sprite = victoriousChampion.avatar;
-				rewardPanel.transform.localPosition = new Vector2(-1920, 0);
-
-				while (musicSource.volume > 0.5f * cachedVolume) {
-					musicSource.volume -= 0.5f * cachedVolume / 180;
-					yield return null;
-				}
-				yield return new WaitForSeconds(3f);
-
-				LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
-				LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
-					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
-				});
-				break;
-		}
+		StartCoroutine(GameEndAction(victoriousChampion));
+	}
+	protected virtual IEnumerator GameEndAction(ChampionController victoriousChampion) {
+		yield break;
 	}
 	/// <summary>
-	/// Fades away scene and returns the game to the main menu.
+	/// Prepares the game to the player's configuration.
+	/// Listens and saves the player's configuration of the map, champion, difficulty at runtime, and then reports them back to GameStart.
 	/// </summary>
-	public void ReturnToMainMenu() {
-		var gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
-		var gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
-		var gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
+	/// <returns></returns>
+	protected virtual IEnumerator GamePrep() {
+		ChampionSlot.CreateDefaultSlots();
+		yield break;
+	}
+	protected virtual IEnumerator GameSetup() {
+		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
+		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
 
-		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
-		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
-			Destroy(StatisticManager.instance);
-			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
-			SceneManager.LoadScene("MainMenu");
-		});
-		LeanTween.alphaCanvas(gameEndAreaTeamCanvasGroup, 0f, 1f);
+		AudioController.instance.Play(gameArea.GetComponent<AudioSource>());
+
+		foreach (var champion in players) {
+			ChampionSlot slot = slots[players.IndexOf(champion)];
+
+			var championController = Spawn(champion, slot, players.IndexOf(champion) == 0);
+			championController.team = championController.championID + players.IndexOf(champion);
+		}
+		yield break;
+	}
+	/// <summary>
+	/// Checks for if the game should end, based on what gamemode the game is currently playing on.
+	/// </summary>
+	/// <returns></returns>
+	public virtual IEnumerator GameEndCheck() {
+		var aliveChampions = new List<ChampionController>();
+		foreach (var champion in champions) {
+			if (champion.isDead || champion.currentOwner != null) continue;
+			aliveChampions.Add(champion);
+		}
+
+		if (aliveChampions.Count == 1) {
+			foreach (var champion in champions) {
+				champion.championParticleController.OrangeGlow.Stop();
+				champion.championParticleController.CyanGlow.Stop();
+				champion.championParticleController.RedGlow.Stop();
+
+				champion.championParticleController.OrangeGlow.Clear();
+				champion.championParticleController.CyanGlow.Clear();
+				champion.championParticleController.RedGlow.Clear();
+			}
+			yield return new WaitForSeconds(3f);
+			GameEnd(aliveChampions[0]);
+		}
+		yield break;
 	}
 	/// <summary>
 	/// Sets the champion of the next turn to the next champion in the list.
 	/// If the index is out of range, it will catch an ArgumentOutOfRangeException and elapse a round, then reset back to the first in the index.
 	/// </summary>
 	/// <param name="currentTurnChampion"></param>
-	public void NextTurnCalculator(ChampionController currentTurnChampion) {
+	public virtual void NextTurnCalculator(ChampionController currentTurnChampion) {
 		ChampionController nextTurnChampion;
 		try {
 			nextTurnChampion = champions[champions.IndexOf(currentTurnChampion) + 1];
 		}
-		catch (System.ArgumentOutOfRangeException) {
+		catch (ArgumentOutOfRangeException) {
 			Debug.LogWarning("The index was out of range. Elapsing round and resetting.");
 			nextTurnChampion = champions[0];
 			roundsElapsed++;
@@ -490,29 +357,7 @@ public class GameController : MonoBehaviour {
 		currentTurnChampion.championParticleController.CyanGlow.Stop();
 		currentTurnChampion.championParticleController.CyanGlow.Clear();
 		nextTurnChampion.isMyTurn = true;
-		SetPhase(BeginningPhase(nextTurnChampion));
-	}
-	private void NextTurnCalculator(string version) {
-		ChampionController champion = null;
-		switch (version) {
-			case "Smart":
-				foreach (var selectedChampion in champions) {
-					if (!selectedChampion.isMyTurn) continue;
-
-					champion = selectedChampion;
-				}
-				if (champion == null) {
-					Debug.LogWarning("What the fuck?");
-					break;
-				}
-
-				NextTurnCalculator(champion);
-
-				break;
-			default:
-				Debug.LogWarning("No smart calculator type defined! This will soft-lock the program.");
-				return;
-		}
+		StartCoroutine(BeginningPhase(nextTurnChampion));
 	}
 	/// <summary>
 	/// An overload of NextTurnCalculator.
@@ -529,151 +374,23 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 		nextTurnChampion.isMyTurn = true;
-		SetPhase(BeginningPhase(nextTurnChampion));
+		StartCoroutine(BeginningPhase(nextTurnChampion));
 	}
 	/// <summary>
-	/// Checks for if the game should end, based on what gamemode the game is currently playing on.
+	/// Fades away scene and returns the game to the main menu.
 	/// </summary>
-	/// <returns></returns>
-	public IEnumerator GameEndCheck() {
-		var aliveChampions = new List<ChampionController>();
-		switch (gamemodes) {
-			case Gamemodes.Competitive2v2:
-				var aliveTeams = new List<string>();
-				foreach (var champion in champions) {
-					switch (champion.isDead) {
-						case false:
-							if (!aliveTeams.Contains(champion.team)) aliveTeams.Add(champion.team);
-							aliveChampions.Add(champion);
-							break;
-					}
-				}
+	public void ReturnToMainMenu() {
+		var gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
+		var gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
+		var gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
 
-				Debug.Log(aliveChampions.Count);
-				Debug.Log(aliveTeams.Count);
-
-				if (aliveTeams.Count == 1) {
-					foreach (var champion in champions) {
-						champion.championParticleController.OrangeGlow.Stop();
-						champion.championParticleController.CyanGlow.Stop();
-						champion.championParticleController.RedGlow.Stop();
-
-						champion.championParticleController.OrangeGlow.Clear();
-						champion.championParticleController.CyanGlow.Clear();
-						champion.championParticleController.RedGlow.Clear();
-					}
-					yield return new WaitForSeconds(3f);
-					StartCoroutine(GameEnd(aliveChampions[Random.Range(0, aliveChampions.Count)]));
-				}
-				break;
-			case Gamemodes.FFA:
-				foreach (var champion in champions) {
-					if (champion.isDead || champion.currentOwner != null) continue;
-					aliveChampions.Add(champion);
-				}
-
-				Debug.Log(aliveChampions.Count);
-
-				if (aliveChampions.Count == 1) {
-					foreach (var champion in champions) {
-						champion.championParticleController.OrangeGlow.Stop();
-						champion.championParticleController.CyanGlow.Stop();
-						champion.championParticleController.RedGlow.Stop();
-
-						champion.championParticleController.OrangeGlow.Clear();
-						champion.championParticleController.CyanGlow.Clear();
-						champion.championParticleController.RedGlow.Clear();
-					}
-					yield return new WaitForSeconds(3f);
-					StartCoroutine(GameEnd(aliveChampions[0]));
-				}
-				break;
-		}
-		yield break;
-	}
-
-	/// <summary>
-	/// Sets the current phase of the game.
-	/// Used to move through different phases of the game.
-	/// </summary>
-	/// <param name="enumerator"></param>
-	private void SetPhase(IEnumerator enumerator) {
-		currentPhaseRoutine = enumerator;
-		StartCoroutine(enumerator);
-	}
-	/// <summary>
-	/// Sets the map to the map configured by the player at runtime.
-	/// </summary>
-	private void SetMap() {
-		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
-		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
-	}
-
-	/// <summary>
-	/// Prepares the game to the player's configuration.
-	/// Listens and saves the player's configuration of the map, champion, difficulty at runtime, and then reports them back to GameStart.
-	/// </summary>
-	/// <returns></returns>
-	private IEnumerator GamePrep() {
-		// Resets variables to prevent memory leaks.
-		hasChosenGamemode = false;
-		playerChampion = null;
-		currentMap = null;
-		hasChosenDifficulty = false;
-
-		// Map Selection Config
-		gameArea.SetActive(false);
-		mapSelectionConfig.SetActive(true);
-
-		foreach (var map in DataManager.instance.mapIndex.maps) {
-			var mapSelectionButton = Instantiate(mapSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<MapSelectionButton>();
-			mapSelectionButton.mapComponent = map;
-			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform.GetChild(0), false);
-		}
-		yield return new WaitUntil(() => currentMap != null);
-
-		// Champion Selection Config
-		mapSelectionConfig.SetActive(false);
-		championSelectionConfig.SetActive(true);
-
-		foreach (var championSO in DataManager.instance.ownedChampions) {
-			var championSelectionButton = Instantiate(championSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionSelectionButton>();
-			championSelectionButton.championComponent = championSO;
-			championSelectionButton.transform.SetParent(championSelectionConfig.transform.GetChild(0), false);
-		}
-		yield return new WaitUntil(() => playerChampion != null);
-
-		// Gamemode Selection Config
-		championSelectionConfig.SetActive(false);
-		gamemodeSelectionConfig.SetActive(true);
-
-		foreach (var gamemode in (Gamemodes[])Enum.GetValues(typeof(Gamemodes))) {
-			if (gamemode == Gamemodes.Duel) continue;
-			var gamemodeSelectionButton = Instantiate(gamemodeSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<GamemodeSelectionButton>();
-			gamemodeSelectionButton.gamemode = gamemode;
-			gamemodeSelectionButton.transform.SetParent(gamemodeSelectionConfig.transform.GetChild(0), false);
-		}
-		yield return new WaitUntil(() => hasChosenGamemode);
-
-		// Difficulty Selection Config
-		gamemodeSelectionConfig.SetActive(false);
-		difficultySelectionConfig.SetActive(true);
-
-		foreach (var difficulty in (Difficulty[])Enum.GetValues(typeof(Difficulty))) {
-			var difficultySelectionButton = Instantiate(difficultySelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<DifficultySelectionButton>();
-			difficultySelectionButton.difficulty = difficulty;
-			difficultySelectionButton.transform.SetParent(difficultySelectionConfig.transform.GetChild(0), false);
-		}
-		difficultySelectionConfig.transform.GetChild(0).GetChild(3).SetAsFirstSibling();
-		difficultySelectionConfig.transform.GetChild(0).GetChild(1).SetAsLastSibling();
-		difficultySelectionConfig.transform.GetChild(0).GetChild(1).SetSiblingIndex(2);
-		yield return new WaitUntil(() => hasChosenDifficulty);
-
-		difficultySelectionConfig.SetActive(false);
-		gameArea.SetActive(true);
-
-		// Configuring Slots
-		ChampionSlot.CreateDefaultSlots();
+		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
+		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
+			Destroy(StatisticManager.instance);
+			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
+			SceneManager.LoadScene("MainMenu");
+		});
+		LeanTween.alphaCanvas(gameEndAreaTeamCanvasGroup, 0f, 1f);
 	}
 
 	// Spawn Methods
@@ -705,13 +422,10 @@ public class GameController : MonoBehaviour {
 
 			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
 		}
+		StatisticManager.instance.StartTrackingStatistics(championController);
 		StartCoroutine(Setup());
 
 		// Returning the Spawned Champion
 		return championController;
-	}
-
-	private void PruneDiscardArea() {
-		Destroy(discardArea.transform.GetChild(0));
 	}
 }

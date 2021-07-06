@@ -2388,18 +2388,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713619367}
   m_CullTransparentMesh: 1
---- !u!114 &761402094 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
-    type: 3}
-  m_PrefabInstance: {fileID: 8947251702020319594}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0becb61aa923d7e40a7ab2160b34dbcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &827751950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,7 +2485,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 761402094}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: ReturnToMainMenu
         m_Mode: 1
@@ -3660,6 +3648,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157528586}
   m_CullTransparentMesh: 1
+--- !u!114 &1170362531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+    type: 3}
+  m_PrefabInstance: {fileID: 8947251702020319594}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780efa35740ccb045a01c5f4e259e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1283922421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,7 +4292,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 761402094}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: ReturnToMainMenu
         m_Mode: 1
@@ -5128,7 +5128,7 @@ PrefabInstance:
     - target: {fileID: 5327886758175610910, guid: c4426096360858846a74f163d0b7322e,
         type: 3}
       propertyPath: m_Name
-      value: CardLogicController
+      value: SandboxCardLogicController
       objectReference: {fileID: 0}
     - target: {fileID: 5327886758175611360, guid: c4426096360858846a74f163d0b7322e,
         type: 3}
@@ -5463,7 +5463,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 761402094}
+      objectReference: {fileID: 1170362531}
+    - target: {fileID: 7780179091963574232, guid: 3963cb97d21951f40924dbde00384b0d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartEndPhase
+      objectReference: {fileID: 0}
+    - target: {fileID: 7780179091963574232, guid: 3963cb97d21951f40924dbde00384b0d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameController, LandOfHeroesGame
+      objectReference: {fileID: 0}
     - target: {fileID: 7780179091963574233, guid: 3963cb97d21951f40924dbde00384b0d,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5735,6 +5745,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gameArea
+      value: 
+      objectReference: {fileID: 975385646}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: cardIndex
+      value: 
+      objectReference: {fileID: 422067827}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: playerHand
+      value: 
+      objectReference: {fileID: 338038771}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: discardArea
+      value: 
+      objectReference: {fileID: 386640846}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gameEndArea
+      value: 
+      objectReference: {fileID: 1157528586}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gambleButton
+      value: 
+      objectReference: {fileID: 8787603068074696401}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: confirmButton
+      value: 
+      objectReference: {fileID: 7142572292571060310}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 512776267}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: phaseIndicator
+      value: 
+      objectReference: {fileID: 1984618700}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gameEndAreaTeam
+      value: 
+      objectReference: {fileID: 357639565}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: mapSelectionConfig
+      value: 
+      objectReference: {fileID: 1742700632}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: playerActionTooltip
+      value: 
+      objectReference: {fileID: 942276466}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: championSelectionConfig
+      value: 
+      objectReference: {fileID: 697805135}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: gamemodeSelectionConfig
+      value: 
+      objectReference: {fileID: 1849323119}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: difficultySelectionConfig
+      value: 
+      objectReference: {fileID: 77381967}
     - target: {fileID: 8947251701174882738, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: gameArea
@@ -5868,7 +5953,7 @@ PrefabInstance:
     - target: {fileID: 8947251701174882749, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: m_Name
-      value: GameController
+      value: SandboxGameController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ff7432caa355354bb8d0508d19f9381, type: 3}

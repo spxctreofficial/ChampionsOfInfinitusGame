@@ -16,7 +16,13 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerClickHandler, IPoi
 	}
 
 	public void OnClick() {
-		GameController.instance.playerChampion = championComponent;
+		try {
+			GameController.instance.players[0] = championComponent;
+		}
+		catch (ArgumentOutOfRangeException) {
+			Debug.Log("Caught NullReferenceException.");
+			GameController.instance.players.Add(championComponent);
+		}
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
@@ -40,7 +46,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerClickHandler, IPoi
 	}
 	public void OnPointerClick(PointerEventData eventData) {
 		if (eventData.button == PointerEventData.InputButton.Right) {
-			ChampionInfoPanel.Create(championComponent).transform.SetParent(GameController.instance.championSelectionConfig.transform, false);
+			ChampionInfoPanel.Create(championComponent).transform.SetParent(SandboxGameController.instance.championSelectionConfig.transform, false);
 		}
 	}
 }

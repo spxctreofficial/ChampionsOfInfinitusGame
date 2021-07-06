@@ -12,10 +12,12 @@ using TMPro;
 public enum DamageType { Melee, Ranged, Fire, Lightning, Shadow, Unblockable }
 
 public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
-	// Champion
+	[Header("Champion")]
 	public Champion champion;
 	[HideInInspector]
 	public Hand hand;
+	[HideInInspector]
+	public MatchStatistic matchStatistic;
 	public ChampionAbilityFeed abilityFeed;
 	[SerializeField]
 	private Button championButton;
@@ -27,7 +29,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private GameObject abilityObjects;
 	public ChampionParticleController championParticleController;
 
-	// Identification & Basic Information
+	[Header("Basic Information")]
 	[HideInInspector]
 	public string championName;
 	[HideInInspector]
@@ -43,7 +45,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[HideInInspector]
 	public Champion.Race race;
 
-	// Statistics
+	[Header("Variables")]
 	[HideInInspector]
 	public int maxHP;
 	public int currentHP;
@@ -60,8 +62,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
 	[HideInInspector]
-	public bool isPlayer, isMyTurn, isAttacking, currentlyTargeted, hasAttacked, hasDefended;
-	public bool isDead;
+	public bool isPlayer, isMyTurn, isAttacking, currentlyTargeted, hasAttacked, hasDefended, isDead;
 	public string team;
 	public ChampionSlot slot;
 	[HideInInspector]
@@ -177,22 +178,22 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		currentHP = Mathf.Max(currentHP - amount, 0);
 		
 		// MatchStatistic Update
-		GetMatchStatistic().totalDamageReceived += currentHPCache - currentHP;
+		matchStatistic.totalDamageReceived += currentHPCache - currentHP;
 		if (source != null) {
-			source.GetMatchStatistic().totalDamageDealt += currentHPCache - currentHP;
+			source.matchStatistic.totalDamageDealt += currentHPCache - currentHP;
 
-			foreach (var damageHistory in source.GetMatchStatistic().damageHistories) {
+			foreach (var damageHistory in source.matchStatistic.damageHistories) {
 				if (damageHistory.dealtAgainst != this) continue;
 				damageHistory.amount += amount;
 			}
 
 			// Nemesis System
 			var myDamageHistory = (DamageHistory)null;
-			foreach (var damageHistory in source.GetMatchStatistic().damageHistories) {
+			foreach (var damageHistory in source.matchStatistic.damageHistories) {
 				if (damageHistory.dealtAgainst != this) continue;
 
 				myDamageHistory = damageHistory;
-				if (myDamageHistory.amount > source.GetMatchStatistic().totalDamageDealt / 2 && myDamageHistory.attacksAgainst >= 2) {
+				if (myDamageHistory.amount > source.matchStatistic.totalDamageDealt / 2 && myDamageHistory.attacksAgainst >= 2) {
 					if (currentNemesis == null) currentNemesis = source;
 				}
 				break;
@@ -200,7 +201,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 			if (currentNemesis != null && currentNemesis == source) {
 				foreach (var teammate in teamMembers) {
-					foreach (var damageHistory in currentNemesis.GetMatchStatistic().damageHistories) {
+					foreach (var damageHistory in currentNemesis.matchStatistic.damageHistories) {
 						if (damageHistory.dealtAgainst != this) continue;
 						var chance = damageHistory.attacksAgainst / (GameController.instance.roundsElapsed + 1f) >= 0.65f ? 0.7f : 0.4f;
 						chance -= teammate.currentNemesis == null ? 0f : 0.2f;
@@ -255,7 +256,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// Death Check
 		isDead = DeathCheck();
-		if (isDead && source != null) source.GetMatchStatistic().killCount++;
+		if (isDead && source != null) source.matchStatistic.killCount++;
 		yield return StartCoroutine(GameController.instance.GameEndCheck());
 
 		// Ability Check
@@ -285,7 +286,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		var currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
-		GetMatchStatistic().totalAmountHealed += currentHP - currentHPCache;
+		matchStatistic.totalAmountHealed += currentHP - currentHPCache;
 		AudioController.instance.Play("Heal");
 
 		if (abilityCheck == false) yield break;
@@ -395,15 +396,6 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			var bloodEmission = championParticleController.bloodDrip.emission;
 			bloodEmission.rateOverTime = 0f;
 		}
-	}
-
-	/// <summary>
-	/// Returns this ChampionController's match statistic, based on the index of the ChampionController.
-	/// </summary>
-	/// <returns></returns>
-	public MatchStatistic GetMatchStatistic() {
-		var index = GameController.instance.champions.IndexOf(this);
-		return StatisticManager.instance.matchStatistics[index];
 	}
 
 	// /// <summary>
