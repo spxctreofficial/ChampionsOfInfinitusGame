@@ -7,7 +7,7 @@ public class ConfirmButton : MonoBehaviour {
     public TMP_Text textBox;
     
     public void OnClick() {
-        foreach (var champion in GameController.instance.champions) {
+        foreach (ChampionController champion in GameController.instance.champions) {
             if (!champion.isPlayer || champion.isDead) continue;
 
             switch (GameController.instance.gamePhase) {

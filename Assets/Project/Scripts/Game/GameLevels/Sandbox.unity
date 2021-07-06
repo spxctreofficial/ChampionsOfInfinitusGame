@@ -2485,8 +2485,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1170362531}
+        m_TargetAssemblyTypeName: GameController, LandOfHeroesGame
         m_MethodName: ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
@@ -4292,8 +4292,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1170362531}
+        m_TargetAssemblyTypeName: GameController, LandOfHeroesGame
         m_MethodName: ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
@@ -5033,7 +5033,7 @@ PrefabInstance:
     - target: {fileID: 2170963627410267215, guid: 15bfe0728318e524981aafefb447cf2d,
         type: 3}
       propertyPath: m_Name
-      value: StatisticController
+      value: SandboxStatisticManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15bfe0728318e524981aafefb447cf2d, type: 3}
@@ -5125,6 +5125,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3142473555979756745, guid: c4426096360858846a74f163d0b7322e,
+        type: 3}
+      propertyPath: summonCard
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c532c25f82a0804db16acf99f38dd27,
+        type: 2}
     - target: {fileID: 5327886758175610910, guid: c4426096360858846a74f163d0b7322e,
         type: 3}
       propertyPath: m_Name

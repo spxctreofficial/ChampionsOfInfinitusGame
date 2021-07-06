@@ -18,11 +18,17 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 - Changes & Fixes:
 	- AbilityPanel has been removed from the game.
 	- A mask has been properly added to the shop menu.
+	- Fixed a big issue where the player wasn't being set correctly as a player in the config.
+	- Fixed a big issue where the player wasn't being rewarded a decent amount of gold in Competitive 2v2.
+	- Fixed an issue where cards discarded upon death would make the discard area larger.
 - Miscellaneous Notes:
 	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
 		- GameController has been abstracted.
 		- CardLogicController has been abstracted.
 		- StatisticManager has been abstracted.
+	- The `GetCard` function has been slightly improved, no longer relying on the transform of the hand (instead using the list implemented into the hand itself to log its cards.)
+	- New functions have been added to the `Hand` class to improve the game.
+	- The project now uses explicit types instead of implicit types (`var`) to define variables.
 
 ## v0.1.3 Beta
 

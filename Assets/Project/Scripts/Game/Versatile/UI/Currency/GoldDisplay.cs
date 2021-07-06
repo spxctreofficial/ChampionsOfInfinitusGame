@@ -19,7 +19,7 @@ public class GoldDisplay : MonoBehaviour {
 	}
 
 	private IEnumerator UpdateText() {
-		var goldAmountShown = int.Parse(goldAmountText.text);
+		int goldAmountShown = int.Parse(goldAmountText.text);
 		while (goldAmountShown < DataManager.instance.goldAmount) {
 			goldAmountShown++;
 			goldAmountText.text = goldAmountShown.ToString();

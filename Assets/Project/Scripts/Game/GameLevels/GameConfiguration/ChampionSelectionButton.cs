@@ -34,7 +34,7 @@ public class ChampionSelectionButton : MonoBehaviour, IPointerClickHandler, IPoi
 
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
-			var body = "Health: " + championComponent.maxHP; // max health
+			string body = "Health: " + championComponent.maxHP; // max health
 			body += "\n" + championComponent.attackName + " (Attack): " + championComponent.attackDamage + " " + championComponent.attackDamageType + " Damage";
 			body += "\nRIGHT CLICK FOR MORE INFO";
 			TooltipSystem.instance.Show(body, championComponent.championName); // show the tooltip

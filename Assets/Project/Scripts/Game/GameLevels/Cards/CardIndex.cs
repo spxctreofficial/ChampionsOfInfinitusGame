@@ -24,16 +24,16 @@ public class CardIndex : MonoBehaviour {
 	}
 
 	private void Awake() {
-		foreach (var card in spades) {
+		foreach (CardScriptableObject card in spades) {
 			playingCards.Add(card);
 		}
-		foreach (var card in hearts) {
+		foreach (CardScriptableObject card in hearts) {
 			playingCards.Add(card);
 		}
-		foreach (var card in clubs) {
+		foreach (CardScriptableObject card in clubs) {
 			playingCards.Add(card);
 		}
-		foreach (var card in diamonds) {
+		foreach (CardScriptableObject card in diamonds) {
 			playingCards.Add(card);
 		}
 	}

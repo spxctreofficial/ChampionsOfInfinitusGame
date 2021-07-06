@@ -24,12 +24,12 @@ public class DialogueSystem : MonoBehaviour {
 	private AudioClip beep;
 
 	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null) {
-		var dialogueSystemPrefab = MainMenuController.instance == null ? GameController.instance.dialogueSystemPrefab : MainMenuController.instance.dialogueSystemPrefab;
+		GameObject dialogueSystemPrefab = MainMenuController.instance == null ? GameController.instance.dialogueSystemPrefab : MainMenuController.instance.dialogueSystemPrefab;
 
-		var bottomOfScreen = -540 - (dialogueSystemPrefab.GetComponent<RectTransform>().rect.height / 2);
-		var dialogueSystem = Instantiate(dialogueSystemPrefab, new Vector2(vector2.x, bottomOfScreen), Quaternion.identity).GetComponent<DialogueSystem>();
+		float bottomOfScreen = -540 - (dialogueSystemPrefab.GetComponent<RectTransform>().rect.height / 2);
+		DialogueSystem dialogueSystem = Instantiate(dialogueSystemPrefab, new Vector2(vector2.x, bottomOfScreen), Quaternion.identity).GetComponent<DialogueSystem>();
 
-		foreach (var dialogue in dialogueSession.dialogues) dialogueSystem.dialogues.Enqueue(dialogue);
+		foreach (Dialogue dialogue in dialogueSession.dialogues) dialogueSystem.dialogues.Enqueue(dialogue);
 		if (endOfConversationAction != null) dialogueSystem.endOfConversationAction = endOfConversationAction;
 		Debug.Log(dialogueSystem.endOfConversationAction);
 
@@ -69,7 +69,7 @@ public class DialogueSystem : MonoBehaviour {
 		StartCoroutine(TypeSentence());
 	}
 	private IEnumerator TypeSentence() {
-		foreach (var c in currentDialogue.sentence) {
+		foreach (char c in currentDialogue.sentence) {
 			float waitTime;
 			switch (currentDialogue.caretBehaviour) {
 				case Dialogue.CaretBehaviour.Natural:

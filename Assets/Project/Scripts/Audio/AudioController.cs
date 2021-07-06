@@ -20,7 +20,7 @@ public class AudioController : MonoBehaviour {
 			DontDestroyOnLoad(gameObject);
 		}
 
-		foreach (var s in sounds) {
+		foreach (Sound s in sounds) {
 			s.source = gameObject.AddComponent<AudioSource>();
 			s.source.clip = s.clip;
 			s.source.loop = s.loop;
@@ -34,7 +34,7 @@ public class AudioController : MonoBehaviour {
 	/// </summary>
 	/// <param name="sound"></param>
 	public void Play(string sound) {
-		var s = Array.Find(sounds, item => item.name == sound);
+		Sound s = Array.Find(sounds, item => item.name == sound);
 		if (s == null) {
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
@@ -59,7 +59,7 @@ public class AudioController : MonoBehaviour {
 	public void Play(AudioClip clip, bool loop = false, float volume = 0.3f, float spatialBlend = 0.5f) {
 		switch (loop) {
 			case true:
-				var audioSource = gameObject.AddComponent<AudioSource>();
+				AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 				audioSource.clip = clip;
 				audioSource.loop = loop;
 				audioSource.volume = volume;
@@ -79,7 +79,7 @@ public class AudioController : MonoBehaviour {
 	/// </summary>
 	/// <param name="source"></param>
 	public void Play(AudioSource source) {
-		var audioSource = gameObject.AddComponent<AudioSource>();
+		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 		audioSource.clip = source.clip;
 		audioSource.loop = source.loop;
 		audioSource.volume = source.volume;
@@ -95,7 +95,7 @@ public class AudioController : MonoBehaviour {
 	/// </summary>
 	/// <param name="sound"></param>
 	public void Stop(string sound) {
-		var s = Array.Find(sounds, item => item.name == sound);
+		Sound s = Array.Find(sounds, item => item.name == sound);
 		if (s == null) {
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
@@ -109,7 +109,7 @@ public class AudioController : MonoBehaviour {
 	/// <param name="clip"></param>
 	public void Stop(AudioClip clip, bool destroySource = false) {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
-		foreach (var audioSource in audioSources) {
+		foreach (AudioSource audioSource in audioSources) {
 			if (clip != audioSource.clip) continue;
 
 			audioSource.Stop();
@@ -120,7 +120,7 @@ public class AudioController : MonoBehaviour {
 
 	public AudioSource GetAudioSource(AudioClip clip) {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
-		foreach (var audioSource in audioSources) {
+		foreach (AudioSource audioSource in audioSources) {
 			if (audioSource.clip != clip) continue;
 			return audioSource;
 		}

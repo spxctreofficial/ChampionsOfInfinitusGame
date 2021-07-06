@@ -60,7 +60,7 @@ public class ChampionSlot : MonoBehaviour {
 	/// <param name="filter"></param>
 	/// <returns></returns>
 	public static ChampionSlot FindNextVacantSlot(string filter = "Normal") {
-		foreach (var championSlot in GameController.instance.slots) {
+		foreach (ChampionSlot championSlot in GameController.instance.slots) {
 			if (championSlot.occupiedChampion != null) continue;
 
 			Vector2 position = championSlot.GetComponent<RectTransform>().localPosition;
@@ -91,12 +91,12 @@ public class ChampionSlot : MonoBehaviour {
 	}
 
 	public IEnumerator ShakeOccupant(float duration, float magnitude) {
-		var occupantRectTransform = occupiedChampion.GetComponent<RectTransform>();
-		var originalPos = GetComponent<RectTransform>().localPosition;
+		RectTransform occupantRectTransform = occupiedChampion.GetComponent<RectTransform>();
+		Vector3 originalPos = GetComponent<RectTransform>().localPosition;
 		for (float t = 0; t < 1; t += Time.deltaTime / duration) {
-			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
-			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
-			var shake = new Vector3(x, y, originalPos.z);
+			float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+			float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+			Vector3 shake = new Vector3(x, y, originalPos.z);
 			occupantRectTransform.localPosition = shake;
 			yield return null;
 		}

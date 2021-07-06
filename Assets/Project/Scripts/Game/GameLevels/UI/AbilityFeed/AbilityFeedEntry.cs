@@ -13,12 +13,12 @@ public class AbilityFeedEntry : MonoBehaviour {
 
 	public static AbilityFeedEntry New(Ability ability, ChampionController champion, float duration = 5f) {
 		// Instantiate
-		var abilityFeedEntry = Instantiate(champion.abilityFeed.abilityFeedEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityFeedEntry>();
+		AbilityFeedEntry abilityFeedEntry = Instantiate(champion.abilityFeed.abilityFeedEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityFeedEntry>();
 
 		// Set Display
 		abilityFeedEntry.GetComponent<TMP_Text>().text = ability.abilityName;
 		foreach (Transform child in champion.abilityFeed.transform) {
-			var anotherAbilityFeedEntry = child.GetComponent<AbilityFeedEntry>();
+			AbilityFeedEntry anotherAbilityFeedEntry = child.GetComponent<AbilityFeedEntry>();
 			if (abilityFeedEntry == anotherAbilityFeedEntry || abilityFeedEntry.ability != anotherAbilityFeedEntry.ability) continue;
 
 			abilityFeedEntry.count += anotherAbilityFeedEntry.count;

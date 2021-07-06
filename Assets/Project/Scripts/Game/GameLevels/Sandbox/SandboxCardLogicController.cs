@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SandboxCardLogicController : CardLogicController {
-
 	public static new SandboxCardLogicController instance;
 
 	protected override void Awake() {

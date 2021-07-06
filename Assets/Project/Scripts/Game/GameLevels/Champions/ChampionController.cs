@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Codice.Client.Common.Tree;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -122,8 +121,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		attackDamageType = champion.attackDamageType;
 		attackName = champion.attackName;
 
-		foreach (var ability in champion.abilities) {
-			var abilityController = Instantiate(GameController.instance.abilityTemplate, Vector2.zero, Quaternion.identity).GetComponent<AbilityController>();
+		foreach (Ability ability in champion.abilities) {
+			AbilityController abilityController = Instantiate(GameController.instance.abilityTemplate, Vector2.zero, Quaternion.identity).GetComponent<AbilityController>();
 			abilityController.transform.SetParent(abilityObjects.transform, false);
 			abilityController.Setup(this, ability);
 			
@@ -132,7 +131,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		discardAmount = 0;
 		ResetExhaustion();
-		isPlayer = this == GameController.instance.champions[0];
+		// isPlayer = this == GameController.instance.champions[0];
 		isMyTurn = false;
 		isAttacking = false;
 		currentlyTargeted = false;
@@ -171,8 +170,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}
 
 		// Damage Calculation
-		var currentHPCache = currentHP;
-		foreach (var ability in abilities) {
+		int currentHPCache = currentHP;
+		foreach (AbilityController ability in abilities) {
 			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
 		currentHP = Mathf.Max(currentHP - amount, 0);
@@ -182,17 +181,16 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		if (source != null) {
 			source.matchStatistic.totalDamageDealt += currentHPCache - currentHP;
 
-			foreach (var damageHistory in source.matchStatistic.damageHistories) {
+			foreach (DamageHistory damageHistory in source.matchStatistic.damageHistories) {
 				if (damageHistory.dealtAgainst != this) continue;
 				damageHistory.amount += amount;
 			}
 
 			// Nemesis System
-			var myDamageHistory = (DamageHistory)null;
-			foreach (var damageHistory in source.matchStatistic.damageHistories) {
+			foreach (DamageHistory damageHistory in source.matchStatistic.damageHistories) {
 				if (damageHistory.dealtAgainst != this) continue;
 
-				myDamageHistory = damageHistory;
+				DamageHistory myDamageHistory = damageHistory;
 				if (myDamageHistory.amount > source.matchStatistic.totalDamageDealt / 2 && myDamageHistory.attacksAgainst >= 2) {
 					if (currentNemesis == null) currentNemesis = source;
 				}
@@ -200,10 +198,10 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			}
 
 			if (currentNemesis != null && currentNemesis == source) {
-				foreach (var teammate in teamMembers) {
-					foreach (var damageHistory in currentNemesis.matchStatistic.damageHistories) {
+				foreach (ChampionController teammate in teamMembers) {
+					foreach (DamageHistory damageHistory in currentNemesis.matchStatistic.damageHistories) {
 						if (damageHistory.dealtAgainst != this) continue;
-						var chance = damageHistory.attacksAgainst / (GameController.instance.roundsElapsed + 1f) >= 0.65f ? 0.7f : 0.4f;
+						float chance = damageHistory.attacksAgainst / (GameController.instance.roundsElapsed + 1f) >= 0.65f ? 0.7f : 0.4f;
 						chance -= teammate.currentNemesis == null ? 0f : 0.2f;
 						chance += teammate.currentOwner == this ? 2f : 0f;
 						if (Random.Range(0f, 1f) < chance) teammate.currentNemesis = currentNemesis;
@@ -261,12 +259,12 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// Ability Check
 		if (abilityCheck == false) yield break;
-		foreach (var ability in abilities) {
+		foreach (AbilityController ability in abilities) {
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (var ability in abilities) {
+			foreach (AbilityController ability in abilities) {
 				yield return StartCoroutine(ability.OnDamage(this, amount));
 			}
 		}
@@ -284,18 +282,18 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			yield break;
 		}
 
-		var currentHPCache = currentHP;
+		int currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		matchStatistic.totalAmountHealed += currentHP - currentHPCache;
 		AudioController.instance.Play("Heal");
 
 		if (abilityCheck == false) yield break;
-		foreach (var ability in abilities) {
+		foreach (AbilityController ability in abilities) {
 			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (var ability in abilities) {
+			foreach (AbilityController ability in abilities) {
 				yield return StartCoroutine(ability.OnHeal(this, amount));
 			}
 		}
@@ -312,7 +310,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
 
 		// Spawning
-		var championController = Instantiate(GameController.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		ChampionController championController = Instantiate(GameController.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
 		championController.champion = champion;
 		championController.team = team;
 		championController.currentOwner = this;
@@ -322,7 +320,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		championController.transform.SetParent(GameController.instance.gameArea.transform, false);
 
 		// Champion Dependencies
-		var hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(GameController.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		Hand hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(GameController.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(GameController.instance.gameArea.transform, false);
 
 
@@ -345,18 +343,22 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private bool DeathCheck() {
 		if (currentHP != 0) return false;
 
-		while (hand.cards.Count > 0) {
-			var card = hand.GetCard("Lowest");
-			StartCoroutine(hand.Discard(card, false, true, false));
-			card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.black);
-			card.advantageFeed.text = "DEAD";
-		}
-		foreach (var champion in GameController.instance.champions) {
+		StartCoroutine(DeathDiscard());
+		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion.currentNemesis != this) continue;
 			champion.currentNemesis = null;
 		}
 
 		return true;
+	}
+	private IEnumerator DeathDiscard() {
+		Card[] cards = hand.cards.ToArray();
+		foreach (Card card in cards) {
+			StartCoroutine(hand.Discard(card, false, true, false));
+			card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.black);
+			card.advantageFeed.text = "DEAD";
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 	
 	/// <summary>
@@ -382,18 +384,18 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		if (currentHP <= 0) {
 			healthText.color = new Color32(100, 100, 100, 255);
 			championImage.color = Color.gray;
-			var bloodEmission = championParticleController.bloodDrip.emission;
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
 			bloodEmission.rateOverTime = 0f;
 			return;
 		}
 		if (currentHP <= 0.6f * maxHP) {
 			healthText.color = currentHP <= 0.3f * maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
-			var bloodEmission = championParticleController.bloodDrip.emission;
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
 			bloodEmission.rateOverTime = currentHP <= 0.3f * maxHP ? 20f : 8f;
 		}
 		else {
 			healthText.color = new Color32(0, 255, 0, 255);
-			var bloodEmission = championParticleController.bloodDrip.emission;
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
 			bloodEmission.rateOverTime = 0f;
 		}
 	}
@@ -432,11 +434,11 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			return;
 		}
 
-		foreach (var champion in GameController.instance.champions) {
+		foreach (ChampionController champion in GameController.instance.champions) {
 			if (!champion.isAttacking || !champion.isPlayer || isDead) continue;
 			
 			bool canBeTargeted = true;
-			foreach (var ability in abilities) {
+			foreach (AbilityController ability in abilities) {
 				canBeTargeted = ability.CanBeTargetedByAttack();
 			}
 			if (!canBeTargeted) return;
@@ -446,7 +448,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 				champion.currentTarget.championParticleController.RedGlow.Clear();
 			}
 			else {
-				foreach (var selectedChampion in GameController.instance.champions) {
+				foreach (ChampionController selectedChampion in GameController.instance.champions) {
 					selectedChampion.championParticleController.GreenGlow.Stop();
 					selectedChampion.championParticleController.GreenGlow.Clear();
 				}
@@ -467,7 +469,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
 
-			var body = "Health: " + currentHP + "/" + maxHP; // health
+			string body = "Health: " + currentHP + "/" + maxHP; // health
 			body += "\n" + attackName + " (Attack): " + attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCards: " + hand.GetCardCount(); // card amount
 

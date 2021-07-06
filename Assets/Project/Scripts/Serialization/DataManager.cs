@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour {
 		// Sort & save owned champions by their ID.
 		if (this.ownedChampions.Count != 0) this.ownedChampions.Sort((x, y) => String.Compare(x.championName, y.championName, StringComparison.Ordinal));
 		List<string> ownedChampions = new List<string>();
-		foreach (var champion in this.ownedChampions) {
+		foreach (Champion champion in this.ownedChampions) {
 			ownedChampions.Add(champion.championID);
 		}
 		
@@ -64,8 +64,8 @@ public class DataManager : MonoBehaviour {
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
 		if (File.Exists(saveFolder + "/save.lohsave")) {
-			var defaultSaveAttributes = File.GetAttributes(saveFolder + "/save.lohsave");
-			var firstRunSaveAttributes = File.GetAttributes(saveFolder + "/firstrun.lohsave");
+			FileAttributes defaultSaveAttributes = File.GetAttributes(saveFolder + "/save.lohsave");
+			FileAttributes firstRunSaveAttributes = File.GetAttributes(saveFolder + "/firstrun.lohsave");
 
 			if ((defaultSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) defaultSaveAttributes &= ~FileAttributes.Hidden;
 			if ((firstRunSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) firstRunSaveAttributes &= ~FileAttributes.Hidden;
@@ -95,8 +95,8 @@ public class DataManager : MonoBehaviour {
 		
 		// Sets Values
 		goldAmount = loadedDefaultSaveObject.goldAmount;
-		foreach (var id in loadedDefaultSaveObject.ownedChampions) {
-			foreach (var champion in championIndex.champions) {
+		foreach (string id in loadedDefaultSaveObject.ownedChampions) {
+			foreach (Champion champion in championIndex.champions) {
 				if (champion.championID != id) continue;
 				ownedChampions.Add(champion);
 			}

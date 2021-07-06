@@ -41,7 +41,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 		avatar.sprite = champion.avatar;
 		goldCostText.text = champion.shopCost.ToString();
 
-		foreach (var champion in DataManager.instance.ownedChampions) {
+		foreach (Champion champion in DataManager.instance.ownedChampions) {
 			if (champion != this.champion) continue;
 			goldCostText.text = "PURCHASED";
 			goldCostText.color = new Color32(128, 128, 128, 255);
@@ -52,7 +52,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	// Pointer Events
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
-			var body = "Health: " + champion.maxHP; // max health
+			string body = "Health: " + champion.maxHP; // max health
 			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCLICK FOR MORE INFO";
 

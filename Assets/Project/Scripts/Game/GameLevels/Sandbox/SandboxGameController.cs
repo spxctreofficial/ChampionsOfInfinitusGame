@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 using TMPro;
 
 public class SandboxGameController : GameController {
-	// Singleton
 	public static new SandboxGameController instance;
 
 	[Header("Configuration")]
@@ -34,55 +33,68 @@ public class SandboxGameController : GameController {
 			Destroy(gameObject);
 		}
 	}
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Alpha6)) {
+			foreach (ChampionController player in champions) {
+				if (!player.isPlayer) continue;
+				StartCoroutine(player.Damage(100, DamageType.Melee));
+
+				foreach (ChampionController champion in champions) {
+					if (champion.teamMembers.Contains(player) || champion == player) continue;
+					champion.currentNemesis = player;
+				}
+				Debug.Log("applied successfully");
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4)) {
+			foreach (ChampionController champion in champions) {
+				if (champion.isPlayer) continue;
+				champion.currentHP = 1;
+			}
+		}
+	}
 
 	protected override IEnumerator GamePrep() {
-		// Resets variables to prevent memory leaks.
 		hasChosenGamemode = false;
 		currentMap = null;
 		hasChosenDifficulty = false;
 
-		Debug.Log(GameController.instance);
-
-		// Map Selection Config
 		gameArea.SetActive(false);
 		mapSelectionConfig.SetActive(true);
 
-		foreach (var map in DataManager.instance.mapIndex.maps) {
-			var mapSelectionButton = Instantiate(mapSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<MapSelectionButton>();
+		foreach (Map map in DataManager.instance.mapIndex.maps) {
+			MapSelectionButton mapSelectionButton = Instantiate(mapSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<MapSelectionButton>();
 			mapSelectionButton.mapComponent = map;
 			mapSelectionButton.transform.SetParent(mapSelectionConfig.transform.GetChild(0), false);
 		}
 		yield return new WaitUntil(() => currentMap != null);
 
-		// Champion Selection Config
 		mapSelectionConfig.SetActive(false);
 		championSelectionConfig.SetActive(true);
 
-		foreach (var championSO in DataManager.instance.ownedChampions) {
-			var championSelectionButton = Instantiate(championSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionSelectionButton>();
+		foreach (Champion championSO in DataManager.instance.ownedChampions) {
+			ChampionSelectionButton championSelectionButton = Instantiate(championSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionSelectionButton>();
 			championSelectionButton.championComponent = championSO;
 			championSelectionButton.transform.SetParent(championSelectionConfig.transform.GetChild(0), false);
 		}
 		yield return new WaitUntil(() => players.Count == 1);
 
-		// Gamemode Selection Config
 		championSelectionConfig.SetActive(false);
 		gamemodeSelectionConfig.SetActive(true);
 
-		foreach (var gamemode in (Gamemodes[])Enum.GetValues(typeof(Gamemodes))) {
+		foreach (Gamemodes gamemode in (Gamemodes[])Enum.GetValues(typeof(Gamemodes))) {
 			if (gamemode == Gamemodes.Duel) continue;
-			var gamemodeSelectionButton = Instantiate(gamemodeSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<GamemodeSelectionButton>();
+			GamemodeSelectionButton gamemodeSelectionButton = Instantiate(gamemodeSelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<GamemodeSelectionButton>();
 			gamemodeSelectionButton.gamemode = gamemode;
 			gamemodeSelectionButton.transform.SetParent(gamemodeSelectionConfig.transform.GetChild(0), false);
 		}
 		yield return new WaitUntil(() => hasChosenGamemode);
 
-		// Difficulty Selection Config
 		gamemodeSelectionConfig.SetActive(false);
 		difficultySelectionConfig.SetActive(true);
 
-		foreach (var difficulty in (Difficulty[])Enum.GetValues(typeof(Difficulty))) {
-			var difficultySelectionButton = Instantiate(difficultySelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<DifficultySelectionButton>();
+		foreach (Difficulty difficulty in (Difficulty[])Enum.GetValues(typeof(Difficulty))) {
+			DifficultySelectionButton difficultySelectionButton = Instantiate(difficultySelectionButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<DifficultySelectionButton>();
 			difficultySelectionButton.difficulty = difficulty;
 			difficultySelectionButton.transform.SetParent(difficultySelectionConfig.transform.GetChild(0), false);
 		}
@@ -94,7 +106,6 @@ public class SandboxGameController : GameController {
 		difficultySelectionConfig.SetActive(false);
 		gameArea.SetActive(true);
 
-		// Configuring Slots
 		ChampionSlot.CreateDefaultSlots();
 	}
 	protected override IEnumerator GameSetup() {
@@ -118,12 +129,12 @@ public class SandboxGameController : GameController {
 				break;
 		}
 
-		for (var i = 1; i < players; i++) {
+		for (int i = 1; i < players; i++) {
 			Champion champion = null;
 
 			switch (difficulty) {
 				case Difficulty.Noob:
-					foreach (var anotherChampion in DataManager.instance.championIndex.champions) {
+					foreach (Champion anotherChampion in DataManager.instance.championIndex.champions) {
 						if (anotherChampion.championID != "Champion_RegimeSoldier" || anotherChampion.championID != "Champion_RegimeCaptain" || Random.Range(0f, 1f) < 0.5f && DataManager.instance.championIndex.champions.IndexOf(anotherChampion) == DataManager.instance.championIndex.champions.Count - 1) continue;
 						champion = anotherChampion;
 						break;
@@ -155,16 +166,15 @@ public class SandboxGameController : GameController {
 			this.players.Add(champion);
 		}
 
-		foreach (var champion in this.players) {
-			var i = this.players.IndexOf(champion);
+		foreach (Champion champion in this.players) {
+			int i = this.players.IndexOf(champion);
 
 			slot = gamemodes switch {
 				Gamemodes.FFA => i == 0 ? slots[i] : slots[i + 1],
 				_ => slots[i],
 			};
 
-			var championController = Spawn(champion, slot, i == 0);
-			Debug.Log(championController.gameObject, championController.gameObject);
+			ChampionController championController = Spawn(champion, slot, i == 0);
 
 			// Configuring & Setting Teams
 			switch (gamemodes) {
@@ -202,9 +212,9 @@ public class SandboxGameController : GameController {
 				gameEndAreaTeam.SetActive(true);
 
 				gameEndTextTeam.text = victoriousChampion.championName + "'s Team wins!";
-				foreach (var champion in champions) {
+				foreach (ChampionController champion in champions) {
 					if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
-					var newWinnerAvatar = Instantiate(winnerAvatar, Vector2.zero, Quaternion.identity).GetComponent<Image>();
+					Image newWinnerAvatar = Instantiate(winnerAvatar, Vector2.zero, Quaternion.identity).GetComponent<Image>();
 					newWinnerAvatar.sprite = champion.avatar;
 					newWinnerAvatar.transform.SetParent(winnerAvatars.transform, false);
 				}
@@ -242,11 +252,11 @@ public class SandboxGameController : GameController {
 		}
 	}
 	public override IEnumerator GameEndCheck() {
-		var aliveChampions = new List<ChampionController>();
+		List<ChampionController> aliveChampions = new List<ChampionController>();
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
-				var aliveTeams = new List<string>();
-				foreach (var champion in champions) {
+				List<string> aliveTeams = new List<string>();
+				foreach (ChampionController champion in champions) {
 					switch (champion.isDead) {
 						case false:
 							if (!aliveTeams.Contains(champion.team)) aliveTeams.Add(champion.team);
@@ -259,7 +269,7 @@ public class SandboxGameController : GameController {
 				Debug.Log(aliveTeams.Count);
 
 				if (aliveTeams.Count == 1) {
-					foreach (var champion in champions) {
+					foreach (ChampionController champion in champions) {
 						champion.championParticleController.OrangeGlow.Stop();
 						champion.championParticleController.CyanGlow.Stop();
 						champion.championParticleController.RedGlow.Stop();
@@ -273,13 +283,13 @@ public class SandboxGameController : GameController {
 				}
 				break;
 			case Gamemodes.FFA:
-				foreach (var champion in champions) {
+				foreach (ChampionController champion in champions) {
 					if (champion.isDead || champion.currentOwner != null) continue;
 					aliveChampions.Add(champion);
 				}
 
 				if (aliveChampions.Count == 1) {
-					foreach (var champion in champions) {
+					foreach (ChampionController champion in champions) {
 						champion.championParticleController.OrangeGlow.Stop();
 						champion.championParticleController.CyanGlow.Stop();
 						champion.championParticleController.RedGlow.Stop();

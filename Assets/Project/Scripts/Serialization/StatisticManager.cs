@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
-public class StatisticManager : MonoBehaviour {
+public abstract class StatisticManager : MonoBehaviour {
 	public static StatisticManager instance;
 	public List<MatchStatistic> matchStatistics = new List<MatchStatistic>();
 
 	[HideInInspector]
 	public bool winState;
-	[HideInInspector]
 	public MatchStatistic playerChampionStatistic;
 
-	private int initialGoldReward;
-	private int goldReward;
+	protected int initialGoldReward;
+	protected int goldReward;
 
-	private void Awake() {
+	protected virtual void Awake() {
 		if (instance == null) {
 			instance = this;
 		}
@@ -28,33 +27,28 @@ public class StatisticManager : MonoBehaviour {
 	public void StartTrackingStatistics(ChampionController champion) {
 		champion.matchStatistic = new MatchStatistic(champion.champion);
 		matchStatistics.Add(champion.matchStatistic);
-		playerChampionStatistic = champion.isPlayer ? champion.matchStatistic : playerChampionStatistic;
+		if (champion.isPlayer) playerChampionStatistic = champion.matchStatistic;
 	}
 	public void TrackRemainingStatistics(ChampionController champion) {
-		var index = GameController.instance.champions.IndexOf(champion);
-		var matchStatistic = matchStatistics[index];
-
-		matchStatistic.remainingHP = champion.currentHP;
+		champion.matchStatistic.remainingHP = champion.currentHP;
 	}
 
-	public IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
+	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
 		void Untween() {
 			LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
 			LeanTween.scale(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad();
 		}
 
-		Debug.Log("its being called");
-
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
-		var successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
-		var successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;
-		var failedAttacksBonus = instance.playerChampionStatistic.failedAttacks;
-		var failedDefendsPenalty = instance.playerChampionStatistic.failedDefends;
+		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
+		int successfulDefendBonus = instance.playerChampionStatistic.successfulDefends * 2;
+		int failedAttacksBonus = instance.playerChampionStatistic.failedAttacks;
+		int failedDefendsPenalty = instance.playerChampionStatistic.failedDefends;
 
-		var killCountBonus = instance.playerChampionStatistic.killCount * 100;
-		var totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
-		var totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
-		var totalHealthRemainingBonus = instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
+		int killCountBonus = instance.playerChampionStatistic.killCount * 100;
+		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
+		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
+		int totalHealthRemainingBonus = instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
 		switch (GameController.instance.difficulty) {
 			case GameController.Difficulty.Noob:
 				initialGoldReward /= 5;

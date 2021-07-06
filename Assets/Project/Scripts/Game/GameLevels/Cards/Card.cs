@@ -51,7 +51,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	
 	// Static Functions
 	public static void Spawn(CardScriptableObject cardScriptableObject, Hand hand) {
-		var card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+		Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 		card.transform.SetParent(hand.transform, false);
 		card.cardScriptableObject = cardScriptableObject;
 		card.owner = hand.owner;

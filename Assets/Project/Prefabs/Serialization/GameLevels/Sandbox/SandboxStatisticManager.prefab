@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2170963627410267213}
   - component: {fileID: 2170963627410267214}
   m_Layer: 0
-  m_Name: StatisticController
+  m_Name: SandboxStatisticManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2170963627410267215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176c04b6476c56140a99b29875c469a7, type: 3}
+  m_Script: {fileID: 11500000, guid: d167bd2e66680f64da0c5fda1f7ee5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   matchStatistics: []
@@ -56,7 +56,8 @@ MonoBehaviour:
     totalDamageDealt: 0
     totalDamageReceived: 0
     totalAmountHealed: 0
+    totalCardsDealt: 0
+    totalCardsDiscarded: 0
     remainingHP: 0
     killCount: 0
-  initialGoldReward: 0
-  goldReward: 0
+    damageHistories: []

@@ -62,7 +62,7 @@ public class TooltipSystem : MonoBehaviour {
 	/// </summary>
 	/// <param name="tooltipType"></param>
 	public void Hide(TooltipType tooltipType) {
-		var fadeOutTime = 0.1f;
+		float fadeOutTime = 0.1f;
 
 		switch (tooltipType) {
 			case TooltipType.Tooltip:

@@ -30,16 +30,16 @@ public class ConfirmDialog : MonoBehaviour {
 	/// <param name="positiveButtonText"></param>
 	/// <returns></returns>
 	public static ConfirmDialog CreateNew(string title, string description, UnityAction negativeButtonAction, UnityAction positiveButtonAction, string negativeButtonText = "CANCEL", string positiveButtonText = "CONFIRM", bool tweenToView = true) {
-        var confirmDialogPrefab = MainMenuController.instance == null ? GameController.instance.confirmDialogPrefab : MainMenuController.instance.confirmDialogPrefab;
-        var confirmDialog = Instantiate(confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
+        GameObject confirmDialogPrefab = MainMenuController.instance == null ? GameController.instance.confirmDialogPrefab : MainMenuController.instance.confirmDialogPrefab;
+        ConfirmDialog confirmDialog = Instantiate(confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
         
         confirmDialog.Setup(title, description, negativeButtonAction, positiveButtonAction, negativeButtonText, positiveButtonText, tweenToView);
         instance = confirmDialog;
         return confirmDialog;
     }
     public static ConfirmDialog CreateNew_Mini(string title, string description, UnityAction negativeButtonAction, UnityAction positiveButtonAction, string negativeButtonText = "CANCEL", string positiveButtonText = "CONFIRM", bool tweenToView = true) {
-        var confirmDialogPrefab = MainMenuController.instance == null ? GameController.instance.miniConfirmDialogPrefab : MainMenuController.instance.miniConfirmDialogPrefab;
-        var confirmDialog = Instantiate(confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
+        GameObject confirmDialogPrefab = MainMenuController.instance == null ? GameController.instance.miniConfirmDialogPrefab : MainMenuController.instance.miniConfirmDialogPrefab;
+        ConfirmDialog confirmDialog = Instantiate(confirmDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<ConfirmDialog>();
         
         confirmDialog.Setup(title, description, negativeButtonAction, positiveButtonAction, negativeButtonText, positiveButtonText, tweenToView);
         instance = confirmDialog;

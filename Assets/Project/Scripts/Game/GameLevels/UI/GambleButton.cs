@@ -11,7 +11,7 @@ public class GambleButton : MonoBehaviour {
 		switch (GameController.instance.gamePhase) {
 			case GamePhase.ActionPhase:
 				ChampionController player = null;
-				foreach (var selectedChampion in GameController.instance.champions) {
+				foreach (ChampionController selectedChampion in GameController.instance.champions) {
 					if (!selectedChampion.isPlayer || selectedChampion.isDead) continue;
 					player = selectedChampion;
 				}
@@ -28,7 +28,7 @@ public class GambleButton : MonoBehaviour {
 						}
 						break;
 					case false:
-						foreach (var selectedChampion in GameController.instance.champions) {
+						foreach (ChampionController selectedChampion in GameController.instance.champions) {
 							if (selectedChampion == player || !selectedChampion.isAttacking || selectedChampion.currentTarget != player || selectedChampion.isDead) continue;
 
 							player.defendingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
@@ -41,7 +41,7 @@ public class GambleButton : MonoBehaviour {
 						}
 						break;
 				}
-				
+
 				if (GameController.instance.discardArea.transform.childCount > 8) {
 					for (int i = GameController.instance.discardArea.transform.childCount; i > 8; i--) {
 						Destroy(GameController.instance.discardArea.transform.GetChild(0).gameObject);

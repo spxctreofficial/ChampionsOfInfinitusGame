@@ -21,8 +21,8 @@ public class ChampionInfoPanel : MonoBehaviour {
 	private GameObject championAbilityOverviewEntryPrefab;
 
 	public static ChampionInfoPanel Create(Champion champion) {
-		var championInfoPanelPrefab = MainMenuController.instance == null ? GameController.instance.championInfoPanelPrefab : MainMenuController.instance.championInfoPanelPrefab;
-		var championInfoPanel = Instantiate(championInfoPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionInfoPanel>();
+		GameObject championInfoPanelPrefab = MainMenuController.instance == null ? GameController.instance.championInfoPanelPrefab : MainMenuController.instance.championInfoPanelPrefab;
+		ChampionInfoPanel championInfoPanel = Instantiate(championInfoPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionInfoPanel>();
 		championInfoPanel.Setup(champion);
 
 		championInfoPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
@@ -47,8 +47,8 @@ public class ChampionInfoPanel : MonoBehaviour {
 		championWeaponStatsText.text = champion.attackDamage + " " + champion.attackDamageType + " Damage";
 		championAvatar.sprite = champion.avatar;
 
-		foreach (var ability in champion.abilities) {
-			var abilityOverviewEntry = Instantiate(championAbilityOverviewEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionAbilityOverviewEntry>();
+		foreach (Ability ability in champion.abilities) {
+			ChampionAbilityOverviewEntry abilityOverviewEntry = Instantiate(championAbilityOverviewEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionAbilityOverviewEntry>();
 			abilityOverviewEntry.transform.SetParent(abilityOverview.transform, false);
 			
 			abilityOverviewEntry.Setup(ability);
@@ -71,7 +71,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 		}
 
 		string description = "Are you sure you want to purchase " + champion.championName + " for " + champion.shopCost + " gold? This purchase is irreversible, and is therefore a permanent purchase.";
-		var confirmDialog = ConfirmDialog.CreateNew("Purchase", description, () => {
+		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("Purchase", description, () => {
 			ConfirmDialog.instance.Hide();
 		}, () => {
 			ConfirmDialog.instance.Hide();

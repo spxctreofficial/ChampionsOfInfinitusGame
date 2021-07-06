@@ -43,13 +43,13 @@ public class Tooltip : MonoBehaviour {
 		layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
 	}
 	public void UpdateTransform() {
-		var mousePos = Input.mousePosition;
+		Vector3 mousePos = Input.mousePosition;
 		mousePos.z = transform.parent.GetComponent<Canvas>().planeDistance;
 		transform.position = FindObjectOfType<Camera>().ScreenToWorldPoint(mousePos);
 	}
 	public void UpdatePivot() {
-		var mousePos = Input.mousePosition;
-		var pivot = new Vector2(mousePos.x / Screen.width, mousePos.y > Screen.height / 2 ? 1.2f : 0);
+		Vector3 mousePos = Input.mousePosition;
+		Vector2 pivot = new Vector2(mousePos.x / Screen.width, mousePos.y > Screen.height / 2 ? 1.2f : 0);
 		if (GameController.instance != null) pivot.y = GameController.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
 		rectTransform.pivot = pivot;
 	}

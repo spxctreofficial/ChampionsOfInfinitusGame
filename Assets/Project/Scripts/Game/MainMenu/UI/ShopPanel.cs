@@ -28,9 +28,9 @@ public class ShopPanel : MonoBehaviour {
 	}
 
 	public void Setup() {
-		foreach (var champion in DataManager.instance.championIndex.champions) {
+		foreach (Champion champion in DataManager.instance.championIndex.champions) {
 			if (champion.unlockability != Champion.Unlockability.ShopItem) continue;
-			var championShopButton = Instantiate(championShopButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionShopButton>();
+			ChampionShopButton championShopButton = Instantiate(championShopButtonPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionShopButton>();
 			championShopButton.transform.SetParent(shopContent.transform, false);
 			championShopButton.champion = champion;
 		}

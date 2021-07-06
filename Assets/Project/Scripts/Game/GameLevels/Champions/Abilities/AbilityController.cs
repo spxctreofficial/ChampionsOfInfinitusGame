@@ -24,7 +24,7 @@ public class AbilityController : MonoBehaviour {
 	// Checks
 	public bool CheckForAbility(string searchCriteria) {
 		if (champion.champion.abilities.Count == 0) return false;
-		foreach (var ability in champion.champion.abilities) {
+		foreach (Ability ability in champion.champion.abilities) {
 			if (!IsExclusive()) return false;
 			if (searchCriteria == ability.abilityID) return true;
 		}
@@ -32,7 +32,7 @@ public class AbilityController : MonoBehaviour {
 	}
 	public bool IsExclusive() {
 		if (ability.isExclusiveTo.Count == 0) return true;
-		foreach (var champion in ability.isExclusiveTo) {
+		foreach (Champion champion in ability.isExclusiveTo) {
 			if (champion == this.champion.champion) return true;
 		}
 		return false;
@@ -192,7 +192,7 @@ public class AbilityController : MonoBehaviour {
 
 		yield return new WaitForSeconds(1f);
 
-		foreach (var selectedChampion in GameController.instance.champions) {
+		foreach (ChampionController selectedChampion in GameController.instance.champions) {
 			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction || selectedChampion.faction == Champion.Faction.Undefined) continue;
 
 			yield return StartCoroutine(champion.hand.Deal(1));
@@ -247,7 +247,7 @@ public class AbilityController : MonoBehaviour {
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". A 20% chance to negate the damage by half!" +
 		          "\n This chance is increased to 50% if the damage is fatal.");
 
-		var chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
+		float chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
 		if (Random.Range(0f, 1f) < chance) {
 			AudioController.instance.Play(ability.customAudioClips[0]);
 			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
@@ -276,8 +276,8 @@ public class AbilityController : MonoBehaviour {
 		
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ".");
 		
-		var markedForSmite = GameController.instance.champions[Random.Range(0, GameController.instance.champions.Count)];
-		var tries = 0;
+		ChampionController markedForSmite = GameController.instance.champions[Random.Range(0, GameController.instance.champions.Count)];
+		int tries = 0;
 		while ((markedForSmite.isDead || markedForSmite == champion || markedForSmite.teamMembers.Contains(champion)) && tries <= 15) {
 			markedForSmite = GameController.instance.champions[Random.Range(0, GameController.instance.champions.Count)];
 			tries++;
@@ -295,29 +295,4 @@ public class AbilityController : MonoBehaviour {
 		yield return StartCoroutine(champion.hand.Deal(1));
 		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
 	}
-	// Image Shake Borrowed From ChampionController
-	// public void OnPointerEnter(PointerEventData eventData) {
-	// 	delayID = LeanTween.delayedCall(0.5f, () => {
-	// 		var body = ability.abilityDescription;
-	//
-	// 		string abilityType() {
-	// 			return ability.abilityType switch {
-	// 				Ability.AbilityType.Passive => "Passive",
-	// 				Ability.AbilityType.Active => "Active",
-	// 				Ability.AbilityType.AttackB => "Attack Bonus",
-	// 				Ability.AbilityType.DefenseB => "Defense Bonus",
-	// 				Ability.AbilityType.Ultimate => "Ultimate",
-	// 				_ => throw new ArgumentOutOfRangeException()
-	// 			};
-	// 		}
-	//
-	// 		body += "\n Ability Type: " + abilityType();
-	//
-	// 		TooltipSystem.instance.Show(body, ability.abilityName);
-	// 	}).uniqueId;
-	// }
-	// public void OnPointerExit(PointerEventData eventData) {
-	// 	LeanTween.cancel(delayID);
-	// 	TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
-	// }
 }

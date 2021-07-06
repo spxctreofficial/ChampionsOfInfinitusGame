@@ -71,7 +71,7 @@ public class MainMenuController : MonoBehaviour {
 	public void QuitGame() {
 		if (!DataManager.instance.firstRunGame) return;
 
-		var confirmDialog = ConfirmDialog.CreateNew("QUIT", "Are you sure you want to quit the game?", () => {
+		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("QUIT", "Are you sure you want to quit the game?", () => {
 			ConfirmDialog.instance.Hide();
 		}, () => {
 			DataManager.instance.Save();
@@ -82,12 +82,12 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude) {
-		var originalPos = transform.localPosition;
+		Vector3 originalPos = transform.localPosition;
 
 		for (float t = 0; t < 1; t += Time.deltaTime / duration) {
-			var x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
-			var y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
-			var shake = new Vector3(x, y, originalPos.z);
+			float x = Random.Range(originalPos.x - 1f * magnitude, originalPos.x + 1f * magnitude);
+			float y = Random.Range(originalPos.y - 1f * magnitude, originalPos.y + 1f * magnitude);
+			Vector3 shake = new Vector3(x, y, originalPos.z);
 			transform.localPosition = shake;
 			yield return null;
 		}

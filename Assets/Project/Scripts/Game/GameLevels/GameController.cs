@@ -53,20 +53,16 @@ public abstract class GameController : MonoBehaviour {
 	public GambleButton gambleButton;
 	public Button endTurnButton;
 
-	// Champion Configuration Variables
 	[Header("Game Settings")]
 	public List<Champion> players;
 	public List<ChampionController> champions = new List<ChampionController>();
 
-	// Map Configuration Variables
 	public Map currentMap;
 
-	// Difficulty Configuration Variables
 	public Difficulty difficulty;
 	[HideInInspector]
 	public bool hasChosenDifficulty;
 
-	// In-game Variables
 	public int roundsElapsed = 0;
 
 	protected virtual void Awake() {
@@ -75,16 +71,13 @@ public abstract class GameController : MonoBehaviour {
 		else {
 			Destroy(gameObject);
 		}
-		Debug.Log(instance);
 	}
 	private void Start() {
 		StartCoroutine(GameStart(GamePrep()));
 	}
 
 	private IEnumerator GameStart(IEnumerator enumerator) {
-		Debug.Log("lol one");
 		yield return StartCoroutine(enumerator);
-		Debug.Log("lol two");
 		StartCoroutine(GameStart());
 	}
 	/// <summary>
@@ -100,8 +93,8 @@ public abstract class GameController : MonoBehaviour {
 		yield return StartCoroutine(GameSetup());
 
 		// Adds the team members to each champion's list.
-		foreach (var champion in champions) {
-			foreach (var selectedChampion in champions) {
+		foreach (ChampionController champion in champions) {
+			foreach (ChampionController selectedChampion in champions) {
 				if (selectedChampion == champion || selectedChampion.team != champion.team) continue;
 				champion.teamMembers.Add(selectedChampion);
 			}
@@ -130,8 +123,8 @@ public abstract class GameController : MonoBehaviour {
 		yield return StartCoroutine(champion.hand.Deal(2)); // Deals to the player
 
 		// Beginning Phase Ability Check
-		foreach (var selectedChampion in champions) {
-			foreach (var ability in selectedChampion.abilities) {
+		foreach (ChampionController selectedChampion in champions) {
+			foreach (AbilityController ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
@@ -161,8 +154,8 @@ public abstract class GameController : MonoBehaviour {
 		champion.ResetExhaustion();
 
 		// Action Phase Ability Check
-		foreach (var selectedChampion in champions) {
-			foreach (var ability in selectedChampion.abilities) {
+		foreach (ChampionController selectedChampion in champions) {
+			foreach (AbilityController ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnActionPhase());
 			}
 		}
@@ -196,7 +189,7 @@ public abstract class GameController : MonoBehaviour {
 	/// </summary>
 	public virtual void StartEndPhase() {
 		ChampionController champion = null;
-		foreach (var selectedChampion in champions) {
+		foreach (ChampionController selectedChampion in champions) {
 			if (!selectedChampion.isMyTurn) continue;
 
 			champion = selectedChampion;
@@ -223,8 +216,8 @@ public abstract class GameController : MonoBehaviour {
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
 		// End Phase Ability Check
-		foreach (var selectedChampion in champions) {
-			foreach (var ability in selectedChampion.abilities) {
+		foreach (ChampionController selectedChampion in champions) {
+			foreach (AbilityController ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnEndPhase());
 			}
 		}
@@ -239,13 +232,16 @@ public abstract class GameController : MonoBehaviour {
 				yield return new WaitUntil(() => champion.discardAmount == 0);
 				break;
 			case false:
-				if (champion.discardAmount != 0) {
-					for (var discarded = 0; discarded < champion.discardAmount; discarded++) {
-						var discard = champion.hand.GetCard("Lowest");
+				if (champion.discardAmount > 0) {
+					List<Card> discardList = new List<Card>();
+					for (int discarded = 0; discarded < champion.discardAmount; discarded++) {
+						Card discard = champion.hand.GetCard("Lowest");
+						champion.hand.cards.Remove(discard);
 						discard.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
 						discard.advantageFeed.text = "DISCARDED";
-						yield return StartCoroutine(champion.hand.Discard(discard));
+						discardList.Add(discard);
 					}
+					yield return StartCoroutine(champion.hand.Discard(discardList.ToArray()));
 					champion.discardAmount = 0;
 				}
 				break;
@@ -260,20 +256,21 @@ public abstract class GameController : MonoBehaviour {
 	/// <returns></returns>
 	protected virtual void GameEnd(ChampionController victoriousChampion) {
 		gamePhase = GamePhase.GameEnd;
-
-
+		ChampionController player = null;
+		foreach (ChampionController champion in champions) {
+			if (!champion.isPlayer) continue;
+			player = champion;
+		}
 
 		Destroy(playerActionTooltip);
-		foreach (var champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
+		foreach (ChampionController champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
 		CardLogicController.instance.StopAllCoroutines();
 		TooltipSystem.instance.StopAllCoroutines();
-		StatisticManager.instance.winState = victoriousChampion.isPlayer;
+		StatisticManager.instance.winState = victoriousChampion.isPlayer || victoriousChampion.teamMembers.Contains(player);
 
 		StartCoroutine(GameEndAction(victoriousChampion));
 	}
-	protected virtual IEnumerator GameEndAction(ChampionController victoriousChampion) {
-		yield break;
-	}
+	protected abstract IEnumerator GameEndAction(ChampionController victoriousChampion);
 	/// <summary>
 	/// Prepares the game to the player's configuration.
 	/// Listens and saves the player's configuration of the map, champion, difficulty at runtime, and then reports them back to GameStart.
@@ -289,10 +286,10 @@ public abstract class GameController : MonoBehaviour {
 
 		AudioController.instance.Play(gameArea.GetComponent<AudioSource>());
 
-		foreach (var champion in players) {
+		foreach (Champion champion in players) {
 			ChampionSlot slot = slots[players.IndexOf(champion)];
 
-			var championController = Spawn(champion, slot, players.IndexOf(champion) == 0);
+			ChampionController championController = Spawn(champion, slot, players.IndexOf(champion) == 0);
 			championController.team = championController.championID + players.IndexOf(champion);
 		}
 		yield break;
@@ -302,14 +299,14 @@ public abstract class GameController : MonoBehaviour {
 	/// </summary>
 	/// <returns></returns>
 	public virtual IEnumerator GameEndCheck() {
-		var aliveChampions = new List<ChampionController>();
-		foreach (var champion in champions) {
+		List<ChampionController> aliveChampions = new List<ChampionController>();
+		foreach (ChampionController champion in champions) {
 			if (champion.isDead || champion.currentOwner != null) continue;
 			aliveChampions.Add(champion);
 		}
 
 		if (aliveChampions.Count == 1) {
-			foreach (var champion in champions) {
+			foreach (ChampionController champion in champions) {
 				champion.championParticleController.OrangeGlow.Stop();
 				champion.championParticleController.CyanGlow.Stop();
 				champion.championParticleController.RedGlow.Stop();
@@ -380,9 +377,9 @@ public abstract class GameController : MonoBehaviour {
 	/// Fades away scene and returns the game to the main menu.
 	/// </summary>
 	public void ReturnToMainMenu() {
-		var gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
-		var gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
-		var gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
+		CanvasGroup gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
+		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
+		CanvasGroup gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
 
 		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
 		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
@@ -401,21 +398,19 @@ public abstract class GameController : MonoBehaviour {
 	/// <param name="slot"></param>
 	/// <param name="spawnAsPlayer"></param>
 	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false) {
-		// Prerequisites
 		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
 
-		// Spawning
-		var championController = Instantiate(championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		ChampionController championController = Instantiate(championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
 		championController.champion = champion;
 		champions.Add(championController);
 		slot.SetOccupant(championController);
 		championController.transform.SetParent(gameArea.transform, false);
 
-		// Champion Dependencies
-		var hand = spawnAsPlayer ? playerHand : Instantiate(handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		if (spawnAsPlayer) championController.isPlayer = true;
+
+		Hand hand = spawnAsPlayer ? playerHand : Instantiate(handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(gameArea.transform, false);
 		
-		// Dependency Setup
 		IEnumerator Setup() {
 			yield return null;
 			hand.SetOwner(championController);
