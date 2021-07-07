@@ -19,7 +19,8 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- All audio-related resources have been compressed, resulting in a dramatic reduction in file size.
 		- Previously, the audio files were all in `wav` format, which meant that it was uncompressed audio.
 		- These `wav` files have been compressed to `mp3` files running at a 320kbps bitrate, which is a compressed high-quality format that will result in barely any audio quality loss.
-	- Certain themes have been reworked or changed completely.
+		- Certain themes have been reworked or changed completely.
+	- The LandOfHeroesGame logo has been completely revamped.
 	- AbilityPanel has been removed from the game.
 	- A mask has been properly added to the shop menu.
 	- Fixed a big issue where the player wasn't being set correctly as a player in the config.
