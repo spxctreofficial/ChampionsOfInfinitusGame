@@ -15,6 +15,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 			- Natural: A natural speed for expressing dialogue, with slightly longer pauses for punctuation.
 			- Long Pause: This is a complicated speed, pausing longer on punctuation (excluding commas).
 			- Fast: Just twice the speed of Natural.
+	- Added two new maps to the game: Harbor and Mooncave.
 - Changes & Fixes:
 	- All audio-related resources have been compressed, resulting in a dramatic reduction in file size.
 		- Previously, the audio files were all in `wav` format, which meant that it was uncompressed audio.
@@ -26,6 +27,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- Fixed a big issue where the player wasn't being set correctly as a player in the config.
 	- Fixed a big issue where the player wasn't being rewarded a decent amount of gold in Competitive 2v2.
 	- Fixed an issue where cards discarded upon death would make the discard area larger.
+	- Fixed an issue where cards had incorrect values.
 - Miscellaneous Notes:
 	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
 		- GameController has been abstracted.

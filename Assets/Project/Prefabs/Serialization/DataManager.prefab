@@ -57,3 +57,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 2bba4392610a3fa4893f1cb5dfa5f1af, type: 2}
     - {fileID: 11400000, guid: 14d9a9fc05e29f64e8b7467314f01278, type: 2}
     - {fileID: 11400000, guid: bfb619fda08bd9e47b86f0056579b880, type: 2}
+    - {fileID: 11400000, guid: f512416aacfb1d94a90343f2b8c86710, type: 2}
+    - {fileID: 11400000, guid: 3b26a8963137830478ca783583cebdc1, type: 2}
+  goldAmount: 0
+  ownedChampions: []
+  firstRunGame: 0
+  firstRunShop: 0
+  firstRunTutorial: 0
