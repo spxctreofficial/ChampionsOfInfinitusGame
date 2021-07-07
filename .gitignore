@@ -7,6 +7,11 @@
 /[Uu]ser[Ss]ettings/
 **/[Ss]aves/
 
+# Old/Deprecated Files
+**/[Dd]eprecated/
+**/[Oo]ld/
+**/[Uu]nused/
+
 # IDE Caches
 **/.idea
 **/.vscode

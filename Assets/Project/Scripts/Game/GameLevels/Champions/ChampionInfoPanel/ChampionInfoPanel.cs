@@ -81,7 +81,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 			DataManager.instance.goldAmount -= champion.shopCost;
 			DataManager.instance.ownedChampions.Add(champion);
 			DataManager.instance.Save();
-			AudioController.instance.Play("CoinToss0" + Random.Range(1, 3));
+			AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
 		});
 		confirmDialog.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 	}

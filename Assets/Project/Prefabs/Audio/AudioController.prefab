@@ -46,8 +46,8 @@ MonoBehaviour:
   mixerGroup: {fileID: 0}
   lowPassFilter: {fileID: 0}
   sounds:
-  - name: Sword1
-    clip: {fileID: 8300000, guid: 4efbd47c059a870429bf8ddd4b34166b, type: 3}
+  - name: swordimpact01
+    clip: {fileID: 8300000, guid: 2c5fdcf859e0efe4095acdc4cc9088d9, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -55,8 +55,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Sword2
-    clip: {fileID: 8300000, guid: c7fd1937115572a41b7e20dfbae86ebc, type: 3}
+  - name: swordimpact02
+    clip: {fileID: 8300000, guid: 3304ee5361546bc4b88679eb62d9b7ab, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -64,8 +64,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: SwordClashing
-    clip: {fileID: 8300000, guid: f793492e7cca63a478e75e14117d65c1, type: 3}
+  - name: swordimpact_fail
+    clip: {fileID: 8300000, guid: 4ab5a1c2b8655644e9626dbcee701b23, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -73,8 +73,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: FireDamage1
-    clip: {fileID: 8300000, guid: 9c79254f50408c947bcc3f43c4178287, type: 3}
+  - name: fireimpact
+    clip: {fileID: 8300000, guid: 018e2b657d20265458aceec7afb42d73, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -82,8 +82,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: FireBall1
-    clip: {fileID: 8300000, guid: 866936919a404d0428b158dfc3d78bea, type: 3}
+  - name: lightningimpact
+    clip: {fileID: 8300000, guid: 96aedac8d0e7f6d4c844c3d5b4c19ab2, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -91,8 +91,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Lightning
-    clip: {fileID: 8300000, guid: d79ade944ce03664bb8e610dd21e6ff2, type: 3}
+  - name: unblockabledamage
+    clip: {fileID: 8300000, guid: 4d5f877d0d77a664f85a81544f8cfcd7, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -100,8 +100,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Unblockable1
-    clip: {fileID: 8300000, guid: e5f5140a5fb363a48b03a44357a07a38, type: 3}
+  - name: heal
+    clip: {fileID: 8300000, guid: 8fd3c32ee63971a44a7eeb48f548b160, type: 3}
     volume: 0.5
     volumeVariance: 0
     pitch: 1
@@ -109,26 +109,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Heal
-    clip: {fileID: 8300000, guid: 7f5dd42291c04f0459f9d6a058b7aae7, type: 3}
-    volume: 0.5
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: PlayerTurn
-    clip: {fileID: 8300000, guid: 77dc7943d408fa247b950bb490c91ed3, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Flip
-    clip: {fileID: 8300000, guid: e954edf89be64234da93c9997d0536a8, type: 3}
+  - name: flip
+    clip: {fileID: 8300000, guid: 621f2e4b27dc52844ad9bb85c12d7215, type: 3}
     volume: 0.4
     volumeVariance: 0
     pitch: 1
@@ -136,8 +118,26 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: GameEnd
-    clip: {fileID: 8300000, guid: f8f083be53ba03142af9aba27a3a54a4, type: 3}
+  - name: playerturn
+    clip: {fileID: 8300000, guid: 86d1467bf17fda54299e93cb24ad9aee, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: gameend
+    clip: {fileID: 8300000, guid: 934bd80fb54572f44b1503acb8db262b, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: cointoss01
+    clip: {fileID: 8300000, guid: 9e918d29016dcda4280969a7794045c4, type: 3}
     volume: 0.4
     volumeVariance: 0
     pitch: 1
@@ -145,54 +145,45 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: CoinToss01
-    clip: {fileID: 8300000, guid: e5dfced68a2f07548b51192001ae9ac5, type: 3}
-    volume: 0.65
+  - name: cointoss02
+    clip: {fileID: 8300000, guid: 533802a18608d744994fc8953f8921fc, type: 3}
+    volume: 0.4
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: CoinToss02
-    clip: {fileID: 8300000, guid: 463426db144948d4c85a725841c16c07, type: 3}
-    volume: 0.65
+  - name: tutorial01
+    clip: {fileID: 8300000, guid: 43992385f85e9064f8a547bf0938fd93, type: 3}
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: MiniClick
-    clip: {fileID: 8300000, guid: f6c5f200c3e759d41a02f89615ec59de, type: 3}
+  - name: tutorial02
+    clip: {fileID: 8300000, guid: 2e589b717be4fb54ea68043a7d16f104, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: tutorial03
+    clip: {fileID: 8300000, guid: 4ea759eb9abd6b34e9c0ac838d07dcf1, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: uiselect
+    clip: {fileID: 8300000, guid: fcf01476c1993fa4098920019146996d, type: 3}
     volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Tutorial01
-    clip: {fileID: 8300000, guid: 50eba82ef78f48b4e96d690df09bd59f, type: 3}
-    volume: 0.5
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Tutorial02
-    clip: {fileID: 8300000, guid: eb29b96d50c216549b594895e8ba4805, type: 3}
-    volume: 0.5
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Tutorial03
-    clip: {fileID: 8300000, guid: 4b125a1fc54c9cd4698e181af9acf0fc, type: 3}
-    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0

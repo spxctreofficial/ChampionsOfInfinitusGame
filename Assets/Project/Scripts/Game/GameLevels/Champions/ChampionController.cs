@@ -221,30 +221,26 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		switch (damageType) {
 			case DamageType.Melee:
 				magnitude = 20f;
-				if (!silent) AudioController.instance.Play("Sword" + Random.Range(1, 3));
+				if (!silent) AudioController.instance.Play("swordimpact0" + Random.Range(1, 3));
 				break;
 			case DamageType.Ranged:
 				magnitude = 12f;
 				break;
 			case DamageType.Fire:
 				magnitude = 8f;
-				if (!silent) AudioController.instance.Play("FireBall1");
+				if (!silent) AudioController.instance.Play("fireimpact");
 				break;
 			case DamageType.Lightning:
 				magnitude = 15f;
-				if (!silent) AudioController.instance.Play("Lightning");
+				if (!silent) AudioController.instance.Play("lightningimpact");
 				break;
 			case DamageType.Shadow:
 				magnitude = 10f;
-				if (!silent) AudioController.instance.Play("Unblockable1");
-				break;
-			case DamageType.Unblockable:
-				magnitude = 5f;
-				if (!silent) AudioController.instance.Play("Unblockable1");
+				if (!silent) AudioController.instance.Play("unblockabledamage");
 				break;
 			default:
 				magnitude = 5f;
-				if (!silent) AudioController.instance.Play("Unblockable1");
+				if (!silent) AudioController.instance.Play("unblockabledamage");
 				break;
 
 		}
@@ -285,7 +281,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		int currentHPCache = currentHP;
 		currentHP = Mathf.Min(currentHP + amount, maxHP);
 		matchStatistic.totalAmountHealed += currentHP - currentHPCache;
-		AudioController.instance.Play("Heal");
+		AudioController.instance.Play("heal");
 
 		if (abilityCheck == false) yield break;
 		foreach (AbilityController ability in abilities) {

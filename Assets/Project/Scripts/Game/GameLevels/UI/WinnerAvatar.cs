@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WinnerAvatar : MonoBehaviour {
 	private void Awake() {
-		AudioController.instance.Play("GameEnd");
+		AudioController.instance.Play("gameend");
 		LeanTween.delayedCall(1f, () => {
 			LeanTween.scale(GetComponent<RectTransform>(), new Vector3(1, 1, 1), 0.25f).setEaseInOutQuad().setOnComplete(() => {
 				StartCoroutine(ShakeImage(0.25f, 10f));

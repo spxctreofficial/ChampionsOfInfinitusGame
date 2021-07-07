@@ -223,7 +223,7 @@ public class Hand : MonoBehaviour {
 	/// <returns></returns>
 	public IEnumerator Deal(int amount = 4, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		for (int i = 0; i < amount; i++) {
-			AudioController.instance.Play("Flip");
+			AudioController.instance.Play("flip");
 			// Creates a new card.
 			Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 			card.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
@@ -310,7 +310,7 @@ public class Hand : MonoBehaviour {
 		
 		
 		// Sets card to the discard area, removing the card's specified owner, and removing the card from the list of cards from this hand to avoid memory leaks.
-		AudioController.instance.Play("Flip");
+		AudioController.instance.Play("flip");
 		card.transform.SetParent(GameController.instance.discardArea.transform, false);
 		if (GameController.instance.discardArea.transform.childCount > 8) {
 			for (int i = GameController.instance.discardArea.transform.childCount; i > 8; i--) {

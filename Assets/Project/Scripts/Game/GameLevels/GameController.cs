@@ -164,7 +164,7 @@ public abstract class GameController : MonoBehaviour {
 		switch (champion.isPlayer) {
 			case true:
 				endTurnButton.gameObject.SetActive(true);
-				AudioController.instance.Play("PlayerTurn");
+				AudioController.instance.Play("playerturn");
 				break;
 			case false:
 				StartCoroutine(CardLogicController.instance.BotCardLogic(champion));

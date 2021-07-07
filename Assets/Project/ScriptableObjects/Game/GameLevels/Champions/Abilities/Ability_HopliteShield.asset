@@ -23,4 +23,4 @@ MonoBehaviour:
   isExclusiveTo:
   - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
   customAudioClips:
-  - {fileID: 8300000, guid: e97ec8514b9ef4d4bb85665b0dc80807, type: 3}
+  - {fileID: 8300000, guid: 88dbe5dbc202cee4eaef4047cb209a19, type: 3}

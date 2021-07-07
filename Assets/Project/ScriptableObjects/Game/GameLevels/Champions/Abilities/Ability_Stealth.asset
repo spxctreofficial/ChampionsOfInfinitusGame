@@ -20,4 +20,4 @@ MonoBehaviour:
   abilityType: 0
   isExclusiveTo: []
   customAudioClips:
-  - {fileID: 8300000, guid: e69c0aa441f8eec41a47001ca276ede6, type: 3}
+  - {fileID: 8300000, guid: 5cf8745d6328ccf46b501c6a74a12162, type: 3}

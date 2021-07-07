@@ -419,7 +419,7 @@ public abstract class CardLogicController : MonoBehaviour {
 		}
 		else {
 			Debug.Log("lol it tie");
-			AudioController.instance.Play("SwordClashing");
+			AudioController.instance.Play("swordimpact_fail");
 			CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
 		}
 		Debug.Log(attacker.championName + attacker.currentHP);
