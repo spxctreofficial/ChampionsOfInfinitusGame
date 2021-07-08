@@ -75,7 +75,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Warrior:
 							if (owner.currentHP >= 0.3f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log("The " + owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
+								Debug.Log(owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
 								continue;
 							}
 							if (value < card.cardScriptableObject.cardValue) {
@@ -85,7 +85,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Champion:
 							if (owner.currentHP >= 0.5f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log("The " + owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
+								Debug.Log(owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
 								continue;
 							}
 							if (value < card.cardScriptableObject.cardValue) {
@@ -158,40 +158,39 @@ public class Hand : MonoBehaviour {
 	public Card GetAttackingCard(Card card) {
 		Card selectedCard = null;
 		int value = -999;
-		foreach (Transform child in transform) {
-			if (child.GetComponent<Card>() == card) continue;
+		foreach (Card thisCard in cards) {
+			if (thisCard == card) continue;
 
 			switch (GameController.instance.difficulty) {
 				case GameController.Difficulty.Noob:
-					if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
-					if (Random.Range(0f, 1f) < 0.5f) continue;
+					if (thisCard.transform.GetSiblingIndex() == thisCard.transform.parent.childCount - 1) selectedCard = thisCard;
 					break;
 				case GameController.Difficulty.Novice:
-					if (child.GetSiblingIndex() == child.parent.childCount - 1) selectedCard = child.GetComponent<Card>();
-					if (child.GetComponent<Card>().cardScriptableObject.cardValue <= 9) continue;
+					if (thisCard.cardScriptableObject.cardValue <= 9) continue;
+					if (thisCard.transform.GetSiblingIndex() == thisCard.transform.parent.childCount - 1) selectedCard = thisCard;
 					break;
 				case GameController.Difficulty.Warrior:
-					if (owner.currentHP >= 0.25f * owner.maxHP && child.GetComponent<Card>().cardScriptableObject.cardValue >= 10 && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardScriptableObject.cardValue + " to attack!");
+					if (owner.currentHP >= 0.25f * owner.maxHP && thisCard.cardScriptableObject.cardValue >= 10 && Random.Range(0f, 1f) < 0.75f) {
+						Debug.Log("The opponent is confident! They refuse to use a value of " + thisCard.cardScriptableObject.cardValue + " to attack!");
 						continue;
 					}
-					if (value < child.GetComponent<Card>().cardScriptableObject.cardValue) {
-						selectedCard = child.GetComponent<Card>();
-						value = selectedCard.cardScriptableObject.cardValue;
+					if (value < thisCard.cardScriptableObject.cardValue) {
+						selectedCard = thisCard;
+						value = thisCard.cardScriptableObject.cardValue;
 					}
 					break;
 				case GameController.Difficulty.Champion:
-					if (child.GetComponent<Card>().cardScriptableObject.cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The " + owner.championName + " refuses to use a HEART to attack!");
+					if (thisCard.cardScriptableObject.cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f) {
+						Debug.Log(owner.championName + " refuses to use a HEART to attack!");
 						continue;
 					}
-					if (owner.currentHP >= 0.5f * owner.maxHP && child.GetComponent<Card>().cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The opponent is confident! They refuse to use a value of " + child.GetComponent<Card>().cardScriptableObject.cardValue + " to attack!");
+					if (owner.currentHP >= 0.5f * owner.maxHP && thisCard.CombatValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
+						Debug.Log("The opponent is confident! They refuse to use a value of " + thisCard.CombatValue + " to attack!");
 						continue;
 					}
-					if (value < child.GetComponent<Card>().cardScriptableObject.cardValue) {
-						selectedCard = child.GetComponent<Card>();
-						value = selectedCard.cardScriptableObject.cardValue;
+					if (value < thisCard.CombatValue) {
+						selectedCard = thisCard;
+						value = thisCard.CombatValue;
 					}
 					break;
 			}

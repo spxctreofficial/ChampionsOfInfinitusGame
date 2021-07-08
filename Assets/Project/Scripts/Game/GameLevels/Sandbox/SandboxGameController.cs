@@ -142,7 +142,7 @@ public class SandboxGameController : GameController {
 					break;
 				case Difficulty.Novice:
 					int repeats = 0;
-					while ((champion == this.players[0] || this.players.Contains(champion) || champion == null || champion.shopCost > 2000) && repeats <= 6) {
+					while ((champion == this.players[0] || this.players.Contains(champion) || champion == null || champion.value > 2000) && repeats <= 6) {
 						Debug.Log("novice boop");
 						champion = DataManager.instance.championIndex.champions[Random.Range(0, DataManager.instance.championIndex.champions.Count)];
 						repeats++;

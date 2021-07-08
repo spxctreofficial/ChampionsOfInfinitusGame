@@ -209,12 +209,9 @@ public class AbilityController : MonoBehaviour {
 		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
 	}
 	private bool Stealth() {
-		Debug.Log("being run");
-		Debug.Log(IsExclusive());
 		if (!IsExclusive()) return true;
 		if (champion.spadesBeforeExhaustion == 1 && champion.heartsBeforeExhaustion == 3 && champion.diamondsBeforeExhaustion == 1) {
 			AudioController.instance.Play(ability.customAudioClips[0], false, 0.5f);
-			Debug.Log("oh look it worked");
 			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
 			return false;
 		}
@@ -259,8 +256,8 @@ public class AbilityController : MonoBehaviour {
 		if (!IsExclusive()) yield break;
 		if (attackingCard.cardScriptableObject.cardValue < 10) yield break;
 
-		attackingCard.cardScriptableObject.cardValue--;
-		Debug.Log(ability.abilityName + " was activated for " + champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.cardScriptableObject.cardValue);
+		attackingCard.CombatValue--;
+		Debug.Log(ability.abilityName + " was activated for " + champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.CombatValue);
 		champion.abilityFeed.NewAbilityFeedEntry(ability, champion);
 	}
 	private IEnumerator Rejuvenation() {

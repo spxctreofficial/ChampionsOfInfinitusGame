@@ -16,6 +16,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 			- Long Pause: This is a complicated speed, pausing longer on punctuation (excluding commas).
 			- Fast: Just twice the speed of Natural.
 	- Added two new maps to the game: Harbor and Mooncave.
+	- Added a fully functional and flexible Advantage Feed to the Card Template.
 - Changes & Fixes:
 	- All audio-related resources have been compressed, resulting in a dramatic reduction in file size.
 		- Previously, the audio files were all in `wav` format, which meant that it was uncompressed audio.
@@ -23,11 +24,15 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- Certain themes have been reworked or changed completely.
 	- The LandOfHeroesGame logo has been completely revamped.
 	- AbilityPanel has been removed from the game.
-	- A mask has been properly added to the shop menu.
+	- These abilities have been patched and fixed:
+		- A giant vulnerability with Bojutsu has been patched. Bojutsu had the ability to change a value of a card at runtime, and have that value save.
+		- An UI-related issue with Stealth and targeting has been fixed (Stealth would briefly appear when that champion was targeting other champions.)
 	- Fixed a big issue where the player wasn't being set correctly as a player in the config.
-	- Fixed a big issue where the player wasn't being rewarded a decent amount of gold in Competitive 2v2.
+	- Fixed a big issue where the player wasn't being correctly rewarded gold at the end of a match of Competitive 2v2.
 	- Fixed an issue where cards discarded upon death would make the discard area larger.
 	- Fixed an issue where cards had incorrect values.
+	- The shop menu now clips properly with edges of its viewport.
+	- The PlayerActionTooltip now correctly disappears after being used.
 - Miscellaneous Notes:
 	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
 		- GameController has been abstracted.
@@ -36,6 +41,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- The `GetCard` function has been slightly improved, no longer relying on the transform of the hand (instead using the list implemented into the hand itself to log its cards.)
 	- New functions have been added to the `Hand` class to improve the game.
 	- The project now uses explicit types instead of implicit types (`var`) to define variables.
+	- The project now replaces all empty strings (`""`) with references to `string.Empty`.
 
 ## v0.1.3 Beta
 

@@ -65,7 +65,7 @@ public class DialogueSystem : MonoBehaviour {
 
 		characterName.text = currentDialogue.speakingChampion.championName;
 		characterAvatar.sprite = currentDialogue.speakingChampion.avatar;
-		dialogueBox.text = "";
+		dialogueBox.text = string.Empty;
 		StartCoroutine(TypeSentence());
 	}
 	private IEnumerator TypeSentence() {

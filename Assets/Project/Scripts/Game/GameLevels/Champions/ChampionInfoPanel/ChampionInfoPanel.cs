@@ -59,18 +59,18 @@ public class ChampionInfoPanel : MonoBehaviour {
 			purchaseButton.gameObject.SetActive(false);
 		}
 		else if (champion.unlockability == Champion.Unlockability.ShopItem) {
-			purchaseButton.transform.GetChild(1).GetComponent<TMP_Text>().text = champion.shopCost.ToString();
+			purchaseButton.transform.GetChild(1).GetComponent<TMP_Text>().text = champion.value.ToString();
 			foreach (Transform child in purchaseButton.transform) LayoutRebuilder.ForceRebuildLayoutImmediate(child.gameObject.GetComponent<RectTransform>());
 		}
 	}
 	private void StartPurchase() {
-		if (DataManager.instance.goldAmount - champion.shopCost < 0) {
+		if (DataManager.instance.goldAmount - champion.value < 0) {
 			TooltipSystem.instance.ShowError("Insufficient funds!");
 			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 			return;
 		}
 
-		string description = "Are you sure you want to purchase " + champion.championName + " for " + champion.shopCost + " gold? This purchase is irreversible, and is therefore a permanent purchase.";
+		string description = "Are you sure you want to purchase " + champion.championName + " for " + champion.value + " gold? This purchase is irreversible, and is therefore a permanent purchase.";
 		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("Purchase", description, () => {
 			ConfirmDialog.instance.Hide();
 		}, () => {
@@ -78,7 +78,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 			Destroy();
 
 			Debug.Log("PURCHASE SUCCESSFUL!");
-			DataManager.instance.goldAmount -= champion.shopCost;
+			DataManager.instance.goldAmount -= champion.value;
 			DataManager.instance.ownedChampions.Add(champion);
 			DataManager.instance.Save();
 			AudioController.instance.Play("cointoss0" + Random.Range(1, 3));

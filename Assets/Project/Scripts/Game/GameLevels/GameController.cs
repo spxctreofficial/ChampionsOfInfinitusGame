@@ -237,8 +237,8 @@ public abstract class GameController : MonoBehaviour {
 					for (int discarded = 0; discarded < champion.discardAmount; discarded++) {
 						Card discard = champion.hand.GetCard("Lowest");
 						champion.hand.cards.Remove(discard);
-						discard.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
-						discard.advantageFeed.text = "DISCARDED";
+						discard.discardFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
+						discard.discardFeed.text = "DISCARDED";
 						discardList.Add(discard);
 					}
 					yield return StartCoroutine(champion.hand.Discard(discardList.ToArray()));

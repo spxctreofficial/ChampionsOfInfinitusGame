@@ -351,8 +351,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		Card[] cards = hand.cards.ToArray();
 		foreach (Card card in cards) {
 			StartCoroutine(hand.Discard(card, false, true, false));
-			card.advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.black);
-			card.advantageFeed.text = "DEAD";
+			card.discardFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.black);
+			card.discardFeed.text = "DEAD";
 			yield return new WaitForSeconds(0.1f);
 		}
 	}

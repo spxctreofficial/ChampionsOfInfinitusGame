@@ -30,7 +30,7 @@ public class Champion : ScriptableObject {
 	public List<Ability> abilities;
 	
 	// Shop
-	public enum Unlockability { ShopItem, EarnableItem }
+	public enum Unlockability { ShopItem, EarnableItem, Unplayable }
 	public Unlockability unlockability;
-	public int shopCost;
+	public int value;
 }

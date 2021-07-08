@@ -8,11 +8,12 @@ using TMPro;
 
 public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
+	[Header("Card Information")]
 	public CardScriptableObject cardScriptableObject;
-	[Space]
+	[Header("References")]
 	public Image cardImage;
 	public TMP_Text caption;
-	public TMP_Text advantageFeed;
+	public TMP_Text discardFeed, advantageFeed;
 	public ParticleSystem halo;
 
 	[HideInInspector]
@@ -21,10 +22,39 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	public bool isHidden;
 	public List<string> tags = new List<string>();
 
+	private int combatValue;
 	private static int delayID;
+
+	public int CombatValue {
+		get => combatValue;
+		set {
+			combatValue = value;
+			if (combatValue == cardScriptableObject.cardValue) {
+				advantageFeed.text = string.Empty;
+				return;
+			}
+
+			int difference = combatValue - cardScriptableObject.cardValue;
+
+			if (combatValue > cardScriptableObject.cardValue) {
+				Color greenGlow = (Color)new Color32(46, 191, 0, 128) * Mathf.Pow(2, 2);
+				greenGlow.a = 128;
+				advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, greenGlow);
+				advantageFeed.text = "+" + difference;
+			}
+			else {
+				Color redGlow = Color.red * Mathf.Pow(2, 2);
+				redGlow.a = 144;
+				advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, redGlow);
+				advantageFeed.text = difference.ToString();
+			}
+			advantageFeed.text += " Advantage";
+		}
+	}
 	
 	private void Start() {
 		gameObject.name = cardScriptableObject.cardName;
+		combatValue = cardScriptableObject.cardValue;
 		if (cardImage.sprite != cardScriptableObject.cardFront && cardImage.sprite != cardScriptableObject.cardBack) cardImage.sprite = cardScriptableObject.cardFront;
 	}
 
@@ -37,11 +67,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		if (!isHidden) {
 			isHidden = true;
 			cardImage.sprite = cardScriptableObject.cardBack;
+			
+			advantageFeed.gameObject.SetActive(false);
 		}
 		else {
 			isHidden = false;
 			cardImage.sprite = cardScriptableObject.cardFront;
 
+			advantageFeed.gameObject.SetActive(true);
 			if (doFlipAnimation) {
 				transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 				StartCoroutine(GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
@@ -68,7 +101,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 				TooltipSystem.instance.Show(null, "Flipped Card");
 				return;
 			}
-			TooltipSystem.instance.Show(cardScriptableObject.cardDescription, cardScriptableObject.cardName);
+
+			string description = cardScriptableObject.cardDescription;
+			description += "\n\nWhen played in combat, this has a base combat value of " + combatValue +" .";
+			TooltipSystem.instance.Show(description, cardScriptableObject.cardName);
 		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {

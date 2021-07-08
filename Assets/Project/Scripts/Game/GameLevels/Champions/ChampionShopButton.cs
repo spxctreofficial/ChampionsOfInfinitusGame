@@ -39,7 +39,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public void UpdateInformation() {
 		// Updates information
 		avatar.sprite = champion.avatar;
-		goldCostText.text = champion.shopCost.ToString();
+		goldCostText.text = champion.value.ToString();
 
 		foreach (Champion champion in DataManager.instance.ownedChampions) {
 			if (champion != this.champion) continue;
@@ -56,7 +56,7 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCLICK FOR MORE INFO";
 
-			body += "\n\nCost: " + champion.shopCost; // cost to buy (assumes that the champion is a shop item)
+			body += "\n\nCost: " + champion.value; // cost to buy (assumes that the champion is a shop item)
 
 			TooltipSystem.instance.Show(body, champion.championName); // show the tooltip
 		}).id;

@@ -19,5 +19,17 @@ public class SandboxCardLogicController : CardLogicController {
 		if (Input.GetKeyDown(KeyCode.Alpha5)) {
 			GameController.instance.champions[dealToIndex].hand.DealSpecificCard(summonCard);
 		}
+		if (Input.GetKeyDown(KeyCode.Equals)) {
+			foreach (ChampionController champion in GameController.instance.champions) {
+				if (!champion.isPlayer) continue;
+				champion.hand.cards[0].CombatValue++;
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Minus)) {
+			foreach (ChampionController champion in GameController.instance.champions) {
+				if (!champion.isPlayer) continue;
+				champion.hand.cards[0].CombatValue--;
+			}
+		}
 	}
 }

@@ -37,7 +37,7 @@ public class DataManager : MonoBehaviour {
 		Save();
 	}
 	private void Start() {
-		championIndex.champions.Sort((x, y) => x.shopCost.CompareTo(y.shopCost));
+		championIndex.champions.Sort((x, y) => x.value.CompareTo(y.value));
 	}
 
 	// Serialization Methods
