@@ -9,19 +9,20 @@ public class AbilityController : MonoBehaviour {
 
 	public Dictionary<string, int> abilityInts = new Dictionary<string, int>();
 	public Dictionary<string, float> abilityFloats = new Dictionary<string, float>();
+	public Dictionary<string, bool> abilityBools = new Dictionary<string, bool>();
+	public Dictionary<string, StateFeedEntry> affiliatedStateFeedEntries = new Dictionary<string, StateFeedEntry>();
 	[HideInInspector]
 	public List<string> tags = new List<string>();
 
-	// Constructors
 	public void Setup(ChampionController champion, Ability ability) {
 		this.champion = champion;
 		this.ability = ability;
+
+		StartCoroutine(OnSetup());
 	}
 
-	// Click Event
 	public void OnClick() {}
 
-	// Checks
 	public bool CheckForAbility(string searchCriteria) {
 		if (champion.champion.abilities.Count == 0) return false;
 		foreach (Ability ability in champion.champion.abilities) {
@@ -38,7 +39,13 @@ public class AbilityController : MonoBehaviour {
 		return false;
 	}
 
-	// Triggers
+	/// <summary>
+	/// Checks for abilities on setup of the ability.
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator OnSetup() {
+		yield break;
+	}
 	/// <summary>
 	/// Checks for abilities on start of Beginning Phase.
 	/// </summary>
@@ -83,11 +90,7 @@ public class AbilityController : MonoBehaviour {
 	/// <param name="dealtTo"></param>
 	/// <returns></returns>
 	public IEnumerator OnDeal(Card card, ChampionController dealtTo) {
-		switch (ability.abilityID) {
-			case "Ability_HopliteTradition":
-				yield return StartCoroutine(HopliteTradition(card, dealtTo));
-				break;
-		}
+		yield break;
 	}
 	/// <summary>
 	/// Checks for abilities when this ability's champion is damaged.
@@ -197,7 +200,7 @@ public class AbilityController : MonoBehaviour {
 
 			yield return StartCoroutine(champion.hand.Deal(1));
 			Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Dealing that champion a card!");
-			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+			AbilityFeedEntry.New(ability, champion, 2f);
 		}
 	}
 	private IEnumerator QuickHeal(int amount) {
@@ -206,30 +209,16 @@ public class AbilityController : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(champion.Heal(amount, false));
-		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+		AbilityFeedEntry.New(ability, champion, 2f);
 	}
 	private bool Stealth() {
 		if (!IsExclusive()) return true;
 		if (champion.spadesBeforeExhaustion == 1 && champion.heartsBeforeExhaustion == 3 && champion.diamondsBeforeExhaustion == 1) {
 			AudioController.instance.Play(ability.customAudioClips[0], false, 0.5f);
-			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+			AbilityFeedEntry.New(ability, champion, 2f);
 			return false;
 		}
 		return true;
-	}
-	private IEnumerator HopliteTradition(Card card, ChampionController dealtTo) {
-		if (!IsExclusive()) yield break;
-		if (dealtTo == champion || card.cardScriptableObject.cardValue <= 10) yield break;
-
-		Debug.Log(ability.abilityName + " was activated for " + champion.championName + " because " + dealtTo.championName + " was dealt a card with a value higher than 10. A 50% chance to heal for 20!");
-
-		if (Random.Range(0f, 1f) < 0.5f && champion.currentHP != champion.maxHP) {
-			Debug.Log("Check succeeded! Healing " + champion.championName + " for 20.");
-			yield return StartCoroutine(champion.Heal(20, false));
-			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
-			yield break;
-		}
-		Debug.Log("Check failed! Nothing happens.");
 	}
 	private int HopliteShield(int amount, DamageType damageType) {
 		if (!IsExclusive()) return 0;
@@ -241,13 +230,13 @@ public class AbilityController : MonoBehaviour {
 				return 0;
 		}
 
-		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". A 20% chance to negate the damage by half!" +
+		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". A 33% chance to negate the damage by half!" +
 		          "\n This chance is increased to 50% if the damage is fatal.");
 
-		float chance = champion.currentHP - amount <= 0 ? 0.5f : 0.2f;
+		float chance = champion.currentHP - amount <= 0 ? 0.5f : (float)1 / 3;
 		if (Random.Range(0f, 1f) < chance) {
 			AudioController.instance.Play(ability.customAudioClips[0]);
-			champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+			AbilityFeedEntry.New(ability, champion, 2f);
 			return -amount / 2;
 		}
 		return 0;
@@ -258,7 +247,7 @@ public class AbilityController : MonoBehaviour {
 
 		attackingCard.CombatValue--;
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.CombatValue);
-		champion.abilityFeed.NewAbilityFeedEntry(ability, champion);
+		AbilityFeedEntry.New(ability, champion);
 	}
 	private IEnumerator Rejuvenation() {
 		if (!IsExclusive()) yield break;
@@ -266,7 +255,7 @@ public class AbilityController : MonoBehaviour {
 
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ". Healing for 5.");
 		yield return StartCoroutine(champion.Heal(5, false));
-		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+		AbilityFeedEntry.New(ability, champion, 2f);
 	}
 	private IEnumerator Smite(int amount) {
 		if (!IsExclusive()) yield break;
@@ -281,7 +270,7 @@ public class AbilityController : MonoBehaviour {
 		}
 		yield return StartCoroutine(markedForSmite.Damage(amount, DamageType.Lightning, champion, true));
 		AudioController.instance.Play(ability.customAudioClips[0], false, 0.5f);
-		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+		AbilityFeedEntry.New(ability, champion, 2f);
 	}
 	private IEnumerator StrategicManeuver(Card defendingCard) {
 		if (!IsExclusive()) yield break;
@@ -290,6 +279,6 @@ public class AbilityController : MonoBehaviour {
 		Debug.Log(ability.abilityName + " was activated for " + champion.championName + ".");
 
 		yield return StartCoroutine(champion.hand.Deal(1));
-		champion.abilityFeed.NewAbilityFeedEntry(ability, champion, 2f);
+		AbilityFeedEntry.New(ability, champion, 2f);
 	}
 }

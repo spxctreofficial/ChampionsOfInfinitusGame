@@ -28,4 +28,4 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 04d3bf8b52f41404bbeb93ecf7b82eb8, type: 2}
   unlockability: 0
-  shopCost: 2500
+  value: 2000

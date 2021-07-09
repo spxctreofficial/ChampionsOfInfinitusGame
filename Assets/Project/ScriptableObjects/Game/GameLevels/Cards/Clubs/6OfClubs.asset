@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 7c67154b4557dce41a69d2aa03ea1022, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: 6 of Clubs
-  cardDescription: 'When played normally, trades for another card.
-
-
-    When played
-    in combat, this has a base combat value of 5.'
+  cardDescription: When played normally, trades for another card.

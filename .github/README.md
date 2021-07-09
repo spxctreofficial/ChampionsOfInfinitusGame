@@ -4,7 +4,6 @@ Land Of Heroes is a tactical, strategy-based card game for both veteran strategy
 
 ## How to Play
 
-
 #### Earn & Choose Champions
 In Land Of Heroes, you can earn new champions by playing the game, and use the gold earned for just playing matches to buy new champions! While the physical statistics, abilities, play styles, and cost of every champion may be different, the physical attributes of the champion you play will *not* solely determine the result of your match. With experience, you can topple the best champions with even the bare minimum of abilities and effort. A champion's strength varies with the player that is controlling them, so don't get your hopes down when it looks like all is lost and the opponent has a significant advantage. in terms of raw physical strength. With the right play style and adaptation to your champion, anything is possible and the possibilities are limitless!
 

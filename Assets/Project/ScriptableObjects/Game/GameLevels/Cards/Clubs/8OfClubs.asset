@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 548d71c594f6d7341a8e793693e61448, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: 8 of Clubs
-  cardDescription: 'When played normally, trades for another card.
-
-
-    When played
-    in combat, this has a base combat value of 7.'
+  cardDescription: When played normally, trades for another card.

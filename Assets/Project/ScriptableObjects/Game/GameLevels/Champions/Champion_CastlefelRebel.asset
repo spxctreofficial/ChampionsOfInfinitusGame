@@ -15,7 +15,10 @@ MonoBehaviour:
   championName: Castlefel Rebel
   championID: Champion_CastlefelRebel
   avatar: {fileID: 21300000, guid: f6aa28403ffcdab45bc95006084c7b59, type: 3}
-  description: 
+  description: Even after the death of King Daemon and the destruction of the Castlefel
+    capital, the loyal survivors led by the Paladin refuse to abdicate their will
+    to the totalitarian Regime. United and focused, the remaining rebels of Castlefel
+    will overthrow the imminent threat of tyranny.
   gender: 0
   faction: 0
   race: 0
@@ -27,4 +30,4 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 4d5315e6c651db848bc8ba93bc162636, type: 2}
   unlockability: 0
-  shopCost: 750
+  value: 750

@@ -23,6 +23,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- These `wav` files have been compressed to `mp3` files running at a 320kbps bitrate, which is a compressed high-quality format that will result in barely any audio quality loss.
 		- Certain themes have been reworked or changed completely.
 	- The LandOfHeroesGame logo has been completely revamped.
+	- The descriptions of champions have been slightly improved and corrected.
 	- AbilityPanel has been removed from the game.
 	- These abilities have been patched and fixed:
 		- A giant vulnerability with Bojutsu has been patched. Bojutsu had the ability to change a value of a card at runtime, and have that value save.
@@ -33,6 +34,10 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- Fixed an issue where cards had incorrect values.
 	- The shop menu now clips properly with edges of its viewport.
 	- The PlayerActionTooltip now correctly disappears after being used.
+- Gameplay Changes:
+	- Some champions have been changed.
+		- Hoplomachus' Hoplite Tradition ability has been removed from the game.
+		- Hoplomachus' Hoplite Shield has been slightly buffed, increasing chance of activation from 20% to 33%.
 - Miscellaneous Notes:
 	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
 		- GameController has been abstracted.
@@ -40,6 +45,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- StatisticManager has been abstracted.
 	- The `GetCard` function has been slightly improved, no longer relying on the transform of the hand (instead using the list implemented into the hand itself to log its cards.)
 	- New functions have been added to the `Hand` class to improve the game.
+	- StateFeedEntry has been drastically improved, and ChampionAbilityFeed has been made as generic as possible.
 	- The project now uses explicit types instead of implicit types (`var`) to define variables.
 	- The project now replaces all empty strings (`""`) with references to `string.Empty`.
 

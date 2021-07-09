@@ -15,9 +15,9 @@ MonoBehaviour:
   championName: Regime Soldier
   championID: Champion_RegimeSoldier
   avatar: {fileID: 21300000, guid: 92038a882115e1e4f83d283ac1da5a11, type: 3}
-  description: A standard infantry unit of the Regime, the Regime Soldier is capable
-    of fending off multiple opponents, and can still contest with enemies without
-    any abilities.
+  description: A standard infantry unit of the Regime capable of fending off single
+    units through means of traditional combat, but may be easily countered and controlled
+    with unique abilities.
   gender: 0
   faction: 1
   race: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   attackName: Regime Broadsword
   abilities: []
   unlockability: 0
-  shopCost: 0
+  value: 0

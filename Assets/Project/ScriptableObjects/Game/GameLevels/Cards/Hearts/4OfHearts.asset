@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 7fe78c3993ef70f42958efae8ea2b0f5, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: 4 of Hearts
-  cardDescription: 'When played normally, heals for 5.
-
-
-    When played in combat,
-    this has a base combat value of 3.'
+  cardDescription: When played normally, heals for 5.

@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 328b450248283bb48a780bd53cbf4c3a, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: 6 of Spades
-  cardDescription: 'When played normally, starts an attack.
-
-
-    When played in
-    combat, this has a base combat value of 5.'
+  cardDescription: When played normally, starts an attack.

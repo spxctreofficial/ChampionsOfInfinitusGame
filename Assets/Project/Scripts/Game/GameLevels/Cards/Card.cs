@@ -38,13 +38,13 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
 			if (combatValue > cardScriptableObject.cardValue) {
 				Color greenGlow = (Color)new Color32(46, 191, 0, 128) * Mathf.Pow(2, 2);
-				greenGlow.a = 128;
+				greenGlow.a = 0.5f;
 				advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, greenGlow);
 				advantageFeed.text = "+" + difference;
 			}
 			else {
 				Color redGlow = Color.red * Mathf.Pow(2, 2);
-				redGlow.a = 144;
+				redGlow.a = 0.65f;
 				advantageFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, redGlow);
 				advantageFeed.text = difference.ToString();
 			}

@@ -17,9 +17,5 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 59bc3bedca7feb34cb690849a4525e61, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: King of Diamonds
-  cardDescription: 'When played normally, forces all other champions to discard 4
+  cardDescription: When played normally, forces all other champions to discard 4
     cards to avoid being dealt 40 fire damage.
-
-
-    When played in combat, this
-    has a base combat value of 12.'

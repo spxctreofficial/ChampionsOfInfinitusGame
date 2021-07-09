@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 930d19502f13fd449bef66c2614c1d04, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: 7 of Spades
-  cardDescription: 'When played normally, starts an attack.
-
-
-    When played in
-    combat, this has a base combat value of 6.'
+  cardDescription: When played normally, starts an attack.

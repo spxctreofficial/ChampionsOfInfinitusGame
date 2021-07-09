@@ -17,8 +17,4 @@ MonoBehaviour:
   cardFront: {fileID: 21300000, guid: 3c3f114e385c23c4abac0c16f7a1da5e, type: 3}
   cardBack: {fileID: 21300000, guid: 790965c01e340b34b9c62c1948ef70e5, type: 3}
   cardName: Ace of Diamonds
-  cardDescription: 'Cannot be played normally.
-
-
-    When played in combat, this
-    has a base combat value of 13.'
+  cardDescription: Cannot be played normally.

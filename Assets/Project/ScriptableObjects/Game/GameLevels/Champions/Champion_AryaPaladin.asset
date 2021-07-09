@@ -32,4 +32,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e7ef8c78073f4504298b1cbaede2673c, type: 2}
   - {fileID: 11400000, guid: 400f7743b174cd34ca585ab66b2188b7, type: 2}
   unlockability: 0
-  shopCost: 65000
+  value: 65000
