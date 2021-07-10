@@ -515,7 +515,6 @@ public abstract class CardLogicController : MonoBehaviour {
 				if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis != null && !champion.currentNemesis.isDead) {
 					Debug.Log(champion.championName + " is furious! Targeting their nemesis immediately.");
 					champion.currentTarget = champion.currentNemesis;
-					break;
 				}
 				else {
 					foreach (ChampionController targetChampion in GameController.instance.champions) {
@@ -723,6 +722,7 @@ public abstract class CardLogicController : MonoBehaviour {
 				yield return StartCoroutine(champion.hand.Discard(card));
 
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
+					if (selectedChampion.isDead) continue;
 					yield return StartCoroutine(selectedChampion.hand.Deal(2));
 				}
 				break;
@@ -787,6 +787,7 @@ public abstract class CardLogicController : MonoBehaviour {
 				yield return StartCoroutine(champion.hand.Discard(card));
 
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
+					if (selectedChampion.isDead) continue;
 					yield return StartCoroutine(selectedChampion.hand.Deal());
 				}
 				break;

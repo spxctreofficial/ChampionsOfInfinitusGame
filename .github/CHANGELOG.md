@@ -15,7 +15,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 			- Natural: A natural speed for expressing dialogue, with slightly longer pauses for punctuation.
 			- Long Pause: This is a complicated speed, pausing longer on punctuation (excluding commas).
 			- Fast: Just twice the speed of Natural.
-	- Added two new maps to the game: Harbor and Mooncave.
+	- Added three new maps to the game: Harbor, Mooncave and Sensei's Dojo.
 	- Added a fully functional and flexible Advantage Feed to the Card Template.
 - Changes & Fixes:
 	- All audio-related resources have been compressed, resulting in a dramatic reduction in file size.
@@ -32,6 +32,9 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- Fixed a big issue where the player wasn't being correctly rewarded gold at the end of a match of Competitive 2v2.
 	- Fixed an issue where cards discarded upon death would make the discard area larger.
 	- Fixed an issue where cards had incorrect values.
+	- Fixed an issue where cards had incorrect sprites.
+	- Fixed an issue where cards dealt by a 2 of Diamonds or 4 of Diamonds would be dealt to dead champions.
+	- Fixed an issue where the nemesis system was being ignored.
 	- The shop menu now clips properly with edges of its viewport.
 	- The PlayerActionTooltip now correctly disappears after being used.
 - Gameplay Changes:
