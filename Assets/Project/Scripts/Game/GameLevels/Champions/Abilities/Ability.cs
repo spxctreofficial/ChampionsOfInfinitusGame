@@ -10,7 +10,7 @@ public class Ability : ScriptableObject {
 	public string abilityName;
 	public string abilityID;
 	public Sprite sprite;
-	[TextArea(3, 15)]
+	[TextArea(5, 20)]
 	public string abilityDescription;
 	public AbilityType abilityType;
 	public List<Champion> isExclusiveTo;

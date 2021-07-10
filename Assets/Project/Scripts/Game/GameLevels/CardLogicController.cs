@@ -406,12 +406,26 @@ public abstract class CardLogicController : MonoBehaviour {
 
 		// Calculating Combat Result
 		if (attacker.attackingCard.CombatValue > defender.defendingCard.CombatValue) {
+			foreach (AbilityController ability in attacker.abilities) {
+				yield return StartCoroutine(ability.OnAttackSuccess(attacker.attackingCard, defender.defendingCard));
+			}
+			foreach (AbilityController ability in defender.abilities) {
+				yield return StartCoroutine(ability.OnDefenseFailure(attacker.attackingCard, defender.defendingCard));
+			}
+			
 			yield return StartCoroutine(attacker.Attack(defender));
 
 			attacker.matchStatistic.successfulAttacks++;
 			defender.matchStatistic.failedDefends++;
 		}
 		else if (attacker.attackingCard.CombatValue < defender.defendingCard.CombatValue) {
+			foreach (AbilityController ability in attacker.abilities) {
+				yield return StartCoroutine(ability.OnAttackFailure(attacker.attackingCard, defender.defendingCard));
+			}
+			foreach (AbilityController ability in defender.abilities) {
+				yield return StartCoroutine(ability.OnDefenseSuccess(attacker.attackingCard, defender.defendingCard));
+			}
+			
 			yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
 
 			attacker.matchStatistic.failedAttacks++;

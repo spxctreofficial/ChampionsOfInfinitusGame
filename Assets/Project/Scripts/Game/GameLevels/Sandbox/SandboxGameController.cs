@@ -48,8 +48,9 @@ public class SandboxGameController : GameController {
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha4)) {
 			foreach (ChampionController champion in champions) {
-				if (champion.isPlayer) continue;
-				champion.currentHP = 1;
+				if (!champion.isPlayer) continue;
+
+				StartCoroutine(champion.Damage(5, DamageType.Unblockable));
 			}
 		}
 	}
@@ -264,9 +265,6 @@ public class SandboxGameController : GameController {
 							break;
 					}
 				}
-
-				Debug.Log(aliveChampions.Count);
-				Debug.Log(aliveTeams.Count);
 
 				if (aliveTeams.Count == 1) {
 					foreach (ChampionController champion in champions) {

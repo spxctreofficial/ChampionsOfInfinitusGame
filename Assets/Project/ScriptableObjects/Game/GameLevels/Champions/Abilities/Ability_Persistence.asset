@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38f8a2a6991bb041a1369807f9ff1e3, type: 3}
   m_Name: Ability_Persistence
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityID: 
+  abilityName: Persistence
+  abilityID: Ability_Persistence
   sprite: {fileID: 21300000, guid: 865ee4a18bc7a4f439d5de3fe6a3851c, type: 3}
-  abilityDescription: 
+  abilityDescription: When this champion takes damage, add 5 to this champion's "persistence
+    meter". When this champion attacks successfully, the amount in this champion's
+    "persistence meter" will be emptied and added to the damage dealt. The "persistence
+    meter" caps at 25.
   abilityType: 0
   isExclusiveTo: []
   customAudioClips: []

@@ -27,6 +27,6 @@ MonoBehaviour:
   attackDamageType: 0
   attackName: Regime Broadsword
   abilities:
-  - {fileID: 11400000, guid: 2ce1d7ce0720a0b4f9ea1ed528a5086b, type: 2}
+  - {fileID: 11400000, guid: 408284d49603484469e4124a9430c6b6, type: 2}
   unlockability: 0
   value: 750

@@ -35,14 +35,21 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- The shop menu now clips properly with edges of its viewport.
 	- The PlayerActionTooltip now correctly disappears after being used.
 - Gameplay Changes:
-	- Some champions have been changed.
+	- Hoplomachus has been slightly reworked.
 		- Hoplomachus' Hoplite Tradition ability has been removed from the game.
 		- Hoplomachus' Hoplite Shield has been slightly buffed, increasing chance of activation from 20% to 33%.
+		- These changes were made to change the Hoplomachus' play-style. Whereas the Hoplomachus used to be able to heal for a significant amount if the opponent drew high-value cards, it didn't seem to fit with his faction and lore. Instead, we removed the ability to heal, and instead allowed the Hoplomachus to be able to resist attacks better by buffing his Hoplite Shield.
+	- Regime Captain has been reworked in favor of a buff.
+		- Regime Captain no longer has Quick Assist.
+		- Regime Captain now has a new ability: Persistence.
+		- Persistence: Whenever Regime Captain is attacked, the "persistence meter" increments by 5. Whenever the Regime Captain attacks successfully, the amount in the "persistence meter" will be added onto the damage and the "persistence meter" will reset.
+		- This change was made to make the Regime Captain more in-line with the Regime faction, and to make Regime Captain a more useful and active champion.
 - Miscellaneous Notes:
 	- The main Sandbox classes have been abstracted, meaning that their base class are now separate from the component that is added to the scene.
 		- GameController has been abstracted.
 		- CardLogicController has been abstracted.
 		- StatisticManager has been abstracted.
+	- AbilityController has been given several new insertion points for ability checks, particularly to do with combat result.
 	- The `GetCard` function has been slightly improved, no longer relying on the transform of the hand (instead using the list implemented into the hand itself to log its cards.)
 	- New functions have been added to the `Hand` class to improve the game.
 	- StateFeedEntry has been drastically improved, and ChampionAbilityFeed has been made as generic as possible.

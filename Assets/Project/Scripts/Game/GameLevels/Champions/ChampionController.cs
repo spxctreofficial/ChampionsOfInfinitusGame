@@ -170,16 +170,20 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}
 
 		// Damage Calculation
-		int currentHPCache = currentHP;
+		if (source is {}) {
+			foreach (AbilityController ability in source.abilities) {
+				amount += ability.DamageCalculationBonusSource(amount, damageType);
+			}
+		}
 		foreach (AbilityController ability in abilities) {
 			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
 		currentHP = Mathf.Max(currentHP - amount, 0);
 		
 		// MatchStatistic Update
-		matchStatistic.totalDamageReceived += currentHPCache - currentHP;
+		matchStatistic.totalDamageReceived += amount;
 		if (source != null) {
-			source.matchStatistic.totalDamageDealt += currentHPCache - currentHP;
+			source.matchStatistic.totalDamageDealt += amount;
 
 			foreach (DamageHistory damageHistory in source.matchStatistic.damageHistories) {
 				if (damageHistory.dealtAgainst != this) continue;

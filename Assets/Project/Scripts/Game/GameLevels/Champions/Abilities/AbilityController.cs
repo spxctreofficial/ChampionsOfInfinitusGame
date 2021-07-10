@@ -44,6 +44,11 @@ public class AbilityController : MonoBehaviour {
 	/// </summary>
 	/// <returns></returns>
 	private IEnumerator OnSetup() {
+		switch (ability.abilityID) {
+			case "Ability_Persistence":
+				abilityInts.Add("persistence", 0);
+				break;
+		}
 		yield break;
 	}
 	/// <summary>
@@ -98,7 +103,11 @@ public class AbilityController : MonoBehaviour {
 	/// <param name="amount"></param>
 	/// <returns></returns>
 	public IEnumerator OnDamage(int amount) {
-		yield break;
+		switch (ability.abilityID) {
+			case "Ability_Persistence":
+				yield return StartCoroutine(PersistenceIncrement());
+				break;
+		}
 	}
 	/// <summary>
 	/// Checks for ability when `damagedChampion` is damaged.
@@ -108,21 +117,6 @@ public class AbilityController : MonoBehaviour {
 	/// <returns></returns>
 	public IEnumerator OnDamage(ChampionController damagedChampion, int amount) {
 		yield break;
-	}
-	/// <summary>
-	/// Checks for abilities, then returns a bonus that is added on to incoming damage.
-	/// </summary>
-	/// <param name="amount"></param>
-	/// <param name="damageType"></param>
-	/// <returns></returns>
-	public int DamageCalculationBonus(int amount, DamageType damageType) {
-		switch (ability.abilityID) {
-			case "Ability_HopliteShield":
-				return HopliteShield(amount, damageType);
-			default:
-				return 0;
-		}
-
 	}
 	/// <summary>
 	/// Checks for abilities when this ability's champion is healed.
@@ -155,7 +149,6 @@ public class AbilityController : MonoBehaviour {
 	public IEnumerator OnDeath() {
 		yield break;
 	}
-
 	/// <summary>
 	/// Checks for abilities when this ability's champion calculates the result of a combat as the attacker.
 	/// </summary>
@@ -180,6 +173,41 @@ public class AbilityController : MonoBehaviour {
 				yield return StartCoroutine(StrategicManeuver(defendingCard));
 				break;
 		}
+	}
+	public IEnumerator OnAttackSuccess(Card attackingCard, Card defendingCard) {
+		yield break;
+	}
+	public IEnumerator OnAttackFailure(Card attackingCard, Card defendingCard) {
+		yield break;
+	}
+	public IEnumerator OnDefenseSuccess(Card attackingCard, Card defendingCard) {
+		yield break;
+	}
+	public IEnumerator OnDefenseFailure(Card attackingCard, Card defendingCard) {
+		yield break;
+	}
+	public int DamageCalculationBonusSource(int amount, DamageType damageType) {
+		switch (ability.abilityID) {
+			case "Ability_Persistence":
+				return Persistence(damageType);
+			default:
+				return 0;
+		}
+	}
+	/// <summary>
+	/// Checks for abilities on the damaged champion, then returns a bonus that is added on to incoming damage.
+	/// </summary>
+	/// <param name="amount"></param>
+	/// <param name="damageType"></param>
+	/// <returns></returns>
+	public int DamageCalculationBonus(int amount, DamageType damageType) {
+		switch (ability.abilityID) {
+			case "Ability_HopliteShield":
+				return HopliteShield(amount, damageType);
+			default:
+				return 0;
+		}
+
 	}
 	public bool CanBeTargetedByAttack() {
 		switch (ability.abilityID) {
@@ -280,5 +308,20 @@ public class AbilityController : MonoBehaviour {
 
 		yield return StartCoroutine(champion.hand.Deal(1));
 		AbilityFeedEntry.New(ability, champion, 2f);
+	}
+	private IEnumerator PersistenceIncrement() {
+		if (!IsExclusive()) yield break;
+
+		abilityInts["persistence"] = Mathf.Min(25, abilityInts["persistence"] + 5);
+		Debug.Log(abilityInts["persistence"]);
+		AbilityFeedEntry.New(ability, champion, 2f);
+	}
+	private int Persistence(DamageType damageType) {
+		if (!IsExclusive() || damageType != DamageType.Melee) return 0;
+
+		int amount = abilityInts["persistence"];
+		abilityInts["persistence"] = 0;
+		AbilityFeedEntry.New(ability, champion, 2f);
+		return amount;
 	}
 }
