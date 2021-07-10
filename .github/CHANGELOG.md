@@ -17,6 +17,8 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 			- Fast: Just twice the speed of Natural.
 	- Added three new maps to the game: Harbor, Mooncave and Sensei's Dojo.
 	- Added a fully functional and flexible Advantage Feed to the Card Template.
+	- Attacks can now be cancelled. (FINALLY)
+		-  Currently, the implementation is quite sloppy. We hope to change this with all of the other buttons in a later patch, but as long as it works now.
 - Changes & Fixes:
 	- All audio-related resources have been compressed, resulting in a dramatic reduction in file size.
 		- Previously, the audio files were all in `wav` format, which meant that it was uncompressed audio.
@@ -28,6 +30,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- These abilities have been patched and fixed:
 		- A giant vulnerability with Bojutsu has been patched. Bojutsu had the ability to change a value of a card at runtime, and have that value save.
 		- An UI-related issue with Stealth and targeting has been fixed (Stealth would briefly appear when that champion was targeting other champions.)
+		- An UI-related issue regarding all abilities where some longer-named abilities may clip off the sides in the Ability Feed Entry. This has been remedied with an auto-sized Ability Feed Entry.
 	- Fixed a big issue where the player wasn't being set correctly as a player in the config.
 	- Fixed a big issue where the player wasn't being correctly rewarded gold at the end of a match of Competitive 2v2.
 	- Fixed an issue where cards discarded upon death would make the discard area larger.

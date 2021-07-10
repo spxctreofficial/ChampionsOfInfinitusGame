@@ -453,16 +453,18 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 					selectedChampion.championParticleController.GreenGlow.Clear();
 				}
 			}
+			
 			champion.currentTarget = this;
 			champion.currentTarget.championParticleController.PlayEffect(champion.currentTarget.championParticleController.RedGlow);
 			if (champion.team.Contains(team)) {
 				TooltipSystem.instance.ShowError("This champion is on your team!");
 				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 			}
-			GameController.instance.confirmButton.Show();
-
-			if (champion.attackingCard != null) break;
-			GameController.instance.confirmButton.Hide();
+			
+			if (champion.attackingCard is {}) {
+				GameController.instance.confirmButton.Show();
+				GameController.instance.confirmButton.textBox.text = "Confirm";
+			}
 		}
 	}
 	

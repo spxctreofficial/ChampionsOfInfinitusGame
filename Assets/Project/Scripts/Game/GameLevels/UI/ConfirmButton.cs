@@ -14,7 +14,10 @@ public class ConfirmButton : MonoBehaviour {
                 case GamePhase.ActionPhase:
                     // Confirming Attack
                     if (champion.isAttacking && champion.attackingCard != null && champion.currentTarget != null) {
+                        champion.spadesBeforeExhaustion--;
                         champion.matchStatistic.totalAttacks++;
+                        GameController.instance.attackCancelButton.Hide();
+                        StartCoroutine(champion.hand.Discard(champion.hand.queued.Dequeue()));
                         StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
                         break;
                     }
@@ -26,7 +29,6 @@ public class ConfirmButton : MonoBehaviour {
                     // Skipping Discard
                     if (champion.discardAmount != 0 && !champion.isMyTurn) {
                         champion.discardAmount = -1;
-                        break;
                     }
                     break;
             }

@@ -6,6 +6,7 @@ public class Hand : MonoBehaviour {
 	public ChampionController owner;
 
 	public List<Card> cards = new List<Card>();
+	public Queue<Card> queued = new Queue<Card>();
 
 	/// <summary>
 	/// Sets `championController` as the owner of this hand.

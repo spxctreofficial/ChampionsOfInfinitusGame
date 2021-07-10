@@ -2903,6 +2903,7 @@ RectTransform:
   - {fileID: 5098982409637595514}
   - {fileID: 8787603068074696403}
   - {fileID: 512776266}
+  - {fileID: 42569508678100638}
   m_Father: {fileID: 708824486}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4849,6 +4850,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984618698}
   m_CullTransparentMesh: 1
+--- !u!1 &42569508678100637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6588326252736214490, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6627420050472932167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &42569508678100638 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6627420050472932167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &42569508678100639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42569508678100637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d104d4851053c24bb3432719c56a44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 2711563369147749014}
 --- !u!1001 &1772800350940503788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5037,6 +5063,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15bfe0728318e524981aafefb447cf2d, type: 3}
+--- !u!114 &2711563369147749014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9104092516793106897, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6627420050472932167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3045232602362523740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5312,6 +5350,150 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f424c556cb282a4694d1809db358b8a, type: 3}
+--- !u!1001 &6627420050472932167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 975385647}
+    m_Modifications:
+    - target: {fileID: 6588326252736214488, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 42569508678100639}
+    - target: {fileID: 6588326252736214488, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214488, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AttackCancelButton, LandOfHeroesGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 169.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 59.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 865
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -259.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214489, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214490, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_Name
+      value: AttackCancelButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588326252736214490, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104092516793106897, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
+        type: 3}
+      propertyPath: m_text
+      value: Cancel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa2ccc00f9460c44af0ef90aff6d09b, type: 3}
 --- !u!1001 &7142572292571060309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5801,6 +5983,16 @@ PrefabInstance:
       propertyPath: gameEndAreaTeam
       value: 
       objectReference: {fileID: 357639565}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: AttackCancelbutton
+      value: 
+      objectReference: {fileID: 42569508678100639}
+    - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
+        type: 3}
+      propertyPath: attackCancelButton
+      value: 
+      objectReference: {fileID: 42569508678100639}
     - target: {fileID: 5100986491139409959, guid: 4ff7432caa355354bb8d0508d19f9381,
         type: 3}
       propertyPath: mapSelectionConfig

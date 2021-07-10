@@ -18,13 +18,19 @@ public class GambleButton : MonoBehaviour {
 
 				switch (player.isMyTurn) {
 					case true:
-						if (player.isAttacking && player.isMyTurn && player.attackingCard == null) {
+						if (player.isAttacking && player.attackingCard == null) {
 							player.attackingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 							player.attackingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 							player.attackingCard.Flip(true);
-							player.attackingCard.transform.SetParent(GameController.instance.discardArea.transform, false);
-							player.attackingCard.caption.text = "Gambled by " + player.championName;
+							player.attackingCard.transform.SetParent(player.hand.transform, false);
+							player.attackingCard.halo.Play();
+							
 							isBlocking = true;
+							
+							if (player.currentTarget is {}) {
+								GameController.instance.confirmButton.Show();
+								GameController.instance.confirmButton.textBox.text = "Confirm";
+							}
 						}
 						break;
 					case false:

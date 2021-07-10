@@ -14,7 +14,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	public Image cardImage;
 	public TMP_Text caption;
 	public TMP_Text discardFeed, advantageFeed;
-	public ParticleSystem halo;
+	public ParticleSystem halo, redGlow;
 
 	[HideInInspector]
 	public ChampionController owner;

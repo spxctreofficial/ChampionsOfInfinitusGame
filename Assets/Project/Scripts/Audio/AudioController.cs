@@ -107,6 +107,7 @@ public class AudioController : MonoBehaviour {
 	/// Stops a sound with the given `clip`.
 	/// </summary>
 	/// <param name="clip"></param>
+	/// <param name="destroySource"></param>
 	public void Stop(AudioClip clip, bool destroySource = false) {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		foreach (AudioSource audioSource in audioSources) {

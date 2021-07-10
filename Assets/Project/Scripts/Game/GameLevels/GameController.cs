@@ -51,6 +51,7 @@ public abstract class GameController : MonoBehaviour {
 	public TMP_Text playerActionTooltip;
 	public ConfirmButton confirmButton;
 	public GambleButton gambleButton;
+	public AttackCancelButton attackCancelButton;
 	public Button endTurnButton;
 
 	[Header("Game Settings")]
@@ -103,6 +104,7 @@ public abstract class GameController : MonoBehaviour {
 		confirmButton.transform.SetAsLastSibling();
 		gambleButton.transform.SetAsLastSibling();
 		endTurnButton.transform.SetAsLastSibling();
+		attackCancelButton.transform.SetAsLastSibling();
 
 		yield return new WaitForSeconds(2f);
 

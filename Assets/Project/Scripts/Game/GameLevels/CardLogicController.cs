@@ -71,6 +71,11 @@ public abstract class CardLogicController : MonoBehaviour {
 									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 									yield break;
 								}
+								if (card == player.hand.queued.Peek()) {
+									TooltipSystem.instance.ShowError("You cannot select the same card used for starting the attack as a combat card!");
+									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+									yield break;
+								}
 								if (player.attackingCard != null) {
 									player.attackingCard.halo.Stop();
 									player.attackingCard.halo.Clear();
@@ -78,11 +83,12 @@ public abstract class CardLogicController : MonoBehaviour {
 								player.attackingCard = card;
 								card.halo.Stop();
 								card.halo.Play();
-								GameController.instance.confirmButton.Show();
 								GameController.instance.gambleButton.Hide();
 
-								if (player.currentTarget != null) yield break;
-								GameController.instance.confirmButton.Hide();
+								if (player.currentTarget is {}) {
+									GameController.instance.confirmButton.Show();
+									GameController.instance.confirmButton.textBox.text = "Confirm";
+								}
 								yield break;
 							}
 							
@@ -345,7 +351,11 @@ public abstract class CardLogicController : MonoBehaviour {
 		switch (attacker.isPlayer) {
 			case true:
 				currentlyHandlingCard = true;
-				if (!GameController.instance.gambleButton.isBlocking) yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
+				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
+				if (GameController.instance.gambleButton.isBlocking) {
+					attacker.attackingCard.Flip(true);
+					attacker.attackingCard.caption.text = "Gambled by " + attacker.championName;
+				}
 				break;
 			case false:
 				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
@@ -484,18 +494,11 @@ public abstract class CardLogicController : MonoBehaviour {
 					if (selectedChampion.isDead || selectedChampion.team.Contains(champion.team)) continue;
 					selectedChampion.championParticleController.PlayEffect(selectedChampion.championParticleController.GreenGlow);
 				}
+				card.redGlow.Stop();
+				card.redGlow.Play();
 				champion.isAttacking = true;
-				champion.spadesBeforeExhaustion--;
-				yield return StartCoroutine(champion.hand.Discard(card));
-
-				yield return new WaitUntil(() => champion.attackingCard != null);
-				yield return null;
-				champion.attackingCard.halo.Stop();
-				champion.attackingCard.halo.Play();
-				// Waits for all required components to attack to be filled in by player, then allows the attack to be confirmed.
-				yield return new WaitUntil(() => champion.attackingCard != null && champion.currentTarget != null);
-				GameController.instance.confirmButton.Show();
-				GameController.instance.confirmButton.textBox.text = "Confirm";
+				champion.hand.queued.Enqueue(card);
+				GameController.instance.attackCancelButton.Show();
 				break;
 			case false:
 				// Bot Spade Logic
@@ -512,12 +515,14 @@ public abstract class CardLogicController : MonoBehaviour {
 				}
 
 				// Targeting Champion
-				if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis != null && !champion.currentNemesis.isDead) {
+				if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis is { isDead: false }) {
 					Debug.Log(champion.championName + " is furious! Targeting their nemesis immediately.");
 					champion.currentTarget = champion.currentNemesis;
 				}
 				else {
 					foreach (ChampionController targetChampion in GameController.instance.champions) {
+						if (targetChampion.isDead) continue;
+						
 						bool skipThisChampion = false;
 						foreach (AbilityController ability in targetChampion.abilities) {
 							if (targetChampion == champion) {
@@ -528,7 +533,7 @@ public abstract class CardLogicController : MonoBehaviour {
 							skipThisChampion = !skipThisChampion;
 							if (skipThisChampion) break;
 						}
-						if (targetChampion.isDead || targetChampion.teamMembers.Contains(champion) || skipThisChampion) continue;
+						if (targetChampion.teamMembers.Contains(champion) || targetChampion == champion || skipThisChampion) continue;
 
 						// Low-HP Targeting
 						float chance = targetChampion.hand.GetCardCount() <= 3 ? 1f : 0.85f;
@@ -578,6 +583,7 @@ public abstract class CardLogicController : MonoBehaviour {
 						    && !gambled) {
 							Debug.Log(champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
+							champion.currentTarget = null;
 							yield break;
 						}
 						break;
@@ -586,9 +592,10 @@ public abstract class CardLogicController : MonoBehaviour {
 						if ((champion.attackingCard.CombatValue <= card.CombatValue ||
 						     champion.attackingCard.CombatValue <= 9 ||
 						     champion.hand.GetCardCount() <= 2 && Random.Range(0f, 1f) < f)
-						    && !gambled) {
+						    && !gambled || (champion.currentTarget.isDead)) {
 							Debug.Log(champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
+							champion.currentTarget = null;
 							yield break;
 						}
 						break;
@@ -596,6 +603,8 @@ public abstract class CardLogicController : MonoBehaviour {
 
 				// Confirming Attack
 				yield return StartCoroutine(champion.hand.Discard(card));
+				card.redGlow.Stop();
+				card.redGlow.Play();
 				champion.currentTarget.championParticleController.PlayEffect(champion.currentTarget.championParticleController.RedGlow);
 				champion.isAttacking = true;
 				champion.spadesBeforeExhaustion--;

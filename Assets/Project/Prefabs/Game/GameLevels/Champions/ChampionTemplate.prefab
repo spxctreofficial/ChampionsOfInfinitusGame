@@ -5233,13 +5233,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   champion: {fileID: 0}
   hand: {fileID: 0}
-  abilityObjects: {fileID: 6748404536497085940}
+  matchStatistic:
+    champion: {fileID: 0}
+    totalAttacks: 0
+    successfulAttacks: 0
+    failedAttacks: 0
+    totalDefends: 0
+    successfulDefends: 0
+    failedDefends: 0
+    totalDamageDealt: 0
+    totalDamageReceived: 0
+    totalAmountHealed: 0
+    totalCardsDealt: 0
+    totalCardsDiscarded: 0
+    remainingHP: 0
+    killCount: 0
+    damageHistories: []
   abilityFeed: {fileID: 8602308402636751037}
   championButton: {fileID: 2510454741023338584}
   championImage: {fileID: 6840094927019828204}
   nameText: {fileID: 2747415827593645148}
   healthText: {fileID: 3054971667481924560}
   cardsText: {fileID: 4819805436960495241}
+  abilityObjects: {fileID: 6748404536497085940}
   championParticleController: {fileID: 5732659048420343889}
   championName: 
   championID: 
