@@ -23,9 +23,11 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 		isScalingDown = false;
 
 		float scaleDuration = 0.5f;
+		float timeTaken = 0f;
 		for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration) {
 			if (isScalingDown) break;
 			transform.localScale = Vector3.Lerp(transform.localScale, targetScale, t);
+			Debug.Log(t);
 			yield return null;
 		}
 	}
