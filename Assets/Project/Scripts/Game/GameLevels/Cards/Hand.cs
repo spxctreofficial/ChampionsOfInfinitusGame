@@ -255,7 +255,7 @@ public class Hand : MonoBehaviour {
 			if (flip) card.Flip();
 			if (animate) {
 				card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
+				card.GetComponent<SmartHover>().ScaleDown();
 			}
 			if (abilityCheck) {
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
@@ -278,7 +278,7 @@ public class Hand : MonoBehaviour {
 		if (flip) card.Flip();
 		if (animate) {
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
+			card.GetComponent<SmartHover>().ScaleDown();
 		}
 
 		if (abilityCheck) {
@@ -328,7 +328,7 @@ public class Hand : MonoBehaviour {
 		if (flip) card.Flip();
 		if (animate) {
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-			StartCoroutine(card.GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
+			card.GetComponent<SmartHover>().ScaleDown();
 		}
 		if (abilityCheck) {
 			foreach (ChampionController selectedChampion in GameController.instance.champions) {

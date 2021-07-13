@@ -4,42 +4,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
-	public Vector3 defaultScale;
-	bool isScalingUp, isScalingDown;
+	private Vector3 defaultScale = new Vector3(1f, 1f, 1f);
 
-	void Start() {
-		defaultScale = new Vector3(1f, 1f, 1f);
-	}
-
+	private int scaleUpID, scaleDownID;
+	
 	public void OnPointerEnter(PointerEventData eventData) {
-		StartCoroutine(ScaleUp(new Vector3(1.1f, 1.1f, 1.1f)));
-		if (AudioController.instance != null) AudioController.instance.Play("uiselect");
+		AudioController.instance.Play("uiselect");
+		scaleUpID = LeanTween.scale(GetComponent<RectTransform>(), new Vector3(1.1f, 1.1f, 1.1f), 0.2f).setEaseInOutCubic().uniqueId;
+		LeanTween.cancel(scaleDownID);
 	}
 	public void OnPointerExit(PointerEventData eventData) {
-		StartCoroutine(ScaleDown(defaultScale));
+		ScaleDown();
 	}
-	public IEnumerator ScaleUp(Vector3 targetScale) {
-		isScalingUp = true;
-		isScalingDown = false;
 
-		float scaleDuration = 0.5f;
-		float timeTaken = 0f;
-		for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration) {
-			if (isScalingDown) break;
-			transform.localScale = Vector3.Lerp(transform.localScale, targetScale, t);
-			Debug.Log(t);
-			yield return null;
-		}
-	}
-	public IEnumerator ScaleDown(Vector3 targetScale) {
-		isScalingUp = false;
-		isScalingDown = true;
-
-		float scaleDuration = 0.5f;
-		for (float t = 0; t < 1; t += Time.deltaTime / scaleDuration) {
-			if (isScalingUp) break;
-			transform.localScale = Vector3.Lerp(transform.localScale, targetScale, t);
-			yield return null;
-		}
+	public void ScaleDown() {
+		scaleDownID = LeanTween.scale(GetComponent<RectTransform>(), defaultScale, 0.2f).setEaseInOutCubic().uniqueId;
+		LeanTween.cancel(scaleUpID);
 	}
 }

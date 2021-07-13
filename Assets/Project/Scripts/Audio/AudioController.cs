@@ -19,31 +19,37 @@ public class AudioController : MonoBehaviour {
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
-
-		foreach (Sound s in sounds) {
-			s.source = gameObject.AddComponent<AudioSource>();
-			s.source.clip = s.clip;
-			s.source.loop = s.loop;
-
-			s.source.outputAudioMixerGroup = mixerGroup;
-		}
 	}
 
 	/// <summary>
 	/// Plays a sound with the matching name.
 	/// </summary>
 	/// <param name="sound"></param>
-	public void Play(string sound) {
+	public void Play(string sound, bool playAsNewSound = true) {
 		Sound s = Array.Find(sounds, item => item.name == sound);
-		if (s == null) {
+		if (s is null) {
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
+		if (!playAsNewSound) {
+			foreach (AudioSource source in GetComponents<AudioSource>()) {
+				if (source.clip == s.clip) {
+					source.Stop();
+					if (source.loop) Destroy(source);
+				}
+			}
+		}
+		
+		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+		audioSource.clip = s.clip;
+		audioSource.loop = s.loop;
+		audioSource.outputAudioMixerGroup = mixerGroup;
+		
+		audioSource.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+		audioSource.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
-		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
-
-		s.source.Play();
+		audioSource.Play();
+		if (!audioSource.loop) Destroy(audioSource, audioSource.clip.length);
 	}
 	/// <summary>
 	/// Plays a sound with the given `clip`.
@@ -56,23 +62,20 @@ public class AudioController : MonoBehaviour {
 	/// <param name="clip"></param>
 	/// <param name="volume"></param>
 	/// <param name="loop"></param>
-	public void Play(AudioClip clip, bool loop = false, float volume = 0.3f, float spatialBlend = 0.5f) {
-		switch (loop) {
-			case true:
-				AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-				audioSource.clip = clip;
-				audioSource.loop = loop;
-				audioSource.volume = volume;
-				audioSource.spatialBlend = spatialBlend;
+	/// <param name="spatialBlend"></param>
+	public void Play(AudioClip clip, bool loop = false, float volume = 0.3f, float pitch = 1f,float spatialBlend = 0.5f) {
+		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+		audioSource.clip = clip;
+		audioSource.loop = loop;
+		audioSource.volume = volume;
+		audioSource.pitch = pitch;
+		audioSource.spatialBlend = spatialBlend;
 
-				audioSource.outputAudioMixerGroup = mixerGroup;
+		audioSource.outputAudioMixerGroup = mixerGroup;
+		
+		audioSource.Play();
 
-				audioSource.Play();
-				break;
-			case false:
-				AudioSource.PlayClipAtPoint(clip, transform.localPosition, volume);
-				break;
-		}
+		if (!loop) Destroy(audioSource, clip.length);
 	}
 	/// <summary>
 	/// Plays a sound cloned from another AudioSource.
@@ -89,6 +92,7 @@ public class AudioController : MonoBehaviour {
 		audioSource.outputAudioMixerGroup = mixerGroup;
 
 		audioSource.Play();
+		if (!audioSource.loop) Destroy(audioSource, audioSource.clip.length);
 	}
 	/// <summary>
 	/// Stops a sound with the matching name.
@@ -101,27 +105,29 @@ public class AudioController : MonoBehaviour {
 			return;
 		}
 
-		s.source.Stop();
+		foreach (AudioSource source in GetComponents<AudioSource>()) {
+			if (source.clip == s.clip) {
+				source.Stop();
+				if (source.loop) Destroy(source);
+			}
+		}
 	}
 	/// <summary>
-	/// Stops a sound with the given `clip`.
+	/// Stops all sounds with the given `clip`.
 	/// </summary>
 	/// <param name="clip"></param>
 	/// <param name="destroySource"></param>
-	public void Stop(AudioClip clip, bool destroySource = false) {
-		AudioSource[] audioSources = GetComponents<AudioSource>();
-		foreach (AudioSource audioSource in audioSources) {
+	public void Stop(AudioClip clip, bool destroySource = true) {
+		foreach (AudioSource audioSource in GetComponents<AudioSource>()) {
 			if (clip != audioSource.clip) continue;
 
 			audioSource.Stop();
-			if (destroySource) Destroy(audioSource);
-			Debug.Log("It worked");
+			if (audioSource.loop) Destroy(audioSource);
 		}
 	}
 
 	public AudioSource GetAudioSource(AudioClip clip) {
-		AudioSource[] audioSources = GetComponents<AudioSource>();
-		foreach (AudioSource audioSource in audioSources) {
+		foreach (AudioSource audioSource in GetComponents<AudioSource>()) {
 			if (audioSource.clip != clip) continue;
 			return audioSource;
 		}

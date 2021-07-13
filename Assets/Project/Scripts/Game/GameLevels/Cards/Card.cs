@@ -77,7 +77,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 			advantageFeed.gameObject.SetActive(true);
 			if (doFlipAnimation) {
 				transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				StartCoroutine(GetComponent<SmartHover>().ScaleDown(new Vector3(1f, 1f, 1f)));
+				GetComponent<SmartHover>().ScaleDown();
 			}
 		}
 	}

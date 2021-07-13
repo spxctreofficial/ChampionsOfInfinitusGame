@@ -40,6 +40,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- Fixed an issue where the nemesis system was being ignored.
 	- The shop menu now clips properly with edges of its viewport.
 	- The PlayerActionTooltip now correctly disappears after being used.
+	- The camera shakes have been fine-tuned.
 - Gameplay Changes:
 	- Hoplomachus has been slightly reworked.
 		- Hoplomachus' Hoplite Tradition ability has been removed from the game.
@@ -61,6 +62,7 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 	- StateFeedEntry has been drastically improved, and ChampionAbilityFeed has been made as generic as possible.
 	- The project now uses explicit types instead of implicit types (`var`) to define variables.
 	- The project now replaces all empty strings (`""`) with references to `string.Empty`.
+	- The project has been optimized, and resolved of compile and shader errors.
 
 ## v0.1.3 Beta
 

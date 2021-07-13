@@ -249,7 +249,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		}
 		StartCoroutine(slot.ShakeOccupant(0.5f, magnitude));
-		CameraShaker.Instance.ShakeOnce(Mathf.Min(magnitude / 4, 3f) + (Mathf.Max(amount - 25, 0) * 0.1f), Mathf.Min(magnitude / 5, 4f), 0.1f, 0.2f);
+		CameraShaker.Instance.ShakeOnce(Mathf.Max(magnitude / 2, 6.5f) + Mathf.Max(amount - 25, 0) * 0.1f, Mathf.Max(magnitude / 5, 4f), 0f, 0.25f);
 		championParticleController.PlayEffect(championParticleController.BloodSplatter);
 
 		// Death Check

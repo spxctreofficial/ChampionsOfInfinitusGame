@@ -34,23 +34,18 @@ public class SandboxGameController : GameController {
 		}
 	}
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Alpha6)) {
-			foreach (ChampionController player in champions) {
-				if (!player.isPlayer) continue;
-				StartCoroutine(player.Damage(100, DamageType.Melee));
-
-				foreach (ChampionController champion in champions) {
-					if (champion.teamMembers.Contains(player) || champion == player) continue;
-					champion.currentNemesis = player;
-				}
-				Debug.Log("applied successfully");
-			}
-		}
 		if (Input.GetKeyDown(KeyCode.Alpha4)) {
 			foreach (ChampionController champion in champions) {
 				if (!champion.isPlayer) continue;
 
-				StartCoroutine(champion.Damage(5, DamageType.Unblockable));
+				StartCoroutine(champion.Damage(30, DamageType.Melee));
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3)) {
+			foreach (ChampionController champion in champions) {
+				if (!champion.isPlayer) continue;
+
+				StartCoroutine(champion.Heal(5));
 			}
 		}
 	}

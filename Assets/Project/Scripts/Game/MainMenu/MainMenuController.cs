@@ -43,12 +43,12 @@ public class MainMenuController : MonoBehaviour {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
 		AudioController.instance.Play(logo.GetComponent<AudioSource>().clip);
 		
-		StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
-		CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+		// StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
+		CameraShaker.Instance.ShakeOnce(8f, 4f, 0.1f, 1f);
 		
 		Destroy(overlayCanvas.gameObject);
-		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {
-			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1.5f).setEaseInOutQuad();
+		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInCubic().setOnComplete(() => {
+			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1f).setEaseInOutCubic();
 		});
 
 		if (!DataManager.instance.firstRunGame) DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () => {

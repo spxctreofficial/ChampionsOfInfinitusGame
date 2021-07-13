@@ -763,7 +763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &644378088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,7 +1144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &765237840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2338,7 +2336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &994044203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1206923778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2771,7 +2767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1271630416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3442,8 +3437,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1997528084}
   - component: {fileID: 1997528086}
-  - component: {fileID: 1997528085}
   - component: {fileID: 1997528087}
+  - component: {fileID: 1997528085}
   m_Layer: 5
   m_Name: Translucent Image
   m_TagString: Untagged
@@ -3482,7 +3477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196bb08d6c2d3c9499c04e1281fd4ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 3280c6a87b6fc9b44b1b693e52dc007f, type: 2}
+  m_Material: {fileID: 2100000, guid: 96c5704d0681e35408630c488fc0c234, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3501,9 +3496,9 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
   source: {fileID: 671666311}
-  vibrancy: 1.55
-  brightness: 0.15
-  flatten: 0
+  vibrancy: 2
+  brightness: 0.03
+  flatten: 0.1
   spriteBlending: 0.65
 --- !u!222 &1997528086
 CanvasRenderer:
