@@ -33,7 +33,7 @@ public class DialogueSystem : MonoBehaviour {
 		if (endOfConversationAction != null) dialogueSystem.endOfConversationAction = endOfConversationAction;
 		Debug.Log(dialogueSystem.endOfConversationAction);
 
-		LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseOutQuad();
+		LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseInOutQuad();
 		dialogueSystem.LoadNextSentence();
 		return dialogueSystem;
 	}
@@ -53,7 +53,7 @@ public class DialogueSystem : MonoBehaviour {
 	private void LoadNextSentence() {
 		if (dialogues.Count == 0) {
 			Debug.Log("End of conversation.");
-			LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - (GetComponent<RectTransform>().rect.height / 2)), 0.5f).setEaseOutQuad().setOnComplete(() => {
+			LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - (GetComponent<RectTransform>().rect.height / 2)), 0.5f).setEaseInOutQuad().setOnComplete(() => {
 				if (endOfConversationAction != null) endOfConversationAction.Invoke();
 			});
 			return;

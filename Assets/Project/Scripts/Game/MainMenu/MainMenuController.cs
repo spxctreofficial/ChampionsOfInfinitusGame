@@ -47,8 +47,8 @@ public class MainMenuController : MonoBehaviour {
 		CameraShaker.Instance.ShakeOnce(8f, 4f, 0.1f, 1f);
 		
 		Destroy(overlayCanvas.gameObject);
-		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInCubic().setOnComplete(() => {
-			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1f).setEaseInOutCubic();
+		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() => {
+			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1f).setEaseInOutQuad();
 		});
 
 		if (!DataManager.instance.firstRunGame) DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () => {

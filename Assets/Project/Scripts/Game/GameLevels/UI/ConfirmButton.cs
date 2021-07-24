@@ -33,7 +33,7 @@ public class ConfirmButton : MonoBehaviour {
                     break;
             }
         }
-        LeanTween.move(GetComponent<RectTransform>(), new Vector2(0, -569.23f), 0.25f).setEaseOutQuad();
+        LeanTween.move(GetComponent<RectTransform>(), new Vector2(0, -569.23f), 0.25f).setEaseInOutQuad();
     }
 
     public void Show() {
