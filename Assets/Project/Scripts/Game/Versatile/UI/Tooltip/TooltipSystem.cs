@@ -30,7 +30,7 @@ public class TooltipSystem : MonoBehaviour {
 
 		tooltip.SetText(body, header);
 		tooltip.GetComponent<CanvasGroup>().alpha = 0f;
-		LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 1f, 0.25f);
+		LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 1f, 0.25f).setEaseInOutQuad();
 	}
 	/// <summary>
 	/// Displays an error tooltip at the given vector2.
@@ -45,7 +45,7 @@ public class TooltipSystem : MonoBehaviour {
 
 		fixedTooltip.SetText(body, header);
 		fixedTooltip.GetComponent<CanvasGroup>().alpha = 0f;
-		LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 1f, 0.25f);
+		LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 1f, 0.25f).setEaseInOutQuad();
 	}
 	/// <summary>
 	/// Hide all active tooltips.
@@ -66,10 +66,10 @@ public class TooltipSystem : MonoBehaviour {
 
 		switch (tooltipType) {
 			case TooltipType.Tooltip:
-				LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => tooltip.gameObject.SetActive(false));
+				LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => tooltip.gameObject.SetActive(false)).setEaseInOutQuad();
 				break;
 			case TooltipType.ErrorTooltip:
-				LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => fixedTooltip.gameObject.SetActive(false));
+				LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => fixedTooltip.gameObject.SetActive(false)).setEaseInOutQuad();
 				break;
 		}
 	}
