@@ -25,7 +25,7 @@ public abstract class CardLogicController : MonoBehaviour {
 	}
 	protected virtual void Update() {
 		if (Input.GetKeyDown(KeyCode.Alpha5)) {
-			GameController.instance.champions[dealToIndex].hand.DealSpecificCard(summonCard);
+			StartCoroutine(GameController.instance.champions[dealToIndex].hand.Deal(summonCard));
 		}
 	}
 
@@ -39,7 +39,7 @@ public abstract class CardLogicController : MonoBehaviour {
 			if (!player.isPlayer || player.isDead) continue;
 
 			// Exits if the card is not the player's.
-			if (card.owner == null) {
+			if (card.owner is null) {
 				TooltipSystem.instance.ShowError("This is not your card!");
 				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 				yield break;
@@ -76,7 +76,7 @@ public abstract class CardLogicController : MonoBehaviour {
 									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 									yield break;
 								}
-								if (player.attackingCard != null) {
+								if (player.attackingCard is {}) {
 									player.attackingCard.halo.Stop();
 									player.attackingCard.halo.Clear();
 								}
@@ -113,7 +113,7 @@ public abstract class CardLogicController : MonoBehaviour {
 							foreach (ChampionController champion in GameController.instance.champions) {
 								if (champion.currentTarget != player || !champion.isAttacking) continue;
 
-								if (player.defendingCard != null) player.defendingCard.Flip(true);
+								if (player.defendingCard is {}) player.defendingCard.Flip(true);
 								player.defendingCard = card;
 								card.Flip(true);
 
@@ -176,8 +176,6 @@ public abstract class CardLogicController : MonoBehaviour {
 					}
 			}
 		}
-
-
 	}
 	/// <summary>
 	/// Called to handle the bot's card logic.
@@ -487,7 +485,6 @@ public abstract class CardLogicController : MonoBehaviour {
 			case true:
 				// Player Spade Logic
 
-				// Initiates an attack.
 				GameController.instance.endTurnButton.gameObject.SetActive(false);
 				GameController.instance.gambleButton.Show();
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
@@ -552,7 +549,7 @@ public abstract class CardLogicController : MonoBehaviour {
 						}
 					}
 				}
-				if (champion.currentTarget == null) {
+				if (champion.currentTarget is null) {
 					Debug.Log(champion.championName + " decides not to attack!");
 					champion.spadesBeforeExhaustion--;
 					break;
@@ -563,7 +560,7 @@ public abstract class CardLogicController : MonoBehaviour {
 				if (champion.hand.GetCardCount() - 1 != 0 || Random.Range(0f, 1f) < 0.85f) {
 					champion.attackingCard = champion.hand.GetAttackingCard(card);
 				}
-				if (champion.attackingCard == null) {
+				if (champion.attackingCard is null) {
 					switch (GameController.instance.difficulty) {
 						case GameController.Difficulty.Warrior:
 						case GameController.Difficulty.Champion:

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
+  m_Name: Champion_Apprentice_Tutorial
+  m_EditorClassIdentifier: 
+  championName: Apprentice
+  championID: Champion_Apprentice
+  avatar: {fileID: 21300000, guid: 8225b41c586c4894e8c675a856aab3db, type: 3}
+  description: Under the arduous and grueling training of Sensei, the Apprentice
+    is well prepared to quickly dispatch aggressive opponents. Apprentice's staff
+    allows him to take advantage of unaware opponents, whereas the knowledge of a
+    sacred secret of the monastery allows him to rapidly recover from wounds.
+  gender: 0
+  faction: 2
+  race: 0
+  maxHP: 90
+  currentHP: 90
+  attackDamage: 30
+  attackDamageType: 0
+  attackName: Wooden Staff
+  abilities: []
+  unlockability: 0
+  value: 0

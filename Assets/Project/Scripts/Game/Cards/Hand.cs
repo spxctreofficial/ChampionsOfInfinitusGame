@@ -205,13 +205,6 @@ public class Hand : MonoBehaviour {
 	}
 
 	// Deal Functions
-	/// <summary>
-	/// Deal a specific card to this hand.
-	/// </summary>
-	/// <param name="specificCard"></param>
-	public void DealSpecificCard(CardScriptableObject cardScriptableObject) {
-		StartCoroutine(Deal(cardScriptableObject, false, true));
-	}
 	
 	/// <summary>
 	/// Deals an amount of randomly generated cards to this hand, with additional parameters for animation and fine control.
@@ -223,64 +216,48 @@ public class Hand : MonoBehaviour {
 	/// <returns></returns>
 	public IEnumerator Deal(int amount = 4, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		for (int i = 0; i < amount; i++) {
-			AudioController.instance.Play("flip");
-			// Creates a new card.
-			Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
-			card.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
+			 CardScriptableObject cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 
-			// Noob mode crutch
-			if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f) {
-				switch (GameController.instance.difficulty) {
-					case GameController.Difficulty.Noob:
-						int rerollValue = Mathf.Min(card.cardScriptableObject.cardValue + 3, 13);
-						foreach (CardScriptableObject newCard in GameController.instance.cardIndex.PlayingCards) {
-							if (rerollValue != newCard.cardValue || card.cardScriptableObject.cardSuit != newCard.cardSuit || card == newCard) continue;
+			 // Noob mode crutch
+			 if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f) {
+				 switch (GameController.instance.difficulty) {
+					 case GameController.Difficulty.Noob:
+						 int rerollValue = Mathf.Min(cardScriptableObject.cardValue + 3, 13);
+						 foreach (CardScriptableObject newCard in GameController.instance.cardIndex.PlayingCards) {
+							 if (rerollValue != newCard.cardValue || cardScriptableObject.cardSuit != newCard.cardSuit || cardScriptableObject == newCard) continue;
 
-							Destroy(card.gameObject);
-							card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
-							card.cardScriptableObject = newCard;
-						}
-						Debug.Log("oh yes crutch");
-						break;
-				}
-			}
+							 cardScriptableObject = newCard;
+						 }
+						 Debug.Log("oh yes crutch");
+						 break;
+				 }
+			 }
 
-			// Sets card to the hand and adds it to the list of cards of this hand for easy reference.
-			card.transform.SetParent(transform, false);
-			card.owner = owner;
-			card.owner.matchStatistic.totalCardsDealt++;
-			cards.Add(card);
-		
-			// Extra parameters.
-			if (flip) card.Flip();
-			if (animate) {
-				card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				card.GetComponent<SmartHover>().ScaleDown();
-			}
-			if (abilityCheck) {
-				foreach (ChampionController selectedChampion in GameController.instance.champions) {
-					foreach (AbilityController ability in selectedChampion.abilities) {
-						yield return StartCoroutine(ability.OnDeal(card, owner));
-					}
-				}
-			}
-
-			yield return new WaitForSeconds(0.25f);
+			 yield return StartCoroutine(Deal(cardScriptableObject, flip, animate, abilityCheck));
+			 
+			 yield return new WaitForSeconds(0.25f);
 		}
 	}
-	private IEnumerator Deal(CardScriptableObject cardScriptableObject, bool flip, bool animate, bool abilityCheck = true) {
-		Card card = Instantiate(GameController.instance.cardTemplate, new Vector2(0, 0), Quaternion.identity).GetComponent<Card>();
+	public IEnumerator Deal(CardScriptableObject cardScriptableObject, bool flip = false, bool animate = true, bool abilityCheck = true) {
+		AudioController.instance.Play("flip");
+		// Creates a new card.
+		Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 		card.cardScriptableObject = cardScriptableObject;
+
+		
+
+		// Sets card to the hand and adds it to the list of cards of this hand for easy reference.
 		card.transform.SetParent(transform, false);
 		card.owner = owner;
+		card.owner.matchStatistic.totalCardsDealt++;
 		cards.Add(card);
 		
+		// Extra parameters.
 		if (flip) card.Flip();
 		if (animate) {
 			card.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 			card.GetComponent<SmartHover>().ScaleDown();
 		}
-
 		if (abilityCheck) {
 			foreach (ChampionController selectedChampion in GameController.instance.champions) {
 				foreach (AbilityController ability in selectedChampion.abilities) {
@@ -288,8 +265,6 @@ public class Hand : MonoBehaviour {
 				}
 			}
 		}
-
-		yield return new WaitForSeconds(0.25f);
 	}
 	/// <summary>
 	/// Discards a specified card from this hand.

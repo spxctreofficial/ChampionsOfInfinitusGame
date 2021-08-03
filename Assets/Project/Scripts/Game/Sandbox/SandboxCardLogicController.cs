@@ -17,7 +17,7 @@ public class SandboxCardLogicController : CardLogicController {
 	}
 	protected override void Update() {
 		if (Input.GetKeyDown(KeyCode.Alpha5)) {
-			GameController.instance.champions[dealToIndex].hand.DealSpecificCard(summonCard);
+			StartCoroutine(GameController.instance.champions[dealToIndex].hand.Deal(summonCard));
 		}
 		if (Input.GetKeyDown(KeyCode.Equals)) {
 			foreach (ChampionController champion in GameController.instance.champions) {

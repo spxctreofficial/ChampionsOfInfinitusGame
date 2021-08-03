@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ICSharpCode.NRefactory.Ast;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class DialogueSystem : MonoBehaviour {
 	private Queue<Dialogue> dialogues = new Queue<Dialogue>();
 	private Dialogue currentDialogue;
 	private UnityAction endOfConversationAction;
+	private bool endOfConversationAnimation;
 
 	[SerializeField]
 	private TMP_Text characterName;
@@ -23,17 +25,21 @@ public class DialogueSystem : MonoBehaviour {
 	[SerializeField]
 	private AudioClip beep;
 
-	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null) {
-		GameObject dialogueSystemPrefab = MainMenuController.instance == null ? GameController.instance.dialogueSystemPrefab : MainMenuController.instance.dialogueSystemPrefab;
+	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null, bool startOfConversationAnimation = true, bool endOfConversationAnimation = true) {
+		GameObject dialogueSystemPrefab = MainMenuController.instance is null ? GameController.instance.dialogueSystemPrefab : MainMenuController.instance.dialogueSystemPrefab;
 
 		float bottomOfScreen = -540 - (dialogueSystemPrefab.GetComponent<RectTransform>().rect.height / 2);
 		DialogueSystem dialogueSystem = Instantiate(dialogueSystemPrefab, new Vector2(vector2.x, bottomOfScreen), Quaternion.identity).GetComponent<DialogueSystem>();
 
 		foreach (Dialogue dialogue in dialogueSession.dialogues) dialogueSystem.dialogues.Enqueue(dialogue);
 		if (endOfConversationAction != null) dialogueSystem.endOfConversationAction = endOfConversationAction;
+		dialogueSystem.endOfConversationAnimation = endOfConversationAnimation;
 		Debug.Log(dialogueSystem.endOfConversationAction);
 
-		LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseInOutQuad();
+		if (startOfConversationAnimation)
+			LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseInOutQuad();
+		else
+			dialogueSystem.GetComponent<RectTransform>().localPosition = vector2;
 		dialogueSystem.LoadNextSentence();
 		return dialogueSystem;
 	}
@@ -53,9 +59,19 @@ public class DialogueSystem : MonoBehaviour {
 	private void LoadNextSentence() {
 		if (dialogues.Count == 0) {
 			Debug.Log("End of conversation.");
-			LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - (GetComponent<RectTransform>().rect.height / 2)), 0.5f).setEaseInOutQuad().setOnComplete(() => {
-				if (endOfConversationAction != null) endOfConversationAction.Invoke();
-			});
+			Vector2 bottomOfScreen = new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2);
+
+			if (endOfConversationAnimation) {
+				LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2), 0.5f).setEaseInOutQuad().setOnComplete(() => {
+					if (endOfConversationAction is {}) endOfConversationAction.Invoke();
+					Destroy(gameObject, 1f);
+				});
+			}
+			else {
+				if (endOfConversationAction is {}) endOfConversationAction.Invoke();
+				GetComponent<RectTransform>().localPosition = bottomOfScreen;
+				Destroy(gameObject, 1f);
+			}
 			return;
 		}
 		

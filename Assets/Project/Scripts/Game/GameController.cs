@@ -73,8 +73,12 @@ public abstract class GameController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	private void Start() {
+	protected virtual void Start() {
 		StartCoroutine(GameStart(GamePrep()));
+
+		gameArea.AddComponent<CanvasGroup>();
+		gameEndArea.AddComponent<CanvasGroup>();
+		gameEndAreaTeam.AddComponent<CanvasGroup>();
 	}
 
 	private IEnumerator GameStart(IEnumerator enumerator) {
@@ -363,7 +367,7 @@ public abstract class GameController : MonoBehaviour {
 	/// Sets the next turn to the first champion in the index.
 	/// Should only be used at GameStart.
 	/// </summary>
-	private void NextTurnCalculator() {
+	protected void NextTurnCalculator() {
 		ChampionController nextTurnChampion;
 		try {
 			nextTurnChampion = champions[0];
@@ -379,9 +383,9 @@ public abstract class GameController : MonoBehaviour {
 	/// Fades away scene and returns the game to the main menu.
 	/// </summary>
 	public void ReturnToMainMenu() {
-		CanvasGroup gameAreaCanvasGroup = gameArea.AddComponent<CanvasGroup>();
-		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.AddComponent<CanvasGroup>();
-		CanvasGroup gameEndAreaTeamCanvasGroup = gameEndAreaTeam.AddComponent<CanvasGroup>();
+		CanvasGroup gameAreaCanvasGroup = gameArea.GetComponent<CanvasGroup>();
+		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.GetComponent<CanvasGroup>();
+		CanvasGroup gameEndAreaTeamCanvasGroup = gameEndAreaTeam.GetComponent<CanvasGroup>();
 
 		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
 		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
@@ -399,8 +403,8 @@ public abstract class GameController : MonoBehaviour {
 	/// <param name="champion"></param>
 	/// <param name="slot"></param>
 	/// <param name="spawnAsPlayer"></param>
-	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false) {
-		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
+	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false, bool dealHand = true) {
+		if (slot is null) slot = ChampionSlot.FindNextVacantSlot();
 
 		ChampionController championController = Instantiate(championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
 		championController.champion = champion;
@@ -417,7 +421,7 @@ public abstract class GameController : MonoBehaviour {
 			yield return null;
 			hand.SetOwner(championController);
 
-			yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
+			if (dealHand) yield return StartCoroutine(championController.hand.Deal(4, false, true, false));
 		}
 		StatisticManager.instance.StartTrackingStatistics(championController);
 		StartCoroutine(Setup());

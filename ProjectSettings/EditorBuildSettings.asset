@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Project/Scripts/Game/MainMenu/MainMenu.unity
     guid: e2aecdf13b349bc44a4c008f7de3e3b1
   - enabled: 1
-    path: Assets/Project/Scripts/Game/GameLevels/Sandbox.unity
+    path: Assets/Project/Scripts/Game/Sandbox/Sandbox.unity
     guid: 36999a4146b9f59499aaa017fa97c4db
   m_configObjects: {}
