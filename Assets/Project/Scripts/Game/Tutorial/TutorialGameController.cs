@@ -71,11 +71,11 @@ public class TutorialGameController : GameController {
 		LeanTween.alphaCanvas(gameArea.GetComponent<CanvasGroup>(), 1f, 1f).setOnComplete(() => {
 			DialogueSystem.Create(dialogueSessionsQueue.Dequeue(), new Vector2(0, -270), () => {
 				DialogueSystem.Create(dialogueSessionsQueue.Dequeue(), new Vector2(0, -270), null, false).transform.SetParent(gameArea.transform, false);
-				tutorialProgress++;
+				tutorialProgress = 1;
 			}, true, false).transform.SetParent(gameArea.transform, false);
 		});
 		
-		yield return new WaitUntil(() => tutorialProgress == 2);
+		yield return new WaitUntil(() => tutorialProgress == 25);
 
 		yield return new WaitForSeconds(2f);
 
@@ -86,6 +86,16 @@ public class TutorialGameController : GameController {
 
 		ChampionSlot.CreateDefaultSlots();
 		yield break;
+	}
+
+	public override void StartEndPhase() {
+		switch (tutorialProgress) {
+			case 6:
+				
+				return;
+		}
+		
+		base.Awake();
 	}
 	protected override IEnumerator GameSetup() {
 		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;

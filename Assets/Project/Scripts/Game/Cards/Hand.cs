@@ -219,18 +219,14 @@ public class Hand : MonoBehaviour {
 			 CardScriptableObject cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 
 			 // Noob mode crutch
-			 if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f) {
-				 switch (GameController.instance.difficulty) {
-					 case GameController.Difficulty.Noob:
-						 int rerollValue = Mathf.Min(cardScriptableObject.cardValue + 3, 13);
-						 foreach (CardScriptableObject newCard in GameController.instance.cardIndex.PlayingCards) {
-							 if (rerollValue != newCard.cardValue || cardScriptableObject.cardSuit != newCard.cardSuit || cardScriptableObject == newCard) continue;
+			 if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f && GameController.instance.difficulty == GameController.Difficulty.Noob) {
+				 int rerollValue = Mathf.Min(cardScriptableObject.cardValue + 3, 13);
+				 foreach (CardScriptableObject newCard in GameController.instance.cardIndex.PlayingCards) {
+					 if (rerollValue != newCard.cardValue || cardScriptableObject.cardSuit != newCard.cardSuit || cardScriptableObject == newCard) continue;
 
-							 cardScriptableObject = newCard;
-						 }
-						 Debug.Log("oh yes crutch");
-						 break;
+					 cardScriptableObject = newCard;
 				 }
+				 Debug.Log("oh yes crutch");
 			 }
 
 			 yield return StartCoroutine(Deal(cardScriptableObject, flip, animate, abilityCheck));
@@ -243,8 +239,6 @@ public class Hand : MonoBehaviour {
 		// Creates a new card.
 		Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 		card.cardScriptableObject = cardScriptableObject;
-
-		
 
 		// Sets card to the hand and adds it to the list of cards of this hand for easy reference.
 		card.transform.SetParent(transform, false);

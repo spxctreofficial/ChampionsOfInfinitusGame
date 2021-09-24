@@ -5,6 +5,9 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 ## v0.2 Beta
 
 - Additions:
+	- A comprehensive tutorial has been added to the game. This tutorial aims at teaching new players the basics of the game, helping them grasp the mechanics and skill required to advance in the game.
+		- This tutorial utilizes the Dialogue System to explain to the player how the game works and the mechanics of the game. This is explained through the perspective of Sensei.
+		- First the tutorial teaches the player how to use SPADEs to attack an opponent.
 	- A ChampionInfoPanel has been added to the game. This gives a more verbose description of the champions and their respective abilities.
 		- This replaces the traditional prompt when purchasing a champion from the shop.
 		- Shown right-clicking when selecting a champion in Sandbox mode.
@@ -56,7 +59,9 @@ This is the official Land of Heroes Changelog. Any changes to the game will be d
 		- GameController has been abstracted.
 		- CardLogicController has been abstracted.
 		- StatisticManager has been abstracted.
+		- UI Buttons have been given abstract/virtual methods (although the classes themselves remain fully functional.)
 	- AbilityController has been given several new insertion points for ability checks, particularly to do with combat result.
+	- A `FindCardInfo` static function has been added to the CardIndex class. This method allows an easy way to find any CardScriptableObject in the CardIndex with the given suit and card value.
 	- The `GetCard` function has been slightly improved, no longer relying on the transform of the hand (instead using the list implemented into the hand itself to log its cards.)
 	- New functions have been added to the `Hand` class to improve the game.
 	- StateFeedEntry has been drastically improved, and ChampionAbilityFeed has been made as generic as possible.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CardIndex : MonoBehaviour {
-	private List<CardScriptableObject> playingCards = new List<CardScriptableObject>();
+	private static List<CardScriptableObject> playingCards = new List<CardScriptableObject>();
 	[SerializeField]
 	private List<CardScriptableObject> spades, hearts, clubs, diamonds;
 
@@ -21,6 +21,17 @@ public class CardIndex : MonoBehaviour {
 	}
 	public List<CardScriptableObject> Diamonds {
 		get => diamonds;
+	}
+
+	public static CardScriptableObject FindCardInfo(CardSuit cardSuit, int value) {
+		foreach (CardScriptableObject cardScriptableObject in playingCards) {
+			if (cardScriptableObject.cardSuit != cardSuit || cardScriptableObject.cardValue != value) continue;
+
+			return cardScriptableObject;
+		}
+		
+		Debug.LogError("No card was found within the given criteria!");
+		return null;
 	}
 
 	private void Awake() {

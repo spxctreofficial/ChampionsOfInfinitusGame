@@ -10,36 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90286e90629125e418b8efe6aa1b4f27, type: 3}
-  m_Name: TutorialDialogue03
+  m_Name: TutorialDialogue06
   m_EditorClassIdentifier: 
   dialogues:
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: Congratulations, young one! You are learning quickly.
+    sentence: Congratulations! Since your Ace of Diamonds had a higher value than
+      my King of Clubs, you deal damage to me.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: However, the SPADE merely starts the attack; you must play a combat
-      card to "enforce" or "represent" the attack.
+    sentence: The amount of health, cards, and name of the champion will be displayed
+      around every champion's avatar.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: During combat, the attacker and the defender will play a combat card.
-      The player with the higher combat value combat card wins the fight, and deals
-      damage to the other player.
+    sentence: Now, let's take a look at playing DIAMONDS.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: If the two combat cards have an identical combat value, the fight is
-      tied and no one takes damage.
+    sentence: DIAMONDS, when played normally, perform a miscellaneous task that may
+      either benefit or impede multiple/all players.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: This card can either be played from your hand, or randomly selected
-      (or "gambled") from the deck. The advantage of playing a combat card from your
-      hand, is that you have control over what combat card you play.
+    sentence: You can hover over cards to find out what a card does, its combat value,
+      and extra information about the card.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: For now, select the Ace of Diamonds as the combat card.
+    sentence: You have a 2 of DIAMONDS in your hand. Hover over it to find out what
+      it does, then click it when you're ready.
     caretBehaviour: 1
     continueWithoutInput: 0

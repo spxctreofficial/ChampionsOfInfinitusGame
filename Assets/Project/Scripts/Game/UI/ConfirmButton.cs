@@ -6,7 +6,7 @@ using UnityEngine;
 public class ConfirmButton : MonoBehaviour {
     public TMP_Text textBox;
     
-    public void OnClick() {
+    public virtual void OnClick() {
         foreach (ChampionController champion in GameController.instance.champions) {
             if (!champion.isPlayer || champion.isDead) continue;
 

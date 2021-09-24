@@ -333,7 +333,7 @@ public abstract class CardLogicController : MonoBehaviour {
 	/// <param name="defender"></param>
 	/// <param name="abilityCheck"></param>
 	/// <returns></returns>
-	public IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, bool abilityCheck = true) {
+	public virtual IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, bool abilityCheck = true) {
 		if (attacker.attackingCard == null) {
 			// Fail safe in case no attackingCard was defined prior to combat calculation.
 			Debug.LogError("No attacking card was specified on an initiated attack!");

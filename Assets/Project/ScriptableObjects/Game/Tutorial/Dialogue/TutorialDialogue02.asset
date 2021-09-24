@@ -23,9 +23,13 @@ MonoBehaviour:
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: The value of the SPADE does not matter, but it is generally a good
-      idea to use a lower-valued SPADE in order to save high-value cards for better
-      opportunities.
+    sentence: Use lower-valued SPADES to start attacks, as it's better to save higher-valued
+      cards for higher purposes.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: You may only play one SPADE, one DIAMOND, and up to three HEARTS in
+      one turn.
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}

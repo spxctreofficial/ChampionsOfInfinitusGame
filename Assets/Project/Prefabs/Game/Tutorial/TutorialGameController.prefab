@@ -90,6 +90,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca926348c74b5a64f99040952481104c, type: 2}
   - {fileID: 11400000, guid: f0e7f1fd86f304efd8046c98afa0e091, type: 2}
   - {fileID: 11400000, guid: f957e34dd76db4a1a80ae66d2a2d0d18, type: 2}
+  - {fileID: 11400000, guid: 5cf6b21d752e1047f9f8f037c6ebd938, type: 2}
+  - {fileID: 11400000, guid: c4cc0ab6e9729aacf972467a76484102, type: 2}
+  - {fileID: 11400000, guid: 0a30cbacd9ab30f70a1c66f1ffca6a2d, type: 2}
+  - {fileID: 11400000, guid: 831139a18222a3ab4a2f73ecf2c14fa6, type: 2}
   playerStartingHand:
   - {fileID: 11400000, guid: 2b830335cd2179a44a4e75c024ace632, type: 2}
   - {fileID: 11400000, guid: 4ea8f89519f83e443a5f56fb7f3f7e38, type: 2}
