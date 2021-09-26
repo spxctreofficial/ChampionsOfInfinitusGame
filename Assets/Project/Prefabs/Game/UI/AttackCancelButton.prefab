@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6588326252736214494}
   - component: {fileID: 6588326252736214495}
   - component: {fileID: 6588326252736214488}
+  - component: {fileID: 8401446985020395031}
   m_Layer: 5
   m_Name: AttackCancelButton
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8401446985020395031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588326252736214490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d104d4851053c24bb3432719c56a44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 9104092516793106897}
 --- !u!1 &6588326254386235317
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &9104092516793106897
 MonoBehaviour:
   m_ObjectHideFlags: 0

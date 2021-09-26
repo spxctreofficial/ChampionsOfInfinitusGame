@@ -18,7 +18,7 @@ MonoBehaviour:
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: Your opponents will be highlighted in red once you have started an
+    sentence: Your opponents will be highlighted in green once you have started an
       attack. Click on an opponent to target them.
     caretBehaviour: 1
     continueWithoutInput: 0

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using ICSharpCode.NRefactory.Ast;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -75,12 +74,46 @@ public class TutorialGameController : GameController {
 			}, true, false).transform.SetParent(gameArea.transform, false);
 		});
 		
-		yield return new WaitUntil(() => tutorialProgress == 25);
+		yield return new WaitUntil(() => tutorialProgress == 8);
 
 		yield return new WaitForSeconds(2f);
 
-		// NextTurnCalculator();
+		NextTurnCalculator();
 	}
+	protected override IEnumerator BeginningPhase(ChampionController champion) {
+		switch (tutorialProgress) {
+			case 8:
+				gamePhase = GamePhase.BeginningPhase;
+
+				// Updates Text
+				phaseIndicator.text = "Beginning Phase - " + champion.championName;
+				champion.championParticleController.PlayEffect(champion.championParticleController.CyanGlow);
+				yield return StartCoroutine(champion.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 12)));
+				yield return StartCoroutine(champion.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 13)));
+
+				// Beginning Phase Ability Check
+				foreach (ChampionController selectedChampion in champions) {
+					foreach (AbilityController ability in selectedChampion.abilities) {
+						yield return StartCoroutine(ability.OnBeginningPhase());
+					}
+				}
+
+				yield return new WaitForSeconds(2f);
+
+				StartCoroutine(ActionPhase(champion));
+				yield break;
+		}
+
+		StartCoroutine(base.BeginningPhase(champion));
+	}
+	// protected override IEnumerator ActionPhase(ChampionController champion) {
+	// 	switch (tutorialProgress) {
+	// 		case 8:
+	// 			yield break;
+	// 	}
+	// 	
+	// 	StartCoroutine(base.ActionPhase(champion));
+	// }
 	protected override IEnumerator GamePrep() {
 		gameArea.SetActive(true);
 
@@ -88,15 +121,6 @@ public class TutorialGameController : GameController {
 		yield break;
 	}
 
-	public override void StartEndPhase() {
-		switch (tutorialProgress) {
-			case 6:
-				
-				return;
-		}
-		
-		base.Awake();
-	}
 	protected override IEnumerator GameSetup() {
 		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
 		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;

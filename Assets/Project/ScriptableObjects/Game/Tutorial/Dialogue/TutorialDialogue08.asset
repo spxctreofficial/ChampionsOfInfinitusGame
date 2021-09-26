@@ -19,6 +19,7 @@ MonoBehaviour:
     caretBehaviour: 1
     continueWithoutInput: 0
   - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
-    sentence: Now you should be set! Defeat me to continue.
+    sentence: You seem to be handling the basics of combat particularly well! Look
+      through your cards, and defeat me to continue!
     caretBehaviour: 1
     continueWithoutInput: 0
