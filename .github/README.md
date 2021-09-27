@@ -1,11 +1,11 @@
-# Land Of Heroes
+# Champions of Infinitus
 
-Land Of Heroes is a tactical, strategy-based card game for both veteran strategy game players and beginners alike. Land Of Heroes is easy-to-learn, but hard to master! Play as any champion, whether it be a loyal squire, a sly bandit, or a powerful mage! Use different cards to attack, heal, or other miscellaneous actions, and use your hero's abilities to gain an advantage in the battle!
+Champions of Infinitus is a tactical, strategy-based card game for both veteran strategy game players and beginners alike. Champions of Infinitus is easy-to-learn, but hard to master! Play as any champion, whether it be a loyal squire, a sly bandit, or a powerful mage! Use different cards to attack, heal, or other miscellaneous actions, and use your hero's abilities to gain an advantage in the battle!
 
 ## How to Play
 
 #### Earn & Choose Champions
-In Land Of Heroes, you can earn new champions by playing the game, and use the gold earned for just playing matches to buy new champions! While the physical statistics, abilities, play styles, and cost of every champion may be different, the physical attributes of the champion you play will *not* solely determine the result of your match. With experience, you can topple the best champions with even the bare minimum of abilities and effort. A champion's strength varies with the player that is controlling them, so don't get your hopes down when it looks like all is lost and the opponent has a significant advantage. in terms of raw physical strength. With the right play style and adaptation to your champion, anything is possible and the possibilities are limitless!
+In Champions of Infinitus, you can earn new champions by playing the game, and use the gold earned for just playing matches to buy new champions! While the physical statistics, abilities, play styles, and cost of every champion may be different, the physical attributes of the champion you play will *not* solely determine the result of your match. With experience, you can topple the best champions with even the bare minimum of abilities and effort. A champion's strength varies with the player that is controlling them, so don't get your hopes down when it looks like all is lost and the opponent has a significant advantage. in terms of raw physical strength. With the right play style and adaptation to your champion, anything is possible and the possibilities are limitless!
 
 
 #### Use Your Cards
