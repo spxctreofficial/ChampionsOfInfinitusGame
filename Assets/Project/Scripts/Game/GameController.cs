@@ -75,10 +75,6 @@ public abstract class GameController : MonoBehaviour {
 	}
 	protected virtual void Start() {
 		StartCoroutine(GameStart(GamePrep()));
-
-		gameArea.AddComponent<CanvasGroup>();
-		gameEndArea.AddComponent<CanvasGroup>();
-		gameEndAreaTeam.AddComponent<CanvasGroup>();
 	}
 
 	private IEnumerator GameStart(IEnumerator enumerator) {

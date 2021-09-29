@@ -65,6 +65,12 @@ public class MainMenuController : MonoBehaviour {
 			SceneManager.LoadScene("Sandbox");
 		});
 	}
+	public void LoadTutorial() {
+		if (!DataManager.instance.firstRunGame) return;
+		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
+			SceneManager.LoadScene("Tutorial");
+		});
+	}
 	/// <summary>
 	/// Quits the game.
 	/// </summary>

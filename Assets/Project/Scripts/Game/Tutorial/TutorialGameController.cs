@@ -21,6 +21,8 @@ public class TutorialGameController : GameController {
 
 	protected override void Awake() {
 		base.Awake();
+		
+		gameArea.GetComponent<CanvasGroup>().alpha = 0f;
 
 		if (instance == null)
 			instance = this;
@@ -39,8 +41,7 @@ public class TutorialGameController : GameController {
 	protected override IEnumerator GameStart() {
 		phaseIndicator.text = "Start of Game";
 		Debug.Log("run");
-
-		gameArea.GetComponent<CanvasGroup>().alpha = 0f;
+		
 		// Game Preparation
 		yield return StartCoroutine(GameSetup());
 

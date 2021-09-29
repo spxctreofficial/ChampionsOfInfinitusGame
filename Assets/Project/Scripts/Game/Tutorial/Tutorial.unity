@@ -1384,6 +1384,7 @@ GameObject:
   - component: {fileID: 357639566}
   - component: {fileID: 357639568}
   - component: {fileID: 357639567}
+  - component: {fileID: 357639569}
   m_Layer: 5
   m_Name: GameEndAreaTeam
   m_TagString: Untagged
@@ -1451,6 +1452,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357639565}
   m_CullTransparentMesh: 1
+--- !u!225 &357639569
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357639565}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &386640847 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1772800351090816291, guid: 3f199183ee7d25048a01e0ddf5cb58e4,
@@ -2638,6 +2651,7 @@ GameObject:
   - component: {fileID: 975385649}
   - component: {fileID: 975385648}
   - component: {fileID: 975385651}
+  - component: {fileID: 975385652}
   m_Layer: 5
   m_Name: GameArea
   m_TagString: Untagged
@@ -2857,6 +2871,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!225 &975385652
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975385646}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1000713638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3273,6 +3299,7 @@ GameObject:
   - component: {fileID: 1157528587}
   - component: {fileID: 1157528589}
   - component: {fileID: 1157528588}
+  - component: {fileID: 1157528590}
   m_Layer: 5
   m_Name: GameEndArea
   m_TagString: Untagged
@@ -3340,6 +3367,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157528586}
   m_CullTransparentMesh: 1
+--- !u!225 &1157528590
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157528586}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1283922421
 GameObject:
   m_ObjectHideFlags: 0
