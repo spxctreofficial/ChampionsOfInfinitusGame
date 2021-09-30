@@ -10,9 +10,9 @@ public class ChampionAbilityOverviewEntry : MonoBehaviour {
 	[SerializeField]
 	private Image abilityImage;
 
-	public void Setup(Ability ability) {
-		abilityNameText.text = ability.abilityName;
-		abilityDescriptionText.text = ability.abilityDescription;
-		abilityImage.sprite = ability.sprite;
+	public void Setup(AbilityScriptableObject abilityScriptableObject) {
+		abilityNameText.text = abilityScriptableObject.abilityName;
+		abilityDescriptionText.text = abilityScriptableObject.abilityDescription;
+		abilityImage.sprite = abilityScriptableObject.sprite;
 	}
 }

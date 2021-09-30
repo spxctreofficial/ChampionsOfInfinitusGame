@@ -95,7 +95,7 @@ public class TutorialGameController : GameController {
 
 				// Beginning Phase Ability Check
 				foreach (ChampionController selectedChampion in champions) {
-					foreach (AbilityController ability in selectedChampion.abilities) {
+					foreach (Ability ability in selectedChampion.abilities) {
 						yield return StartCoroutine(ability.OnBeginningPhase());
 					}
 				}

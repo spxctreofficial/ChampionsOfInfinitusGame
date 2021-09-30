@@ -5,21 +5,21 @@ using TMPro;
 
 public class AbilityFeedEntry : MonoBehaviour {
 	[HideInInspector]
-	public Ability ability;
+	public AbilityScriptableObject abilityScriptableObject;
 	[HideInInspector]
 	public int count = 1;
 
 	private int delayID;
 
-	public static AbilityFeedEntry New(Ability ability, ChampionController champion, float duration = 5f) {
+	public static AbilityFeedEntry New(AbilityScriptableObject abilityScriptableObject, ChampionController champion, float duration = 5f) {
 		// Instantiate
 		AbilityFeedEntry abilityFeedEntry = Instantiate(champion.abilityFeed.abilityFeedEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<AbilityFeedEntry>();
 
 		// Set Display
-		abilityFeedEntry.GetComponent<TMP_Text>().text = ability.abilityName;
+		abilityFeedEntry.GetComponent<TMP_Text>().text = abilityScriptableObject.abilityName;
 		foreach (Transform child in champion.abilityFeed.transform) {
 			AbilityFeedEntry anotherAbilityFeedEntry = child.GetComponent<AbilityFeedEntry>();
-			if (abilityFeedEntry == anotherAbilityFeedEntry || abilityFeedEntry.ability != anotherAbilityFeedEntry.ability) continue;
+			if (abilityFeedEntry == anotherAbilityFeedEntry || abilityFeedEntry.abilityScriptableObject != anotherAbilityFeedEntry.abilityScriptableObject) continue;
 
 			abilityFeedEntry.count += anotherAbilityFeedEntry.count;
 

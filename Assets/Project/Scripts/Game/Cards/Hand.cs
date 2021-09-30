@@ -254,7 +254,7 @@ public class Hand : MonoBehaviour {
 		}
 		if (abilityCheck) {
 			foreach (ChampionController selectedChampion in GameController.instance.champions) {
-				foreach (AbilityController ability in selectedChampion.abilities) {
+				foreach (Ability ability in selectedChampion.abilities) {
 					yield return StartCoroutine(ability.OnDeal(card, owner));
 				}
 			}
@@ -301,7 +301,7 @@ public class Hand : MonoBehaviour {
 		}
 		if (abilityCheck) {
 			foreach (ChampionController selectedChampion in GameController.instance.champions) {
-				foreach (AbilityController ability in selectedChampion.abilities) {
+				foreach (Ability ability in selectedChampion.abilities) {
 					// ABILITY CHECK HERE
 				}
 			}

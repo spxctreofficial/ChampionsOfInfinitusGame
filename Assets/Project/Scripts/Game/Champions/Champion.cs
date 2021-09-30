@@ -27,7 +27,7 @@ public class Champion : ScriptableObject {
 	public DamageType attackDamageType;
 	public string attackName;
 
-	public List<Ability> abilities;
+	public List<AbilityScriptableObject> abilities;
 	
 	// Shop
 	public enum Unlockability { ShopItem, EarnableItem, Unplayable }

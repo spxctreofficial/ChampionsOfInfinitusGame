@@ -24,8 +24,6 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private Image championImage;
 	[SerializeField]
 	private TMP_Text nameText, healthText, cardsText;
-	[SerializeField]
-	private GameObject abilityObjects;
 	public ChampionParticleController championParticleController;
 
 	[Header("Basic Information")]
@@ -56,7 +54,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[HideInInspector]
 	public string attackName;
 
-	public List<AbilityController> abilities;
+	public List<Ability> abilities;
 
 	[HideInInspector]
 	public int discardAmount, spadesBeforeExhaustion, heartsBeforeExhaustion, diamondsBeforeExhaustion;
@@ -121,17 +119,14 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		attackDamageType = champion.attackDamageType;
 		attackName = champion.attackName;
 
-		foreach (Ability ability in champion.abilities) {
-			AbilityController abilityController = Instantiate(GameController.instance.abilityTemplate, Vector2.zero, Quaternion.identity).GetComponent<AbilityController>();
-			abilityController.transform.SetParent(abilityObjects.transform, false);
-			abilityController.Setup(this, ability);
-			
-			abilities.Add(abilityController);
+		foreach (AbilityScriptableObject abilityScriptableObject in champion.abilities) {
+			Ability ability = gameObject.AddComponent<Ability>();
+			ability.Setup(this, abilityScriptableObject);
+			abilities.Add(ability);
 		}
 
 		discardAmount = 0;
 		ResetExhaustion();
-		// isPlayer = this == GameController.instance.champions[0];
 		isMyTurn = false;
 		isAttacking = false;
 		currentlyTargeted = false;
@@ -171,11 +166,11 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// Damage Calculation
 		if (source is {}) {
-			foreach (AbilityController ability in source.abilities) {
+			foreach (Ability ability in source.abilities) {
 				amount += ability.DamageCalculationBonusSource(amount, damageType);
 			}
 		}
-		foreach (AbilityController ability in abilities) {
+		foreach (Ability ability in abilities) {
 			amount += ability.DamageCalculationBonus(amount, damageType);
 		}
 		currentHP = Mathf.Max(currentHP - amount, 0);
@@ -259,12 +254,12 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// Ability Check
 		if (abilityCheck == false) yield break;
-		foreach (AbilityController ability in abilities) {
+		foreach (Ability ability in abilities) {
 			yield return StartCoroutine(ability.OnDamage(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (AbilityController ability in abilities) {
+			foreach (Ability ability in abilities) {
 				yield return StartCoroutine(ability.OnDamage(this, amount));
 			}
 		}
@@ -288,12 +283,12 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		AudioController.instance.Play("heal");
 
 		if (abilityCheck == false) yield break;
-		foreach (AbilityController ability in abilities) {
+		foreach (Ability ability in abilities) {
 			yield return StartCoroutine(ability.OnHeal(amount));
 		}
 		foreach (ChampionController champion in GameController.instance.champions) {
 			if (champion == this || champion.isDead) continue;
-			foreach (AbilityController ability in abilities) {
+			foreach (Ability ability in abilities) {
 				yield return StartCoroutine(ability.OnHeal(this, amount));
 			}
 		}
@@ -336,6 +331,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		// Returning the Spawned Champion
 		return championController;
 	}
+	
+	#region Death Functions
 	/// <summary>
 	/// Checks if this ChampionController is dead.
 	/// </summary>
@@ -360,6 +357,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
+	#endregion
 	
 	/// <summary>
 	/// Resets this ChampionController's exhaustion.
@@ -438,7 +436,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			if (!champion.isAttacking || !champion.isPlayer || isDead) continue;
 			
 			bool canBeTargeted = true;
-			foreach (AbilityController ability in abilities) {
+			foreach (Ability ability in abilities) {
 				canBeTargeted = ability.CanBeTargetedByAttack();
 			}
 			if (!canBeTargeted) return;

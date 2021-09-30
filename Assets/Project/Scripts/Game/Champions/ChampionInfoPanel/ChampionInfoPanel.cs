@@ -47,7 +47,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 		championWeaponStatsText.text = champion.attackDamage + " " + champion.attackDamageType + " Damage";
 		championAvatar.sprite = champion.avatar;
 
-		foreach (Ability ability in champion.abilities) {
+		foreach (AbilityScriptableObject ability in champion.abilities) {
 			ChampionAbilityOverviewEntry abilityOverviewEntry = Instantiate(championAbilityOverviewEntryPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionAbilityOverviewEntry>();
 			abilityOverviewEntry.transform.SetParent(abilityOverview.transform, false);
 			

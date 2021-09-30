@@ -126,7 +126,7 @@ public abstract class GameController : MonoBehaviour {
 
 		// Beginning Phase Ability Check
 		foreach (ChampionController selectedChampion in champions) {
-			foreach (AbilityController ability in selectedChampion.abilities) {
+			foreach (Ability ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
@@ -157,7 +157,7 @@ public abstract class GameController : MonoBehaviour {
 
 		// Action Phase Ability Check
 		foreach (ChampionController selectedChampion in champions) {
-			foreach (AbilityController ability in selectedChampion.abilities) {
+			foreach (Ability ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnActionPhase());
 			}
 		}
@@ -219,7 +219,7 @@ public abstract class GameController : MonoBehaviour {
 
 		// End Phase Ability Check
 		foreach (ChampionController selectedChampion in champions) {
-			foreach (AbilityController ability in selectedChampion.abilities) {
+			foreach (Ability ability in selectedChampion.abilities) {
 				yield return StartCoroutine(ability.OnEndPhase());
 			}
 		}

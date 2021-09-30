@@ -341,11 +341,11 @@ public class TutorialCardLogicController : CardLogicController {
 
 		// CombatCalculation Ability heck
 		if (abilityCheck) {
-			foreach (AbilityController ability in attacker.abilities) {
+			foreach (Ability ability in attacker.abilities) {
 				yield return StartCoroutine(ability.OnCombatCalculationAttacker(attacker.attackingCard, defender.defendingCard));
 			}
 
-			foreach (AbilityController ability in defender.abilities) {
+			foreach (Ability ability in defender.abilities) {
 				yield return StartCoroutine(ability.OnCombatCalculationDefender(attacker.attackingCard, defender.defendingCard));
 			}
 		}
@@ -361,10 +361,10 @@ public class TutorialCardLogicController : CardLogicController {
 
 		// Calculating Combat Result
 		if (attacker.attackingCard.CombatValue > defender.defendingCard.CombatValue) {
-			foreach (AbilityController ability in attacker.abilities) {
+			foreach (Ability ability in attacker.abilities) {
 				yield return StartCoroutine(ability.OnAttackSuccess(attacker.attackingCard, defender.defendingCard));
 			}
-			foreach (AbilityController ability in defender.abilities) {
+			foreach (Ability ability in defender.abilities) {
 				yield return StartCoroutine(ability.OnDefenseFailure(attacker.attackingCard, defender.defendingCard));
 			}
 			
@@ -374,10 +374,10 @@ public class TutorialCardLogicController : CardLogicController {
 			defender.matchStatistic.failedDefends++;
 		}
 		else if (attacker.attackingCard.CombatValue < defender.defendingCard.CombatValue) {
-			foreach (AbilityController ability in attacker.abilities) {
+			foreach (Ability ability in attacker.abilities) {
 				yield return StartCoroutine(ability.OnAttackFailure(attacker.attackingCard, defender.defendingCard));
 			}
-			foreach (AbilityController ability in defender.abilities) {
+			foreach (Ability ability in defender.abilities) {
 				yield return StartCoroutine(ability.OnDefenseSuccess(attacker.attackingCard, defender.defendingCard));
 			}
 			
@@ -476,7 +476,7 @@ public class TutorialCardLogicController : CardLogicController {
 						if (targetChampion.isDead) continue;
 						
 						bool skipThisChampion = false;
-						foreach (AbilityController ability in targetChampion.abilities) {
+						foreach (Ability ability in targetChampion.abilities) {
 							if (targetChampion == champion) {
 								skipThisChampion = true;
 								break;
