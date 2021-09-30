@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 using TMPro;
 
 public class TutorialGameController : GameController {
-	public static new TutorialGameController instance;
+	public new static TutorialGameController instance;
 
 	[HideInInspector]
 	public int tutorialProgress;
 
 	public List<DialogueSession> dialogueSessions = new List<DialogueSession>();
+	[SerializeField]
+	private DialogueSession tutorialWinDialogue, tutorialLoseDialogue;
 	public Queue<DialogueSession> dialogueSessionsQueue = new Queue<DialogueSession>();
 
 	public List<CardScriptableObject> playerStartingHand = new List<CardScriptableObject>();
@@ -32,7 +33,7 @@ public class TutorialGameController : GameController {
 	}
 	protected override void Start() {
 		base.Start();
-		
+
 		foreach (DialogueSession dialogueSession in dialogueSessions) {
 			dialogueSessionsQueue.Enqueue(dialogueSession);
 		}
@@ -140,18 +141,53 @@ public class TutorialGameController : GameController {
 	}
 	protected override IEnumerator GameEndAction(ChampionController victoriousChampion) {
 		TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
-		TMP_Text gameEndTextTeam = gameEndAreaTeam.transform.GetChild(0).GetComponent<TMP_Text>();
 		Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
-		GameObject winnerAvatars = gameEndAreaTeam.transform.GetChild(1).gameObject;
 		GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
-		GameObject rewardPanelTeam = gameEndAreaTeam.transform.GetChild(2).gameObject;
 		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
 		float cachedVolume = musicSource.volume;
 
-		yield break;
+		bool isDialogueDone = false;
+		DialogueSystem.Create(StatisticManager.instance.winState ? tutorialWinDialogue : tutorialLoseDialogue, new Vector2(0, -270), () => isDialogueDone = true).transform.SetParent(gameArea.transform, false);
+
+		yield return new WaitUntil(() => isDialogueDone);
+
+		gameEndArea.SetActive(true);
+
+		gameEndText.text = victoriousChampion.championName + " wins!";
+		winnerAvatar.sprite = victoriousChampion.avatar;
+		rewardPanel.transform.localPosition = new Vector2(-1920, 0);
+
+		while (musicSource.volume > 0.5f * cachedVolume) {
+			musicSource.volume -= 0.5f * cachedVolume / 180;
+			yield return null;
+		}
+		yield return new WaitForSeconds(3f);
+
+		LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
+		LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
+			StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
+		});
 	}
 	public override IEnumerator GameEndCheck() {
 		List<ChampionController> aliveChampions = new List<ChampionController>();
-		yield break;
+		foreach (ChampionController champion in champions) {
+			if (champion.isDead || champion.currentOwner != null) continue;
+			aliveChampions.Add(champion);
+		}
+
+		if (aliveChampions.Count == 1) {
+			foreach (ChampionController champion in champions) {
+				champion.championParticleController.OrangeGlow.Stop();
+				champion.championParticleController.CyanGlow.Stop();
+				champion.championParticleController.RedGlow.Stop();
+
+				champion.championParticleController.OrangeGlow.Clear();
+				champion.championParticleController.CyanGlow.Clear();
+				champion.championParticleController.RedGlow.Clear();
+			}
+			yield return new WaitForSeconds(3f);
+			
+			GameEnd(aliveChampions[0]);
+		}
 	}
 }

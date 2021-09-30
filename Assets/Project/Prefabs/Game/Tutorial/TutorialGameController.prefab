@@ -95,6 +95,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a30cbacd9ab30f70a1c66f1ffca6a2d, type: 2}
   - {fileID: 11400000, guid: 831139a18222a3ab4a2f73ecf2c14fa6, type: 2}
   - {fileID: 11400000, guid: a616b09a7ce44ff47ba442873b5d66aa, type: 2}
+  tutorialWinDialogue: {fileID: 11400000, guid: 5bf77021ae2266d4ba04e67a9c1a4b90,
+    type: 2}
+  tutorialLoseDialogue: {fileID: 11400000, guid: 6608d40c4d2ad9e4da5a5da6d07a1c3d,
+    type: 2}
   playerStartingHand:
   - {fileID: 11400000, guid: 2b830335cd2179a44a4e75c024ace632, type: 2}
   - {fileID: 11400000, guid: 4ea8f89519f83e443a5f56fb7f3f7e38, type: 2}

@@ -379,17 +379,13 @@ public abstract class GameController : MonoBehaviour {
 	/// Fades away scene and returns the game to the main menu.
 	/// </summary>
 	public void ReturnToMainMenu() {
-		CanvasGroup gameAreaCanvasGroup = gameArea.GetComponent<CanvasGroup>();
-		CanvasGroup gameEndAreaCanvasGroup = gameEndArea.GetComponent<CanvasGroup>();
-		CanvasGroup gameEndAreaTeamCanvasGroup = gameEndAreaTeam.GetComponent<CanvasGroup>();
-
-		LeanTween.alphaCanvas(gameAreaCanvasGroup, 0f, 1f);
-		LeanTween.alphaCanvas(gameEndAreaCanvasGroup, 0f, 1f).setOnComplete(() => {
+		LeanTween.alphaCanvas(gameArea.GetComponent<CanvasGroup>(), 0f, 1f);
+		LeanTween.alphaCanvas(gameEndArea.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
 			Destroy(StatisticManager.instance);
 			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
 			SceneManager.LoadScene("MainMenu");
 		});
-		LeanTween.alphaCanvas(gameEndAreaTeamCanvasGroup, 0f, 1f);
+		LeanTween.alphaCanvas(gameEndAreaTeam.GetComponent<CanvasGroup>(), 0f, 1f);
 	}
 
 	// Spawn Methods

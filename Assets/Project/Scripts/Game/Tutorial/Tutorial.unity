@@ -312,75 +312,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107044710}
   m_CullTransparentMesh: 1
---- !u!1001 &107506405
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267213, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170963627410267215, guid: 15bfe0728318e524981aafefb447cf2d,
-        type: 3}
-      propertyPath: m_Name
-      value: SandboxStatisticManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 15bfe0728318e524981aafefb447cf2d, type: 3}
 --- !u!1 &108140879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,7 +3958,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1802135017}
         m_TargetAssemblyTypeName: GameController, LandOfHeroesGame
         m_MethodName: ReturnToMainMenu
         m_Mode: 1
@@ -4447,6 +4378,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f199183ee7d25048a01e0ddf5cb58e4, type: 3}
+--- !u!4 &2170963627517769384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2170963627517769386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2170963627517769386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2170963627517769384}
+  - component: {fileID: 2170963627517769387}
+  m_Layer: 0
+  m_Name: TutorialStatisticManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2170963627517769387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2170963627517769386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301e776a836e4f03aac81cd2f94e0c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matchStatistics: []
+  winState: 0
+  playerChampionStatistic:
+    champion: {fileID: 0}
+    totalAttacks: 0
+    successfulAttacks: 0
+    failedAttacks: 0
+    totalDefends: 0
+    successfulDefends: 0
+    failedDefends: 0
+    totalDamageDealt: 0
+    totalDamageReceived: 0
+    totalAmountHealed: 0
+    totalCardsDealt: 0
+    totalCardsDiscarded: 0
+    remainingHP: 0
+    killCount: 0
+    damageHistories: []
 --- !u!114 &2711563369147749014 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9104092516793106897, guid: 8aa2ccc00f9460c44af0ef90aff6d09b,
