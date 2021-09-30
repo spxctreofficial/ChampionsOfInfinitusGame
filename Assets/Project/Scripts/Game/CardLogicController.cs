@@ -77,12 +77,12 @@ public abstract class CardLogicController : MonoBehaviour {
 									yield break;
 								}
 								if (player.attackingCard is {}) {
-									player.attackingCard.halo.Stop();
-									player.attackingCard.halo.Clear();
+									player.attackingCard.redGlow.Stop();
+									player.attackingCard.redGlow.Clear();
 								}
 								player.attackingCard = card;
-								card.halo.Stop();
-								card.halo.Play();
+								card.redGlow.Stop();
+								card.redGlow.Play();
 								GameController.instance.gambleButton.Hide();
 
 								if (player.currentTarget is {}) {
@@ -486,16 +486,17 @@ public abstract class CardLogicController : MonoBehaviour {
 				// Player Spade Logic
 
 				GameController.instance.endTurnButton.gameObject.SetActive(false);
+				GameController.instance.attackCancelButton.Show();
 				GameController.instance.gambleButton.Show();
+				
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
 					if (selectedChampion.isDead || selectedChampion.team.Contains(champion.team)) continue;
 					selectedChampion.championParticleController.PlayEffect(selectedChampion.championParticleController.GreenGlow);
 				}
-				card.redGlow.Stop();
-				card.redGlow.Play();
+				card.halo.Stop();
+				card.halo.Play();
 				champion.isAttacking = true;
 				champion.hand.queued.Enqueue(card);
-				GameController.instance.attackCancelButton.Show();
 				break;
 			case false:
 				// Bot Spade Logic

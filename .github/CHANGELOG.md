@@ -2,6 +2,16 @@
 
 This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
+## v0.2.1 Beta
+
+v0.2.1 is an incremental update to v0.2, adding some quality-of-life changes and additions and introducing bug fixes that addresses previous issues.
+
+- Changes & Fixes:
+	- AbilityController has been refactored and renamed to Ability.
+	- Ability has been refactored and renamed to AbilityScriptableObject.
+	- The selected SPADE to start an attack now glows white.
+	- The selected combat card now glows red.
+
 ## v0.2 Beta
 
 - Additions:
