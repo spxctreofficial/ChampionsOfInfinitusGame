@@ -14,7 +14,8 @@ v0.2.1 is an incremental update to v0.2, adding some quality-of-life changes and
 	- The UI has received some graphical improvements:
 		- The NotificationDialog, ConfirmDialog, and DialogueSystem's color scheme has been darkened.
 		- The NotificationDialog, ConfirmDialog, and DialogueSystem's font has been updated to Inter (the Unity Editor font) from Roboto and Futura Sans.
-		- The PlayerActionTooltip and PhaseIndicator text elements have their fonts updated to Inter.
+		- The PlayerActionTooltip and PhaseIndicator text elements have had their fonts updated to Inter.
+		- The Main Menu text elements have had their fonts updated to Inter.
 		- The pitch black background of the Main Menu has been changed in favor for a dark gradient background.
 
 ## v0.2 Beta
