@@ -12,6 +12,7 @@ v0.2.1 is an incremental update to v0.2, adding some quality-of-life changes and
 	- The selected SPADE to start an attack now glows white.
 	- The selected combat card now glows red.
 	- The UI has received some graphical improvements:
+		- All UI elements using UISprite has been replaced with a new custom sprite with rounded corners.
 		- The NotificationDialog, ConfirmDialog, and DialogueSystem's color scheme has been darkened.
 		- The NotificationDialog, ConfirmDialog, and DialogueSystem's font has been updated to Inter (the Unity Editor font) from Roboto and Futura Sans.
 		- The PlayerActionTooltip and PhaseIndicator text elements have had their fonts updated to Inter.
