@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 32767
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 99136e5d1f2b99f43bc2bffe14bfafe1, type: 2}
-  m_sharedMaterial: {fileID: -6579732335898238143, guid: 99136e5d1f2b99f43bc2bffe14bfafe1,
+  m_fontAsset: {fileID: 11400000, guid: 05aea31e819c37244948db3ff69f57e6, type: 2}
+  m_sharedMaterial: {fileID: 743194807144356038, guid: 05aea31e819c37244948db3ff69f57e6,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -2
+  m_characterSpacing: -5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.5019608}
+  m_Color: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -469,7 +469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ecfd5b665d6041831b32103ec676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!1 &9035805131694634719
 GameObject:
   m_ObjectHideFlags: 0
