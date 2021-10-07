@@ -900,11 +900,11 @@ public abstract class CardLogicController : MonoBehaviour {
 				yield return StartCoroutine(champion.hand.Deal(1, false, true, false));
 				break;
 			case 9:
-				switch (champion.isPlayer) {
-					case false:
-						if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) break;
-						break;
-				}
+				// switch (champion.isPlayer) {
+				// 	case false:
+				// 		if (champion.currentHP >= 0.8f * champion.maxHP && (champion.currentHP == champion.maxHP || Random.Range(0f, 1f) < 0.75f)) yield break;
+				// 		break;
+				// }
 				champion.diamondsBeforeExhaustion--;
 				yield return StartCoroutine(champion.hand.Discard(card));
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
