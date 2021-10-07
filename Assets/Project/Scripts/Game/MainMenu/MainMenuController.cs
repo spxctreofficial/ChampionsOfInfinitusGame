@@ -77,7 +77,7 @@ public class MainMenuController : MonoBehaviour {
 	public void QuitGame() {
 		if (!DataManager.instance.firstRunGame) return;
 
-		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("QUIT", "Are you sure you want to quit the game?", () => {
+		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("QUIT", "\n\nAre you sure you want to quit the game?\n\n\n", () => {
 			ConfirmDialog.instance.Hide();
 		}, () => {
 			DataManager.instance.Save();
