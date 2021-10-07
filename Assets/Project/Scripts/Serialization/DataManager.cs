@@ -62,33 +62,20 @@ public class DataManager : MonoBehaviour {
 		string defaultSaveJson = JsonUtility.ToJson(defaultSaveObject, true);
 		string firstRunSaveJson = JsonUtility.ToJson(firstRunSaveObject, true);
 		if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
-
-		if (File.Exists(saveFolder + "/save.lohsave")) {
-			FileAttributes defaultSaveAttributes = File.GetAttributes(saveFolder + "/save.lohsave");
-			FileAttributes firstRunSaveAttributes = File.GetAttributes(saveFolder + "/firstrun.lohsave");
-
-			if ((defaultSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) defaultSaveAttributes &= ~FileAttributes.Hidden;
-			if ((firstRunSaveAttributes & FileAttributes.Hidden) == FileAttributes.Hidden) firstRunSaveAttributes &= ~FileAttributes.Hidden;
-			
-			File.SetAttributes(saveFolder + "/save.lohsave", defaultSaveAttributes);
-			File.SetAttributes(saveFolder + "/firstrun.lohsave", firstRunSaveAttributes);
-		}
 		
-		File.WriteAllText(saveFolder + "/save.lohsave", defaultSaveJson);
-		File.WriteAllText(saveFolder + "/firstrun.lohsave", firstRunSaveJson);
-		
-		File.SetAttributes(saveFolder + "/save.lohsave", File.GetAttributes(saveFolder + "/save.lohsave") | FileAttributes.Hidden);
-		File.SetAttributes(saveFolder + "/firstrun.lohsave", File.GetAttributes(saveFolder + "/firstrun.lohsave") | FileAttributes.Hidden);
+		File.WriteAllText(saveFolder + "/save.coisave", defaultSaveJson);
+		File.WriteAllText(saveFolder + "/firstrun.coisave", firstRunSaveJson);
 	}
-	public void LoadDefaultSave() {
+
+	private void LoadDefaultSave() {
 		// Loads SaveObject
-		if (!File.Exists(saveFolder + "/save.lohsave")) {
+		if (!File.Exists(saveFolder + "/save.coisave")) {
 			// Fail-safe that auto-adds the Regime Soldier if the player does not have any champions.
 			ownedChampions.Add(championIndex.champions[0]);
 			return;
 		}
 
-		string defaultSavedJson = File.ReadAllText(saveFolder + "/save.lohsave");
+		string defaultSavedJson = File.ReadAllText(saveFolder + "/save.coisave");
 		
 		Debug.Log(defaultSavedJson);
 		DefaultSaveObject loadedDefaultSaveObject = JsonUtility.FromJson<DefaultSaveObject>(defaultSavedJson);
@@ -105,11 +92,12 @@ public class DataManager : MonoBehaviour {
 			ownedChampions.Add(championIndex.champions[0]);
 		}
 	}
-	public void LoadFirstRunSave() {
-		// Loads SaveObject
-		if (!File.Exists(saveFolder + "/firstrun.lohsave")) return;
 
-		string firstRunSavedJson = File.ReadAllText(saveFolder + "/firstrun.lohsave");
+	private void LoadFirstRunSave() {
+		// Loads SaveObject
+		if (!File.Exists(saveFolder + "/firstrun.coisave")) return;
+
+		string firstRunSavedJson = File.ReadAllText(saveFolder + "/firstrun.coisave");
 
 		Debug.Log(firstRunSavedJson);
 		FirstRunSaveObject loadedFirstRunSaveObject = JsonUtility.FromJson<FirstRunSaveObject>(firstRunSavedJson);
