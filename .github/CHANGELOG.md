@@ -1,6 +1,6 @@
-# Land of Heroes Official Changelog
+# Champions of Infinitus Official Changelog
 
-This is the official Land of Heroes Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
+This is the official Champions of Infinitus Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
 ## v0.2.1 Beta
 
