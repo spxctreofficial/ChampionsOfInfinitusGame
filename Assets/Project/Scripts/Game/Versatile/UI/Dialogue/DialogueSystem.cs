@@ -35,10 +35,11 @@ public class DialogueSystem : MonoBehaviour {
 		dialogueSystem.endOfConversationAnimation = endOfConversationAnimation;
 		Debug.Log(dialogueSystem.endOfConversationAction);
 
-		if (startOfConversationAnimation)
-			LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.5f).setEaseInOutQuad();
+		if (startOfConversationAnimation) 
+			LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.75f).setEaseInOutQuart();
 		else
 			dialogueSystem.GetComponent<RectTransform>().localPosition = vector2;
+
 		dialogueSystem.LoadNextSentence();
 		return dialogueSystem;
 	}
@@ -61,7 +62,7 @@ public class DialogueSystem : MonoBehaviour {
 			Vector2 bottomOfScreen = new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2);
 
 			if (endOfConversationAnimation) {
-				LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2), 0.5f).setEaseInOutQuad().setOnComplete(() => {
+				LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2), 0.75f).setEaseInOutQuart().setOnComplete(() => {
 					if (endOfConversationAction is {}) endOfConversationAction.Invoke();
 					Destroy(gameObject, 1f);
 				});

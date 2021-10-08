@@ -18,6 +18,7 @@ v0.2.1 is an incremental update to v0.2, adding some quality-of-life changes and
 		- The PlayerActionTooltip and PhaseIndicator text elements have had their fonts updated to Inter.
 		- The Main Menu text elements have had their fonts updated to Inter.
 		- The pitch black background of the Main Menu has been changed in favor for a dark gradient background.
+		- Many UI animations (namely SmartHover, Shop Panel transition, DialogueSystem tween-in) now uses `SetEaseOutQuart`, which makes the animation snappier and smoother.
 	- The save file format has been changed from `.lohsave` to `.coisave`.
 
 ## v0.2 Beta

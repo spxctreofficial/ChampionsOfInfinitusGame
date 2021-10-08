@@ -9,7 +9,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	
 	public void OnPointerEnter(PointerEventData eventData) {
 		AudioController.instance.Play("uiselect");
-		scaleUpID = LeanTween.scale(GetComponent<RectTransform>(), animatedScale, 0.3f).setEaseInOutQuad().uniqueId;
+		scaleUpID = LeanTween.scale(GetComponent<RectTransform>(), animatedScale, 0.3f).setEaseOutQuart().uniqueId;
 		LeanTween.cancel(scaleDownID);
 	}
 	public void OnPointerExit(PointerEventData eventData) {
@@ -17,7 +17,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	}
 
 	public void ScaleDown() {
-		scaleDownID = LeanTween.scale(GetComponent<RectTransform>(), defaultScale, 0.3f).setEaseInOutQuad().uniqueId;
+		scaleDownID = LeanTween.scale(GetComponent<RectTransform>(), defaultScale, 0.3f).setEaseOutQuart().uniqueId;
 		LeanTween.cancel(scaleUpID);
 	}
 }

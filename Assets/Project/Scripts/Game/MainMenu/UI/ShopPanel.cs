@@ -13,8 +13,8 @@ public class ShopPanel : MonoBehaviour {
 	
 	public void Show() {
 		if (!DataManager.instance.firstRunGame) return;
-		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), new Vector2(-1920, 0), 1f).setEaseInOutQuad();
-		LeanTween.move(GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseInOutQuad().setOnComplete(() => {
+		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), new Vector2(-1920, 0), 1f).setEaseInOutQuart();
+		LeanTween.move(GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseInOutQuart().setOnComplete(() => {
 			if (!DataManager.instance.firstRunShop) DialogueSystem.Create(MainMenuController.instance.firstRunShopSession, new Vector2(0, -270), () => {
 				DataManager.instance.firstRunShop = true;
 				DataManager.instance.Save();
@@ -23,8 +23,8 @@ public class ShopPanel : MonoBehaviour {
 	}
 	public void Hide() {
 		if (!DataManager.instance.firstRunShop) return;
-		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseInOutQuad();
-		LeanTween.move(GetComponent<RectTransform>(), new Vector2(1920, 0), 1f).setEaseInOutQuad();
+		LeanTween.move(MainMenuController.instance.mainPanel.GetComponent<RectTransform>(), Vector2.zero, 1f).setEaseInOutQuart();
+		LeanTween.move(GetComponent<RectTransform>(), new Vector2(1920, 0), 1f).setEaseInOutQuart();
 	}
 
 	public void Setup() {

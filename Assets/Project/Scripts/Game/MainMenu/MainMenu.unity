@@ -3293,6 +3293,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tooltip Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8777298859305023021, guid: 559ea2d5315f5844d9738443a110fe69,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8777298859305023022, guid: 559ea2d5315f5844d9738443a110fe69,
         type: 3}
       propertyPath: m_Camera
