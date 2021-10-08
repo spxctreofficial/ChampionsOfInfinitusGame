@@ -99,13 +99,13 @@ public class ConfirmDialog : MonoBehaviour {
     /// </summary>
     public void Show() {
         transform.localScale = Vector2.zero;
-        LeanTween.scale(GetComponent<RectTransform>(), Vector2.one, 0.25f).setEaseInOutQuad();
+        LeanTween.scale(GetComponent<RectTransform>(), Vector2.one, 0.5f).setEaseInOutQuart();
     }
     /// <summary>
     /// Hides this Confirm Dialog.
     /// </summary>
     public void Hide() {
-        LeanTween.scale(GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad().setDestroyOnComplete(true);
+        LeanTween.scale(GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuart().setDestroyOnComplete(true);
         if (this == instance) instance = null;
     }
 }
