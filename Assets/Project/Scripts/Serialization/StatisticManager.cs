@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.UI;
+
 public abstract class StatisticManager : MonoBehaviour {
 	public static StatisticManager instance;
 	public List<MatchStatistic> matchStatistics = new List<MatchStatistic>();
@@ -33,7 +35,7 @@ public abstract class StatisticManager : MonoBehaviour {
 		champion.matchStatistic.remainingHP = champion.currentHP;
 	}
 
-	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
+	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
 		void Untween() {
 			LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
 			LeanTween.scale(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad();
@@ -48,7 +50,8 @@ public abstract class StatisticManager : MonoBehaviour {
 		int killCountBonus = instance.playerChampionStatistic.killCount * 100;
 		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
 		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
-		int totalHealthRemainingBonus = instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
+		float totalHealthRemainingBonus = (float)instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
+		Debug.Log((int)totalHealthRemainingBonus);
 		switch (GameController.instance.difficulty) {
 			case GameController.Difficulty.Noob:
 				initialGoldReward /= 5;
@@ -119,12 +122,12 @@ public abstract class StatisticManager : MonoBehaviour {
 		goldReward += killCountBonus;
 		goldReward += totalDamageDealtBonus;
 		goldReward += totalDamageReceivedCompensation;
-		goldReward += totalHealthRemainingBonus;
+		goldReward += (int)totalHealthRemainingBonus;
 
 		DataManager.instance.goldAmount += goldReward;
 		DataManager.instance.Save();
 		AudioController.instance.Play("tutorial0" + Random.Range(1, 4));
 
-		bonusRewardLog.transform.parent.GetChild(2).gameObject.SetActive(true);
+		collectButton.SetActive(true);
 	}
 }

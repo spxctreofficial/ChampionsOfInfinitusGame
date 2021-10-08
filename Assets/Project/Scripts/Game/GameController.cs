@@ -26,7 +26,8 @@ public abstract class GameController : MonoBehaviour {
 	// Panels References
 	[Header("Panels")]
 	public GameObject gameArea;
-	public GameObject gameEndArea, gameEndAreaTeam;
+
+	public GameEndPanel gameEndPanel;
 	public GameObject discardArea;
 	public Hand playerHand;
 	public List<ChampionSlot> slots = new List<ChampionSlot>();
@@ -320,7 +321,6 @@ public abstract class GameController : MonoBehaviour {
 			yield return new WaitForSeconds(3f);
 			GameEnd(aliveChampions[0]);
 		}
-		yield break;
 	}
 	/// <summary>
 	/// Sets the champion of the next turn to the next champion in the list.
@@ -380,12 +380,11 @@ public abstract class GameController : MonoBehaviour {
 	/// </summary>
 	public void ReturnToMainMenu() {
 		LeanTween.alphaCanvas(gameArea.GetComponent<CanvasGroup>(), 0f, 1f);
-		LeanTween.alphaCanvas(gameEndArea.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
+		LeanTween.alphaCanvas(gameEndPanel.GetComponent<CanvasGroup>(), 0f, 1f).setEaseOutQuart().setOnComplete(() => {
 			Destroy(StatisticManager.instance);
 			AudioController.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
 			SceneManager.LoadScene("MainMenu");
 		});
-		LeanTween.alphaCanvas(gameEndAreaTeam.GetComponent<CanvasGroup>(), 0f, 1f);
 	}
 
 	// Spawn Methods

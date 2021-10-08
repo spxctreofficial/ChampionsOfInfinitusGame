@@ -194,58 +194,42 @@ public class SandboxGameController : GameController {
 		yield break;
 	}
 	protected override IEnumerator GameEndAction(ChampionController victoriousChampion) {
-		TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
-		TMP_Text gameEndTextTeam = gameEndAreaTeam.transform.GetChild(0).GetComponent<TMP_Text>();
-		Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
-		GameObject winnerAvatars = gameEndAreaTeam.transform.GetChild(1).gameObject;
-		GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
-		GameObject rewardPanelTeam = gameEndAreaTeam.transform.GetChild(2).gameObject;
 		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
 		float cachedVolume = musicSource.volume;
+		
+		gameEndPanel.gameObject.SetActive(true);
 
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
-				gameEndAreaTeam.SetActive(true);
-
-				gameEndTextTeam.text = victoriousChampion.championName + "'s Team wins!";
-				foreach (ChampionController champion in champions) {
-					if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
-					Image newWinnerAvatar = Instantiate(winnerAvatar, Vector2.zero, Quaternion.identity).GetComponent<Image>();
-					newWinnerAvatar.sprite = champion.avatar;
-					newWinnerAvatar.transform.SetParent(winnerAvatars.transform, false);
-				}
-				rewardPanelTeam.transform.localPosition = new Vector2(-1920, 0);
-
-				while (musicSource.volume > 0.5f * cachedVolume) {
-					musicSource.volume -= 0.5f * cachedVolume / 180;
-					yield return null;
-				}
-				yield return new WaitForSeconds(3f);
-
-				LeanTween.move(winnerAvatars.GetComponent<RectTransform>(), new Vector2(1920, 0), 0.5f).setEaseInOutQuad();
-				LeanTween.move(rewardPanelTeam.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
-					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanelTeam.transform.GetChild(0).GetComponent<TMP_Text>()));
-				});
+				gameEndPanel.winText.text = victoriousChampion.championName + "'s Team wins!";
 				break;
 			case Gamemodes.FFA:
-				gameEndArea.SetActive(true);
-
-				gameEndText.text = victoriousChampion.championName + " wins!";
-				winnerAvatar.sprite = victoriousChampion.avatar;
-				rewardPanel.transform.localPosition = new Vector2(-1920, 0);
-
-				while (musicSource.volume > 0.5f * cachedVolume) {
-					musicSource.volume -= 0.5f * cachedVolume / 180;
-					yield return null;
-				}
-				yield return new WaitForSeconds(3f);
-
-				LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
-				LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
-					StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
-				});
+				gameEndPanel.winText.text = victoriousChampion.championName + " wins!";
 				break;
 		}
+		
+		foreach (ChampionController champion in champions) {
+			if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
+					
+			Image newWinnerAvatar = Instantiate(gameEndPanel.winnerAvatar, Vector2.zero, Quaternion.identity);
+			newWinnerAvatar.gameObject.SetActive(true);
+			newWinnerAvatar.sprite = champion.avatar;
+			newWinnerAvatar.transform.SetParent(gameEndPanel.winnerAvatars.transform, false);
+		}
+
+		gameEndPanel.rewardPanel.GetComponent<RectTransform>().localPosition = new Vector2(-1920, 0);
+
+		while (musicSource.volume > 0.5f * cachedVolume) {
+			musicSource.volume -= 0.5f * cachedVolume / 180;
+			yield return null;
+		}
+				
+		yield return new WaitForSeconds(3f);
+
+		LeanTween.move(gameEndPanel.winnerAvatars.GetComponent<RectTransform>(), new Vector2(1920, 0), 0.75f).setEaseInOutQuart();
+		LeanTween.move(gameEndPanel.rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.75f).setEaseInOutQuart().setOnComplete(() => {
+			StartCoroutine(StatisticManager.instance.RewardCalculation(gameEndPanel.rewardText, gameEndPanel.collectButton.gameObject));
+		});
 	}
 	public override IEnumerator GameEndCheck() {
 		List<ChampionController> aliveChampions = new List<ChampionController>();

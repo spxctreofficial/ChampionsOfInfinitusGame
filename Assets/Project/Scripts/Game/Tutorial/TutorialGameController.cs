@@ -140,9 +140,6 @@ public class TutorialGameController : GameController {
 		yield break;
 	}
 	protected override IEnumerator GameEndAction(ChampionController victoriousChampion) {
-		TMP_Text gameEndText = gameEndArea.transform.GetChild(0).GetComponent<TMP_Text>();
-		Image winnerAvatar = gameEndArea.transform.GetChild(1).GetComponent<Image>();
-		GameObject rewardPanel = gameEndArea.transform.GetChild(2).gameObject;
 		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
 		float cachedVolume = musicSource.volume;
 
@@ -151,21 +148,31 @@ public class TutorialGameController : GameController {
 
 		yield return new WaitUntil(() => isDialogueDone);
 
-		gameEndArea.SetActive(true);
+		gameEndPanel.gameObject.SetActive(true);
 
-		gameEndText.text = victoriousChampion.championName + " wins!";
-		winnerAvatar.sprite = victoriousChampion.avatar;
-		rewardPanel.transform.localPosition = new Vector2(-1920, 0);
+		gameEndPanel.winText.text = victoriousChampion.championName + " wins!";
+
+		foreach (ChampionController champion in champions) {
+			if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
+					
+			Image newWinnerAvatar = Instantiate(gameEndPanel.winnerAvatar, Vector2.zero, Quaternion.identity);
+			newWinnerAvatar.gameObject.SetActive(true);
+			newWinnerAvatar.sprite = champion.avatar;
+			newWinnerAvatar.transform.SetParent(gameEndPanel.winnerAvatars.transform, false);
+		}
+
+		gameEndPanel.rewardPanel.GetComponent<RectTransform>().localPosition = new Vector2(-1920, 0);
 
 		while (musicSource.volume > 0.5f * cachedVolume) {
 			musicSource.volume -= 0.5f * cachedVolume / 180;
 			yield return null;
 		}
+				
 		yield return new WaitForSeconds(3f);
 
-		LeanTween.move(winnerAvatar.GetComponent<RectTransform>(), new Vector2(1200, 0), 0.5f).setEaseInOutQuad();
-		LeanTween.move(rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuad().setOnComplete(() => {
-			StartCoroutine(StatisticManager.instance.RewardCalculation(rewardPanel.transform.GetChild(0).GetComponent<TMP_Text>()));
+		LeanTween.move(gameEndPanel.winnerAvatars.GetComponent<RectTransform>(), new Vector2(1920, 0), 0.75f).setEaseInOutQuart();
+		LeanTween.move(gameEndPanel.rewardPanel.GetComponent<RectTransform>(), Vector2.zero, 0.75f).setEaseInOutQuart().setOnComplete(() => {
+			StartCoroutine(StatisticManager.instance.RewardCalculation(gameEndPanel.rewardText, gameEndPanel.collectButton.gameObject));
 		});
 	}
 	public override IEnumerator GameEndCheck() {

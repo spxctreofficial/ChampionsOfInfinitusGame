@@ -19,7 +19,7 @@ public class TutorialStatisticManager : StatisticManager {
 		}
 	}
 
-	public override IEnumerator RewardCalculation(TMP_Text bonusRewardLog) {
+	public override IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
 		Debug.Log(TutorialGameController.instance.gameArea);
 		initialGoldReward = !DataManager.instance.firstRunTutorial ? 2000 : 50;
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";
@@ -37,6 +37,6 @@ public class TutorialStatisticManager : StatisticManager {
 		DataManager.instance.Save();
 		AudioController.instance.Play("tutorial0" + Random.Range(1, 4));
 
-		bonusRewardLog.transform.parent.GetChild(2).gameObject.SetActive(true);
+		collectButton.SetActive(true);
 	}
 }

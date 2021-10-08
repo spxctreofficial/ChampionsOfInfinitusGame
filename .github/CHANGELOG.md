@@ -11,6 +11,11 @@ v0.2.1 is an incremental update to v0.2, adding some quality-of-life changes and
 	- Ability has been refactored and renamed to AbilityScriptableObject.
 	- The selected SPADE to start an attack now glows white.
 	- The selected combat card now glows red.
+	- The end-of-game behavior has seen a complete overhaul.
+		- Added a new prefab and script `GameEndPanel` that stores data and references relating to end-of-game behavior.
+		- Code used to reward players and handle game-over screens have been optimized and refined.
+		- No longer requires `transform.GetComponent<T>` calls to reference certain GameObjects in the scene, reducing complexity and increasing performance.
+		- Fixed `totalHealthRemainingBonus` from not working by casting a division calculation to `float`.
 	- The UI has received some graphical improvements:
 		- All UI elements using UISprite has been replaced with a new custom sprite with rounded corners.
 		- The NotificationDialog, ConfirmDialog, and DialogueSystem's color scheme has been darkened.
