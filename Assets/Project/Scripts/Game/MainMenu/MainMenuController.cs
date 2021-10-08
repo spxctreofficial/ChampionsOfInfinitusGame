@@ -61,13 +61,13 @@ public class MainMenuController : MonoBehaviour {
 	/// </summary>
 	public void LoadSandbox() {
 		if (!DataManager.instance.firstRunGame) return;
-		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
+		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setEaseOutQuart().setOnComplete(() => {
 			SceneManager.LoadScene("Sandbox");
 		});
 	}
 	public void LoadTutorial() {
 		if (!DataManager.instance.firstRunGame) return;
-		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setOnComplete(() => {
+		LeanTween.alphaCanvas(mainPanel.GetComponent<CanvasGroup>(), 0f, 1f).setEaseOutQuart().setOnComplete(() => {
 			SceneManager.LoadScene("Tutorial");
 		});
 	}
