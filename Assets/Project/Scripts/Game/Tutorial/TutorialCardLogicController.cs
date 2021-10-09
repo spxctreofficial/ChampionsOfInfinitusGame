@@ -299,7 +299,7 @@ public class TutorialCardLogicController : CardLogicController {
 				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
 				if (GameController.instance.gambleButton.isBlocking) {
 					attacker.attackingCard.Flip(true);
-					attacker.attackingCard.caption.text = "Gambled by " + attacker.championName;
+					attacker.attackingCard.caption.text = "Gambled by " + attacker.champion.championName;
 				}
 				break;
 			case false:
@@ -311,7 +311,7 @@ public class TutorialCardLogicController : CardLogicController {
 		// Wait for or get the defending card.
 		switch (defender.isPlayer) {
 			case true:
-				GameController.instance.playerActionTooltip.text = attacker.championName + " is attacking the " + defender.championName + ". Defend with a card.";
+				GameController.instance.playerActionTooltip.text = attacker.champion.championName + " is attacking the " + defender.champion.championName + ". Defend with a card.";
 				GameController.instance.gambleButton.Show();
 				yield return new WaitUntil(() => defender.defendingCard != null);
 				GameController.instance.gambleButton.Hide();
@@ -322,7 +322,7 @@ public class TutorialCardLogicController : CardLogicController {
 				if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) {
 					defender.defendingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 					defender.defendingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
-					defender.defendingCard.caption.text = "Gambled by " + defender.championName;
+					defender.defendingCard.caption.text = "Gambled by " + defender.champion.championName;
 				}
 				break;
 		}
@@ -391,8 +391,8 @@ public class TutorialCardLogicController : CardLogicController {
 			AudioController.instance.Play("swordimpact_fail");
 			CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
 		}
-		Debug.Log(attacker.championName + attacker.currentHP);
-		Debug.Log(defender.championName + defender.currentHP);
+		Debug.Log(attacker.champion.championName + attacker.currentHP);
+		Debug.Log(defender.champion.championName + defender.currentHP);
 
 		yield return new WaitForSeconds(2.5f);
 
@@ -458,17 +458,17 @@ public class TutorialCardLogicController : CardLogicController {
 
 				if (card.cardScriptableObject.cardValue > 10 && Random.Range(0f, 1f) < 0.75f) {
 					// Coherence for using a high spade.
-					Debug.Log(champion.championName + " refuses to use a SPADE worth: " + card.cardScriptableObject.cardValue);
+					Debug.Log(champion.champion.championName + " refuses to use a SPADE worth: " + card.cardScriptableObject.cardValue);
 					yield break;
 				}
 				if (tries > 3) {
-					Debug.Log(champion.championName + "already tried more than 3 times!");
+					Debug.Log(champion.champion.championName + "already tried more than 3 times!");
 					yield break;
 				}
 
 				// Targeting Champion
 				if (Random.Range(0f, 1f) < 0.75f && champion.currentNemesis is { isDead: false }) {
-					Debug.Log(champion.championName + " is furious! Targeting their nemesis immediately.");
+					Debug.Log(champion.champion.championName + " is furious! Targeting their nemesis immediately.");
 					champion.currentTarget = champion.currentNemesis;
 				}
 				else {
@@ -505,7 +505,7 @@ public class TutorialCardLogicController : CardLogicController {
 					}
 				}
 				if (champion.currentTarget is null) {
-					Debug.Log(champion.championName + " decides not to attack!");
+					Debug.Log(champion.champion.championName + " decides not to attack!");
 					champion.spadesBeforeExhaustion--;
 					break;
 				}
@@ -521,7 +521,7 @@ public class TutorialCardLogicController : CardLogicController {
 						case GameController.Difficulty.Champion:
 							champion.attackingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 							champion.attackingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
-							champion.attackingCard.caption.text = "Gambled by " + champion.championName;
+							champion.attackingCard.caption.text = "Gambled by " + champion.champion.championName;
 							gambled = true;
 							break;
 					}
@@ -533,7 +533,7 @@ public class TutorialCardLogicController : CardLogicController {
 						if ((champion.attackingCard.CombatValue <= card.CombatValue ||
 						     champion.attackingCard.CombatValue <= 9)
 						    && !gambled) {
-							Debug.Log(champion.championName + " does not want to attack with the current configuration!");
+							Debug.Log(champion.champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
 							champion.currentTarget = null;
 							yield break;
@@ -545,7 +545,7 @@ public class TutorialCardLogicController : CardLogicController {
 						     champion.attackingCard.CombatValue <= 9 ||
 						     champion.hand.GetCardCount() <= 2 && Random.Range(0f, 1f) < f)
 						    && !gambled || (champion.currentTarget.isDead)) {
-							Debug.Log(champion.championName + " does not want to attack with the current configuration!");
+							Debug.Log(champion.champion.championName + " does not want to attack with the current configuration!");
 							champion.attackingCard = null;
 							champion.currentTarget = null;
 							yield break;
@@ -563,7 +563,7 @@ public class TutorialCardLogicController : CardLogicController {
 				champion.matchStatistic.totalAttacks++;
 
 				yield return new WaitForSeconds(Random.Range(0.25f, 1.5f));
-				Debug.Log(champion.championName + " is attacking " + champion.currentTarget.championName + " with a card with a value of " + champion.attackingCard.CombatValue);
+				Debug.Log(champion.champion.championName + " is attacking " + champion.currentTarget.champion.championName + " with a card with a value of " + champion.attackingCard.CombatValue);
 
 				yield return StartCoroutine(CombatCalculation(champion, champion.currentTarget));
 				break;
@@ -662,7 +662,7 @@ public class TutorialCardLogicController : CardLogicController {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.champion.championName + ".";
 
 					selectedChampion.discardAmount = 1;
 
@@ -724,7 +724,7 @@ public class TutorialCardLogicController : CardLogicController {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (teammate.currentHP - 20 <= 0) {
-									Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + teammate.championName + "!");
+									Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + teammate.champion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -739,7 +739,7 @@ public class TutorialCardLogicController : CardLogicController {
 										}
 									}
 									if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.8f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.25f) {
-										Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + teammate.championName + "!");
+										Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + teammate.champion.championName + "!");
 										jeopardized = true;
 									}
 								}
@@ -755,7 +755,7 @@ public class TutorialCardLogicController : CardLogicController {
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
 					if (selectedChampion.hand.GetCardCount() == 0) {
-						Debug.Log(selectedChampion.championName + " has no cards! Dealing damage automatically...");
+						Debug.Log(selectedChampion.champion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(20, DamageType.Unblockable, champion));
 						yield return new WaitForSeconds(2f);
 						continue;
@@ -778,7 +778,7 @@ public class TutorialCardLogicController : CardLogicController {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.champion.championName + ".";
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 
@@ -849,7 +849,7 @@ public class TutorialCardLogicController : CardLogicController {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (quickSelectChampion.currentHP - 20 <= 0) {
-									Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+									Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.champion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -864,7 +864,7 @@ public class TutorialCardLogicController : CardLogicController {
 										}
 									}
 									if (enemiesLeft <= enemiesJeopardized) {
-										Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+										Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.champion.championName + "!");
 										jeopardized = true;
 									}
 								}
@@ -897,7 +897,7 @@ public class TutorialCardLogicController : CardLogicController {
 								break;
 							case GameController.Difficulty.Warrior:
 								if (quickSelectChampion.currentHP - 40 <= 0) {
-									Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+									Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.champion.championName + "!");
 									jeopardized = true;
 								}
 								break;
@@ -912,7 +912,7 @@ public class TutorialCardLogicController : CardLogicController {
 										}
 									}
 									if (enemiesLeft <= enemiesJeopardized && Random.Range(0f, 1f) < 0.65f || enemiesJeopardized != 0 && Random.Range(0f, 1f) < 0.65f) {
-										Debug.Log(champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.championName + "!");
+										Debug.Log(champion.champion.championName + " does not want to jeopardize his teammate, " + quickSelectChampion.champion.championName + "!");
 										jeopardized = true;
 									}
 								}
@@ -928,7 +928,7 @@ public class TutorialCardLogicController : CardLogicController {
 				foreach (ChampionController selectedChampion in GameController.instance.champions) {
 					if (selectedChampion == champion || selectedChampion.isDead) continue;
 					if (selectedChampion.hand.GetCardCount() == 0) {
-						Debug.Log(selectedChampion.championName + " has no cards! Dealing damage automatically...");
+						Debug.Log(selectedChampion.champion.championName + " has no cards! Dealing damage automatically...");
 						yield return StartCoroutine(selectedChampion.Damage(40, DamageType.Fire, champion));
 						yield return new WaitForSeconds(2f);
 						continue;
@@ -951,7 +951,7 @@ public class TutorialCardLogicController : CardLogicController {
 						continue;
 					}
 
-					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.championName + ".";
+					GameController.instance.playerActionTooltip.text = "Waiting for " + selectedChampion.champion.championName + ".";
 
 					yield return new WaitForSeconds(Random.Range(0.2f, 2f));
 

@@ -175,7 +175,7 @@ public class SandboxGameController : GameController {
 			// Configuring & Setting Teams
 			switch (gamemodes) {
 				case Gamemodes.FFA:
-					championController.team = championController.championID + i;
+					championController.team = championController.champion.championID + i;
 					break;
 				case Gamemodes.Competitive2v2:
 					if (i < 2) {
@@ -201,10 +201,10 @@ public class SandboxGameController : GameController {
 
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
-				gameEndPanel.winText.text = victoriousChampion.championName + "'s Team wins!";
+				gameEndPanel.winText.text = victoriousChampion.champion.championName + "'s Team wins!";
 				break;
 			case Gamemodes.FFA:
-				gameEndPanel.winText.text = victoriousChampion.championName + " wins!";
+				gameEndPanel.winText.text = victoriousChampion.champion.championName + " wins!";
 				break;
 		}
 		
@@ -213,7 +213,7 @@ public class SandboxGameController : GameController {
 					
 			Image newWinnerAvatar = Instantiate(gameEndPanel.winnerAvatar, Vector2.zero, Quaternion.identity);
 			newWinnerAvatar.gameObject.SetActive(true);
-			newWinnerAvatar.sprite = champion.avatar;
+			newWinnerAvatar.sprite = champion.champion.avatar;
 			newWinnerAvatar.transform.SetParent(gameEndPanel.winnerAvatars.transform, false);
 		}
 

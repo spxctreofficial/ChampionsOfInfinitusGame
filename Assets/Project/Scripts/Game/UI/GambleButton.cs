@@ -41,7 +41,7 @@ public class GambleButton : MonoBehaviour {
 							player.defendingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 							player.defendingCard.Flip(true);
 							player.defendingCard.transform.SetParent(GameController.instance.discardArea.transform, false);
-							player.defendingCard.caption.text = "Gambled by " + player.championName;
+							player.defendingCard.caption.text = "Gambled by " + player.champion.championName;
 							player.hasDefended = true;
 							isBlocking = true;
 						}

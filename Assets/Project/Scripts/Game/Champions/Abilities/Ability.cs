@@ -222,15 +222,15 @@ public class Ability : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 
 		foreach (ChampionController selectedChampion in GameController.instance.champions) {
-			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.faction != champion.faction || selectedChampion.faction == Champion.Faction.Undefined) continue;
+			if (selectedChampion == champion || selectedChampion.isDead || selectedChampion.champion.faction != champion.champion.faction || selectedChampion.champion.faction == Champion.Faction.Undefined) continue;
 
 			yield return StartCoroutine(champion.hand.Deal(1));
-			Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + ". Dealing that champion a card!");
+			Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + ". Dealing that champion a card!");
 			AbilityFeedEntry.New(abilityScriptableObject, champion, 2f);
 		}
 	}
 	private IEnumerator QuickHeal(int amount) {
-		Debug.Log(abilityScriptableObject.abilityName + " activated for " + champion.championName + ", 50% chance to heal for double the amount!");
+		Debug.Log(abilityScriptableObject.abilityName + " activated for " + champion.champion.championName + ", 50% chance to heal for double the amount!");
 		if (Random.Range(0f, 1f) < 0.5f || champion.currentHP == champion.maxHP) yield break;
 
 		yield return new WaitForSeconds(0.5f);
@@ -256,7 +256,7 @@ public class Ability : MonoBehaviour {
 				return 0;
 		}
 
-		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + ". A 33% chance to negate the damage by half!" +
+		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + ". A 33% chance to negate the damage by half!" +
 		          "\n This chance is increased to 50% if the damage is fatal.");
 
 		float chance = champion.currentHP - amount <= 0 ? 0.5f : (float)1 / 3;
@@ -272,21 +272,21 @@ public class Ability : MonoBehaviour {
 		if (attackingCard.cardScriptableObject.cardValue < 10) yield break;
 
 		attackingCard.CombatValue--;
-		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.CombatValue);
+		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + " because another champion attacked with a J or higher. " + " That card's value is reduced by 1. It is now " + attackingCard.CombatValue);
 		AbilityFeedEntry.New(abilityScriptableObject, champion);
 	}
 	private IEnumerator Rejuvenation() {
 		if (!IsExclusive()) yield break;
 		if (Random.Range(0f, 1f) < 0.5f || champion.currentHP == champion.maxHP) yield break;
 
-		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + ". Healing for 5.");
+		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + ". Healing for 5.");
 		yield return StartCoroutine(champion.Heal(5, false));
 		AbilityFeedEntry.New(abilityScriptableObject, champion, 2f);
 	}
 	private IEnumerator Smite(int amount) {
 		if (!IsExclusive()) yield break;
 		
-		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + ".");
+		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + ".");
 		
 		ChampionController markedForSmite = GameController.instance.champions[Random.Range(0, GameController.instance.champions.Count)];
 		int tries = 0;
@@ -302,7 +302,7 @@ public class Ability : MonoBehaviour {
 		if (!IsExclusive()) yield break;
 		if (defendingCard.cardScriptableObject.cardValue < 10) yield break;
 
-		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.championName + ".");
+		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + champion.champion.championName + ".");
 
 		yield return StartCoroutine(champion.hand.Deal(1));
 		AbilityFeedEntry.New(abilityScriptableObject, champion, 2f);

@@ -82,16 +82,16 @@ public class TutorialGameController : GameController {
 
 		NextTurnCalculator();
 	}
-	protected override IEnumerator BeginningPhase(ChampionController champion) {
+	protected override IEnumerator BeginningPhase(ChampionController championController) {
 		switch (tutorialProgress) {
 			case 8:
 				gamePhase = GamePhase.BeginningPhase;
 
 				// Updates Text
-				phaseIndicator.text = "Beginning Phase - " + champion.championName;
-				champion.championParticleController.PlayEffect(champion.championParticleController.CyanGlow);
-				yield return StartCoroutine(champion.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 12)));
-				yield return StartCoroutine(champion.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 13)));
+				phaseIndicator.text = "Beginning Phase - " + championController.champion.championName;
+				championController.championParticleController.PlayEffect(championController.championParticleController.CyanGlow);
+				yield return StartCoroutine(championController.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 12)));
+				yield return StartCoroutine(championController.hand.Deal(CardIndex.FindCardInfo(CardSuit.DIAMOND, 13)));
 
 				// Beginning Phase Ability Check
 				foreach (ChampionController selectedChampion in champions) {
@@ -102,11 +102,11 @@ public class TutorialGameController : GameController {
 
 				yield return new WaitForSeconds(2f);
 
-				StartCoroutine(ActionPhase(champion));
+				StartCoroutine(ActionPhase(championController));
 				yield break;
 		}
 
-		StartCoroutine(base.BeginningPhase(champion));
+		StartCoroutine(base.BeginningPhase(championController));
 	}
 	// protected override IEnumerator ActionPhase(ChampionController champion) {
 	// 	switch (tutorialProgress) {
@@ -134,12 +134,12 @@ public class TutorialGameController : GameController {
 			ChampionSlot slot = players.IndexOf(champion) == 0 ? slots[players.IndexOf(champion)] : slots[2];
 
 			ChampionController championController = Spawn(champion, slot, players.IndexOf(champion) == 0, false);
-			championController.team = championController.championID + players.IndexOf(champion);
+			championController.team = championController.champion.championID + players.IndexOf(champion);
 		}
 
 		yield break;
 	}
-	protected override IEnumerator GameEndAction(ChampionController victoriousChampion) {
+	protected override IEnumerator GameEndAction(ChampionController victoriousChampionController) {
 		AudioSource musicSource = AudioController.instance.GetAudioSource(gameArea.GetComponent<AudioSource>().clip);
 		float cachedVolume = musicSource.volume;
 
@@ -150,14 +150,14 @@ public class TutorialGameController : GameController {
 
 		gameEndPanel.gameObject.SetActive(true);
 
-		gameEndPanel.winText.text = victoriousChampion.championName + " wins!";
+		gameEndPanel.winText.text = victoriousChampionController.champion.championName + " wins!";
 
-		foreach (ChampionController champion in champions) {
-			if (!champion.teamMembers.Contains(victoriousChampion) && champion != victoriousChampion) continue;
+		foreach (ChampionController championController in champions) {
+			if (!championController.teamMembers.Contains(victoriousChampionController) && championController != victoriousChampionController) continue;
 					
 			Image newWinnerAvatar = Instantiate(gameEndPanel.winnerAvatar, Vector2.zero, Quaternion.identity);
 			newWinnerAvatar.gameObject.SetActive(true);
-			newWinnerAvatar.sprite = champion.avatar;
+			newWinnerAvatar.sprite = championController.champion.avatar;
 			newWinnerAvatar.transform.SetParent(gameEndPanel.winnerAvatars.transform, false);
 		}
 
@@ -177,20 +177,20 @@ public class TutorialGameController : GameController {
 	}
 	public override IEnumerator GameEndCheck() {
 		List<ChampionController> aliveChampions = new List<ChampionController>();
-		foreach (ChampionController champion in champions) {
-			if (champion.isDead || champion.currentOwner != null) continue;
-			aliveChampions.Add(champion);
+		foreach (ChampionController championController in champions) {
+			if (championController.isDead || championController.currentOwner != null) continue;
+			aliveChampions.Add(championController);
 		}
 
 		if (aliveChampions.Count == 1) {
-			foreach (ChampionController champion in champions) {
-				champion.championParticleController.OrangeGlow.Stop();
-				champion.championParticleController.CyanGlow.Stop();
-				champion.championParticleController.RedGlow.Stop();
+			foreach (ChampionController championController in champions) {
+				championController.championParticleController.OrangeGlow.Stop();
+				championController.championParticleController.CyanGlow.Stop();
+				championController.championParticleController.RedGlow.Stop();
 
-				champion.championParticleController.OrangeGlow.Clear();
-				champion.championParticleController.CyanGlow.Clear();
-				champion.championParticleController.RedGlow.Clear();
+				championController.championParticleController.OrangeGlow.Clear();
+				championController.championParticleController.CyanGlow.Clear();
+				championController.championParticleController.RedGlow.Clear();
 			}
 			yield return new WaitForSeconds(3f);
 			

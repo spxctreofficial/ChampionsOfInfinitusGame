@@ -25,23 +25,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField]
 	private TMP_Text nameText, healthText, cardsText;
 	public ChampionParticleController championParticleController;
-
-	[Header("Basic Information")]
-	[HideInInspector]
-	public string championName;
-	[HideInInspector]
-	public string championID;
-	[HideInInspector]
-	public Sprite avatar;
-	[HideInInspector]
-	public string description;
-	[HideInInspector]
-	public Champion.Gender gender;
-	[HideInInspector]
-	public Champion.Faction faction;
-	[HideInInspector]
-	public Champion.Race race;
-
+	
 	[Header("Variables")]
 	[HideInInspector]
 	public int maxHP;
@@ -98,18 +82,10 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	/// This is called automatically on Start().
 	/// </summary>
 	public void ChampionSetup() {
-		// Identification & Basic Information
-		championName = champion.championName;
 		name = champion.championName;
-		championID = champion.championID;
-		avatar = champion.avatar;
-		description = champion.description;
-		gender = champion.gender;
-		faction = champion.faction;
-		race = champion.race;
 
 		// References
-		championImage.sprite = avatar;
+		championImage.sprite = champion.avatar;
 
 		// Statistics
 		maxHP = champion.maxHP;
@@ -160,7 +136,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	/// <returns></returns>
 	public IEnumerator Damage(int amount, DamageType damageType, ChampionController source = null, bool silent = false, bool abilityCheck = true) {
 		if (isDead) {
-			Debug.Log(championName + " is dead!");
+			Debug.Log(champion.championName + " is dead!");
 			yield break;
 		}
 
@@ -273,7 +249,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	/// <returns></returns>
 	public IEnumerator Heal(int amount, bool abilityCheck = true) {
 		if (isDead) {
-			Debug.Log(championName + " is dead!");
+			Debug.Log(champion.championName + " is dead!");
 			yield break;
 		}
 
@@ -376,7 +352,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		hand.owner = this;
 	}
 	private void AppearanceUpdater() {
-		nameText.text = championName;
+		nameText.text = champion.championName;
 		healthText.text = isDead ? "DEAD" : currentHP.ToString();
 		if (hand != null) cardsText.text = hand.GetCardCount().ToString();
 		if (currentHP <= 0) {
@@ -473,9 +449,9 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			body += "\n" + attackName + " (Attack): " + attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCards: " + hand.GetCardCount(); // card amount
 
-			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.championName; // nemesis
+			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.champion.championName; // nemesis
 			body += "\n\nCLICK & HOLD FOR MORE INFO";
-			TooltipSystem.instance.Show(body, championName); // show the tooltip
+			TooltipSystem.instance.Show(body, champion.championName); // show the tooltip
 		}).uniqueId;
 	}
 	public void OnPointerExit(PointerEventData eventData) {

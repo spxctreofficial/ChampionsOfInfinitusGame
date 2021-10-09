@@ -115,15 +115,15 @@ public abstract class GameController : MonoBehaviour {
 	/// <summary>
 	/// The Beginning Phase coroutine.
 	/// </summary>
-	/// <param name="champion"></param>
+	/// <param name="championController"></param>
 	/// <returns></returns>
-	protected virtual IEnumerator BeginningPhase(ChampionController champion) {
+	protected virtual IEnumerator BeginningPhase(ChampionController championController) {
 		gamePhase = GamePhase.BeginningPhase;
 
 		// Updates Text
-		phaseIndicator.text = "Beginning Phase - " + champion.championName;
-		champion.championParticleController.PlayEffect(champion.championParticleController.CyanGlow);
-		yield return StartCoroutine(champion.hand.Deal(2)); // Deals to the player
+		phaseIndicator.text = "Beginning Phase - " + championController.champion.championName;
+		championController.championParticleController.PlayEffect(championController.championParticleController.CyanGlow);
+		yield return StartCoroutine(championController.hand.Deal(2)); // Deals to the player
 
 		// Beginning Phase Ability Check
 		foreach (ChampionController selectedChampion in champions) {
@@ -141,7 +141,7 @@ public abstract class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds(2f);
 
-		StartCoroutine(ActionPhase(champion));
+		StartCoroutine(ActionPhase(championController));
 	}
 
 	/// <summary>
@@ -153,7 +153,7 @@ public abstract class GameController : MonoBehaviour {
 		gamePhase = GamePhase.ActionPhase;
 
 		// Updates Text
-		phaseIndicator.text = "Action Phase - " + champion.championName;
+		phaseIndicator.text = "Action Phase - " + champion.champion.championName;
 		champion.ResetExhaustion();
 
 		// Action Phase Ability Check
@@ -214,7 +214,7 @@ public abstract class GameController : MonoBehaviour {
 		endTurnButton.gameObject.SetActive(false);
 
 		// Updates Text
-		phaseIndicator.text = "End Phase - " + champion.championName;
+		phaseIndicator.text = "End Phase - " + champion.champion.championName;
 		int childCount = champion.hand.GetCardCount();
 		champion.discardAmount = childCount > 6 ? childCount - 6 : 0;
 
@@ -293,7 +293,7 @@ public abstract class GameController : MonoBehaviour {
 			ChampionSlot slot = slots[players.IndexOf(champion)];
 
 			ChampionController championController = Spawn(champion, slot, players.IndexOf(champion) == 0);
-			championController.team = championController.championID + players.IndexOf(champion);
+			championController.team = championController.champion.championID + players.IndexOf(champion);
 		}
 		yield break;
 	}

@@ -16,7 +16,7 @@ public class Hand : MonoBehaviour {
 		owner = championController;
 		championController.hand = this;
 
-		name = owner.championName + "'s Hand";
+		name = owner.champion.championName + "'s Hand";
 	}
 	
 	// GetCard Functions
@@ -76,7 +76,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Warrior:
 							if (owner.currentHP >= 0.3f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log(owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
+								Debug.Log(owner.champion.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
 								continue;
 							}
 							if (value < card.cardScriptableObject.cardValue) {
@@ -86,7 +86,7 @@ public class Hand : MonoBehaviour {
 							break;
 						case GameController.Difficulty.Champion:
 							if (owner.currentHP >= 0.5f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log(owner.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
+								Debug.Log(owner.champion.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
 								continue;
 							}
 							if (value < card.cardScriptableObject.cardValue) {
@@ -182,7 +182,7 @@ public class Hand : MonoBehaviour {
 					break;
 				case GameController.Difficulty.Champion:
 					if (thisCard.cardScriptableObject.cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log(owner.championName + " refuses to use a HEART to attack!");
+						Debug.Log(owner.champion.championName + " refuses to use a HEART to attack!");
 						continue;
 					}
 					if (owner.currentHP >= 0.5f * owner.maxHP && thisCard.CombatValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
@@ -288,7 +288,7 @@ public class Hand : MonoBehaviour {
 		}
 		if (card.owner != null) {
 			card.owner.matchStatistic.totalCardsDiscarded++;
-			card.caption.text = "Played by " + card.owner.championName;
+			card.caption.text = "Played by " + card.owner.champion.championName;
 		}
 		card.owner = null;
 		cards.Remove(card);
