@@ -8,6 +8,8 @@ v0.2.2 is an incremental update to v0.2.1, optimizing some code and fixing bugs.
 
 - Changes & Fixes:
 	- Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
+	- ChampionInfoPanel received some UI improvements and changes:
+		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
 
 ## v0.2.1 Beta
 

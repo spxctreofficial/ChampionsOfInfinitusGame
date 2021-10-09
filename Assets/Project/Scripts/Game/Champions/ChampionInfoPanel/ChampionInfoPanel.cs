@@ -26,13 +26,13 @@ public class ChampionInfoPanel : MonoBehaviour {
 		championInfoPanel.Setup(champion);
 
 		championInfoPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
-		LeanTween.scale(championInfoPanel.GetComponent<RectTransform>(), Vector3.one, 0.25f).setEaseInOutQuad();
+		LeanTween.scale(championInfoPanel.GetComponent<RectTransform>(), Vector3.one, 0.5f).setEaseInOutQuart();
         
 		return championInfoPanel;
 	}
 
 	public void Destroy() {
-		LeanTween.scale(GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad().setDestroyOnComplete(true);
+		LeanTween.scale(GetComponent<RectTransform>(), Vector3.zero, 0.5f).setEaseInOutQuart().setDestroyOnComplete(true);
 	}
 	public void OnPurchaseButtonClick() {
 		StartPurchase();
