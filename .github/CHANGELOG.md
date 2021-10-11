@@ -12,6 +12,7 @@ v0.2.2 is an incremental update to v0.2.1, optimizing some code and fixing bugs.
 		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
 	- GameEndPanel received a couple of bug fixes:
 		- Fixed an issue where clicking Collect before the rewards had been completely shown would result in the reward not being collected.
+		- The GoldDisplay has been sped up if the change in gold is drastic.
 
 ## v0.2.1 Beta
 

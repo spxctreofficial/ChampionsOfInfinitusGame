@@ -22,11 +22,15 @@ public class GoldDisplay : MonoBehaviour {
 		int goldAmountShown = int.Parse(goldAmountText.text);
 		while (goldAmountShown < DataManager.instance.goldAmount) {
 			goldAmountShown++;
+			if (Mathf.Abs(goldAmountShown - DataManager.instance.goldAmount) > 250) goldAmountShown++;
+			if (Mathf.Abs(goldAmountShown - DataManager.instance.goldAmount) > 1000) goldAmountShown++;
 			goldAmountText.text = goldAmountShown.ToString();
 			yield return null;
 		}
 		while (goldAmountShown > DataManager.instance.goldAmount) {
 			goldAmountShown--;
+			if (Mathf.Abs(goldAmountShown - DataManager.instance.goldAmount) > 250) goldAmountShown--;
+			if (Mathf.Abs(goldAmountShown - DataManager.instance.goldAmount) > 1000) goldAmountShown--;
 			goldAmountText.text = goldAmountShown.ToString();
 			yield return null;
 		}
