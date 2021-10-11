@@ -20,7 +20,7 @@ public class TutorialStatisticManager : StatisticManager {
 	}
 
 	public override IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
-		Debug.Log(TutorialGameController.instance.gameArea);
+		collectButton.SetActive(false);
 		initialGoldReward = !DataManager.instance.firstRunTutorial ? 2000 : 50;
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";
 		bonusRewardLog.text += "\n" + initialGoldReward;

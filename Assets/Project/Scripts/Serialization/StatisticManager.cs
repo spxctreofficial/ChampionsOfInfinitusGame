@@ -36,10 +36,6 @@ public abstract class StatisticManager : MonoBehaviour {
 	}
 
 	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
-		void Untween() {
-			LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
-			LeanTween.scale(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad();
-		}
 
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
 		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
@@ -51,7 +47,6 @@ public abstract class StatisticManager : MonoBehaviour {
 		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
 		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
 		float totalHealthRemainingBonus = (float)instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
-		Debug.Log((int)totalHealthRemainingBonus);
 		switch (GameController.instance.difficulty) {
 			case GameController.Difficulty.Noob:
 				initialGoldReward /= 5;
@@ -66,6 +61,7 @@ public abstract class StatisticManager : MonoBehaviour {
 				break;
 		}
 
+		collectButton.SetActive(false);
 		// PosLoop();
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";
 		bonusRewardLog.text += "\n" + initialGoldReward;
@@ -111,7 +107,9 @@ public abstract class StatisticManager : MonoBehaviour {
 		bonusRewardLog.text = "Health Remaining Bonus (" + totalHealthRemainingBonus + "%)\n+" + totalHealthRemainingBonus;
 		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
-		Untween();
+
+		LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
+		LeanTween.scale(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector3.zero, 0.25f).setEaseInOutQuad();
 
 		goldReward = initialGoldReward;
 		goldReward += successfulAttackBonus;
