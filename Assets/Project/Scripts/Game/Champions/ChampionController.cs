@@ -281,7 +281,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		if (slot == null) slot = ChampionSlot.FindNextVacantSlot();
 
 		// Spawning
-		ChampionController championController = Instantiate(GameController.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		ChampionController championController = Instantiate(PrefabManager.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
 		championController.champion = champion;
 		championController.team = team;
 		championController.currentOwner = this;
@@ -291,7 +291,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		championController.transform.SetParent(GameController.instance.gameArea.transform, false);
 
 		// Champion Dependencies
-		Hand hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(GameController.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		Hand hand = spawnAsPlayer ? GameController.instance.playerHand : Instantiate(PrefabManager.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(GameController.instance.gameArea.transform, false);
 
 

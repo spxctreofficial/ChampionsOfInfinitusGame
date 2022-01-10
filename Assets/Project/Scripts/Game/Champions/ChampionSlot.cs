@@ -110,7 +110,7 @@ public class ChampionSlot : MonoBehaviour {
 	/// </summary>
 	public static void CreateDefaultSlots() {
 		foreach (Vector3 vector3 in defaultLocations) {
-			ChampionSlot slot = Instantiate(GameController.instance.championSlotPrefab, vector3, Quaternion.identity).GetComponent<ChampionSlot>();
+			ChampionSlot slot = Instantiate(PrefabManager.instance.championSlotPrefab, vector3, Quaternion.identity).GetComponent<ChampionSlot>();
 			GameController.instance.slots.Add(slot);
 			slot.transform.SetParent(GameController.instance.gameArea.transform, false);
 		}

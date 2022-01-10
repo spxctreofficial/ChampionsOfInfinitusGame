@@ -14,7 +14,7 @@ public class NotificationDialog : MonoBehaviour {
 	private UnityAction afterShowAction;
 
 	public static NotificationDialog Create(string title, string description, float duration = 3f) {
-		GameObject notificationDialogPrefab = MainMenuController.instance == null ? GameController.instance.notificationDialogPrefab : MainMenuController.instance.notificationDialogPrefab;
+		GameObject notificationDialogPrefab = PrefabManager.instance.notificationDialogPrefab;
 		NotificationDialog notificationDialog = Instantiate(notificationDialogPrefab, Vector2.zero, Quaternion.identity).GetComponent<NotificationDialog>();
 		
 		notificationDialog.Setup(title, description);

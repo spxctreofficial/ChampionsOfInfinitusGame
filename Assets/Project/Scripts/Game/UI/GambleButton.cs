@@ -19,7 +19,7 @@ public class GambleButton : MonoBehaviour {
 				switch (player.isMyTurn) {
 					case true:
 						if (player.isAttacking && player.attackingCard == null) {
-							player.attackingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+							player.attackingCard = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 							player.attackingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 							player.attackingCard.Flip(true);
 							player.attackingCard.transform.SetParent(player.hand.transform, false);
@@ -37,7 +37,7 @@ public class GambleButton : MonoBehaviour {
 						foreach (ChampionController selectedChampion in GameController.instance.champions) {
 							if (selectedChampion == player || !selectedChampion.isAttacking || selectedChampion.currentTarget != player || selectedChampion.isDead) continue;
 
-							player.defendingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+							player.defendingCard = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 							player.defendingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 							player.defendingCard.Flip(true);
 							player.defendingCard.transform.SetParent(GameController.instance.discardArea.transform, false);

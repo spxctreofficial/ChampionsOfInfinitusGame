@@ -1,12 +1,11 @@
 {
-    "name": "LandOfHeroesGame.External.UIExtensions.Editor",
+    "name": "ChampionsOfInfinitusGame",
     "rootNamespace": "",
     "references": [
-        "GUID:b67d21122c6ddf14ca7f3f9a87f45259"
+        "GUID:c0ea30f316576ca48afa1c182a84a8b1",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

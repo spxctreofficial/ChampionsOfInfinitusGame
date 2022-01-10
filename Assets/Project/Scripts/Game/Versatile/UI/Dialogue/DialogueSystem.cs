@@ -25,7 +25,7 @@ public class DialogueSystem : MonoBehaviour {
 	private AudioClip beep;
 
 	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null, bool startOfConversationAnimation = true, bool endOfConversationAnimation = true) {
-		GameObject dialogueSystemPrefab = MainMenuController.instance is null ? GameController.instance.dialogueSystemPrefab : MainMenuController.instance.dialogueSystemPrefab;
+		GameObject dialogueSystemPrefab = PrefabManager.instance.dialogueSystemPrefab;
 
 		float bottomOfScreen = -540 - (dialogueSystemPrefab.GetComponent<RectTransform>().rect.height / 2);
 		DialogueSystem dialogueSystem = Instantiate(dialogueSystemPrefab, new Vector2(vector2.x, bottomOfScreen), Quaternion.identity).GetComponent<DialogueSystem>();

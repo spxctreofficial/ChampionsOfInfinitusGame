@@ -4,26 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 using TMPro;
 
 public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEnd }
 
 public abstract class GameController : MonoBehaviour {
-	// Singleton
 	public static GameController instance;
 
-	// GameController Enums
 	public enum Difficulty { Noob, Novice, Warrior, Champion }
 	public enum Gamemodes { Duel, Competitive2v2, FFA }
 
-	// Current Game Phase
 	public GamePhase gamePhase;
 
-	// Card Index Reference
 	public CardIndex cardIndex;
 
-	// Panels References
 	[Header("Panels")]
 	public GameObject gameArea;
 
@@ -31,19 +25,6 @@ public abstract class GameController : MonoBehaviour {
 	public GameObject discardArea;
 	public Hand playerHand;
 	public List<ChampionSlot> slots = new List<ChampionSlot>();
-
-	// Prefab References
-	[Header("Prefab References")]
-	public GameObject championTemplate;
-	public GameObject abilityTemplate;
-	public GameObject cardTemplate;
-	public GameObject handPrefab;
-	public GameObject dialogueSystemPrefab;
-	public GameObject confirmDialogPrefab;
-	public GameObject miniConfirmDialogPrefab;
-	public GameObject notificationDialogPrefab;
-	public GameObject championSlotPrefab;
-	public GameObject championInfoPanelPrefab;
 
 	// UI-Specific References
 	[Header("UI References")]
@@ -397,7 +378,7 @@ public abstract class GameController : MonoBehaviour {
 	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false, bool dealHand = true) {
 		if (slot is null) slot = ChampionSlot.FindNextVacantSlot();
 
-		ChampionController championController = Instantiate(championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
+		ChampionController championController = Instantiate(PrefabManager.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
 		championController.champion = champion;
 		champions.Add(championController);
 		slot.SetOccupant(championController);
@@ -405,7 +386,7 @@ public abstract class GameController : MonoBehaviour {
 
 		if (spawnAsPlayer) championController.isPlayer = true;
 
-		Hand hand = spawnAsPlayer ? playerHand : Instantiate(handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
+		Hand hand = spawnAsPlayer ? playerHand : Instantiate(PrefabManager.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(gameArea.transform, false);
 		
 		IEnumerator Setup() {

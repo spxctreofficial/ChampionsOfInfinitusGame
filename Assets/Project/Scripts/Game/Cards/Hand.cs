@@ -237,7 +237,7 @@ public class Hand : MonoBehaviour {
 	public IEnumerator Deal(CardScriptableObject cardScriptableObject, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		AudioController.instance.Play("flip");
 		// Creates a new card.
-		Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+		Card card = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 		card.cardScriptableObject = cardScriptableObject;
 
 		// Sets card to the hand and adds it to the list of cards of this hand for easy reference.

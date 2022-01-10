@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -84,7 +82,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	
 	// Static Functions
 	public static void Spawn(CardScriptableObject cardScriptableObject, Hand hand) {
-		Card card = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+		Card card = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 		card.transform.SetParent(hand.transform, false);
 		card.cardScriptableObject = cardScriptableObject;
 		card.owner = hand.owner;

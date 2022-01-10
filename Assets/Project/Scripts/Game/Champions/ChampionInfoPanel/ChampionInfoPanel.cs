@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -21,7 +19,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 	private GameObject championAbilityOverviewEntryPrefab;
 
 	public static ChampionInfoPanel Create(Champion champion) {
-		GameObject championInfoPanelPrefab = MainMenuController.instance == null ? GameController.instance.championInfoPanelPrefab : MainMenuController.instance.championInfoPanelPrefab;
+		GameObject championInfoPanelPrefab = MainMenuController.instance == null ? PrefabManager.instance.championInfoPanelPrefab : PrefabManager.instance.championInfoPanelPrefab;
 		ChampionInfoPanel championInfoPanel = Instantiate(championInfoPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionInfoPanel>();
 		championInfoPanel.Setup(champion);
 

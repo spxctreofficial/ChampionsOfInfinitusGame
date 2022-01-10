@@ -14,12 +14,6 @@ public class MainMenuController : MonoBehaviour {
 	public ShopPanel shopPanel;
 	public Image logo;
 
-	public GameObject dialogueSystemPrefab;
-	public GameObject confirmDialogPrefab;
-	public GameObject miniConfirmDialogPrefab;
-	public GameObject notificationDialogPrefab;
-	public GameObject championInfoPanelPrefab;
-
 	public DialogueSession firstRunGameSession, firstRunShopSession;
 	
 	private void Awake() {

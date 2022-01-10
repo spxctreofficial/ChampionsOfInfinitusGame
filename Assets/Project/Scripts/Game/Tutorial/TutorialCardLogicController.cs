@@ -320,7 +320,7 @@ public class TutorialCardLogicController : CardLogicController {
 			case false:
 				defender.defendingCard = defender.hand.GetCard("Defense");
 				if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) {
-					defender.defendingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+					defender.defendingCard = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 					defender.defendingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 					defender.defendingCard.caption.text = "Gambled by " + defender.champion.championName;
 				}
@@ -519,7 +519,7 @@ public class TutorialCardLogicController : CardLogicController {
 					switch (GameController.instance.difficulty) {
 						case GameController.Difficulty.Warrior:
 						case GameController.Difficulty.Champion:
-							champion.attackingCard = Instantiate(GameController.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+							champion.attackingCard = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
 							champion.attackingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 							champion.attackingCard.caption.text = "Gambled by " + champion.champion.championName;
 							gambled = true;

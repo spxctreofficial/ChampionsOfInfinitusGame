@@ -5,14 +5,11 @@ using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour {
-	// Singleton
 	public static DataManager instance;
 	
-	// Content Lists
 	public ChampionIndex championIndex = new ChampionIndex();
 	public MapIndex mapIndex = new MapIndex();
 
-	// Serialization Variables
 	private string saveFolder;
 
 	public int goldAmount;
