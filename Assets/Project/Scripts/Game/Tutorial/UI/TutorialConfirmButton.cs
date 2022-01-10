@@ -18,7 +18,7 @@ public class TutorialConfirmButton : ConfirmButton {
                         champion.matchStatistic.totalAttacks++;
                         GameController.instance.attackCancelButton.Hide();
                         StartCoroutine(champion.hand.Discard(champion.hand.queued.Dequeue()));
-                        StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
+                        StartCoroutine(champion.CombatCalculation(champion, champion.currentTarget));
                         break;
                     }
                     
@@ -33,7 +33,7 @@ public class TutorialConfirmButton : ConfirmButton {
                         champion.matchStatistic.totalAttacks++;
                         GameController.instance.attackCancelButton.Hide();
                         StartCoroutine(champion.hand.Discard(champion.hand.queued.Dequeue()));
-                        StartCoroutine(CardLogicController.instance.CombatCalculation(champion, champion.currentTarget));
+                        StartCoroutine(champion.CombatCalculation(champion, champion.currentTarget));
                         break;
                     }
                     // Confirming Defense

@@ -26,7 +26,6 @@ public abstract class GameController : MonoBehaviour {
 	public Hand playerHand;
 	public List<ChampionSlot> slots = new List<ChampionSlot>();
 
-	// UI-Specific References
 	[Header("UI References")]
 	public TMP_Text phaseIndicator;
 	// [Obsolete("PlayerActionTooltip is no longer used.")]
@@ -47,6 +46,9 @@ public abstract class GameController : MonoBehaviour {
 	public bool hasChosenDifficulty;
 
 	public int roundsElapsed = 0;
+
+	[HideInInspector]
+	public bool currentlyHandlingCard;
 
 	protected virtual void Awake() {
 		if (instance == null)
@@ -151,7 +153,7 @@ public abstract class GameController : MonoBehaviour {
 				AudioController.instance.Play("playerturn");
 				break;
 			case false:
-				StartCoroutine(CardLogicController.instance.BotCardLogic(champion));
+				StartCoroutine(champion.BotCardLogic());
 				break;
 		}
 	}
@@ -247,8 +249,11 @@ public abstract class GameController : MonoBehaviour {
 		}
 
 		Destroy(playerActionTooltip);
-		foreach (ChampionController champion in champions) StatisticManager.instance.TrackRemainingStatistics(champion);
-		CardLogicController.instance.StopAllCoroutines();
+		foreach (ChampionController championController in champions) {
+			StatisticManager.instance.TrackRemainingStatistics(championController);
+			championController.StopAllCoroutines();
+		}
+	
 		TooltipSystem.instance.StopAllCoroutines();
 		StatisticManager.instance.winState = victoriousChampion.isPlayer || victoriousChampion.teamMembers.Contains(player);
 

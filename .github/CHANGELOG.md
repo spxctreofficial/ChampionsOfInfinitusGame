@@ -2,17 +2,19 @@
 
 This is the official Champions of Infinitus Changelog. Any changes to the game will be documented here for ease-of-use and convenient reference, allowing clients and players to understand the key differences between updates for those who do not understand C# or code in general.
 
+
+
 ## v0.2.2 Beta
 
 v0.2.2 is an incremental update to v0.2.1, optimizing some code and fixing bugs.
 
-- Changes & Fixes:
-	- Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
-	- ChampionInfoPanel received some UI improvements and changes:
-		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
-	- GameEndPanel received a couple of bug fixes:
-		- Fixed an issue where clicking Collect before the rewards had been completely shown would result in the reward not being collected.
-		- The GoldDisplay has been sped up if the change in gold is drastic.
+- Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
+- ChampionInfoPanel received some UI improvements and changes:
+	- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
+- GameEndPanel received a couple of bug fixes:
+	- Fixed an issue where clicking Collect before the rewards had been completely shown would result in the reward not being collected.
+	- The GoldDisplay has been sped up if the change in gold is drastic.
+- Technical: Prefab references have been moved to `PrefabManager`.
 
 ## v0.2.1 Beta
 

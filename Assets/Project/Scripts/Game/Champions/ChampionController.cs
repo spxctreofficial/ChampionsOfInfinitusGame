@@ -307,7 +307,295 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		// Returning the Spawned Champion
 		return championController;
 	}
-	
+
+	/// <summary>
+	/// Called to handle the bot's card logic.
+	/// The perceived coherence of the bot will be determined by the difficulty.
+	/// </summary>
+	/// <param name="champion"></param>
+	/// <returns></returns>
+	/// <exception cref="ArgumentOutOfRangeException"></exception>
+	public virtual IEnumerator BotCardLogic() {
+		float PauseDuration() {
+			// Sets the bot's pause duration to simulate logical breakdown.
+			switch (GameController.instance.difficulty) {
+				case GameController.Difficulty.Noob:
+				case GameController.Difficulty.Novice:
+					return Random.Range(2f, 4f);
+				case GameController.Difficulty.Warrior:
+					return Random.Range(1f, 3f);
+				case GameController.Difficulty.Champion:
+					return Random.Range(0.4f, 1.25f);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+		float CardScanDuration() {
+			// Sets the bot's scan duration to simulate the logical scanning of the next card to play.
+			switch (GameController.instance.difficulty) {
+				case GameController.Difficulty.Noob:
+				case GameController.Difficulty.Novice:
+					return 2.75f;
+				case GameController.Difficulty.Warrior:
+					return Random.Range(0.75f, 2f);
+				case GameController.Difficulty.Champion:
+					return Random.Range(0.25f, 1f);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		if (isDead) {
+			// Just in case, to handle if logic is called on dead champion.
+			Debug.LogWarning("Attempted to apply logic to dead champion!");
+			GameController.instance.NextTurnCalculator(this);
+			yield break;
+		}
+
+		yield return new WaitForSeconds(PauseDuration());
+
+		// Clubs
+		foreach (Transform child in hand.transform) {
+			Card card = child.GetComponent<Card>();
+			if (card.cardScriptableObject.cardSuit != CardSuit.CLUB) continue;
+
+			switch (GameController.instance.difficulty) {
+				case GameController.Difficulty.Noob:
+				case GameController.Difficulty.Novice:
+					break;
+				default:
+					if (card.cardScriptableObject.cardValue > 10 && Random.Range(0f, 1f) < 0.9f) {
+						Debug.Log(champion.championName + " refuses to trade in a CLUB worth: " + card.cardScriptableObject.cardValue);
+						continue;
+					}
+					break;
+			}
+
+			yield return StartCoroutine(card.ClubLogic(this));
+			yield return new WaitForSeconds(CardScanDuration());
+		}
+		yield return new WaitForSeconds(PauseDuration());
+
+		// Diamonds
+		foreach (Transform child in hand.transform) {
+			Card card = child.GetComponent<Card>();
+			if (card.cardScriptableObject.cardSuit != CardSuit.DIAMOND) continue;
+			if (diamondsBeforeExhaustion == 0 && (card.cardScriptableObject.cardValue < 5 || card.cardScriptableObject.cardValue > 8)) {
+				Debug.Log(champion.championName + " can't play this DIAMOND.");
+				break;
+			}
+
+			yield return StartCoroutine(card.DiamondLogic(this));
+			yield return new WaitForSeconds(CardScanDuration());
+		}
+		yield return new WaitForSeconds(PauseDuration());
+
+		// Spades
+		foreach (Transform child in hand.transform) {
+			Card card = child.GetComponent<Card>();
+			if (card.cardScriptableObject.cardSuit != CardSuit.SPADE) continue;
+			if (spadesBeforeExhaustion == 0) {
+				Debug.Log(champion.championName + " is exhausted. Cannot attack.");
+				break;
+			}
+
+			bool wontAttack = false;
+			switch (GameController.instance.difficulty) {
+				case GameController.Difficulty.Noob:
+					break;
+				case GameController.Difficulty.Novice:
+					if (champion.currentHP <= 0.3f * champion.maxHP && Random.Range(0f, 1f) < 0.25f) {
+						Debug.Log(champion.championName + " realizes that they might fuck up and die!");
+						spadesBeforeExhaustion--;
+						wontAttack = true;
+					}
+					break;
+				case GameController.Difficulty.Warrior:
+					if (currentHP <= 0.2f * champion.maxHP && Random.Range(0f, 1f) < 0.45f) {
+						Debug.Log(champion.championName + " doesn't want to attack!");
+						spadesBeforeExhaustion--;
+						wontAttack = true;
+					}
+					break;
+				case GameController.Difficulty.Champion:
+					if ((champion.currentHP <= 0.2f * champion.maxHP && Random.Range(0f, 1f) < 0.65f) || Random.Range(0f, 1f) < 0.15f) {
+						Debug.Log(champion.championName + " doesn't want to attack!");
+						spadesBeforeExhaustion--;
+						wontAttack = true;
+					}
+					break;
+			}
+			if (wontAttack) break;
+
+			yield return StartCoroutine(card.SpadeLogic(this));
+			yield return new WaitForSeconds(CardScanDuration());
+		}
+		yield return new WaitForSeconds(PauseDuration());
+
+		// Hearts
+		foreach (Transform child in hand.transform) {
+			Card card = child.GetComponent<Card>();
+			if (champion.currentHP == champion.maxHP) break;
+			if (heartsBeforeExhaustion == 0) break;
+			if (card.cardScriptableObject.cardSuit != CardSuit.HEART) continue;
+
+			switch (GameController.instance.difficulty) {
+				case GameController.Difficulty.Champion:
+					if (champion.currentHP + 20 >= 0.9f * champion.maxHP && card.cardScriptableObject.cardValue == 13) {
+						Debug.Log("Health would be clamped! The " + champion.championName + " decides not to use an ACE of HEARTS to heal!");
+						continue;
+					}
+					break;
+			}
+
+			yield return StartCoroutine(card.HeartLogic(this));
+			yield return new WaitForSeconds(CardScanDuration());
+		}
+		yield return new WaitForSeconds(PauseDuration());
+
+		GameController.instance.StartEndPhase(this);
+	}
+
+	/// <summary>
+	/// Calculates the result of combat, as well as who should take damage and checking for activated abilities.
+	/// Do not call this randomly, as this could very well break code if run at the wrong time.
+	/// </summary>
+	/// <param name="attacker"></param>
+	/// <param name="defender"></param>
+	/// <param name="abilityCheck"></param>
+	/// <returns></returns>
+	public virtual IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, bool abilityCheck = true) {
+		if (attacker.attackingCard == null) {
+			// Fail safe in case no attackingCard was defined prior to combat calculation.
+			Debug.LogError("No attacking card was specified on an initiated attack!");
+			yield break;
+		}
+
+		// Sets the values to listen for.
+		attacker.hasAttacked = true;
+		defender.currentlyTargeted = true;
+		defender.hasDefended = false;
+
+		// Discarding the attacking card.
+		switch (attacker.isPlayer) {
+			case true:
+				GameController.instance.currentlyHandlingCard = true;
+				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
+				if (GameController.instance.gambleButton.isBlocking) {
+					attacker.attackingCard.Flip(true);
+					attacker.attackingCard.caption.text = "Gambled by " + attacker.champion.championName;
+				}
+				break;
+			case false:
+				yield return StartCoroutine(attacker.hand.Discard(attacker.attackingCard, true));
+				attacker.attackingCard.halo.Stop();
+				attacker.attackingCard.halo.Play();
+				break;
+		}
+		// Wait for or get the defending card.
+		switch (defender.isPlayer) {
+			case true:
+				GameController.instance.playerActionTooltip.text = attacker.champion.championName + " is attacking the " + defender.champion.championName + ". Defend with a card.";
+				GameController.instance.gambleButton.Show();
+				yield return new WaitUntil(() => defender.defendingCard != null);
+				GameController.instance.gambleButton.Hide();
+				yield return new WaitUntil(() => defender.hasDefended);
+				break;
+			case false:
+				defender.defendingCard = defender.hand.GetCard("Defense");
+				if (defender.defendingCard == null || Random.Range(0f, 1f) < 0.15f && defender.currentHP - attacker.attackDamage > 0) {
+					defender.defendingCard = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
+					defender.defendingCard.cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
+					defender.defendingCard.caption.text = "Gambled by " + defender.champion.championName;
+				}
+				break;
+		}
+
+		// Discards defending card.
+		if (!defender.isPlayer) {
+			yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
+		}
+		else {
+			yield return StartCoroutine(defender.hand.Discard(defender.defendingCard));
+			defender.defendingCard.Flip();
+		}
+		defender.matchStatistic.totalDefends++;
+		attacker.attackingCard.Flip(true);
+
+		// CombatCalculation Ability heck
+		if (abilityCheck) {
+			foreach (Ability ability in attacker.abilities) {
+				yield return StartCoroutine(ability.OnCombatCalculationAttacker(attacker.attackingCard, defender.defendingCard));
+			}
+
+			foreach (Ability ability in defender.abilities) {
+				yield return StartCoroutine(ability.OnCombatCalculationDefender(attacker.attackingCard, defender.defendingCard));
+			}
+		}
+
+		DamageHistory attackerDamageHistory = null;
+		foreach (DamageHistory damageHistory in attacker.matchStatistic.damageHistories) {
+			if (damageHistory.dealtAgainst != defender) continue;
+			attackerDamageHistory = damageHistory;
+		}
+		attackerDamageHistory ??= new DamageHistory(defender);
+		attacker.matchStatistic.damageHistories.Add(attackerDamageHistory);
+		attackerDamageHistory.attacksAgainst++;
+
+		// Calculating Combat Result
+		if (attacker.attackingCard.CombatValue > defender.defendingCard.CombatValue) {
+			foreach (Ability ability in attacker.abilities) {
+				yield return StartCoroutine(ability.OnAttackSuccess(attacker.attackingCard, defender.defendingCard));
+			}
+			foreach (Ability ability in defender.abilities) {
+				yield return StartCoroutine(ability.OnDefenseFailure(attacker.attackingCard, defender.defendingCard));
+			}
+
+			yield return StartCoroutine(attacker.Attack(defender));
+
+			attacker.matchStatistic.successfulAttacks++;
+			defender.matchStatistic.failedDefends++;
+		}
+		else if (attacker.attackingCard.CombatValue < defender.defendingCard.CombatValue) {
+			foreach (Ability ability in attacker.abilities) {
+				yield return StartCoroutine(ability.OnAttackFailure(attacker.attackingCard, defender.defendingCard));
+			}
+			foreach (Ability ability in defender.abilities) {
+				yield return StartCoroutine(ability.OnDefenseSuccess(attacker.attackingCard, defender.defendingCard));
+			}
+
+			yield return StartCoroutine(attacker.Damage(defender.attackDamage, defender.attackDamageType, defender));
+
+			attacker.matchStatistic.failedAttacks++;
+			defender.matchStatistic.successfulDefends++;
+		}
+		else {
+			Debug.Log("lol it tie");
+			AudioController.instance.Play("swordimpact_fail");
+			CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
+		}
+		Debug.Log(attacker.champion.championName + attacker.currentHP);
+		Debug.Log(defender.champion.championName + defender.currentHP);
+
+		yield return new WaitForSeconds(2.5f);
+
+		// Resetting Values to continue game flow.
+		GameController.instance.currentlyHandlingCard = false;
+		GameController.instance.confirmButton.Hide();
+		if (attacker.isPlayer) GameController.instance.endTurnButton.gameObject.SetActive(true);
+
+		attacker.isAttacking = false;
+		attacker.hasAttacked = false;
+		attacker.attackingCard = null;
+		attacker.currentTarget = null;
+		defender.currentlyTargeted = false;
+		defender.hasDefended = false;
+		defender.defendingCard = null;
+		defender.championParticleController.RedGlow.Stop();
+		defender.championParticleController.RedGlow.Clear();
+	}
+
 	#region Death Functions
 	/// <summary>
 	/// Checks if this ChampionController is dead.
@@ -374,32 +662,6 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}
 	}
 
-	// /// <summary>
-	// /// Show the AbilityFeed.
-	// /// </summary>
-	// /// <param name="text"></param>
-	// /// <param name="duration"></param>
-	// public void ShowAbilityFeed(string text, float duration = 5f) {
-	// 	if (abilityFeed.text != text || !abilityFeed.IsActive()) {
-	// 		abilityFeed.gameObject.SetActive(true);
-	// 		abilityFeed.text = text;
-	// 	}
-	//
-	// 	abilityFeed.transform.localScale = Vector3.zero;
-	// 	LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.one, 0.1f).setEaseInOutQuad().setOnComplete(() => {
-	// 		// StartCoroutine(ShakeImage(0.2f, 10f, abilityFeed.transform));
-	// 		LeanTween.delayedCall(duration, HideAbilityFeed);
-	// 	});
-	// }
-	// /// <summary>
-	// /// Hide the AbilityFeed.
-	// /// </summary>
-	// public void HideAbilityFeed() {
-	// 	LeanTween.scale(abilityFeed.GetComponent<RectTransform>(), Vector3.zero, 0.15f).setEaseInOutQuad().setOnComplete(() => {
-	// 		abilityFeed.gameObject.SetActive(false);
-	// 	});
-	// }
-
 	// Pointer Events
 	public void OnClick() {
 		if (isPlayer) {
@@ -441,7 +703,6 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			}
 		}
 	}
-	
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
 

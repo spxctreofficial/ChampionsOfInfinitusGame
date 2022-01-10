@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 using TMPro;
 using EZCameraShake;
 
-public class TutorialCardLogicController : CardLogicController {
+/*public class TutorialCardLogicController : CardLogicController {
 	public static new TutorialCardLogicController instance;
 
 	protected override void Awake() {
@@ -986,4 +986,4 @@ public class TutorialCardLogicController : CardLogicController {
 
 		currentlyHandlingCard = false;
 	}
-}
+}*/
