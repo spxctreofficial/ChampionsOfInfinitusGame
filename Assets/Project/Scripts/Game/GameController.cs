@@ -16,8 +16,6 @@ public abstract class GameController : MonoBehaviour {
 
 	public GamePhase gamePhase;
 
-	public CardIndex cardIndex;
-
 	[Header("Panels")]
 	public GameObject gameArea;
 
