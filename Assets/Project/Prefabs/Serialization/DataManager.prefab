@@ -46,10 +46,10 @@ MonoBehaviour:
   championIndex:
     champions:
     - {fileID: 11400000, guid: 0e59d7aaf4948124d9d3598a54e66410, type: 2}
-    - {fileID: 11400000, guid: 4045fc7ed13a3e14b8389f5242cd5a4e, type: 2}
     - {fileID: 11400000, guid: 40bb4be790baac145b06702d88c809c2, type: 2}
     - {fileID: 11400000, guid: b6d004ee36592a240b4c3951dfb8af2f, type: 2}
     - {fileID: 11400000, guid: 3eb89a66016d2f64399b3be61f1833be, type: 2}
+    - {fileID: 11400000, guid: d0bf308520a016c40a3b2cd60f756d94, type: 2}
     - {fileID: 11400000, guid: e0d4abf83cfa85a4a9a04d9ef2cfee42, type: 2}
     - {fileID: 11400000, guid: 6af9060c51bb3eb4b8afdbce492306bd, type: 2}
   mapIndex:

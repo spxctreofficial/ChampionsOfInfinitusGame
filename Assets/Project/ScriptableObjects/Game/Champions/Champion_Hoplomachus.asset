@@ -22,11 +22,8 @@ MonoBehaviour:
   gender: 0
   faction: 1
   race: 0
-  maxHP: 100
-  currentHP: 100
-  attackDamage: 30
-  attackDamageType: 0
-  attackName: Gladiator Broadsword
+  maxHP: 10
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
   abilities:
   - {fileID: 11400000, guid: af16469b047602442a5b0816afb550e0, type: 2}
   unlockability: 0

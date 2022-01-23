@@ -19,7 +19,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 	private GameObject championAbilityOverviewEntryPrefab;
 
 	public static ChampionInfoPanel Create(Champion champion) {
-		GameObject championInfoPanelPrefab = MainMenuController.instance == null ? PrefabManager.instance.championInfoPanelPrefab : PrefabManager.instance.championInfoPanelPrefab;
+		GameObject championInfoPanelPrefab = PrefabManager.instance.championInfoPanelPrefab;
 		ChampionInfoPanel championInfoPanel = Instantiate(championInfoPanelPrefab, Vector2.zero, Quaternion.identity).GetComponent<ChampionInfoPanel>();
 		championInfoPanel.Setup(champion);
 
@@ -41,8 +41,6 @@ public class ChampionInfoPanel : MonoBehaviour {
 		championNameText.text = champion.championName;
 		championDescriptionText.text = champion.description;
 		championHealthText.text = champion.maxHP + " HP";
-		championWeaponNameText.text = champion.attackName;
-		championWeaponStatsText.text = champion.attackDamage + " " + champion.attackDamageType + " Damage";
 		championAvatar.sprite = champion.avatar;
 
 		foreach (AbilityScriptableObject ability in champion.abilities) {
@@ -79,7 +77,7 @@ public class ChampionInfoPanel : MonoBehaviour {
 			DataManager.instance.goldAmount -= champion.value;
 			DataManager.instance.ownedChampions.Add(champion);
 			DataManager.instance.Save();
-			AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+			AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		});
 		confirmDialog.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 	}

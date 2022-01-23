@@ -53,7 +53,6 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(0.5f, () => {
 			string body = "Health: " + champion.maxHP; // max health
-			body += "\n" + champion.attackName + " (Attack): " + champion.attackDamage + " " + champion.attackDamageType + " Damage"; // attack & damage
 			body += "\nCLICK FOR MORE INFO";
 
 			body += "\n\nCost: " + champion.value; // cost to buy (assumes that the champion is a shop item)

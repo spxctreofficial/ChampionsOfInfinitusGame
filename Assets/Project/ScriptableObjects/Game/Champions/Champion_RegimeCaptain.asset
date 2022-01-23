@@ -21,11 +21,9 @@ MonoBehaviour:
   gender: 0
   faction: 1
   race: 0
-  maxHP: 100
-  currentHP: 100
-  attackDamage: 30
-  attackDamageType: 0
-  attackName: Regime Broadsword
+  maxHP: 10
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
+  championClass: 6
   abilities:
   - {fileID: 11400000, guid: 408284d49603484469e4124a9430c6b6, type: 2}
   unlockability: 0

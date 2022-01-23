@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Hand : MonoBehaviour {
@@ -21,224 +23,104 @@ public class Hand : MonoBehaviour {
 	
 	// GetCard Functions
 	/// <summary>
-	/// Returns the amount of cards that this hand owns, identical to `hand.GetCardCount()` but supposedly filtered.
+	/// Returns the amount of cards that this hand owns.
 	/// </summary>
 	/// <returns></returns>
 	public int GetCardCount() {
 		int cardCount = 0;
 
-		foreach (Transform child in transform) {
-			if (child.GetComponent<Card>() == null) continue;
-			if (!cards.Contains(child.GetComponent<Card>())) continue;
+		foreach (Card card in cards) {
+			if (card.owner is null) continue;
 			cardCount++;
 		}
 
 		return cardCount;
 	}
-	/// <summary>
-	/// Get a specific card with a given criteria to search for.
-	///
-	/// Valid types are: "Lowest", "Highest", "Defense"
-	/// </summary>
-	/// <param name="type"></param>
-	/// <returns></returns>
-	public Card GetCard(string type) {
-		Card selectedCard = null;
-		int value;
-		switch (type) {
-			case "Lowest":
-				value = 999;
-				foreach (Card card in cards) {
-					if (card.cardScriptableObject.cardValue >= value) continue;
-					selectedCard = card;
-					value = selectedCard.cardScriptableObject.cardValue;
-				}
-				break;
-			case "Highest":
-				value = -999;
-				foreach (Card card in cards) {
-					if (card.cardScriptableObject.cardValue <= value) continue;
-					selectedCard = card;
-					value = selectedCard.cardScriptableObject.cardValue;
-				}
-				break;
-			case "Defense":
-				value = -999;
-				foreach (Card card in cards) {
-					switch (GameController.instance.difficulty) {
-						case GameController.Difficulty.Noob:
-							if (card.transform.GetSiblingIndex() == card.transform.parent.childCount - 1) selectedCard = card.GetComponent<Card>();
-							if (Random.Range(0f, 1f) < 0.5f) continue;
-							break;
-						case GameController.Difficulty.Novice:
-							if (card.transform.GetSiblingIndex() == card.transform.parent.childCount - 1) selectedCard = card;
-							if (card.cardScriptableObject.cardValue <= 9) continue;
-							break;
-						case GameController.Difficulty.Warrior:
-							if (owner.currentHP >= 0.3f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log(owner.champion.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
-								continue;
-							}
-							if (value < card.cardScriptableObject.cardValue) {
-								selectedCard = card;
-								value = selectedCard.cardScriptableObject.cardValue;
-							}
-							break;
-						case GameController.Difficulty.Champion:
-							if (owner.currentHP >= 0.5f * owner.maxHP && card.cardScriptableObject.cardValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-								Debug.Log(owner.champion.championName + " is confident! They refuse to use a value of " + card.cardScriptableObject.cardValue + " to defend!");
-								continue;
-							}
-							if (value < card.cardScriptableObject.cardValue) {
-								selectedCard = card;
-								value = selectedCard.cardScriptableObject.cardValue;
-							}
-							break;
-					}
-				}
-				break;
-			default:
-				Debug.LogError("No GetCard type was specified!");
-				return null;
+
+	public Card GetDiscard() {
+		Card card = null;
+		foreach (Card selectedCard in cards) {
+			if (card is null) {
+				card = selectedCard;
+				continue;
+			}
+			
+			if (selectedCard.cardData.cardImportanceFactor > card.cardData.cardImportanceFactor ||
+			    selectedCard.cardData.cardImportanceFactor == card.cardData.cardImportanceFactor && Random.Range(0f, 1f) < 0.5f ||
+			    GetDefenseCards().Contains(selectedCard) && GetDefenseCards().Length > 2) {
+				card = selectedCard;
+			}
 		}
 
-		if (selectedCard == null) {
-			Debug.LogWarning("No card within criteria was found! Returning a null.");
-			return null;
+		return card;
+	}
+	public Card[] GetDiscardArray(int discardAmount) {
+		List<Card> discardList = new List<Card>();
+		for (int discarded = 0; discarded < discardAmount; discarded++) {
+			Card discard = GetDiscard();
+			cards.Remove(discard);
+			discard.discardFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
+			discard.discardFeed.text = "DISCARDED";
+			discardList.Add(discard);
 		}
-		return selectedCard;
+
+		return discardList.ToArray();
 	}
-	public Card GetCardByIndex(int index = 0) {
-		return cards[index];
-	}
-	public Card[] GetCardsFromIndex(int index = 0, int count = 1) {
-		if (count == 0) return null;
+	public Card[] GetDefenseCards() {
 		List<Card> cards = new List<Card>();
 
-		for (int i = index; i < index + count; i++) {
-			cards.Add(GetCardByIndex(i));
-		}
-		return cards.ToArray();
-	}
-	public Card GetCard(string type, CardSuit suitCriteria) {
-		Card selectedCard = null;
-		int value;
-		switch (type) {
-			case "Lowest":
-				value = 999;
-				foreach (Transform child in transform) {
-					if (child.GetComponent<Card>().cardScriptableObject.cardValue >= value || child.GetComponent<Card>().cardScriptableObject.cardSuit != suitCriteria) continue;
-					selectedCard = child.GetComponent<Card>();
-					value = selectedCard.cardScriptableObject.cardValue;
-				}
-				break;
-			case "Highest":
-				value = -999;
-				foreach (Transform child in transform) {
-					if (child.GetComponent<Card>().cardScriptableObject.cardValue <= value || child.GetComponent<Card>().cardScriptableObject.cardSuit != suitCriteria) continue;
-					selectedCard = child.GetComponent<Card>();
-					value = selectedCard.cardScriptableObject.cardValue;
-				}
-				break;
-			default:
-				Debug.LogError("No GetCard type was specified!");
-				return null;
-		}
-
-		if (selectedCard == null) {
-			Debug.LogWarning("No card within criteria was found! Returning a null.");
-			return null;
-		}
-		return selectedCard;
-	}
-	/// <summary>
-	/// A smarter coherence designed to return a card specifically for attacking.
-	/// </summary>
-	/// <param name="card"></param>
-	/// <returns></returns>
-	public Card GetAttackingCard(Card card) {
-		Card selectedCard = null;
-		int value = -999;
-		foreach (Card thisCard in cards) {
-			if (thisCard == card) continue;
-
-			switch (GameController.instance.difficulty) {
-				case GameController.Difficulty.Noob:
-					if (thisCard.transform.GetSiblingIndex() == thisCard.transform.parent.childCount - 1) selectedCard = thisCard;
-					break;
-				case GameController.Difficulty.Novice:
-					if (thisCard.cardScriptableObject.cardValue <= 9) continue;
-					if (thisCard.transform.GetSiblingIndex() == thisCard.transform.parent.childCount - 1) selectedCard = thisCard;
-					break;
-				case GameController.Difficulty.Warrior:
-					if (owner.currentHP >= 0.25f * owner.maxHP && thisCard.cardScriptableObject.cardValue >= 10 && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The opponent is confident! They refuse to use a value of " + thisCard.cardScriptableObject.cardValue + " to attack!");
-						continue;
-					}
-					if (value < thisCard.cardScriptableObject.cardValue) {
-						selectedCard = thisCard;
-						value = thisCard.cardScriptableObject.cardValue;
-					}
-					break;
-				case GameController.Difficulty.Champion:
-					if (thisCard.cardScriptableObject.cardSuit == CardSuit.HEART && owner.currentHP <= 0.75f * owner.maxHP && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log(owner.champion.championName + " refuses to use a HEART to attack!");
-						continue;
-					}
-					if (owner.currentHP >= 0.5f * owner.maxHP && thisCard.CombatValue >= 12 && Random.Range(0f, 1f) < 0.75f) {
-						Debug.Log("The opponent is confident! They refuse to use a value of " + thisCard.CombatValue + " to attack!");
-						continue;
-					}
-					if (value < thisCard.CombatValue) {
-						selectedCard = thisCard;
-						value = thisCard.CombatValue;
-					}
+		foreach (Card card in this.cards) {
+			switch (card.cardData.cardFunctions.primaryFunction) {
+				case "block":
+				case "parry":
+					cards.Add(card);
 					break;
 			}
 		}
 
-		if (selectedCard == null) {
-			Debug.LogWarning("No card within criteria was found! Returning a null.");
-			return null;
-		}
-		return selectedCard;
+		return cards.ToArray();
 	}
 
 	// Deal Functions
-	
+
 	/// <summary>
 	/// Deals an amount of randomly generated cards to this hand, with additional parameters for animation and fine control.
 	/// </summary>
 	/// <param name="amount"></param>
+	/// <param name="cardColor"></param>
+	/// <param name="excludeDraw"></param>
 	/// <param name="flip"></param>
 	/// <param name="animate"></param>
 	/// <param name="abilityCheck"></param>
 	/// <returns></returns>
-	public IEnumerator Deal(int amount = 4, bool flip = false, bool animate = true, bool abilityCheck = true) {
+	public IEnumerator Deal(int amount = 4, CardColor cardColor = CardColor.NoPref, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		for (int i = 0; i < amount; i++) {
-			 CardScriptableObject cardScriptableObject = GameController.instance.cardIndex.PlayingCards[Random.Range(0, GameController.instance.cardIndex.PlayingCards.Count)];
 
-			 // Noob mode crutch
-			 if (owner.isPlayer && Random.Range(0f, 1f) < 0.25f && GameController.instance.difficulty == GameController.Difficulty.Noob) {
-				 int rerollValue = Mathf.Min(cardScriptableObject.cardValue + 3, 13);
-				 foreach (CardScriptableObject newCard in GameController.instance.cardIndex.PlayingCards) {
-					 if (rerollValue != newCard.cardValue || cardScriptableObject.cardSuit != newCard.cardSuit || cardScriptableObject == newCard) continue;
+			CardData cardData = PrefabManager.instance.cardReg.GenerateRandomCardData(owner);
+			switch (cardColor) {
+				case CardColor.NoPref:
+					break;
+				default:
+					List<CardData> usedIndexes = new List<CardData>();
+					while (cardData.cardColor != cardColor || (excludeDraw && cardData.cardFunctions.primaryFunction == "draw")) {
+						CardData index = PrefabManager.instance.cardReg.GenerateRandomCardData(owner);
+						if (usedIndexes.Contains(index)) continue;
+						usedIndexes.Add(index);
+						cardData = index;
+					}
+					break;
+			}
 
-					 cardScriptableObject = newCard;
-				 }
-				 Debug.Log("oh yes crutch");
-			 }
-
-			 yield return StartCoroutine(Deal(cardScriptableObject, flip, animate, abilityCheck));
+			 yield return StartCoroutine(Deal(cardData, flip, animate, abilityCheck));
 			 
 			 yield return new WaitForSeconds(0.25f);
 		}
 	}
-	public IEnumerator Deal(CardScriptableObject cardScriptableObject, bool flip = false, bool animate = true, bool abilityCheck = true) {
-		AudioController.instance.Play("flip");
+	public IEnumerator Deal(CardData cardData, bool flip = false, bool animate = true, bool abilityCheck = true) {
+		AudioManager.instance.Play("flip");
 		// Creates a new card.
 		Card card = Instantiate(PrefabManager.instance.cardTemplate, Vector2.zero, Quaternion.identity).GetComponent<Card>();
-		card.cardScriptableObject = cardScriptableObject;
+		card.cardData = cardData;
 
 		// Sets card to the hand and adds it to the list of cards of this hand for easy reference.
 		card.transform.SetParent(transform, false);
@@ -253,7 +135,7 @@ public class Hand : MonoBehaviour {
 			card.GetComponent<SmartHover>().ScaleDown();
 		}
 		if (abilityCheck) {
-			foreach (ChampionController selectedChampion in GameController.instance.champions) {
+			foreach (ChampionController selectedChampion in GameManager.instance.champions) {
 				foreach (Ability ability in selectedChampion.abilities) {
 					yield return StartCoroutine(ability.OnDeal(card, owner));
 				}
@@ -279,11 +161,11 @@ public class Hand : MonoBehaviour {
 		
 		
 		// Sets card to the discard area, removing the card's specified owner, and removing the card from the list of cards from this hand to avoid memory leaks.
-		AudioController.instance.Play("flip");
-		card.transform.SetParent(GameController.instance.discardArea.transform, false);
-		if (GameController.instance.discardArea.transform.childCount > 8) {
-			for (int i = GameController.instance.discardArea.transform.childCount; i > 8; i--) {
-				Destroy(GameController.instance.discardArea.transform.GetChild(0).gameObject);
+		AudioManager.instance.Play("flip");
+		card.transform.SetParent(GameManager.instance.discardArea.transform, false);
+		if (GameManager.instance.discardArea.transform.childCount > 8) {
+			for (int i = GameManager.instance.discardArea.transform.childCount; i > 8; i--) {
+				Destroy(GameManager.instance.discardArea.transform.GetChild(0).gameObject);
 			}
 		}
 		if (card.owner != null) {
@@ -300,7 +182,7 @@ public class Hand : MonoBehaviour {
 			card.GetComponent<SmartHover>().ScaleDown();
 		}
 		if (abilityCheck) {
-			foreach (ChampionController selectedChampion in GameController.instance.champions) {
+			foreach (ChampionController selectedChampion in GameManager.instance.champions) {
 				foreach (Ability ability in selectedChampion.abilities) {
 					// ABILITY CHECK HERE
 				}
@@ -315,5 +197,10 @@ public class Hand : MonoBehaviour {
 			yield return StartCoroutine(Discard(card, flip, animate, abilityCheck));
 			yield return new WaitForSeconds(0.5f);
 		}
+	}
+
+	public IEnumerator UseCard(Card card, bool flip = false, bool animate = true, bool abilityCheck = false) {
+		owner.currentStamina = Mathf.Max(owner.currentStamina - card.EffectiveStaminaRequirement, 0);
+		yield return StartCoroutine(Discard(card, flip, animate, abilityCheck));
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ChampionParticleController : MonoBehaviour {
 	[SerializeField]
-	private ParticleSystem orangeGlow, cyanGlow, redGlow, greenGlow, bloodSplatter;
+	private ParticleSystem orangeGlow, cyanGlow, redGlow, bloodSplatter;
 	public ParticleSystem bloodDrip;
 
 	public ParticleSystem OrangeGlow {
@@ -21,11 +21,6 @@ public class ChampionParticleController : MonoBehaviour {
 	public ParticleSystem RedGlow {
 		get {
 			return redGlow;
-		}
-	}
-	public ParticleSystem GreenGlow {
-		get {
-			return greenGlow;
 		}
 	}
 	public ParticleSystem BloodSplatter {

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76ca61494a873f43b98ae3100cee2be, type: 3}
+  m_Name: Card_DarkBlock
+  m_EditorClassIdentifier: 
+  cardName: Block (Dark)
+  cardDescription: When played, blocks an incoming attack.
+  cornerText: 
+  cardFront: {fileID: 21300000, guid: c06376394918aca40ac31998c5445a55, type: 3}
+  cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
+  cardFunctions:
+    primaryFunction: block
+    secondaryFunction: 
+    tertiaryFunction: 
+    quaternaryFunction: 
+  cardColor: 1
+  cardImportanceFactor: 20

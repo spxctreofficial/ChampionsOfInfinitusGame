@@ -8,7 +8,7 @@ public class SmartHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	private int scaleUpID, scaleDownID;
 	
 	public void OnPointerEnter(PointerEventData eventData) {
-		AudioController.instance.Play("uiselect");
+		AudioManager.instance.Play("uiselect");
 		scaleUpID = LeanTween.scale(GetComponent<RectTransform>(), animatedScale, 0.3f).setEaseOutQuart().uniqueId;
 		LeanTween.cancel(scaleDownID);
 	}

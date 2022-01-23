@@ -23,11 +23,9 @@ MonoBehaviour:
   gender: 1
   faction: 0
   race: 0
-  maxHP: 165
-  currentHP: 165
-  attackDamage: 30
-  attackDamageType: 0
-  attackName: Paladin's Bane
+  maxHP: 15
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
+  championClass: 3
   abilities:
   - {fileID: 11400000, guid: e7ef8c78073f4504298b1cbaede2673c, type: 2}
   unlockability: 0

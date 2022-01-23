@@ -47,16 +47,16 @@ public abstract class StatisticManager : MonoBehaviour {
 		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
 		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
 		float totalHealthRemainingBonus = (float)instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
-		switch (GameController.instance.difficulty) {
-			case GameController.Difficulty.Noob:
+		switch (GameManager.instance.difficulty) {
+			case GameManager.Difficulty.Noob:
 				initialGoldReward /= 5;
 				break;
-			case GameController.Difficulty.Novice:
+			case GameManager.Difficulty.Novice:
 				initialGoldReward /= 2;
 				break;
-			case GameController.Difficulty.Warrior:
+			case GameManager.Difficulty.Warrior:
 				break;
-			case GameController.Difficulty.Champion:
+			case GameManager.Difficulty.Champion:
 				initialGoldReward *= (int)1.2f;
 				break;
 		}
@@ -65,47 +65,47 @@ public abstract class StatisticManager : MonoBehaviour {
 		// PosLoop();
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";
 		bonusRewardLog.text += "\n" + initialGoldReward;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Successful Attack Bonus\n+" + successfulAttackBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Failed Attack Bonus\n+" + failedAttacksBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Successful Defense Bonus\n+" + successfulDefendBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Failed Defense Penalty\n-" + failedDefendsPenalty;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Kill Count Bonus\n+" + killCountBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Total Damage Bonus\n+" + totalDamageDealtBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Total Damage Received Compensation\n+" + totalDamageReceivedCompensation;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		// PosLoop();
 		bonusRewardLog.text = "Health Remaining Bonus (" + totalHealthRemainingBonus + "%)\n+" + totalHealthRemainingBonus;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
@@ -124,7 +124,7 @@ public abstract class StatisticManager : MonoBehaviour {
 
 		DataManager.instance.goldAmount += goldReward;
 		DataManager.instance.Save();
-		AudioController.instance.Play("tutorial0" + Random.Range(1, 4));
+		AudioManager.instance.Play("tutorial0" + Random.Range(1, 4));
 
 		collectButton.SetActive(true);
 	}

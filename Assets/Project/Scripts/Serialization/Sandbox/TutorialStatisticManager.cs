@@ -24,7 +24,7 @@ public class TutorialStatisticManager : StatisticManager {
 		initialGoldReward = !DataManager.instance.firstRunTutorial ? 2000 : 50;
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";
 		bonusRewardLog.text += "\n" + initialGoldReward;
-		AudioController.instance.Play("cointoss0" + Random.Range(1, 3));
+		AudioManager.instance.Play("cointoss0" + Random.Range(1, 3));
 		yield return new WaitForSeconds(0.5f);
 
 		LeanTween.move(bonusRewardLog.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.25f).setEaseInOutQuad();
@@ -35,7 +35,7 @@ public class TutorialStatisticManager : StatisticManager {
 		DataManager.instance.goldAmount += goldReward;
 		DataManager.instance.firstRunTutorial = winState;
 		DataManager.instance.Save();
-		AudioController.instance.Play("tutorial0" + Random.Range(1, 4));
+		AudioManager.instance.Play("tutorial0" + Random.Range(1, 4));
 
 		collectButton.SetActive(true);
 	}

@@ -35,7 +35,7 @@ public class MainMenuController : MonoBehaviour {
 	/// </summary>
 	public void Focus() {
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
-		AudioController.instance.Play(logo.GetComponent<AudioSource>().clip);
+		AudioManager.instance.Play(logo.GetComponent<AudioSource>().clip);
 		
 		// StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
 		CameraShaker.Instance.ShakeOnce(8f, 4f, 0f, 0.65f);

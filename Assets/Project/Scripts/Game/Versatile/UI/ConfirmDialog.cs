@@ -17,6 +17,8 @@ public class ConfirmDialog : MonoBehaviour {
     [SerializeField]
     private Button positiveButton;
 
+    [SerializeField] private CanvasGroup canvasGroup;
+
 	/// <summary>
 	/// Create a new Confirm Dialog with these properties pre-set.
 	/// Also sets this Confirm Dialog as the static instance of the Confirm Dialog.
@@ -46,16 +48,6 @@ public class ConfirmDialog : MonoBehaviour {
         return confirmDialog;
     }
     
-    /// <summary>
-    /// Sets up a Confirm Dialog's properties.
-    /// </summary>
-    /// <param name="title"></param>
-    /// <param name="description"></param>
-    /// <param name="negativeButtonAction"></param>
-    /// <param name="positiveButtonAction"></param>
-    /// <param name="tweenToView"></param>
-    /// <param name="negativeButtonText"></param>
-    /// <param name="positiveButtonText"></param>
     public void Setup(string title, string description, UnityAction negativeButtonAction, UnityAction positiveButtonAction, string negativeButtonText = "CANCEL", string positiveButtonText = "CONFIRM", bool tweenToView = true) {
         // Title & Description
         titleText.text = title;
@@ -77,35 +69,24 @@ public class ConfirmDialog : MonoBehaviour {
                 break;
         }
     }
-    /// <summary>
-    /// Set an UnityAction to be triggered by the Negative Button (left).
-    /// </summary>
-    /// <param name="call"></param>
     private void SetNegativeButton(UnityAction call) {
         negativeButton.onClick.RemoveAllListeners();
         negativeButton.onClick.AddListener(call);
     }
-    /// <summary>
-    /// Set an UnityAction to be triggered by the Positive Button (right).
-    /// </summary>
-    /// <param name="call"></param>
     private void SetPositiveButton(UnityAction call) {
         positiveButton.onClick.RemoveAllListeners();
         positiveButton.onClick.AddListener(call);
     }
 
-    /// <summary>
-    /// Shows this Confirm Dialog.
-    /// </summary>
     public void Show() {
-        transform.localScale = Vector2.zero;
-        LeanTween.scale(GetComponent<RectTransform>(), Vector2.one, 0.5f).setEaseInOutQuart();
+	    transform.localScale = new Vector2(0.8f, 0.8f);
+	    canvasGroup.alpha = 0f;
+        LeanTween.scale(GetComponent<RectTransform>(), Vector2.one, 0.3f).setEaseInOutQuart();
+        LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f).setEaseInOutQuart();
     }
-    /// <summary>
-    /// Hides this Confirm Dialog.
-    /// </summary>
     public void Hide() {
-        LeanTween.scale(GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEaseInOutQuart().setDestroyOnComplete(true);
+        LeanTween.scale(GetComponent<RectTransform>(), new Vector2(0.8f, 0.8f), 0.3f).setEaseInOutQuart().setDestroyOnComplete(true);
+        LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f).setEaseInOutQuart();
         if (this == instance) instance = null;
     }
 }

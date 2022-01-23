@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3417382099508070788}
   - component: {fileID: 8025525832474652964}
   - component: {fileID: 1617195694068549707}
+  - component: {fileID: 1145804769706258064}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -140,6 +141,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4234855115742021526}
   m_CullTransparentMesh: 1
+--- !u!225 &1145804769706258064
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4234855115742021526}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4716964513112880125
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 380, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7988559198191369982
@@ -260,7 +273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 380, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1372233057549308451
@@ -394,6 +407,7 @@ MonoBehaviour:
   descriptionText: {fileID: 7144247891801054651}
   negativeButton: {fileID: 7144247892686555993}
   positiveButton: {fileID: 7144247892169793339}
+  canvasGroup: {fileID: 1145804769706258064}
 --- !u!1 &7144247891552916942
 GameObject:
   m_ObjectHideFlags: 0

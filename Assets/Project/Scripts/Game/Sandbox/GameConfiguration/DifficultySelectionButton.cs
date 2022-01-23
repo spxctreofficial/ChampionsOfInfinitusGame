@@ -6,30 +6,30 @@ using UnityEngine;
 
 public class DifficultySelectionButton : MonoBehaviour {
 	[HideInInspector]
-	public GameController.Difficulty difficulty;
+	public GameManager.Difficulty difficulty;
 
 	private TMP_Text text;
 
 	private void Start() {
 		text = transform.GetChild(0).GetComponent<TMP_Text>();
 		switch (difficulty) {
-			case GameController.Difficulty.Noob:
+			case GameManager.Difficulty.Noob:
 				text.text = "NOOB";
 				break;
-			case GameController.Difficulty.Novice:
+			case GameManager.Difficulty.Novice:
 				text.text = "NOVICE";
 				break;
-			case GameController.Difficulty.Warrior:
+			case GameManager.Difficulty.Warrior:
 				text.text = "WARRIOR";
 				break;
-			case GameController.Difficulty.Champion:
+			case GameManager.Difficulty.Champion:
 				text.text = "CHAMPION";
 				break;
 		}
 	}
 
 	public void OnClick() {
-		GameController.instance.hasChosenDifficulty = true;
-		GameController.instance.difficulty = difficulty;
+		GameManager.instance.hasChosenDifficulty = true;
+		GameManager.instance.difficulty = difficulty;
 	}
 }

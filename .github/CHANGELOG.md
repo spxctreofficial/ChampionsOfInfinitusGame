@@ -4,13 +4,35 @@ This is the official Champions of Infinitus Changelog. Any changes to the game w
 
 
 
-## v0.2.2 Beta
+## v0.3 Beta
 
-v0.2.2 is an incremental update to v0.2.1, optimizing some code and fixing bugs.
+This update is overhauls the card system, champions, sprites, and the game as a whole! Tons of changes, additions, and fixes were implemented to make the game better, more fun, and less infuriating to play.
 
-- Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
-- ChampionInfoPanel received some UI improvements and changes:
-	- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
+- Every single card has been overhauled in the game!
+	- New cards now have a simple, vector-based design.
+	- New cards are now divided into two distinct colors: Light and Dark. These colors can affect card interactions with certain champions and other cards.
+	- New cards are now divided into three distinct classifications that will determine how they are dealt: Universal, class-specific, and unique cards.
+		- Universal cards are cards that any champion can be dealt. They are the most common, and generally have a universal task that they do.
+		- Class-specific cards are cards that are only dealt to champions of a particular class. While they are less common, they are still considered universal "within their class".
+		- Unique cards are cards that can only be dealt to specific champions. This means that they are unobtainable cards to any other champion and are considered the rarest cards.
+- Champions have received a major overhaul in how their health are handled, how they use cards, and their abilities.
+	- Champions now have single-digit health instead of triple-digit health. This change was made to make calculating health easier on the player.
+	- Champions now have new mechanics that dictate what you can do on your turn!
+		- Champions are now classified as different classes! Each different class will have a unique set of class-specific cards added on to each champion's unique champion-specific cards.
+		- Champions now have stamina: playing cards require stamina from the champion. Champions refill their stamina at the start of their turn.
+			- Stamina maxes out at 8.
+		- Champions now use weapons to attack!
+			- Weapons are items that can be equipped to a champion that allows the champion to attack and parry.
+			- Weapons can lose durability. When they lose all their durability, they will break.
+	- Technical: Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
+	- ChampionInfoPanel received some UI improvements and changes:
+		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
+- The GUI have received numerous animation improvements!
+	- Certain UI elements now have a nice fade-in and a shorter zoom-in effect that makes the animation pop out and look quite modern and smooth.
+	- Fixed any UI-scaling issues that make the game look wonky at times.
+- Added a Pause Menu to allow the player to quit the game.
+- Added a Setting within the pause menu that allowed the player to adjust simple graphics and quality settings.
+	- I am very aware that the settings menu is currently only accessible within the game.
 - GameEndPanel received a couple of bug fixes:
 	- Fixed an issue where clicking Collect before the rewards had been completely shown would result in the reward not being collected.
 	- The GoldDisplay has been sped up if the change in gold is drastic.

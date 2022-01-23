@@ -22,11 +22,8 @@ MonoBehaviour:
   gender: 0
   faction: 0
   race: 0
-  maxHP: 95
-  currentHP: 95
-  attackDamage: 30
-  attackDamageType: 0
-  attackName: Iron Sword
+  maxHP: 8
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
   abilities:
   - {fileID: 11400000, guid: 4d5315e6c651db848bc8ba93bc162636, type: 2}
   unlockability: 0

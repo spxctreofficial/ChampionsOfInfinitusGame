@@ -53,7 +53,7 @@ public class DialogueSystem : MonoBehaviour {
 
 		StopAllCoroutines();
 		dialogueBox.text = currentDialogue.sentence;
-		AudioController.instance.Play(beep, false, 0.5f);
+		AudioManager.instance.Play(beep, false, 0.5f);
 	}
 
 	private void LoadNextSentence() {
@@ -115,7 +115,7 @@ public class DialogueSystem : MonoBehaviour {
 			}
 
 			dialogueBox.text += c;
-			AudioController.instance.Play(beep, false, 0.5f);
+			AudioManager.instance.Play(beep, false, 0.5f);
 			yield return new WaitForSeconds(waitTime);
 		}
 

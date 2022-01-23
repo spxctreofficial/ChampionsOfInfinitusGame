@@ -60,7 +60,7 @@ public class ChampionSlot : MonoBehaviour {
 	/// <param name="filter"></param>
 	/// <returns></returns>
 	public static ChampionSlot FindNextVacantSlot(string filter = "Normal") {
-		foreach (ChampionSlot championSlot in GameController.instance.slots) {
+		foreach (ChampionSlot championSlot in GameManager.instance.slots) {
 			if (championSlot.occupiedChampion != null) continue;
 
 			Vector2 position = championSlot.GetComponent<RectTransform>().localPosition;
@@ -70,16 +70,14 @@ public class ChampionSlot : MonoBehaviour {
 					    || position == defaultLocations[2]
 					    || position == defaultLocations[3]
 					    || position == defaultLocations[4]
-					    || position == defaultLocations[7]
-					    || position == defaultLocations[8]) continue;
+					    || position == defaultLocations[7]) continue;
 					break;
 				case "Opponent":
 					if (position == defaultLocations[1]
 					    || position != defaultLocations[2]
 					    || position != defaultLocations[3]
 					    || position != defaultLocations[4]
-					    || position != defaultLocations[7]
-					    || position != defaultLocations[8]) continue;
+					    || position != defaultLocations[7]) continue;
 					break;
 			}
 
@@ -111,8 +109,8 @@ public class ChampionSlot : MonoBehaviour {
 	public static void CreateDefaultSlots() {
 		foreach (Vector3 vector3 in defaultLocations) {
 			ChampionSlot slot = Instantiate(PrefabManager.instance.championSlotPrefab, vector3, Quaternion.identity).GetComponent<ChampionSlot>();
-			GameController.instance.slots.Add(slot);
-			slot.transform.SetParent(GameController.instance.gameArea.transform, false);
+			GameManager.instance.slots.Add(slot);
+			slot.transform.SetParent(GameManager.instance.gameArea.transform, false);
 		}
 	}
 
@@ -120,14 +118,12 @@ public class ChampionSlot : MonoBehaviour {
 	/// Default locations for common & verified slots.
 	/// </summary>
 	public static readonly List<Vector2> defaultLocations = new List<Vector2> {
-		new Vector2(-864, (float)-213.25), // Player Slot
-		new Vector2(864, (float)-154.5),  // *Usually* Ally Slot
-		new Vector2(864, (float)372.75),   // Enemy Slot 1
-		new Vector2(-864, (float)372.75),  // Enemy Slot 2
-		new Vector2(0, (float)372.75),     // Enemy Slot 3
-		new Vector2(-864, 96),             // Miscellaneous Slot 1 (Usually Minion)
-		new Vector2(864, 96),              // Miscellaneous Slot 2 (Usually Minion)
-		new Vector2(-432, (float)372.75),  // Enemy Slot 3 (Usually Enemy Minion)
-		new Vector2(432, (float)372.75)    // Enemy Slot 4 (Usually Enemy Minion)
+		new Vector2(-856, -85), // Player Slot
+		new Vector2(856, -85),  // *Usually* Ally Slot
+		new Vector2(856, 376),   // Enemy Slot 1
+		new Vector2(-856, 335),  // Enemy Slot 2
+		new Vector2(0, 376),     // Enemy Slot 3
+		new Vector2(-856, 64),             // Miscellaneous Slot 1 (Usually Minion)
+		new Vector2(856, 64)              // Miscellaneous Slot 2 (Usually Minion)
 	};
 }

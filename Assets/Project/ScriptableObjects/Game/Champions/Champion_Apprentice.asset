@@ -22,11 +22,9 @@ MonoBehaviour:
   gender: 0
   faction: 2
   race: 0
-  maxHP: 90
-  currentHP: 90
-  attackDamage: 30
-  attackDamageType: 0
-  attackName: Wooden Staff
+  maxHP: 8
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
+  championClass: 3
   abilities:
   - {fileID: 11400000, guid: 9961ee82303a8304e857dba1cba3dee9, type: 2}
   - {fileID: 11400000, guid: eff0d2aa010284344a37b2aa26cbf318, type: 2}
