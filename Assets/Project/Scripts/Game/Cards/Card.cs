@@ -46,10 +46,6 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		StaminaRequirementModifier = 0;
 	}
 
-	/// <summary>
-	/// Flips a card, hiding it from the player's view.
-	/// </summary>
-	/// <param name="doFlipAnimation"></param>
 	public void Flip(bool doFlipAnimation = false) {
 		Debug.Log("calleed");
 		if (!isHidden) {
