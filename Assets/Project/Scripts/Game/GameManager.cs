@@ -200,20 +200,9 @@ public abstract class GameManager : MonoBehaviour {
 
 		yield return new WaitForSeconds(2f);
 
-		// Discard and Calculate Next Turn
-		switch (championController.isPlayer) {
-			case true:
-				playerActionTooltip.text = championController.discardAmount != 0 ? "Please discard " + championController.discardAmount + "." : playerActionTooltip.text;
-
-				yield return new WaitUntil(() => championController.discardAmount == 0);
-				break;
-			case false:
-				if (championController.discardAmount > 0) {
-					yield return StartCoroutine(championController.hand.Discard(championController.hand.GetDiscardArray(championController.discardAmount)));
-					championController.discardAmount = 0;
-				}
-				break;
-		}
+		if (championController.discardAmount > 0) {
+			yield return StartCoroutine(DiscardManager.Create(championController).Initialize());
+        }
 		NextTurnCalculator(championController);
 	}
 	/// <summary>

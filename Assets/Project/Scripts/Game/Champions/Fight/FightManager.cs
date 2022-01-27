@@ -11,7 +11,7 @@ public class FightManager : MonoBehaviour {
 	public bool parrying;
 	private ChampionController initialAttacker;
 
-	public void Awake() {
+	private void Awake() {
 		if (instance is null) {
 			instance = this;
 		}

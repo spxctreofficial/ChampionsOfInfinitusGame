@@ -113,6 +113,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 							yield break;
 						}
 
+						if (DiscardManager.instance is { } && DiscardManager.instance.discarder == cachedOwner) {
+							yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
+							yield break;
+                        }
+
 						// Parry
 						if (FightManager.fightInstance is { } && FightManager.instance.parrying) {
 							switch (cardData.cardFunctions.primaryFunction) {
@@ -196,20 +201,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 			case GamePhase.EndPhase:
 				switch (cachedOwner.isMyTurn) {
 					case true:
-						// When Discarding Naturally
-						if (cachedOwner.discardAmount > 0) {
-							cachedOwner.discardAmount--;
-							discardFeed.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, Color.gray);
-							discardFeed.text = "DISCARDED";
-
-							if (cachedOwner.discardAmount != 0) {
-								GameManager.instance.playerActionTooltip.text = "Please discard " + cachedOwner.discardAmount + ".";
-							}
-							else {
-								GameManager.instance.playerActionTooltip.text = string.Empty;
-							}
-							yield return StartCoroutine(cachedOwner.hand.Discard(this));
-						}
+						if (DiscardManager.instance is { }) yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
 						yield break;
 					case false:
 						TooltipSystem.instance.ShowError("It is not your turn!");

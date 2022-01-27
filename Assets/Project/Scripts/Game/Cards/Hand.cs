@@ -163,6 +163,7 @@ public class Hand : MonoBehaviour {
 		// Sets card to the discard area, removing the card's specified owner, and removing the card from the list of cards from this hand to avoid memory leaks.
 		AudioManager.instance.Play("flip");
 		card.transform.SetParent(GameManager.instance.discardArea.transform, false);
+		
 		if (GameManager.instance.discardArea.transform.childCount > 8) {
 			for (int i = GameManager.instance.discardArea.transform.childCount; i > 8; i--) {
 				Destroy(GameManager.instance.discardArea.transform.GetChild(0).gameObject);
