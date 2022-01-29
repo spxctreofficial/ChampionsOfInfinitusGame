@@ -236,44 +236,36 @@ public class SandboxGameManager : GameManager {
 		switch (gamemodes) {
 			case Gamemodes.Competitive2v2:
 				List<string> aliveTeams = new List<string>();
-				foreach (ChampionController champion in champions) {
-					switch (champion.isDead) {
+				foreach (ChampionController championController in champions) {
+					switch (championController.isDead) {
 						case false:
-							if (!aliveTeams.Contains(champion.team)) aliveTeams.Add(champion.team);
-							aliveChampions.Add(champion);
+							if (!aliveTeams.Contains(championController.team)) aliveTeams.Add(championController.team);
+							aliveChampions.Add(championController);
 							break;
 					}
 				}
 
 				if (aliveTeams.Count == 1) {
-					foreach (ChampionController champion in champions) {
-						champion.championParticleController.OrangeGlow.Stop();
-						champion.championParticleController.CyanGlow.Stop();
-						champion.championParticleController.RedGlow.Stop();
-
-						champion.championParticleController.OrangeGlow.Clear();
-						champion.championParticleController.CyanGlow.Clear();
-						champion.championParticleController.RedGlow.Clear();
+					foreach (ChampionController championController in champions) {
+						championController.championParticleController.redGlow.SetActive(false);
+						championController.championParticleController.orangeGlow.SetActive(false);
+						championController.championParticleController.cyanGlow.SetActive(false);
 					}
 					yield return new WaitForSeconds(3f);
 					GameEnd(aliveChampions[Random.Range(0, aliveChampions.Count)]);
 				}
 				break;
 			case Gamemodes.FFA:
-				foreach (ChampionController champion in champions) {
-					if (champion.isDead || champion.currentOwner != null) continue;
-					aliveChampions.Add(champion);
+				foreach (ChampionController championController in champions) {
+					if (championController.isDead || championController.currentOwner != null) continue;
+					aliveChampions.Add(championController);
 				}
 
 				if (aliveChampions.Count == 1) {
-					foreach (ChampionController champion in champions) {
-						champion.championParticleController.OrangeGlow.Stop();
-						champion.championParticleController.CyanGlow.Stop();
-						champion.championParticleController.RedGlow.Stop();
-
-						champion.championParticleController.OrangeGlow.Clear();
-						champion.championParticleController.CyanGlow.Clear();
-						champion.championParticleController.RedGlow.Clear();
+					foreach (ChampionController championController in champions) {
+						championController.championParticleController.redGlow.SetActive(false);
+						championController.championParticleController.orangeGlow.SetActive(false);
+						championController.championParticleController.cyanGlow.SetActive(false);
 					}
 					yield return new WaitForSeconds(3f);
 					GameEnd(aliveChampions[0]);

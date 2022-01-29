@@ -34,7 +34,7 @@ public class FightManager : MonoBehaviour {
 
 		StartCoroutine(fightInstance.Attacker.hand.UseCard(fight.AttackingCard));
 		if (!parrying) fight.AttackingCard.Flip();
-		fightInstance.Defender.championParticleController.PlayEffect(fightInstance.Defender.championParticleController.RedGlow);
+		fightInstance.Defender.championParticleController.redGlow.SetActive(true);
 
 		if (!fightInstance.Defender.isPlayer) {
 			foreach (Card card in fightInstance.Defender.hand.cards) {
@@ -69,8 +69,9 @@ public class FightManager : MonoBehaviour {
 					case "block":
 					case "parry":
 						willWait = true;
-						card.greenGlow.Stop();
-						card.greenGlow.Play();
+						foreach (GameObject gameObject in card.greenGlow) {
+							gameObject.SetActive(true);
+                        }
 						break;
 				}
 			}
@@ -80,8 +81,9 @@ public class FightManager : MonoBehaviour {
 			}
 
 			foreach (Card card in fightInstance.Defender.hand.cards) {
-				card.greenGlow.Stop();
-				card.greenGlow.Clear();
+				foreach (GameObject gameObject in card.greenGlow) {
+					gameObject.SetActive(false);
+				}
 			}
 			
 		}
@@ -101,9 +103,8 @@ public class FightManager : MonoBehaviour {
 		if (!parrying) {
 			initialAttacker = fightInstance.Attacker;
 		}
-		
-		fightInstance.Defender.championParticleController.RedGlow.Stop();
-		fightInstance.Defender.championParticleController.RedGlow.Clear();
+
+		fightInstance.Defender.championParticleController.redGlow.SetActive(false);
 		
 		switch (fightInstance.AttackingCard.cardData.cardFunctions.primaryFunction) {
 			case "attack":

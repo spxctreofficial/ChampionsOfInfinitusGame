@@ -1,0 +1,17 @@
+{
+    "name": "ChampionsOfInfinitusGame.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c8bffa3fd74121745894941a8b8b116a",
+        "GUID:c7027099d74e3bf40a721835d6ab892e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

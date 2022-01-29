@@ -98,7 +98,7 @@ public abstract class GameManager : MonoBehaviour {
 		gamePhase = GamePhase.BeginningPhase;
 
 		phaseIndicator.text = "Beginning Phase - " + championController.champion.championName;
-		championController.championParticleController.PlayEffect(championController.championParticleController.CyanGlow);
+		championController.championParticleController.cyanGlow.SetActive(true);
 		championController.currentStamina = CurrentRoundStamina;
 		yield return StartCoroutine(championController.hand.Deal(2)); // Deals to the player
 
@@ -266,14 +266,10 @@ public abstract class GameManager : MonoBehaviour {
 		}
 
 		if (aliveChampions.Count == 1) {
-			foreach (ChampionController champion in champions) {
-				champion.championParticleController.OrangeGlow.Stop();
-				champion.championParticleController.CyanGlow.Stop();
-				champion.championParticleController.RedGlow.Stop();
-
-				champion.championParticleController.OrangeGlow.Clear();
-				champion.championParticleController.CyanGlow.Clear();
-				champion.championParticleController.RedGlow.Clear();
+			foreach (ChampionController championController in champions) {
+				championController.championParticleController.redGlow.SetActive(false);
+				championController.championParticleController.orangeGlow.SetActive(false);
+				championController.championParticleController.cyanGlow.SetActive(false);
 			}
 			yield return new WaitForSeconds(3f);
 			GameEnd(aliveChampions[0]);
@@ -283,11 +279,11 @@ public abstract class GameManager : MonoBehaviour {
 	/// Sets the champion of the next turn to the next champion in the list.
 	/// If the index is out of range, it will catch an ArgumentOutOfRangeException and elapse a round, then reset back to the first in the index.
 	/// </summary>
-	/// <param name="currentTurnChampion"></param>
-	public virtual void NextTurnCalculator(ChampionController currentTurnChampion) {
+	/// <param name="currentTurnChampionController"></param>
+	public virtual void NextTurnCalculator(ChampionController currentTurnChampionController) {
 		ChampionController nextTurnChampion;
 		try {
-			nextTurnChampion = champions[champions.IndexOf(currentTurnChampion) + 1];
+			nextTurnChampion = champions[champions.IndexOf(currentTurnChampionController) + 1];
 		}
 		catch (ArgumentOutOfRangeException) {
 			Debug.LogWarning("The index was out of range. Elapsing round and resetting.");
@@ -304,14 +300,13 @@ public abstract class GameManager : MonoBehaviour {
 				roundsElapsed++;
 			}
 		}
-		if (nextTurnChampion == currentTurnChampion) {
+		if (nextTurnChampion == currentTurnChampionController) {
 			Debug.LogError("Something went horribly fucking wrong. Did it miscalculate the next champion or is everyone die!?");
 			return;
 		}
 
-		currentTurnChampion.isMyTurn = false;
-		currentTurnChampion.championParticleController.CyanGlow.Stop();
-		currentTurnChampion.championParticleController.CyanGlow.Clear();
+		currentTurnChampionController.isMyTurn = false;
+		currentTurnChampionController.championParticleController.cyanGlow.SetActive(false);
 		nextTurnChampion.isMyTurn = true;
 		StartCoroutine(BeginningPhase(nextTurnChampion));
 	}

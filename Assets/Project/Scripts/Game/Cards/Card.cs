@@ -14,7 +14,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	public Image cardImage;
 	public TMP_Text caption, cornerText, staminaRequirementText;
 	public TMP_Text discardFeed, advantageFeed;
-	public ParticleSystem halo, redGlow, greenGlow;
+	public GameObject[] redGlow, greenGlow;
 
 	private int staminaRequirementModifier;
 	public int StaminaRequirementModifier {

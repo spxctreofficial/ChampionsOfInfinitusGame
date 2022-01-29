@@ -120,7 +120,7 @@ public class ChampionSlot : MonoBehaviour {
 	public static readonly List<Vector2> defaultLocations = new List<Vector2> {
 		new Vector2(-856, -85), // Player Slot
 		new Vector2(856, -85),  // *Usually* Ally Slot
-		new Vector2(856, 376),   // Enemy Slot 1
+		new Vector2(856, 335),   // Enemy Slot 1
 		new Vector2(-856, 335),  // Enemy Slot 2
 		new Vector2(0, 376),     // Enemy Slot 3
 		new Vector2(-856, 64),             // Miscellaneous Slot 1 (Usually Minion)
