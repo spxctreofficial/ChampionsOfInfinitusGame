@@ -253,7 +253,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}
 	}
 	#endregion
-	
+
 	#region AI Card Logic
 	public IEnumerator CardLogic() {
 		if (isDead) {
@@ -264,6 +264,15 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		yield return new WaitForSeconds(0.5f);
 
+		if (equippedWeapon is null) {
+			Card weaponCard = hand.GetPlayableWeaponCard();
+
+			if (weaponCard is { }) {
+
+            }
+		}
+		
+
 		foreach (Transform child in hand.transform) {
 			Card card = child.GetComponent<Card>();
 
@@ -271,15 +280,18 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 				Debug.Log("Cannot play this card due to stamina requirement!");
 				continue;
 			}
-			
+
+			if (card.cardData is WeaponCardData weaponCardData) {
+				continue;
+            }
 
 			switch (card.cardData.cardFunctions.primaryFunction) {
 				case "attack":
 					if (equippedWeapon is { }) {
 						ChampionController target = SelectTarget();
-						
+
 						if (target is { }) {
-							yield return card.AttackFunction(this, target);
+							yield return card.AttackFunction( target);
 						}
 					}
 					break;
@@ -296,7 +308,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 			yield return new WaitForSeconds(0.25f);
 		}
-		
+
 		GameManager.instance.StartEndPhase(this);
 	}
 

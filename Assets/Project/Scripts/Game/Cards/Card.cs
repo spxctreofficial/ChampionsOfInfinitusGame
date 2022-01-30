@@ -38,7 +38,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
 	private int delayID;
 	
-	private void Start() {
+	protected virtual void Start() {
 		gameObject.name = cardData.cardName;
 		if (cardImage.sprite != cardData.cardFront && cardImage.sprite != cardData.cardBack) cardImage.sprite = cardData.cardFront;
 		cornerText.text = cardData.cornerText;
@@ -71,7 +71,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		}
 	}
 
-	private IEnumerator CardSelect() {
+	protected virtual IEnumerator CardSelect() {
 		ChampionController cachedOwner = owner;
 
 		if (cachedOwner is null) yield break;
@@ -86,128 +86,160 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
 		switch (GameManager.instance.gamePhase) {
 			case GamePhase.GameStart:
-				TooltipSystem.instance.ShowError("It is not your turn!");
-				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield return StartCoroutine(SelectDuringGameStart(cachedOwner));
 				yield break;
 			case GamePhase.BeginningPhase:
-				TooltipSystem.instance.ShowError(cachedOwner.isMyTurn ? "You cannot play a card during the Beginning Phase!" : "It is not your turn!");
-				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield return StartCoroutine(SelectDuringBeginningPhase(cachedOwner));
 				yield break;
 			case GamePhase.ActionPhase:
-				if (GameManager.instance.currentlyHandlingCard) {
-					Debug.Log("Cannot play! Currently handling another card.");
+				yield return StartCoroutine(SelectDuringActionPhase(cachedOwner));
+				yield break;
+			case GamePhase.EndPhase:
+				yield return StartCoroutine(SelectDuringEndPhase(cachedOwner));
+				yield break;
+		}
+	}
+
+	protected virtual IEnumerator SelectDuringGameStart(ChampionController championController) {
+		TooltipSystem.instance.ShowError("It is not your turn!");
+		LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+		yield break;
+	}
+	protected virtual IEnumerator SelectDuringBeginningPhase(ChampionController championController) {
+		TooltipSystem.instance.ShowError(championController.isMyTurn ? "You cannot play a card during the Beginning Phase!" : "It is not your turn!");
+		LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+		yield break;
+	}
+	protected virtual IEnumerator SelectDuringActionPhase(ChampionController championController) {
+		if (GameManager.instance.currentlyHandlingCard) {
+			Debug.Log("Cannot play! Currently handling another card.");
+			yield break;
+		}
+
+		switch (championController.isMyTurn) {
+			case true:
+				if (GameManager.instance.CurrentRoundStamina < EffectiveStaminaRequirement) {
+					TooltipSystem.instance.ShowError("You don't hae enough stamina to play this card yet! Wait until Round " + EffectiveStaminaRequirement + ".");
+					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+					yield break;
+				}
+				if (championController.currentStamina < EffectiveStaminaRequirement) {
+					TooltipSystem.instance.ShowError("You are too exhausted to play this card!");
+					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 					yield break;
 				}
 
-				// If it's the player's turn
-				switch (cachedOwner.isMyTurn) {
-					case true:
-						if (GameManager.instance.CurrentRoundStamina < EffectiveStaminaRequirement) {
-							TooltipSystem.instance.ShowError("You don't hae enough stamina to play this card yet! Wait until Round " + EffectiveStaminaRequirement + ".");
-							LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-							yield break;
-						}
-						if (cachedOwner.currentStamina < EffectiveStaminaRequirement) {
-							TooltipSystem.instance.ShowError("You are too exhausted to play this card!");
-							LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-							yield break;
-						}
-
-						if (DiscardManager.instance is { } && DiscardManager.instance.discarder == cachedOwner) {
-							yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
-							yield break;
-                        }
-
-						// Parry
-						if (FightManager.fightInstance is { } && FightManager.instance.parrying) {
-							switch (cardData.cardFunctions.primaryFunction) {
-								case "block":
-								case "parry":
-									if (cardData.cardFunctions.primaryFunction == "parry" && cachedOwner.equippedWeapon is null) {
-										TooltipSystem.instance.ShowError("You cannot parry without a weapon!");
-										LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-										break;
-									}
-									FightManager.fightInstance.DefendingCard = this;
-									break;
-								default:
-									TooltipSystem.instance.ShowError("You cannot play this card to parry the attack!");
-									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-									break;
-							}
-
-							yield break;
-						}
-
-						// Change Attack Card
-						if (FightManager.fightInstance is { }) {
-							if (FightManager.fightInstance.Attacker.equippedWeapon is null) {
-								TooltipSystem.instance.ShowError("You can't attack without a weapon!");
-								LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-								yield break;
-							}
-							switch (cardData.cardFunctions.primaryFunction) {
-								case "attack":
-									FightManager.fightInstance.AttackingCard.Flip(true);
-									FightManager.fightInstance.AttackingCard = this;
-									FightManager.fightInstance.AttackingCard.Flip(true);
-									break;
-								default:
-									TooltipSystem.instance.ShowError("You can't play this card during a fight!");
-									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-									break;
-							}
-
-							yield break;
-						}
-						
-						// Play A Normal Card
-						else {
-							switch (cardData.cardFunctions.primaryFunction) {
-								case "attack":
-									yield return StartCoroutine(AttackFunction(owner));
-									break;
-								case "draw":
-									yield return StartCoroutine(DrawFunction(owner));
-									break;
-								case "heal":
-									yield return StartCoroutine(HealFunction(owner));
-									break;
-								default:
-									TooltipSystem.instance.ShowError("You can't play this card right now!"); 
-									LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-									break;
-							}
-
-							yield break;
-						}
-					case false:
-						// Defense
-						if (FightManager.fightInstance is { } && FightManager.fightInstance.Defender == cachedOwner) {
-							switch (cardData.cardFunctions.primaryFunction) {
-								case "block":
-								case "parry":
-									if (cardData.cardFunctions.primaryFunction == "parry" && cachedOwner.equippedWeapon is null) {
-										TooltipSystem.instance.ShowError("You cannot parry without a weapon!");
-										LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-										yield break;
-									}
-									FightManager.fightInstance.DefendingCard = this;
-									break;
-							}
-						}
-						yield break;
+				if (DiscardManager.instance is { } && DiscardManager.instance.discarder == championController) {
+					yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
+					yield break;
 				}
-			case GamePhase.EndPhase:
-				switch (cachedOwner.isMyTurn) {
-					case true:
-						if (DiscardManager.instance is { }) yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
-						yield break;
-					case false:
-						TooltipSystem.instance.ShowError("It is not your turn!");
-						LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
-						yield break;
+
+				// Parry
+				if (FightManager.fightInstance is { } && FightManager.instance.parrying) {
+					yield return StartCoroutine(OnParryActionPhase(championController));
+
+					yield break;
 				}
+
+				// Change Attack Card
+				if (FightManager.fightInstance is { }) {
+					yield return StartCoroutine(OnAttackChangeActionPhase(championController));
+					yield break;
+				}
+				else {
+					yield return StartCoroutine(OnNormalFunctionActionPhase(championController));
+					yield break;
+				}
+			case false:
+				if (FightManager.fightInstance is { } && FightManager.fightInstance.Defender == championController) {
+					yield return StartCoroutine(OnDefenseActionPhase(championController));
+				}
+				yield break;
+		}
+	}
+	protected virtual IEnumerator OnNormalFunctionActionPhase(ChampionController championController) {
+		if (cardData is WeaponCardData weaponCardData) {
+			yield return StartCoroutine(EquipWeaponFunction(championController));
+			yield break;
+		}
+
+		switch (cardData.cardFunctions.primaryFunction) {
+			case "attack":
+				yield return StartCoroutine(AttackFunction(owner));
+				yield break;
+			case "draw":
+				yield return StartCoroutine(DrawFunction(owner));
+				yield break;
+			case "heal":
+				yield return StartCoroutine(HealFunction(owner));
+				yield break;
+			default:
+				TooltipSystem.instance.ShowError("You can't play this card right now!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
+		}
+	}
+	protected virtual IEnumerator OnAttackChangeActionPhase(ChampionController championController) {
+		if (FightManager.fightInstance.Attacker.equippedWeapon is null) {
+			TooltipSystem.instance.ShowError("You can't attack without a weapon!");
+			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+			yield break;
+		}
+		switch (cardData.cardFunctions.primaryFunction) {
+			case "attack":
+				FightManager.fightInstance.AttackingCard.Flip(true);
+				FightManager.fightInstance.AttackingCard = this;
+				FightManager.fightInstance.AttackingCard.Flip(true);
+				yield break;
+			default:
+				TooltipSystem.instance.ShowError("You can't play this card during a fight!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
+		}
+	}
+	protected virtual IEnumerator OnParryActionPhase(ChampionController championController) {
+		switch (cardData.cardFunctions.primaryFunction) {
+			case "block":
+			case "parry":
+				if (cardData.cardFunctions.primaryFunction == "parry" && championController.equippedWeapon is null) {
+					TooltipSystem.instance.ShowError("You cannot parry without a weapon!");
+					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+					yield break;
+				}
+				FightManager.fightInstance.DefendingCard = this;
+				yield break;
+			default:
+				TooltipSystem.instance.ShowError("You cannot play this card to parry the attack!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
+		}
+	}
+	protected virtual IEnumerator OnDefenseActionPhase(ChampionController championController) {
+		switch (cardData.cardFunctions.primaryFunction) {
+			case "block":
+			case "parry":
+				if (cardData.cardFunctions.primaryFunction == "parry" && championController.equippedWeapon is null) {
+					TooltipSystem.instance.ShowError("You cannot parry without a weapon!");
+					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+					yield break;
+				}
+				FightManager.fightInstance.DefendingCard = this;
+				yield break;
+			default:
+				TooltipSystem.instance.ShowError("You cannot defend with this card!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
+		}
+	}
+	protected virtual IEnumerator SelectDuringEndPhase(ChampionController championController) {
+		switch (championController.isMyTurn) {
+			case true:
+				if (DiscardManager.instance is { }) yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
+				yield break;
+			case false:
+				TooltipSystem.instance.ShowError("It is not your turn!");
+				LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+				yield break;
 		}
 	}
 
@@ -243,7 +275,6 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 				break;
 		}
 	}
-
 	public IEnumerator DrawFunction(ChampionController championController = null) {
 		if (championController is null) championController = owner;
 
@@ -257,12 +288,25 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 				break;
 		}
 	}
+	public IEnumerator EquipWeaponFunction(ChampionController championController = null) {
+		if (championController is null) championController = owner;
+
+		if (championController.equippedWeapon is { }) {
+			if (!championController.isPlayer) yield break;
+			TooltipSystem.instance.ShowError("You already have a weapon equipped!");
+			LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
+			yield break;
+		}
+
+		yield return StartCoroutine(championController.hand.UseCard(this));
+		Weapon weapon = new Weapon(((WeaponCardData) cardData).weaponScriptableObject, championController);
+	}
 
 	#region Pointer Events
 	public void OnClick() {
 		StartCoroutine(CardSelect());
 	}
-	public void OnPointerEnter(PointerEventData eventData) {
+	public virtual void OnPointerEnter(PointerEventData eventData) {
 		delayID = LeanTween.delayedCall(1f, () => {
 			if (isHidden) {
 				TooltipSystem.instance.Show(null, "Flipped Card");
@@ -274,7 +318,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 			TooltipSystem.instance.Show(description, cardData.cardName);
 		}).uniqueId;
 	}
-	public void OnPointerExit(PointerEventData eventData) {
+	public virtual void OnPointerExit(PointerEventData eventData) {
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}

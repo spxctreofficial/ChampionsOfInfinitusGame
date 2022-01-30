@@ -1,13 +1,29 @@
-﻿public class Weapon {
+﻿[System.Serializable]
+public class Weapon {
 	public WeaponScriptableObject weaponScriptableObject;
 	public int damageModifier, currentDurability;
-	public ChampionController owner;
+	private ChampionController owner;
 
+	public ChampionController Owner {
+		get {
+			return owner;
+        }
+		set {
+			foreach (ChampionController championController in GameManager.instance.champions) {
+				if (championController.equippedWeapon == this) {
+					championController.equippedWeapon = null;
+                }
+			}
+
+			owner = value;
+			if (owner is { }) owner.equippedWeapon = this;
+		}
+    }
 	public int EffectiveDamage => weaponScriptableObject.attackDamage + damageModifier;
 
-	public Weapon(WeaponScriptableObject weaponScriptableObject, ChampionController owner) {
+	public Weapon(WeaponScriptableObject weaponScriptableObject, ChampionController owner = null) {
 		this.weaponScriptableObject = weaponScriptableObject;
-		this.owner = owner;
+		Owner = owner;
 		currentDurability = weaponScriptableObject.maxDurability;
 	}
 
