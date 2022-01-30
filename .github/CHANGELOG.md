@@ -24,12 +24,16 @@ This update is overhauls the card system, champions, sprites, and the game as a 
 		- Champions now use weapons to attack!
 			- Weapons are items that can be equipped to a champion that allows the champion to attack and parry.
 			- Weapons can lose durability. When they lose all their durability, they will break.
+			- Each champion has a signature weapon. This signature weapon can be equipped with the "Equip Signature Weapon" card.
 	- Technical: Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
 	- ChampionInfoPanel received some UI improvements and changes:
 		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
 - The GUI have received numerous animation improvements!
 	- Certain UI elements now have a nice fade-in and a shorter zoom-in effect that makes the animation pop out and look quite modern and smooth.
 	- Fixed any UI-scaling issues that make the game look wonky at times.
+	- Fixed an issue where tooltips would fade out randomly when hovering over certain objects.
+		- Technical: This was fixed by disabling any invisible objects that blocked raycasts, and therefore resetting the tooltip.
+	- Optimized the HDR glow's impact on performance.
 - Added a Pause Menu to allow the player to quit the game.
 - Added a Setting within the pause menu that allowed the player to adjust simple graphics and quality settings.
 	- I am very aware that the settings menu is currently only accessible within the game.
