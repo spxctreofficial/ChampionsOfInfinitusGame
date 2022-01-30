@@ -1829,6 +1829,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4816452412703232167, guid: 855396e8f1964214dbd70dfd212e15a7,
+        type: 3}
+      propertyPath: cardReg.genericWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0bf5cd22f39fdb645a1d53dc0935afc3,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855396e8f1964214dbd70dfd212e15a7, type: 3}
 --- !u!1 &1809010322
@@ -2657,7 +2663,7 @@ PrefabInstance:
     - target: {fileID: 1399104981071471655, guid: 9e899bb449210b943a9de1cc1d3ecb7e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1399104981071471655, guid: 9e899bb449210b943a9de1cc1d3ecb7e,
         type: 3}

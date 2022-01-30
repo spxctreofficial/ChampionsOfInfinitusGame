@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5836923dc8b5c4e9aeb9de32b34668, type: 3}
   m_Name: Card_EquipKnife
   m_EditorClassIdentifier: 
-  cardName: haha big test
-  cardDescription: eeeeeeee
-  cornerText: e
+  cardName: Equip Knife
+  cardDescription: Equip Knife.
+  cornerText: 
   cardFront: {fileID: 21300000, guid: 539e59def0d1c5248837c56c79da39b4, type: 3}
-  cardBack: {fileID: 21300000, guid: 8b9a4bee9b489e648b6415371c69e09c, type: 3}
+  cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
   cardFunctions:
     primaryFunction: 
     secondaryFunction: 
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 0
-  staminaRequirement: 0
-  cardImportanceFactor: 0
+  staminaRequirement: 1
+  cardImportanceFactor: 21
   weaponScriptableObject: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc,
     type: 2}
