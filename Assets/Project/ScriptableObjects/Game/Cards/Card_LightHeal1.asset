@@ -23,5 +23,5 @@ MonoBehaviour:
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 0
-  staminaRequirement: 1
+  staminaRequirement: 2
   cardImportanceFactor: 20

@@ -32,23 +32,53 @@ public class PrefabManager : MonoBehaviour {
 
 	[System.Serializable]
 	public class CardReg {
-		public CardData[] genericBasicCards, genericSpecialCards, genericWeapons;
+		public CardRegPool genericBasicCards, genericSpecialCards, genericWeapons;
 
 		public CardData GenerateRandomCardData(ChampionController championController) {
-			CardData cardData;
-			if (championController.equippedWeapon is null && Random.Range(0f, 1f) < 0.2f) {
-				return genericWeapons[Random.Range(0, genericWeapons.Length)];
+			if (championController.equippedWeapon is null && championController.hand.GetWeaponCards().Length == 0 && Random.Range(0f, 1f) < 0.2f) {
+				return genericWeapons.Retrieve().cardData;
 			}
 			if (Random.Range(0f, 1f) < 2f / 3f) {
-				cardData = genericBasicCards[Random.Range(0, genericBasicCards.Length)];
+				return genericBasicCards.Retrieve().cardData;
 			}
 			else {
-				CardData[] genericSpecialCards = this.genericSpecialCards;
-				List<CardData> availableCards = genericSpecialCards.Concat(genericWeapons).ToList();
-				cardData = availableCards[Random.Range(0, availableCards.Count)];
+				return genericSpecialCards.Combine(genericWeapons).Retrieve().cardData;
 			}
-
-			return cardData;
 		}
+
+		[System.Serializable]
+		public class CardRegPool {
+			public CardRegEntry[] entries;
+
+			public CardRegEntry Retrieve() {
+				List<CardRegEntry> pool = new List<CardRegEntry>();
+
+				if (entries is null || entries.Length <= 0) {
+					Debug.LogError("The entry was null!");
+					return null;
+                }
+				foreach (CardRegEntry cardRegEntry in entries) {
+					for (int i = 0; i < cardRegEntry.weight; i++) {
+						pool.Add(cardRegEntry);
+					}
+                }
+
+				return pool[Random.Range(0, pool.Count)];
+            }
+			public CardRegPool Combine(CardRegPool pool) {
+				CardRegPool newPool = new CardRegPool();
+				newPool.entries = entries;
+				newPool.entries.Concat(pool.entries);
+				return newPool;
+            }
+
+        }
+
+		[System.Serializable]
+		public class CardRegEntry {
+			public CardData cardData;
+			[Range(1, short.MaxValue)]
+			public int weight;
+        }
 	}
 }

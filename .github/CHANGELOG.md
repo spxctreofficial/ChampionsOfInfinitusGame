@@ -15,6 +15,7 @@ This update is overhauls the card system, champions, sprites, and the game as a 
 		- Universal cards are cards that any champion can be dealt. They are the most common, and generally have a universal task that they do.
 		- Class-specific cards are cards that are only dealt to champions of a particular class. While they are less common, they are still considered universal "within their class".
 		- Unique cards are cards that can only be dealt to specific champions. This means that they are unobtainable cards to any other champion and are considered the rarest cards.
+	- Card-dealing has been overhauled. The algorithm for which the cards are dealt is complicated to explain, but do note that the dealing of cards is no longer perfectly random anymore.
 - Champions have received a major overhaul in how their health are handled, how they use cards, and their abilities.
 	- Champions now have single-digit health instead of triple-digit health. This change was made to make calculating health easier on the player.
 	- Champions now have new mechanics that dictate what you can do on your turn!
