@@ -14,7 +14,7 @@ public class Champion : ScriptableObject {
 	public enum Gender { Male, Female, Nonbinary, Undefined }
 	public enum Faction { Castlefel, Regime, Empire, Order, WraithLegion, Undefined }
 	public enum Race { Human, Wraith, Dragon, Dragonborn, Arachnoid, Centaur }
-	public enum Class { Warrior, Brute, Mage, Priest, Shaman, Rogue, AllRounder }
+	public enum Class { Warrior, Berserker, Mage, Warlock, Priest, Rogue, Ronin, AllRounder }
 	public Gender gender;
 	public Faction faction;
 	public Race race;
@@ -26,7 +26,8 @@ public class Champion : ScriptableObject {
 	public Class championClass;
 
 	public List<AbilityScriptableObject> abilities;
-	
+	public Deck extendedDeck;
+
 	// Shop
 	public enum Unlockability { ShopItem, EarnableItem, Unplayable }
 	public Unlockability unlockability;

@@ -54,41 +54,163 @@ MonoBehaviour:
     type: 3}
   championSlotPrefab: {fileID: 5131478056581540558, guid: 184ff8f329e956e4e9dab68774275d37,
     type: 3}
-  cardReg:
-    genericBasicCards:
-      entries:
-      - cardData: {fileID: 11400000, guid: 36f711ac57960774eb60bc3f3a8d1640, type: 2}
-        weight: 2
-      - cardData: {fileID: 11400000, guid: f1d3f1bf456b8a74d9721db74c4bc0ef, type: 2}
-        weight: 2
-      - cardData: {fileID: 11400000, guid: 622d7013a1c61cb499625b7a46a20742, type: 2}
-        weight: 1
-      - cardData: {fileID: 11400000, guid: b3bcb7fc5a446aa4bb18e89886029313, type: 2}
-        weight: 1
-      - cardData: {fileID: 11400000, guid: ee64b66985e946843bde973d594f1399, type: 2}
-        weight: 1
-      - cardData: {fileID: 11400000, guid: a1e9f281627e85c48afdadeef2c0518f, type: 2}
-        weight: 1
-    genericSpecialCards:
-      entries:
-      - cardData: {fileID: 11400000, guid: d9482e6e57106ad4fbcbd3902a4b26ba, type: 2}
-        weight: 3
-      - cardData: {fileID: 11400000, guid: 5acaadd3444d72d4ca8240e9e340fe45, type: 2}
-        weight: 2
-      - cardData: {fileID: 11400000, guid: c447168328894024d8d6454d6b36e592, type: 2}
-        weight: 1
-      - cardData: {fileID: 11400000, guid: 55f2a1088d7719046af8f24851dcc554, type: 2}
-        weight: 3
-      - cardData: {fileID: 11400000, guid: b985df75ba97549428028b336ca87fa4, type: 2}
-        weight: 3
-      - cardData: {fileID: 11400000, guid: baf60e4ce09825e4fbaccd6c580301fd, type: 2}
-        weight: 1
-      - cardData: {fileID: 11400000, guid: 3b3a15af845b9ef41b5f7bbbd611ee11, type: 2}
-        weight: 1
-    genericWeapons:
-      entries:
-      - cardData: {fileID: 11400000, guid: 0bf5cd22f39fdb645a1d53dc0935afc3, type: 2}
-        weight: 1
+  defaultDecks:
+    defaultDeck:
+      genericBasicCards:
+        entries:
+        - cardData: {fileID: 11400000, guid: 36f711ac57960774eb60bc3f3a8d1640, type: 2}
+          weight: 2
+          entryID: Card_LightAttack
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: f1d3f1bf456b8a74d9721db74c4bc0ef, type: 2}
+          weight: 2
+          entryID: Card_DarkAttack
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: 622d7013a1c61cb499625b7a46a20742, type: 2}
+          weight: 1
+          entryID: Card_LightBlock
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: b3bcb7fc5a446aa4bb18e89886029313, type: 2}
+          weight: 1
+          entryID: Card_DarkBlock
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: ee64b66985e946843bde973d594f1399, type: 2}
+          weight: 1
+          entryID: Card_LightParry
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: a1e9f281627e85c48afdadeef2c0518f, type: 2}
+          weight: 1
+          entryID: Card_DarkParry
+          replaceMatchID: 
+      genericSpecialCards:
+        entries:
+        - cardData: {fileID: 11400000, guid: 5acaadd3444d72d4ca8240e9e340fe45, type: 2}
+          weight: 3
+          entryID: Card_LightHeal1
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: d9482e6e57106ad4fbcbd3902a4b26ba, type: 2}
+          weight: 1
+          entryID: Card_LightHeal2
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: c447168328894024d8d6454d6b36e592, type: 2}
+          weight: 2
+          entryID: Card_DarkHeal1
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: 55f2a1088d7719046af8f24851dcc554, type: 2}
+          weight: 3
+          entryID: Card_LightDraw2
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: b985df75ba97549428028b336ca87fa4, type: 2}
+          weight: 2
+          entryID: Card_DarkDraw1
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: baf60e4ce09825e4fbaccd6c580301fd, type: 2}
+          weight: 2
+          entryID: Card_LightDraw4
+          replaceMatchID: 
+        - cardData: {fileID: 11400000, guid: 3b3a15af845b9ef41b5f7bbbd611ee11, type: 2}
+          weight: 1
+          entryID: Card_DarkDraw3
+          replaceMatchID: 
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    warriorDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    berserkerDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    mageDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    warlockDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    priestDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    rogueDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
+    roninDeck:
+      genericBasicCards:
+        entries: []
+      genericSpecialCards:
+        entries: []
+      genericWeapons:
+        entries: []
+      uniqueBasicCards:
+        entries: []
+      uniqueSpecialCards:
+        entries: []
+      uniqueWeapons:
+        entries: []
   dialogueSystemPrefab: {fileID: 3198770602355789731, guid: b777e0e00befcff44a1f0af1334201ec,
     type: 3}
   confirmDialogPrefab: {fileID: 7144247891518153869, guid: e4cfe458e5833cd41952311fba3d5305,

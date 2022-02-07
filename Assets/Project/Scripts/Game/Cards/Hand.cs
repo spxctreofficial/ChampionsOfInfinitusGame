@@ -7,18 +7,52 @@ using UnityEngine;
 public class Hand : MonoBehaviour {
 	public ChampionController owner;
 
+	public Deck deck;
+
 	public List<Card> cards = new List<Card>();
 	public Queue<Card> queued = new Queue<Card>();
 
-	/// <summary>
-	/// Sets `championController` as the owner of this hand.
-	/// </summary>
-	/// <param name="championController"></param>
-	public void SetOwner(ChampionController championController) {
+    private void Start() {
+		deck = new Deck(PrefabManager.instance.defaultDecks.defaultDeck);
+    }
+
+    /// <summary>
+    /// Sets `championController` as the owner of this hand.
+    /// </summary>
+    /// <param name="championController"></param>
+    public void SetOwner(ChampionController championController) {
 		owner = championController;
 		championController.hand = this;
 
 		name = owner.champion.championName + "'s Hand";
+
+		switch (owner.champion.championClass) {
+			case Champion.Class.Warrior:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.warriorDeck);
+				break;
+			case Champion.Class.Berserker:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.berserkerDeck);
+				break;
+			case Champion.Class.Mage:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.mageDeck);
+				break;
+			case Champion.Class.Warlock:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.warlockDeck);
+				break;
+			case Champion.Class.Priest:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.priestDeck);
+				break;
+			case Champion.Class.Rogue:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.rogueDeck);
+				break;
+			case Champion.Class.Ronin:
+				deck = deck.Indoctrinate(PrefabManager.instance.defaultDecks.roninDeck);
+				break;
+			default:
+				break;
+        }
+
+		deck = deck.Indoctrinate(owner.champion.extendedDeck);
 	}
 
     #region Get Cards Functions
@@ -129,15 +163,14 @@ public class Hand : MonoBehaviour {
     /// <returns></returns>
     public IEnumerator Deal(int amount = 4, CardColor cardColor = CardColor.NoPref, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		for (int i = 0; i < amount; i++) {
-
-			CardData cardData = PrefabManager.instance.cardReg.GenerateRandomCardData(owner);
+			CardData cardData = deck.Retrieve(owner);
 			switch (cardColor) {
 				case CardColor.NoPref:
 					break;
 				default:
 					List<CardData> usedIndexes = new List<CardData>();
 					while (cardData.cardColor != cardColor || (excludeDraw && cardData.cardFunctions.primaryFunction == "draw")) {
-						CardData index = PrefabManager.instance.cardReg.GenerateRandomCardData(owner);
+						CardData index = deck.Retrieve(owner);
 						if (usedIndexes.Contains(index)) continue;
 						usedIndexes.Add(index);
 						cardData = index;

@@ -25,8 +25,21 @@ MonoBehaviour:
   race: 0
   maxHP: 15
   signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
-  championClass: 3
+  championClass: 4
   abilities:
   - {fileID: 11400000, guid: e7ef8c78073f4504298b1cbaede2673c, type: 2}
+  extendedDeck:
+    genericBasicCards:
+      entries: []
+    genericSpecialCards:
+      entries: []
+    genericWeapons:
+      entries: []
+    uniqueBasicCards:
+      entries: []
+    uniqueSpecialCards:
+      entries: []
+    uniqueWeapons:
+      entries: []
   unlockability: 0
   value: 65000
