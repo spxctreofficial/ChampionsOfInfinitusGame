@@ -109,8 +109,6 @@ public class FightManager : MonoBehaviour {
 		switch (fightInstance.AttackingCard.cardData.cardFunctions.primaryFunction) {
 			case "attack":
 			case "parry":
-				if (!parrying) fightInstance.Attacker.equippedWeapon.Damage(1);
-				
 				if (fightInstance.DefendingCard is null) {
 					yield return StartCoroutine(fightInstance.Defender.Damage(fightInstance.Attacker.equippedWeapon.EffectiveDamage, fightInstance.Attacker.equippedWeapon.weaponScriptableObject.damageType, fightInstance.Attacker));
 					fightInstance.Attacker.matchStatistic.successfulAttacks++;
@@ -148,6 +146,9 @@ public class FightManager : MonoBehaviour {
 						fightInstance.Defender.matchStatistic.failedDefends++;
 						break;
 				}
+
+				if (!parrying) fightInstance.Attacker.equippedWeapon.Damage(1);
+
 				break;
 		}
 		

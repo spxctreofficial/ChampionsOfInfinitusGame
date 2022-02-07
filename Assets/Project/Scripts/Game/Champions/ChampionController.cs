@@ -282,6 +282,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			}
 
 			if (card.cardData is WeaponCardData weaponCardData) {
+				Debug.Log("Not looking for a weapon currently.");
 				continue;
             }
 
@@ -291,7 +292,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 						ChampionController target = SelectTarget();
 
 						if (target is { }) {
-							yield return card.AttackFunction( target);
+							yield return card.AttackFunction(this, target);
 						}
 					}
 					break;

@@ -364,7 +364,7 @@ public abstract class GameManager : MonoBehaviour {
 			yield return null;
 			hand.SetOwner(championController);
 
-			if (dealHand) yield return StartCoroutine(championController.hand.Deal(4, CardColor.NoPref, championController.hand.deck, false, false, true, false));
+			if (dealHand) yield return StartCoroutine(championController.hand.Deal(4, championController.hand.deck, false, false, true, false));
 		}
 		StatisticManager.instance.StartTrackingStatistics(championController);
 		StartCoroutine(Setup());

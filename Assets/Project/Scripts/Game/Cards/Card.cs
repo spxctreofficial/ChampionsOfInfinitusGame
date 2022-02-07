@@ -281,10 +281,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		yield return StartCoroutine(championController.hand.UseCard(this));
 		switch (cardData.cardFunctions.secondaryFunction) {
 			case "":
-				yield return StartCoroutine(championController.hand.Deal(1, cardData.cardColor, championController.hand.deck, true));
+				yield return StartCoroutine(championController.hand.Deal(1,  championController.hand.deck.Filter(cardData.cardColor), true));
 				break;
 			default:
-				yield return StartCoroutine(championController.hand.Deal(int.Parse(cardData.cardFunctions.secondaryFunction), cardData.cardColor, championController.hand.deck, true));
+				yield return StartCoroutine(championController.hand.Deal(int.Parse(cardData.cardFunctions.secondaryFunction), championController.hand.deck.Filter(cardData.cardColor), true));
 				break;
 		}
 	}

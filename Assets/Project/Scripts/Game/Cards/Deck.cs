@@ -68,11 +68,36 @@ public class Deck {
 
 		return newDeck;
     }
+	public Deck Filter(CardColor cardColor) {
+		if (cardColor is CardColor.NoPref) {
+			Debug.LogWarning("Deck will not be filtered if there is no color preference!");
+			return this;
+        }
+
+		Deck newDeck = new Deck(this);
+
+		for (int index = 0; index < DeckPools.Length; index++) {
+			DeckPool newDeckPool = new DeckPool();
+
+			foreach (DeckEntry entry in DeckPools[index].entries) {
+				if (entry.cardData.cardColor == cardColor) {
+					newDeckPool.entries.ToList<DeckEntry>().Add(entry);
+                }
+            }
+
+			newDeck.DeckPools[index] = newDeckPool;
+        }
+
+		return newDeck;
+    }
 
 	[System.Serializable]
 	public class DeckPool {
 		public DeckEntry[] entries;
 
+		public DeckPool() {
+			entries = new DeckEntry[0];
+        }
 		public DeckPool(DeckPool deckPool) {
 			entries = deckPool.entries;
         }

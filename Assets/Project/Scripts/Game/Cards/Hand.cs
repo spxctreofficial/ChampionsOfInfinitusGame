@@ -161,26 +161,11 @@ public class Hand : MonoBehaviour {
     /// <param name="animate"></param>
     /// <param name="abilityCheck"></param>
     /// <returns></returns>
-    public IEnumerator Deal(int amount = 4, CardColor cardColor = CardColor.NoPref, Deck deck = null, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
+    public IEnumerator Deal(int amount = 4, Deck deck = null, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
 		if (deck is null) deck = this.deck;
 
 		for (int i = 0; i < amount; i++) {
-			CardData cardData = deck.Retrieve(owner);
-			switch (cardColor) {
-				case CardColor.NoPref:
-					break;
-				default:
-					List<CardData> usedIndexes = new List<CardData>();
-					while (cardData.cardColor != cardColor || (excludeDraw && cardData.cardFunctions.primaryFunction == "draw")) {
-						CardData index = deck.Retrieve(owner);
-						if (usedIndexes.Contains(index)) continue;
-						usedIndexes.Add(index);
-						cardData = index;
-					}
-					break;
-			}
-
-			 yield return StartCoroutine(Deal(cardData, flip, animate, abilityCheck));
+			 yield return StartCoroutine(Deal(deck.Retrieve(owner), flip, animate, abilityCheck));
 			 
 			 yield return new WaitForSeconds(0.25f);
 		}
