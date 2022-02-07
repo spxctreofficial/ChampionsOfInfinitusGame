@@ -161,7 +161,9 @@ public class Hand : MonoBehaviour {
     /// <param name="animate"></param>
     /// <param name="abilityCheck"></param>
     /// <returns></returns>
-    public IEnumerator Deal(int amount = 4, CardColor cardColor = CardColor.NoPref, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
+    public IEnumerator Deal(int amount = 4, CardColor cardColor = CardColor.NoPref, Deck deck = null, bool excludeDraw = false, bool flip = false, bool animate = true, bool abilityCheck = true) {
+		if (deck is null) deck = this.deck;
+
 		for (int i = 0; i < amount; i++) {
 			CardData cardData = deck.Retrieve(owner);
 			switch (cardColor) {
