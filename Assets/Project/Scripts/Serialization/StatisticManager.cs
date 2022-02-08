@@ -6,7 +6,8 @@ using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.UI;
 
-public abstract class StatisticManager : MonoBehaviour {
+public abstract class StatisticManager : MonoBehaviour
+{
 	public static StatisticManager instance;
 	public List<MatchStatistic> matchStatistics = new List<MatchStatistic>();
 
@@ -17,25 +18,31 @@ public abstract class StatisticManager : MonoBehaviour {
 	protected int initialGoldReward;
 	protected int goldReward;
 
-	protected virtual void Awake() {
-		if (instance == null) {
+	protected virtual void Awake()
+	{
+		if (instance == null)
+		{
 			instance = this;
 		}
-		else {
+		else
+		{
 			Destroy(gameObject);
 		}
 	}
 
-	public void StartTrackingStatistics(ChampionController champion) {
+	public void StartTrackingStatistics(ChampionController champion)
+	{
 		champion.matchStatistic = new MatchStatistic(champion.champion);
 		matchStatistics.Add(champion.matchStatistic);
 		if (champion.isPlayer) playerChampionStatistic = champion.matchStatistic;
 	}
-	public void TrackRemainingStatistics(ChampionController champion) {
+	public void TrackRemainingStatistics(ChampionController champion)
+	{
 		champion.matchStatistic.remainingHP = champion.currentHP;
 	}
 
-	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
+	public virtual IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton)
+	{
 
 		initialGoldReward = winState ? Random.Range(290, 311) : Random.Range(290, 311) / 10;
 		int successfulAttackBonus = instance.playerChampionStatistic.successfulAttacks * 5;
@@ -46,8 +53,9 @@ public abstract class StatisticManager : MonoBehaviour {
 		int killCountBonus = instance.playerChampionStatistic.killCount * 100;
 		int totalDamageDealtBonus = instance.playerChampionStatistic.totalDamageDealt / 2;
 		int totalDamageReceivedCompensation = instance.playerChampionStatistic.totalDamageReceived / 4;
-		float totalHealthRemainingBonus = (float)instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
-		switch (GameManager.instance.difficulty) {
+		float totalHealthRemainingBonus = (float) instance.playerChampionStatistic.remainingHP / instance.playerChampionStatistic.champion.maxHP * 100;
+		switch (GameManager.instance.difficulty)
+		{
 			case GameManager.Difficulty.Noob:
 				initialGoldReward /= 5;
 				break;
@@ -57,7 +65,7 @@ public abstract class StatisticManager : MonoBehaviour {
 			case GameManager.Difficulty.Warrior:
 				break;
 			case GameManager.Difficulty.Champion:
-				initialGoldReward *= (int)1.2f;
+				initialGoldReward *= (int) 1.2f;
 				break;
 		}
 
@@ -120,7 +128,7 @@ public abstract class StatisticManager : MonoBehaviour {
 		goldReward += killCountBonus;
 		goldReward += totalDamageDealtBonus;
 		goldReward += totalDamageReceivedCompensation;
-		goldReward += (int)totalHealthRemainingBonus;
+		goldReward += (int) totalHealthRemainingBonus;
 
 		DataManager.instance.goldAmount += goldReward;
 		DataManager.instance.Save();

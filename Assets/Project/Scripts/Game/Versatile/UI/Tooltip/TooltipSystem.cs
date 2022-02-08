@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TooltipSystem : MonoBehaviour {
+public class TooltipSystem : MonoBehaviour
+{
 	public static TooltipSystem instance;
 
 	public enum TooltipType { Tooltip, ErrorTooltip }
 	public Tooltip tooltip;
 	public FixedTooltip fixedTooltip;
 
-	private void Awake() {
+	private void Awake()
+	{
 		if (instance == null)
 			instance = this;
-		else {
+		else
+		{
 			Destroy(gameObject);
 		}
 		if (tooltip.GetComponent<CanvasGroup>() == null) tooltip.gameObject.AddComponent<CanvasGroup>();
@@ -23,7 +26,8 @@ public class TooltipSystem : MonoBehaviour {
 	/// </summary>
 	/// <param name="body"></param>
 	/// <param name="header"></param>
-	public void Show(string body, string header = "") {
+	public void Show(string body, string header = "")
+	{
 		tooltip.UpdateTransform();
 		tooltip.UpdatePivot();
 		tooltip.gameObject.SetActive(true);
@@ -38,7 +42,8 @@ public class TooltipSystem : MonoBehaviour {
 	/// <param name="vector2"></param>
 	/// <param name="body"></param>
 	/// <param name="header"></param>
-	public void ShowError(string body, string header = "") {
+	public void ShowError(string body, string header = "")
+	{
 		fixedTooltip.UpdateTransform();
 		fixedTooltip.UpdatePivot();
 		fixedTooltip.gameObject.SetActive(true);
@@ -50,7 +55,8 @@ public class TooltipSystem : MonoBehaviour {
 	/// <summary>
 	/// Hide all active tooltips.
 	/// </summary>
-	public void Hide() {
+	public void Hide()
+	{
 		tooltip.GetComponent<CanvasGroup>().alpha = 0f;
 		tooltip.gameObject.SetActive(false);
 
@@ -61,10 +67,12 @@ public class TooltipSystem : MonoBehaviour {
 	/// Hide a specific type of tooltip.
 	/// </summary>
 	/// <param name="tooltipType"></param>
-	public void Hide(TooltipType tooltipType) {
+	public void Hide(TooltipType tooltipType)
+	{
 		float fadeOutTime = 0.1f;
 
-		switch (tooltipType) {
+		switch (tooltipType)
+		{
 			case TooltipType.Tooltip:
 				LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => tooltip.gameObject.SetActive(false)).setEaseInOutQuart();
 				break;

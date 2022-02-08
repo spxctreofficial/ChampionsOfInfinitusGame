@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ability", menuName = "ChampionsOfInfinitusGame/Champion/New Ability")]
-public class AbilityScriptableObject : ScriptableObject {
+public class AbilityScriptableObject : ScriptableObject
+{
 	public enum AbilityType { Passive, Active, AttackB, DefenseB, Ultimate }
 	public enum AbilityEffect { Positive, Neutral, Negative }
 

@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DifficultySelectionButton : MonoBehaviour {
+public class DifficultySelectionButton : MonoBehaviour
+{
 	[HideInInspector]
 	public GameManager.Difficulty difficulty;
 
 	private TMP_Text text;
 
-	private void Start() {
+	private void Start()
+	{
 		text = transform.GetChild(0).GetComponent<TMP_Text>();
-		switch (difficulty) {
+		switch (difficulty)
+		{
 			case GameManager.Difficulty.Noob:
 				text.text = "NOOB";
 				break;
@@ -28,7 +31,8 @@ public class DifficultySelectionButton : MonoBehaviour {
 		}
 	}
 
-	public void OnClick() {
+	public void OnClick()
+	{
 		GameManager.instance.hasChosenDifficulty = true;
 		GameManager.instance.difficulty = difficulty;
 	}

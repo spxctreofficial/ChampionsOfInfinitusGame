@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GamemodeSelectionButton : MonoBehaviour {
+public class GamemodeSelectionButton : MonoBehaviour
+{
 	[HideInInspector]
 	public GameManager.Gamemodes gamemode;
 
 	private TMP_Text text;
 
-	private void Start() {
+	private void Start()
+	{
 		text = transform.GetChild(0).GetComponent<TMP_Text>();
-		switch (gamemode) {
+		switch (gamemode)
+		{
 			case GameManager.Gamemodes.Competitive2v2:
 				text.text = "COMPETITIVE 2V2";
 				break;
@@ -25,7 +28,8 @@ public class GamemodeSelectionButton : MonoBehaviour {
 		}
 	}
 
-	public void OnClick() {
+	public void OnClick()
+	{
 		SandboxGameManager.instance.hasChosenGamemode = true;
 		SandboxGameManager.instance.gamemodes = gamemode;
 	}

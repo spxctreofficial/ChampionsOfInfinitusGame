@@ -2,7 +2,8 @@
 using System;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
 	public static AudioManager instance;
 
@@ -11,11 +12,14 @@ public class AudioManager : MonoBehaviour {
 
 	public Sound[] sounds;
 
-	private void Awake() {
-		if (instance != null) {
+	private void Awake()
+	{
+		if (instance != null)
+		{
 			Destroy(gameObject);
 		}
-		else {
+		else
+		{
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
@@ -26,26 +30,31 @@ public class AudioManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="sound"></param>
 	/// <param name="playAsNewSound"></param>
-	public void Play(string sound, bool playAsNewSound = true) {
+	public void Play(string sound, bool playAsNewSound = true)
+	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
-		if (s is null) {
+		if (s is null)
+		{
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
-		if (!playAsNewSound) {
-			foreach (AudioSource source in GetComponents<AudioSource>()) {
-				if (source.clip == s.clip) {
+		if (!playAsNewSound)
+		{
+			foreach (AudioSource source in GetComponents<AudioSource>())
+			{
+				if (source.clip == s.clip)
+				{
 					source.Stop();
 					if (source.loop) Destroy(source);
 				}
 			}
 		}
-		
+
 		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 		audioSource.clip = s.clip;
 		audioSource.loop = s.loop;
 		audioSource.outputAudioMixerGroup = mixerGroup;
-		
+
 		audioSource.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
 		audioSource.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
@@ -64,7 +73,8 @@ public class AudioManager : MonoBehaviour {
 	/// <param name="volume"></param>
 	/// <param name="loop"></param>
 	/// <param name="spatialBlend"></param>
-	public void Play(AudioClip clip, bool loop = false, float volume = 0.3f, float pitch = 1f,float spatialBlend = 0.5f) {
+	public void Play(AudioClip clip, bool loop = false, float volume = 0.3f, float pitch = 1f, float spatialBlend = 0.5f)
+	{
 		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 		audioSource.clip = clip;
 		audioSource.loop = loop;
@@ -73,7 +83,7 @@ public class AudioManager : MonoBehaviour {
 		audioSource.spatialBlend = spatialBlend;
 
 		audioSource.outputAudioMixerGroup = mixerGroup;
-		
+
 		audioSource.Play();
 
 		if (!loop) Destroy(audioSource, clip.length);
@@ -82,7 +92,8 @@ public class AudioManager : MonoBehaviour {
 	/// Plays a sound cloned from another AudioSource.
 	/// </summary>
 	/// <param name="source"></param>
-	public void Play(AudioSource source) {
+	public void Play(AudioSource source)
+	{
 		AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 		audioSource.clip = source.clip;
 		audioSource.loop = source.loop;
@@ -99,15 +110,19 @@ public class AudioManager : MonoBehaviour {
 	/// Stops a sound with the matching name.
 	/// </summary>
 	/// <param name="sound"></param>
-	public void Stop(string sound) {
+	public void Stop(string sound)
+	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
-		if (s == null) {
+		if (s == null)
+		{
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
 
-		foreach (AudioSource source in GetComponents<AudioSource>()) {
-			if (source.clip == s.clip) {
+		foreach (AudioSource source in GetComponents<AudioSource>())
+		{
+			if (source.clip == s.clip)
+			{
 				source.Stop();
 				if (source.loop) Destroy(source);
 			}
@@ -118,8 +133,10 @@ public class AudioManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="clip"></param>
 	/// <param name="destroySource"></param>
-	public void Stop(AudioClip clip, bool destroySource = true) {
-		foreach (AudioSource audioSource in GetComponents<AudioSource>()) {
+	public void Stop(AudioClip clip, bool destroySource = true)
+	{
+		foreach (AudioSource audioSource in GetComponents<AudioSource>())
+		{
 			if (clip != audioSource.clip) continue;
 
 			audioSource.Stop();
@@ -127,8 +144,10 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
-	public AudioSource GetAudioSource(AudioClip clip) {
-		foreach (AudioSource audioSource in GetComponents<AudioSource>()) {
+	public AudioSource GetAudioSource(AudioClip clip)
+	{
+		foreach (AudioSource audioSource in GetComponents<AudioSource>())
+		{
 			if (audioSource.clip != clip) continue;
 			return audioSource;
 		}

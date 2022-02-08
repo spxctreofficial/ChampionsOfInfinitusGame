@@ -7,7 +7,8 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
 
-public class DialogueSystem : MonoBehaviour {
+public class DialogueSystem : MonoBehaviour
+{
 	private Queue<Dialogue> dialogues = new Queue<Dialogue>();
 	private Dialogue currentDialogue;
 	private UnityAction endOfConversationAction;
@@ -24,7 +25,8 @@ public class DialogueSystem : MonoBehaviour {
 	[SerializeField]
 	private AudioClip beep;
 
-	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null, bool startOfConversationAnimation = true, bool endOfConversationAnimation = true) {
+	public static DialogueSystem Create(DialogueSession dialogueSession, Vector2 vector2, UnityAction endOfConversationAction = null, bool startOfConversationAnimation = true, bool endOfConversationAnimation = true)
+	{
 		GameObject dialogueSystemPrefab = PrefabManager.instance.dialogueSystemPrefab;
 
 		float bottomOfScreen = -540 - (dialogueSystemPrefab.GetComponent<RectTransform>().rect.height / 2);
@@ -35,7 +37,7 @@ public class DialogueSystem : MonoBehaviour {
 		dialogueSystem.endOfConversationAnimation = endOfConversationAnimation;
 		Debug.Log(dialogueSystem.endOfConversationAction);
 
-		if (startOfConversationAnimation) 
+		if (startOfConversationAnimation)
 			LeanTween.move(dialogueSystem.GetComponent<RectTransform>(), vector2, 0.75f).setEaseInOutQuart();
 		else
 			dialogueSystem.GetComponent<RectTransform>().localPosition = vector2;
@@ -44,10 +46,12 @@ public class DialogueSystem : MonoBehaviour {
 		return dialogueSystem;
 	}
 
-	public void OnContinueButtonClick() {
+	public void OnContinueButtonClick()
+	{
 		LoadNextSentence();
 	}
-	public void OnSkipButtonClick() {
+	public void OnSkipButtonClick()
+	{
 		skipButton.gameObject.SetActive(false);
 		continueButton.gameObject.SetActive(true);
 
@@ -56,25 +60,30 @@ public class DialogueSystem : MonoBehaviour {
 		AudioManager.instance.Play(beep, false, 0.5f);
 	}
 
-	private void LoadNextSentence() {
-		if (dialogues.Count == 0) {
+	private void LoadNextSentence()
+	{
+		if (dialogues.Count == 0)
+		{
 			Debug.Log("End of conversation.");
 			Vector2 bottomOfScreen = new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2);
 
-			if (endOfConversationAnimation) {
-				LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2), 0.75f).setEaseInOutQuart().setOnComplete(() => {
+			if (endOfConversationAnimation)
+			{
+				LeanTween.move(GetComponent<RectTransform>(), new Vector2(GetComponent<RectTransform>().localPosition.x, -540 - GetComponent<RectTransform>().rect.height / 2), 0.75f).setEaseInOutQuart().setOnComplete(() =>
+				{
 					if (endOfConversationAction is {}) endOfConversationAction.Invoke();
 					Destroy(gameObject, 1f);
 				});
 			}
-			else {
+			else
+			{
 				if (endOfConversationAction is {}) endOfConversationAction.Invoke();
 				GetComponent<RectTransform>().localPosition = bottomOfScreen;
 				Destroy(gameObject, 1f);
 			}
 			return;
 		}
-		
+
 		currentDialogue = dialogues.Dequeue();
 		continueButton.gameObject.SetActive(false);
 		if (!currentDialogue.continueWithoutInput) skipButton.gameObject.SetActive(true);
@@ -84,15 +93,19 @@ public class DialogueSystem : MonoBehaviour {
 		dialogueBox.text = string.Empty;
 		StartCoroutine(TypeSentence());
 	}
-	private IEnumerator TypeSentence() {
-		foreach (char c in currentDialogue.sentence) {
+	private IEnumerator TypeSentence()
+	{
+		foreach (char c in currentDialogue.sentence)
+		{
 			float waitTime;
-			switch (currentDialogue.caretBehaviour) {
+			switch (currentDialogue.caretBehaviour)
+			{
 				case Dialogue.CaretBehaviour.Natural:
 					waitTime = char.IsWhiteSpace(c) || char.IsPunctuation(c) ? Random.Range(0.08f, 0.11f) : Random.Range(0.05f, 0.07f);
 					break;
 				case Dialogue.CaretBehaviour.LongPause:
-					switch (c) {
+					switch (c)
+					{
 						case '.':
 						case '!':
 						case '?':
@@ -119,10 +132,12 @@ public class DialogueSystem : MonoBehaviour {
 			yield return new WaitForSeconds(waitTime);
 		}
 
-		if (currentDialogue.continueWithoutInput) {
+		if (currentDialogue.continueWithoutInput)
+		{
 			LoadNextSentence();
 		}
-		else {
+		else
+		{
 			continueButton.gameObject.SetActive(true);
 			skipButton.gameObject.SetActive(false);
 		}

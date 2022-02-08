@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Ability : MonoBehaviour {
+public class Ability : MonoBehaviour
+{
 	public ChampionController championController;
 	public AbilityScriptableObject abilityScriptableObject;
 
@@ -14,24 +15,29 @@ public class Ability : MonoBehaviour {
 	[HideInInspector]
 	public List<string> tags = new List<string>();
 
-	public void Setup(ChampionController championController, AbilityScriptableObject abilityScriptableObject) {
+	public void Setup(ChampionController championController, AbilityScriptableObject abilityScriptableObject)
+	{
 		this.championController = championController;
 		this.abilityScriptableObject = abilityScriptableObject;
 
 		StartCoroutine(OnSetup());
 	}
 
-	public bool CheckForAbility(string searchCriteria) {
+	public bool CheckForAbility(string searchCriteria)
+	{
 		if (championController.champion.abilities.Count == 0) return false;
-		foreach (AbilityScriptableObject ability in championController.champion.abilities) {
+		foreach (AbilityScriptableObject ability in championController.champion.abilities)
+		{
 			if (!IsExclusive()) return false;
 			if (searchCriteria == ability.abilityID) return true;
 		}
 		return false;
 	}
-	public bool IsExclusive() {
+	public bool IsExclusive()
+	{
 		if (abilityScriptableObject.isExclusiveTo.Count == 0) return true;
-		foreach (Champion champion in abilityScriptableObject.isExclusiveTo) {
+		foreach (Champion champion in abilityScriptableObject.isExclusiveTo)
+		{
 			if (champion == this.championController.champion) return true;
 		}
 		return false;
@@ -41,8 +47,10 @@ public class Ability : MonoBehaviour {
 	/// Checks for abilities on setup of the ability.
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator OnSetup() {
-		switch (abilityScriptableObject.abilityID) {
+	private IEnumerator OnSetup()
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Persistence":
 				abilityInts.Add("persistence", 0);
 				break;
@@ -53,8 +61,10 @@ public class Ability : MonoBehaviour {
 	/// Checks for abilities on start of Beginning Phase.
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator OnBeginningPhase() {
-		switch (abilityScriptableObject.abilityID) {
+	public IEnumerator OnBeginningPhase()
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_QuickAssist":
 				yield return StartCoroutine(QuickAssist());
 				break;
@@ -64,15 +74,18 @@ public class Ability : MonoBehaviour {
 	/// Checks for abilities on start of Action Phase.
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator OnActionPhase() {
+	public IEnumerator OnActionPhase()
+	{
 		yield break;
 	}
 	/// <summary>
 	/// Checks for abilities on start of End Phase.
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator OnEndPhase() {
-		switch (abilityScriptableObject.abilityID) {
+	public IEnumerator OnEndPhase()
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Rejuvenation":
 				yield return StartCoroutine(Rejuvenation());
 				break;
@@ -82,7 +95,8 @@ public class Ability : MonoBehaviour {
 	/// Checks for abilities when calculating the next turn.
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator OnNextTurnCalculate() {
+	public IEnumerator OnNextTurnCalculate()
+	{
 		yield break;
 	}
 
@@ -92,7 +106,8 @@ public class Ability : MonoBehaviour {
 	/// <param name="card"></param>
 	/// <param name="dealtTo"></param>
 	/// <returns></returns>
-	public IEnumerator OnDeal(Card card, ChampionController dealtTo) {
+	public IEnumerator OnDeal(Card card, ChampionController dealtTo)
+	{
 		yield break;
 	}
 	/// <summary>
@@ -100,8 +115,10 @@ public class Ability : MonoBehaviour {
 	/// </summary>
 	/// <param name="amount"></param>
 	/// <returns></returns>
-	public IEnumerator OnDamage(int amount) {
-		switch (abilityScriptableObject.abilityID) {
+	public IEnumerator OnDamage(int amount)
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Persistence":
 				yield return StartCoroutine(PersistenceIncrement());
 				break;
@@ -113,7 +130,8 @@ public class Ability : MonoBehaviour {
 	/// <param name="damagedChampion"></param>
 	/// <param name="amount"></param>
 	/// <returns></returns>
-	public IEnumerator OnDamage(ChampionController damagedChampion, int amount) {
+	public IEnumerator OnDamage(ChampionController damagedChampion, int amount)
+	{
 		yield break;
 	}
 	/// <summary>
@@ -121,8 +139,10 @@ public class Ability : MonoBehaviour {
 	/// </summary>
 	/// <param name="amount"></param>
 	/// <returns></returns>
-	public IEnumerator OnHeal(int amount) {
-		switch (abilityScriptableObject.abilityID) {
+	public IEnumerator OnHeal(int amount)
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Smite":
 				yield return StartCoroutine(Smite(amount));
 				break;
@@ -137,14 +157,16 @@ public class Ability : MonoBehaviour {
 	/// <param name="healedChampion"></param>
 	/// <param name="amount"></param>
 	/// <returns></returns>
-	public IEnumerator OnHeal(ChampionController healedChampion, int amount) {
+	public IEnumerator OnHeal(ChampionController healedChampion, int amount)
+	{
 		yield break;
 	}
 	/// <summary>
 	/// Checks for abilities when this ability right before this ability's champion dies.
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator OnDeath() {
+	public IEnumerator OnDeath()
+	{
 		yield break;
 	}
 	/// <summary>
@@ -153,7 +175,8 @@ public class Ability : MonoBehaviour {
 	/// <param name="attackingCard"></param>
 	/// <param name="defendingCard"></param>
 	/// <returns></returns>
-	public IEnumerator OnCombatCalculationAttacker(Card attackingCard, Card defendingCard) {
+	public IEnumerator OnCombatCalculationAttacker(Card attackingCard, Card defendingCard)
+	{
 		yield break;
 	}
 	/// <summary>
@@ -162,8 +185,10 @@ public class Ability : MonoBehaviour {
 	/// <param name="attackingCard"></param>
 	/// <param name="defendingCard"></param>
 	/// <returns></returns>
-	public IEnumerator OnCombatCalculationDefender(Card attackingCard, Card defendingCard) {
-		switch (abilityScriptableObject.abilityID) {
+	public IEnumerator OnCombatCalculationDefender(Card attackingCard, Card defendingCard)
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Bojutsu":
 				yield return StartCoroutine(Bojutsu(attackingCard));
 				break;
@@ -172,20 +197,26 @@ public class Ability : MonoBehaviour {
 				break;
 		}
 	}
-	public IEnumerator OnAttackSuccess(Card attackingCard, Card defendingCard) {
+	public IEnumerator OnAttackSuccess(Card attackingCard, Card defendingCard)
+	{
 		yield break;
 	}
-	public IEnumerator OnAttackFailure(Card attackingCard, Card defendingCard) {
+	public IEnumerator OnAttackFailure(Card attackingCard, Card defendingCard)
+	{
 		yield break;
 	}
-	public IEnumerator OnDefenseSuccess(Card attackingCard, Card defendingCard) {
+	public IEnumerator OnDefenseSuccess(Card attackingCard, Card defendingCard)
+	{
 		yield break;
 	}
-	public IEnumerator OnDefenseFailure(Card attackingCard, Card defendingCard) {
+	public IEnumerator OnDefenseFailure(Card attackingCard, Card defendingCard)
+	{
 		yield break;
 	}
-	public int DamageCalculationBonusSource(int amount, DamageType damageType) {
-		switch (abilityScriptableObject.abilityID) {
+	public int DamageCalculationBonusSource(int amount, DamageType damageType)
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Persistence":
 				return Persistence(damageType);
 			default:
@@ -198,8 +229,10 @@ public class Ability : MonoBehaviour {
 	/// <param name="amount"></param>
 	/// <param name="damageType"></param>
 	/// <returns></returns>
-	public int DamageCalculationBonus(int amount, DamageType damageType) {
-		switch (abilityScriptableObject.abilityID) {
+	public int DamageCalculationBonus(int amount, DamageType damageType)
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_HopliteShield":
 				return HopliteShield(amount, damageType);
 			default:
@@ -207,8 +240,10 @@ public class Ability : MonoBehaviour {
 		}
 
 	}
-	public bool CanBeTargetedByAttack() {
-		switch (abilityScriptableObject.abilityID) {
+	public bool CanBeTargetedByAttack()
+	{
+		switch (abilityScriptableObject.abilityID)
+		{
 			case "Ability_Stealth":
 				return Stealth();
 		}
@@ -216,12 +251,14 @@ public class Ability : MonoBehaviour {
 	}
 
 	// Ability Methods
-	private IEnumerator QuickAssist() {
+	private IEnumerator QuickAssist()
+	{
 		if (!championController.isMyTurn) yield break;
 
 		yield return new WaitForSeconds(1f);
 
-		foreach (ChampionController selectedChampion in GameManager.instance.champions) {
+		foreach (ChampionController selectedChampion in GameManager.instance.champions)
+		{
 			if (selectedChampion == championController || selectedChampion.isDead || selectedChampion.champion.faction != championController.champion.faction || selectedChampion.champion.faction == Champion.Faction.Undefined) continue;
 
 			yield return StartCoroutine(championController.hand.Deal(1));
@@ -229,7 +266,8 @@ public class Ability : MonoBehaviour {
 			AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 		}
 	}
-	private IEnumerator QuickHeal(int amount) {
+	private IEnumerator QuickHeal(int amount)
+	{
 		Debug.Log(abilityScriptableObject.abilityName + " activated for " + championController.champion.championName + ", 50% chance to heal for double the amount!");
 		if (Random.Range(0f, 1f) < 0.5f || championController.currentHP == championController.champion.maxHP) yield break;
 
@@ -237,7 +275,8 @@ public class Ability : MonoBehaviour {
 		yield return StartCoroutine(championController.Heal(amount, false));
 		AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 	}
-	private bool Stealth() {
+	private bool Stealth()
+	{
 		/*if (!IsExclusive()) return true;
 		if (champion.spadesBeforeExhaustion == 1 && champion.heartsBeforeExhaustion == 3 && champion.diamondsBeforeExhaustion == 1) {
 			AudioController.instance.Play(abilityScriptableObject.customAudioClips[0], false, 0.5f);
@@ -247,9 +286,11 @@ public class Ability : MonoBehaviour {
 		return true;*/
 		return false;
 	}
-	private int HopliteShield(int amount, DamageType damageType) {
+	private int HopliteShield(int amount, DamageType damageType)
+	{
 		if (!IsExclusive()) return 0;
-		switch (damageType) {
+		switch (damageType)
+		{
 			case DamageType.Melee:
 			case DamageType.Ranged:
 				break;
@@ -260,15 +301,17 @@ public class Ability : MonoBehaviour {
 		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + championController.champion.championName + ". A 33% chance to negate the damage by half!" +
 		          "\n This chance is increased to 50% if the damage is fatal.");
 
-		float chance = championController.currentHP - amount <= 0 ? 0.5f : (float)1 / 3;
-		if (Random.Range(0f, 1f) < chance) {
+		float chance = championController.currentHP - amount <= 0 ? 0.5f : (float) 1 / 3;
+		if (Random.Range(0f, 1f) < chance)
+		{
 			AudioManager.instance.Play(abilityScriptableObject.customAudioClips[0]);
 			AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 			return -amount / 2;
 		}
 		return 0;
 	}
-	private IEnumerator Bojutsu(Card attackingCard) {
+	private IEnumerator Bojutsu(Card attackingCard)
+	{
 		/*if (!IsExclusive()) yield break;
 		if (attackingCard.cardScriptableObject.cardValue < 10) yield break;
 
@@ -277,7 +320,8 @@ public class Ability : MonoBehaviour {
 		AbilityFeedEntry.New(abilityScriptableObject, champion);*/
 		yield break;
 	}
-	private IEnumerator Rejuvenation() {
+	private IEnumerator Rejuvenation()
+	{
 		if (!IsExclusive()) yield break;
 		if (Random.Range(0f, 1f) < 0.5f || championController.currentHP == championController.champion.maxHP) yield break;
 
@@ -285,14 +329,16 @@ public class Ability : MonoBehaviour {
 		yield return StartCoroutine(championController.Heal(5, false));
 		AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 	}
-	private IEnumerator Smite(int amount) {
+	private IEnumerator Smite(int amount)
+	{
 		if (!IsExclusive()) yield break;
-		
+
 		Debug.Log(abilityScriptableObject.abilityName + " was activated for " + championController.champion.championName + ".");
-		
+
 		ChampionController markedForSmite = GameManager.instance.champions[Random.Range(0, GameManager.instance.champions.Count)];
 		int tries = 0;
-		while ((markedForSmite.isDead || markedForSmite == championController || markedForSmite.teamMembers.Contains(championController)) && tries <= 15) {
+		while ((markedForSmite.isDead || markedForSmite == championController || markedForSmite.teamMembers.Contains(championController)) && tries <= 15)
+		{
 			markedForSmite = GameManager.instance.champions[Random.Range(0, GameManager.instance.champions.Count)];
 			tries++;
 		}
@@ -300,7 +346,8 @@ public class Ability : MonoBehaviour {
 		AudioManager.instance.Play(abilityScriptableObject.customAudioClips[0], false, 0.5f);
 		AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 	}
-	private IEnumerator StrategicManeuver(Card defendingCard) {
+	private IEnumerator StrategicManeuver(Card defendingCard)
+	{
 		/*if (!IsExclusive()) yield break;
 		if (defendingCard.cardScriptableObject.cardValue < 10) yield break;
 
@@ -310,14 +357,16 @@ public class Ability : MonoBehaviour {
 		AbilityFeedEntry.New(abilityScriptableObject, champion, 2f);*/
 		yield break;
 	}
-	private IEnumerator PersistenceIncrement() {
+	private IEnumerator PersistenceIncrement()
+	{
 		if (!IsExclusive()) yield break;
 
 		abilityInts["persistence"] = Mathf.Min(25, abilityInts["persistence"] + 5);
 		Debug.Log(abilityInts["persistence"]);
 		AbilityFeedEntry.New(abilityScriptableObject, championController, 2f);
 	}
-	private int Persistence(DamageType damageType) {
+	private int Persistence(DamageType damageType)
+	{
 		if (!IsExclusive() || damageType != DamageType.Melee) return 0;
 
 		int amount = abilityInts["persistence"];

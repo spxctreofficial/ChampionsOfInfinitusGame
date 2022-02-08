@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 
 [ExecuteInEditMode()]
-public class FixedTooltip : MonoBehaviour {
+public class FixedTooltip : MonoBehaviour
+{
 	public TMP_Text header;
 	public TMP_Text body;
 	public LayoutElement layoutElement;
@@ -14,12 +15,15 @@ public class FixedTooltip : MonoBehaviour {
 
 	public RectTransform rectTransform;
 
-	public void SetText(string body = "", string header = "") {
-		if (string.IsNullOrEmpty(body) && string.IsNullOrEmpty(header)) {
+	public void SetText(string body = "", string header = "")
+	{
+		if (string.IsNullOrEmpty(body) && string.IsNullOrEmpty(header))
+		{
 			Debug.Log("Dont call me baby");
 			return;
 		}
-		switch (string.IsNullOrEmpty(header)) {
+		switch (string.IsNullOrEmpty(header))
+		{
 			case true:
 				this.header.gameObject.SetActive(false);
 				break;
@@ -28,7 +32,8 @@ public class FixedTooltip : MonoBehaviour {
 				this.header.text = header;
 				break;
 		}
-		switch (string.IsNullOrEmpty(body)) {
+		switch (string.IsNullOrEmpty(body))
+		{
 			case true:
 				this.body.gameObject.SetActive(false);
 				break;
@@ -43,20 +48,24 @@ public class FixedTooltip : MonoBehaviour {
 
 		layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
 	}
-	public void UpdateTransform() {
+	public void UpdateTransform()
+	{
 		Vector3 mousePos = Input.mousePosition;
 		mousePos.z = transform.parent.GetComponent<Canvas>().planeDistance;
 		transform.position = FindObjectOfType<Camera>().ScreenToWorldPoint(mousePos);
 	}
-	public void UpdatePivot() {
+	public void UpdatePivot()
+	{
 		Vector3 mousePos = Input.mousePosition;
 		Vector2 pivot = new Vector2(mousePos.x / Screen.width, mousePos.y > Screen.height / 2 ? 1.2f : 0);
 		if (GameManager.instance != null) pivot.y = GameManager.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
 		rectTransform.pivot = pivot;
 	}
 
-	private void Update() {
-		if (Application.isEditor) {
+	private void Update()
+	{
+		if (Application.isEditor)
+		{
 			int headerLength = header.text.Length;
 			int contentLength = body.text.Length;
 

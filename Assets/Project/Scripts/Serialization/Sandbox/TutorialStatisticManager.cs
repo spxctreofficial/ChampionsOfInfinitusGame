@@ -5,21 +5,26 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TutorialStatisticManager : StatisticManager {
+public class TutorialStatisticManager : StatisticManager
+{
 	public static new TutorialStatisticManager instance;
 
-	protected override void Awake() {
+	protected override void Awake()
+	{
 		base.Awake();
 
-		if (instance == null) {
+		if (instance == null)
+		{
 			instance = this;
 		}
-		else {
+		else
+		{
 			Destroy(gameObject);
 		}
 	}
 
-	public override IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton) {
+	public override IEnumerator RewardCalculation(TMP_Text bonusRewardLog, GameObject collectButton)
+	{
 		collectButton.SetActive(false);
 		initialGoldReward = !DataManager.instance.firstRunTutorial ? 2000 : 50;
 		bonusRewardLog.text = winState ? "Win Reward" : "Loss Compensation";

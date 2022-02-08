@@ -15,8 +15,9 @@ MonoBehaviour:
   cardName: Attack (Light)
   cardDescription: When played, attack a selected opponent.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: 6d2f971a61f8588448f1d6a28e7b8f05, type: 3}
+  cardFront: {fileID: 21300000, guid: 7b5dccdfa6e44944dada5728b1d87778, type: 3}
   cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
+  cardIcon: {fileID: 21300000, guid: acec180e5b7941c40ae1696459b343ad, type: 3}
   cardFunctions:
     primaryFunction: attack
     secondaryFunction: 

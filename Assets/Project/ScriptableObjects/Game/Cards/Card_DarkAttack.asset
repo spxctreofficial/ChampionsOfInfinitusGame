@@ -15,8 +15,9 @@ MonoBehaviour:
   cardName: Attack (Dark)
   cardDescription: When played, attack a selected opponent.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: 92b9bd2052f36324e9cd52ca8d14f82e, type: 3}
+  cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
+  cardIcon: {fileID: 21300000, guid: a20269865db72e64a8fc3deca61dcf8d, type: 3}
   cardFunctions:
     primaryFunction: attack
     secondaryFunction: 

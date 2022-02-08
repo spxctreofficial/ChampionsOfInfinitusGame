@@ -7,7 +7,8 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
 
-public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
 	[HideInInspector]
 	public Champion champion;
 
@@ -21,27 +22,32 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 	private static int delayID;
 
-	private void Start() {
+	private void Start()
+	{
 		UpdateInformation();
 	}
-	private void Update() {
+	private void Update()
+	{
 		if (!DataManager.instance.ownedChampions.Contains(champion) && !hasBeenPurchased) return;
 		UpdateInformation();
 		hasBeenPurchased = true;
 	}
 
-	public void OnClick() {
+	public void OnClick()
+	{
 		if (!DataManager.instance.firstRunShop) return;
 		currentInfoPanel = ChampionInfoPanel.Create(champion);
 		currentInfoPanel.transform.SetParent(MainMenuController.instance.shopPanel.transform, false);
 	}
-	
-	public void UpdateInformation() {
+
+	public void UpdateInformation()
+	{
 		// Updates information
 		avatar.sprite = champion.avatar;
 		goldCostText.text = champion.value.ToString();
 
-		foreach (Champion champion in DataManager.instance.ownedChampions) {
+		foreach (Champion champion in DataManager.instance.ownedChampions)
+		{
 			if (champion != this.champion) continue;
 			goldCostText.text = "PURCHASED";
 			goldCostText.color = new Color32(128, 128, 128, 255);
@@ -50,8 +56,10 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 
 	// Pointer Events
-	public void OnPointerEnter(PointerEventData eventData) {
-		delayID = LeanTween.delayedCall(0.5f, () => {
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		delayID = LeanTween.delayedCall(0.5f, () =>
+		{
 			string body = "Health: " + champion.maxHP; // max health
 			body += "\nCLICK FOR MORE INFO";
 
@@ -60,7 +68,8 @@ public class ChampionShopButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 			TooltipSystem.instance.Show(body, champion.championName); // show the tooltip
 		}).id;
 	}
-	public void OnPointerExit(PointerEventData eventData) {
+	public void OnPointerExit(PointerEventData eventData)
+	{
 		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}

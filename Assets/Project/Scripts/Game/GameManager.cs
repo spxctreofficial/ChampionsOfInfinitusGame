@@ -8,7 +8,8 @@ using TMPro;
 
 public enum GamePhase { GameStart, BeginningPhase, ActionPhase, EndPhase, GameEnd }
 
-public abstract class GameManager : MonoBehaviour {
+public abstract class GameManager : MonoBehaviour
+{
 	public static GameManager instance;
 
 	public enum Difficulty { Noob, Novice, Warrior, Champion }
@@ -46,18 +47,22 @@ public abstract class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public bool currentlyHandlingCard;
 
-	protected virtual void Awake() {
+	protected virtual void Awake()
+	{
 		if (instance == null)
 			instance = this;
-		else {
+		else
+		{
 			Destroy(gameObject);
 		}
 	}
-	protected virtual void Start() {
+	protected virtual void Start()
+	{
 		StartCoroutine(GameStart(GamePrep()));
 	}
 
-	private IEnumerator GameStart(IEnumerator enumerator) {
+	private IEnumerator GameStart(IEnumerator enumerator)
+	{
 		yield return StartCoroutine(enumerator);
 		StartCoroutine(GameStart());
 	}
@@ -67,16 +72,19 @@ public abstract class GameManager : MonoBehaviour {
 	/// as well as allowing the player to choose their champion and map.
 	/// </summary>
 	/// <returns></returns>
-	protected virtual IEnumerator GameStart() {
+	protected virtual IEnumerator GameStart()
+	{
 		phaseIndicator.text = "Start of Game";
 
 		// Game Preparation
 		yield return StartCoroutine(GameSetup());
 
 		// Adds the team members to each champion's list.
-		foreach (ChampionController championController in champions) {
+		foreach (ChampionController championController in champions)
+		{
 			championController.currentStamina = CurrentRoundStamina;
-			foreach (ChampionController selectedChampionController in champions) {
+			foreach (ChampionController selectedChampionController in champions)
+			{
 				if (selectedChampionController == championController || selectedChampionController.team != championController.team) continue;
 				championController.teamMembers.Add(selectedChampionController);
 			}
@@ -94,7 +102,8 @@ public abstract class GameManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="championController"></param>
 	/// <returns></returns>
-	protected virtual IEnumerator BeginningPhase(ChampionController championController) {
+	protected virtual IEnumerator BeginningPhase(ChampionController championController)
+	{
 		gamePhase = GamePhase.BeginningPhase;
 
 		phaseIndicator.text = "Beginning Phase - " + championController.champion.championName;
@@ -102,14 +111,18 @@ public abstract class GameManager : MonoBehaviour {
 		championController.currentStamina = CurrentRoundStamina;
 		yield return StartCoroutine(championController.hand.Deal(2)); // Deals to the player
 
-		foreach (ChampionController selectedChampionController in champions) {
-			foreach (Ability ability in selectedChampionController.abilities) {
+		foreach (ChampionController selectedChampionController in champions)
+		{
+			foreach (Ability ability in selectedChampionController.abilities)
+			{
 				yield return StartCoroutine(ability.OnBeginningPhase());
 			}
 		}
-		
-		if (discardArea.transform.childCount > 8) {
-			for (int i = discardArea.transform.childCount; i > 8; i--) {
+
+		if (discardArea.transform.childCount > 8)
+		{
+			for (int i = discardArea.transform.childCount; i > 8; i--)
+			{
 				Destroy(discardArea.transform.GetChild(0).gameObject);
 			}
 		}
@@ -124,21 +137,25 @@ public abstract class GameManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="championController"></param>
 	/// <returns></returns>
-	protected virtual IEnumerator ActionPhase(ChampionController championController) {
+	protected virtual IEnumerator ActionPhase(ChampionController championController)
+	{
 		gamePhase = GamePhase.ActionPhase;
 
 		// Updates Text
 		phaseIndicator.text = "Action Phase - " + championController.champion.championName;
 
 		// Action Phase Ability Check
-		foreach (ChampionController selectedChampionController in champions) {
-			foreach (Ability ability in selectedChampionController.abilities) {
+		foreach (ChampionController selectedChampionController in champions)
+		{
+			foreach (Ability ability in selectedChampionController.abilities)
+			{
 				yield return StartCoroutine(ability.OnActionPhase());
 			}
 		}
 
 		// Action Phase
-		switch (championController.isPlayer) {
+		switch (championController.isPlayer)
+		{
 			case true:
 				endTurnButton.gameObject.SetActive(true);
 				AudioManager.instance.Play("playerturn");
@@ -152,8 +169,10 @@ public abstract class GameManager : MonoBehaviour {
 	/// Starts the End Phase for the champion defined.
 	/// </summary>
 	/// <param name="championController"></param>
-	public virtual void StartEndPhase(ChampionController championController) {
-		if (championController != null) {
+	public virtual void StartEndPhase(ChampionController championController)
+	{
+		if (championController != null)
+		{
 			StartCoroutine(EndPhase(championController));
 			return;
 		}
@@ -164,14 +183,17 @@ public abstract class GameManager : MonoBehaviour {
 	/// <summary>
 	/// Searches for the current turn champion, then handles the End Phase for that champion.
 	/// </summary>
-	public virtual void StartEndPhase() {
+	public virtual void StartEndPhase()
+	{
 		ChampionController champion = null;
-		foreach (ChampionController selectedChampion in champions) {
+		foreach (ChampionController selectedChampion in champions)
+		{
 			if (!selectedChampion.isMyTurn) continue;
 
 			champion = selectedChampion;
 		}
-		if (champion == null) {
+		if (champion == null)
+		{
 			Debug.LogWarning("What the fuck?");
 			return;
 		}
@@ -183,7 +205,8 @@ public abstract class GameManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="championController"></param>
 	/// <returns></returns>
-	protected virtual IEnumerator EndPhase(ChampionController championController) {
+	protected virtual IEnumerator EndPhase(ChampionController championController)
+	{
 		gamePhase = GamePhase.EndPhase;
 		endTurnButton.gameObject.SetActive(false);
 
@@ -192,17 +215,20 @@ public abstract class GameManager : MonoBehaviour {
 		championController.discardAmount = Mathf.Max(championController.hand.GetCardCount() - 6, 0);
 
 		// End Phase Ability Check
-		foreach (ChampionController selectedChampionController in champions) {
-			foreach (Ability ability in selectedChampionController.abilities) {
+		foreach (ChampionController selectedChampionController in champions)
+		{
+			foreach (Ability ability in selectedChampionController.abilities)
+			{
 				yield return StartCoroutine(ability.OnEndPhase());
 			}
 		}
 
 		yield return new WaitForSeconds(2f);
 
-		if (championController.discardAmount > 0) {
+		if (championController.discardAmount > 0)
+		{
 			yield return StartCoroutine(DiscardManager.Create(championController).Initialize());
-        }
+		}
 		NextTurnCalculator(championController);
 	}
 	/// <summary>
@@ -211,20 +237,23 @@ public abstract class GameManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="victoriousChampion"></param>
 	/// <returns></returns>
-	protected virtual void GameEnd(ChampionController victoriousChampion) {
+	protected virtual void GameEnd(ChampionController victoriousChampion)
+	{
 		gamePhase = GamePhase.GameEnd;
 		ChampionController player = null;
-		foreach (ChampionController champion in champions) {
+		foreach (ChampionController champion in champions)
+		{
 			if (!champion.isPlayer) continue;
 			player = champion;
 		}
 
 		Destroy(playerActionTooltip);
-		foreach (ChampionController championController in champions) {
+		foreach (ChampionController championController in champions)
+		{
 			StatisticManager.instance.TrackRemainingStatistics(championController);
 			championController.StopAllCoroutines();
 		}
-	
+
 		TooltipSystem.instance.StopAllCoroutines();
 		StatisticManager.instance.winState = victoriousChampion.isPlayer || victoriousChampion.teamMembers.Contains(player);
 
@@ -236,17 +265,20 @@ public abstract class GameManager : MonoBehaviour {
 	/// Listens and saves the player's configuration of the map, champion, difficulty at runtime, and then reports them back to GameStart.
 	/// </summary>
 	/// <returns></returns>
-	protected virtual IEnumerator GamePrep() {
+	protected virtual IEnumerator GamePrep()
+	{
 		ChampionSlot.CreateDefaultSlots();
 		yield break;
 	}
-	protected virtual IEnumerator GameSetup() {
+	protected virtual IEnumerator GameSetup()
+	{
 		gameArea.GetComponent<Image>().sprite = currentMap.mapBackground;
 		gameArea.GetComponent<AudioSource>().clip = currentMap.themeSong;
 
 		AudioManager.instance.Play(gameArea.GetComponent<AudioSource>());
 
-		foreach (Champion champion in players) {
+		foreach (Champion champion in players)
+		{
 			ChampionSlot slot = slots[players.IndexOf(champion)];
 
 			ChampionController championController = Spawn(champion, slot, players.IndexOf(champion) == 0);
@@ -258,15 +290,19 @@ public abstract class GameManager : MonoBehaviour {
 	/// Checks for if the game should end, based on what gamemode the game is currently playing on.
 	/// </summary>
 	/// <returns></returns>
-	public virtual IEnumerator GameEndCheck() {
+	public virtual IEnumerator GameEndCheck()
+	{
 		List<ChampionController> aliveChampions = new List<ChampionController>();
-		foreach (ChampionController champion in champions) {
+		foreach (ChampionController champion in champions)
+		{
 			if (champion.isDead || champion.currentOwner != null) continue;
 			aliveChampions.Add(champion);
 		}
 
-		if (aliveChampions.Count == 1) {
-			foreach (ChampionController championController in champions) {
+		if (aliveChampions.Count == 1)
+		{
+			foreach (ChampionController championController in champions)
+			{
 				championController.championParticleController.redGlow.SetActive(false);
 				championController.championParticleController.orangeGlow.SetActive(false);
 				championController.championParticleController.cyanGlow.SetActive(false);
@@ -280,27 +316,34 @@ public abstract class GameManager : MonoBehaviour {
 	/// If the index is out of range, it will catch an ArgumentOutOfRangeException and elapse a round, then reset back to the first in the index.
 	/// </summary>
 	/// <param name="currentTurnChampionController"></param>
-	public virtual void NextTurnCalculator(ChampionController currentTurnChampionController) {
+	public virtual void NextTurnCalculator(ChampionController currentTurnChampionController)
+	{
 		ChampionController nextTurnChampion;
-		try {
+		try
+		{
 			nextTurnChampion = champions[champions.IndexOf(currentTurnChampionController) + 1];
 		}
-		catch (ArgumentOutOfRangeException) {
+		catch (ArgumentOutOfRangeException)
+		{
 			Debug.LogWarning("The index was out of range. Elapsing round and resetting.");
 			nextTurnChampion = champions[0];
 			roundsElapsed++;
 		}
-		while (nextTurnChampion.isDead) {
-			try {
+		while (nextTurnChampion.isDead)
+		{
+			try
+			{
 				nextTurnChampion = champions[champions.IndexOf(nextTurnChampion) + 1];
 			}
-			catch (ArgumentOutOfRangeException) {
+			catch (ArgumentOutOfRangeException)
+			{
 				Debug.Log("The index was out of range. Elapsing round and resetting.");
 				nextTurnChampion = champions[0];
 				roundsElapsed++;
 			}
 		}
-		if (nextTurnChampion == currentTurnChampionController) {
+		if (nextTurnChampion == currentTurnChampionController)
+		{
 			Debug.LogError("Something went horribly fucking wrong. Did it miscalculate the next champion or is everyone die!?");
 			return;
 		}
@@ -315,12 +358,15 @@ public abstract class GameManager : MonoBehaviour {
 	/// Sets the next turn to the first champion in the index.
 	/// Should only be used at GameStart.
 	/// </summary>
-	protected void NextTurnCalculator() {
+	protected void NextTurnCalculator()
+	{
 		ChampionController nextTurnChampion;
-		try {
+		try
+		{
 			nextTurnChampion = champions[0];
 		}
-		catch (NullReferenceException) {
+		catch (NullReferenceException)
+		{
 			Debug.LogError("The first champion was not found! An error most likely occured whilst preparing the game.");
 			return;
 		}
@@ -330,9 +376,11 @@ public abstract class GameManager : MonoBehaviour {
 	/// <summary>
 	/// Fades away scene and returns the game to the main menu.
 	/// </summary>
-	public void ReturnToMainMenu() {
+	public void ReturnToMainMenu()
+	{
 		LeanTween.alphaCanvas(gameArea.GetComponent<CanvasGroup>(), 0f, 1f);
-		LeanTween.alphaCanvas(gameEndPanel.GetComponent<CanvasGroup>(), 0f, 1f).setEaseOutQuart().setOnComplete(() => {
+		LeanTween.alphaCanvas(gameEndPanel.GetComponent<CanvasGroup>(), 0f, 1f).setEaseOutQuart().setOnComplete(() =>
+		{
 			Destroy(StatisticManager.instance);
 			AudioManager.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
 			SceneManager.LoadScene("MainMenu");
@@ -346,7 +394,8 @@ public abstract class GameManager : MonoBehaviour {
 	/// <param name="champion"></param>
 	/// <param name="slot"></param>
 	/// <param name="spawnAsPlayer"></param>
-	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false, bool dealHand = true) {
+	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false, bool dealHand = true)
+	{
 		if (slot is null) slot = ChampionSlot.FindNextVacantSlot();
 
 		ChampionController championController = Instantiate(PrefabManager.instance.championTemplate, Vector2.zero, Quaternion.identity).GetComponent<ChampionController>();
@@ -359,8 +408,9 @@ public abstract class GameManager : MonoBehaviour {
 
 		Hand hand = spawnAsPlayer ? playerHand : Instantiate(PrefabManager.instance.handPrefab, new Vector3(-3000, 3000), Quaternion.identity).GetComponent<Hand>();
 		hand.transform.SetParent(gameArea.transform, false);
-		
-		IEnumerator Setup() {
+
+		IEnumerator Setup()
+		{
 			yield return null;
 			hand.SetOwner(championController);
 

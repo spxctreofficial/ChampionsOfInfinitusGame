@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class PrefabManager : MonoBehaviour {
+public class PrefabManager : MonoBehaviour
+{
 	public static PrefabManager instance;
 
 	[Header("Game Manager")]
@@ -18,13 +19,16 @@ public class PrefabManager : MonoBehaviour {
 	public GameObject notificationDialogPrefab;
 	public GameObject championInfoPanelPrefab;
 
-	private void Awake() {
-		if (instance == null) {
+	private void Awake()
+	{
+		if (instance == null)
+		{
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
-		else {
+		else
+		{
 			Destroy(gameObject);
-        }
-    }
+		}
+	}
 }
