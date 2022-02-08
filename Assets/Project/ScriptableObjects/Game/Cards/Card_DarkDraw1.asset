@@ -15,8 +15,9 @@ MonoBehaviour:
   cardName: Draw (Dark)
   cardDescription: When played, draw one dark card.
   cornerText: +1
-  cardFront: {fileID: 21300000, guid: 21b7d5bf6b9b9cc4bb23d73637164869, type: 3}
+  cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
+  cardIcon: {fileID: 21300000, guid: 6efaa0028adf28949bef407008ede2a4, type: 3}
   cardFunctions:
     primaryFunction: draw
     secondaryFunction: 1

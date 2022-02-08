@@ -17,7 +17,7 @@ MonoBehaviour:
   cornerText: 
   cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
-  cardIcon: {fileID: 21300000, guid: a20269865db72e64a8fc3deca61dcf8d, type: 3}
+  cardIcon: {fileID: 21300000, guid: 2f649da4d8f9dfb4ba6b6cbe43ec85bc, type: 3}
   cardFunctions:
     primaryFunction: attack
     secondaryFunction: 

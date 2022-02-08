@@ -15,8 +15,9 @@ MonoBehaviour:
   cardName: Draw (Light)
   cardDescription: When played, draw four light cards.
   cornerText: +4
-  cardFront: {fileID: 21300000, guid: 64724b75ccaf0ac47a5d1bd43d01c208, type: 3}
+  cardFront: {fileID: 21300000, guid: 7b5dccdfa6e44944dada5728b1d87778, type: 3}
   cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
+  cardIcon: {fileID: 21300000, guid: 3cdcc5b8af561fc41a21c2e1e1df0d60, type: 3}
   cardFunctions:
     primaryFunction: draw
     secondaryFunction: 4

@@ -15,12 +15,14 @@ MonoBehaviour:
   cardName: Block (Light)
   cardDescription: When played, blocks an incoming attack.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: 0aae161aa33f005468fad34617e0f015, type: 3}
+  cardFront: {fileID: 21300000, guid: 7b5dccdfa6e44944dada5728b1d87778, type: 3}
   cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
+  cardIcon: {fileID: 21300000, guid: f8a423f82c63a7f4aa31be17dc98d9c6, type: 3}
   cardFunctions:
     primaryFunction: block
     secondaryFunction: 
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 0
+  staminaRequirement: 0
   cardImportanceFactor: 20

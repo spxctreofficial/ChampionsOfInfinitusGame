@@ -15,8 +15,9 @@ MonoBehaviour:
   cardName: Heal (Dark)
   cardDescription: When played, heal for 1.
   cornerText: +1
-  cardFront: {fileID: 21300000, guid: 8275e74b53679b640903d6d1303c9aed, type: 3}
+  cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
+  cardIcon: {fileID: 21300000, guid: 9460602098fd45a41b1cad88fcf45deb, type: 3}
   cardFunctions:
     primaryFunction: heal
     secondaryFunction: 1

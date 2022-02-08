@@ -15,12 +15,14 @@ MonoBehaviour:
   cardName: Block (Dark)
   cardDescription: When played, blocks an incoming attack.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: c06376394918aca40ac31998c5445a55, type: 3}
+  cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 36e237ec0478ffd439e565091730d3cf, type: 3}
+  cardIcon: {fileID: 21300000, guid: a002706106163934c8acaa80b04ab483, type: 3}
   cardFunctions:
     primaryFunction: block
     secondaryFunction: 
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 1
+  staminaRequirement: 0
   cardImportanceFactor: 20
