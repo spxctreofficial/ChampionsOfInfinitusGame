@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 2510454741023338584}
   - component: {fileID: 5811727522454844978}
   m_Layer: 5
-  m_Name: ChampionTemplate
+  m_Name: Champion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
