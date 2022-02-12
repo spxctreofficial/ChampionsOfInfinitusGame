@@ -11,6 +11,7 @@ public class FightManager : MonoBehaviour
 
 	public bool parrying;
 	private ChampionController initialAttacker;
+	private ChampionController initialDefender;
 
 	private void Awake()
 	{
@@ -124,6 +125,7 @@ public class FightManager : MonoBehaviour
 		if (!parrying)
 		{
 			initialAttacker = fightInstance.Attacker;
+			initialDefender = fightInstance.Defender;
 		}
 
 		fightInstance.Defender.championParticleController.redGlow.SetActive(false);
@@ -143,6 +145,7 @@ public class FightManager : MonoBehaviour
 				switch (fightInstance.DefendingCard.cardData.cardFunctions.primaryFunction)
 				{
 					case "block":
+						if (!parrying) fightInstance.Attacker.equippedWeapon.Damage(1);
 						if (fightInstance.AttackingCard.cardData.cardColor == fightInstance.DefendingCard.cardData.cardColor)
 						{
 							AudioManager.instance.Play("swordimpact_fail");
@@ -158,6 +161,7 @@ public class FightManager : MonoBehaviour
 
 						break;
 					case "parry":
+						if (!parrying) fightInstance.Attacker.equippedWeapon.Damage(1);
 						if (fightInstance.AttackingCard.cardData.cardColor == fightInstance.DefendingCard.cardData.cardColor)
 						{
 							AudioManager.instance.Play("swordimpact_fail");
@@ -173,8 +177,6 @@ public class FightManager : MonoBehaviour
 						fightInstance.Defender.matchStatistic.failedDefends++;
 						break;
 				}
-
-				if (!parrying) fightInstance.Attacker.equippedWeapon.Damage(1);
 
 				break;
 		}

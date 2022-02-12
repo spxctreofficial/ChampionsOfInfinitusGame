@@ -66,7 +66,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		{
 			isHidden = true;
 			cardFront.sprite = cardData.cardBack;
-			cardIcon.gameObject.SetActive(true);
+			cardIcon.gameObject.SetActive(false);
 
 			advantageFeed.gameObject.SetActive(false);
 			cornerText.gameObject.SetActive(false);
@@ -76,7 +76,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		{
 			isHidden = false;
 			cardFront.sprite = cardData.cardFront;
-			cardIcon.gameObject.SetActive(false);
+			cardIcon.gameObject.SetActive(true);
 
 			advantageFeed.gameObject.SetActive(true);
 			cornerText.gameObject.SetActive(true);
