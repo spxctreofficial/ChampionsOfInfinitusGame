@@ -15,12 +15,14 @@ MonoBehaviour:
   cardName: Parry (Light)
   cardDescription: When played, block an incoming attack and attack the attacker.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: b02d29db172829447b7c44e31e3c43d1, type: 3}
+  cardFront: {fileID: 21300000, guid: 7b5dccdfa6e44944dada5728b1d87778, type: 3}
   cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
+  cardIcon: {fileID: 21300000, guid: 462d18e20483fc34492f083fcc9e278c, type: 3}
   cardFunctions:
     primaryFunction: parry
     secondaryFunction: 
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 0
+  staminaRequirement: 0
   cardImportanceFactor: 19

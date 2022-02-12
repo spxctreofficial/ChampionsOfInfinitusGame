@@ -15,12 +15,14 @@ MonoBehaviour:
   cardName: Parry (Dark)
   cardDescription: When played, block an incoming attack and attack the attacker.
   cornerText: 
-  cardFront: {fileID: 21300000, guid: ea49d220f8f64c34caeacba8580fd893, type: 3}
+  cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
   cardBack: {fileID: 21300000, guid: 097a20e0ef310474d98d0c9244ef7943, type: 3}
+  cardIcon: {fileID: 21300000, guid: db533dd1a8336484487d64f13adba99e, type: 3}
   cardFunctions:
     primaryFunction: parry
     secondaryFunction: 
     tertiaryFunction: 
     quaternaryFunction: 
   cardColor: 1
+  staminaRequirement: 0
   cardImportanceFactor: 19
