@@ -618,6 +618,8 @@ MonoBehaviour:
   cardRequirementText: {fileID: 7988786901927090089}
   cardTypeText: {fileID: 904296174979978235}
   cardRenderer: {fileID: 5010512790553852780}
+  rectTransform: {fileID: 4845806715525376486}
+  canvasGroup: {fileID: 6657951925946332304}
   card: {fileID: 0}
 --- !u!114 &4165168671932411155
 MonoBehaviour:
@@ -1221,6 +1223,7 @@ MonoBehaviour:
   layoutElement: {fileID: 8777298858318889505}
   characterWrapLimit: 188
   rectTransform: {fileID: 8777298858318889510}
+  canvasGroup: {fileID: 8777298858318889511}
 --- !u!225 &8777298858318889511
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1393,6 +1396,7 @@ MonoBehaviour:
   layoutElement: {fileID: 8777298858427005454}
   characterWrapLimit: 94
   rectTransform: {fileID: 8777298858427005459}
+  canvasGroup: {fileID: 8777298858427005452}
 --- !u!225 &8777298858427005452
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class Tooltip : MonoBehaviour
 	public int characterWrapLimit;
 
 	public RectTransform rectTransform;
+	public CanvasGroup canvasGroup;
 
 	public void SetText(string body = "", string header = "")
 	{

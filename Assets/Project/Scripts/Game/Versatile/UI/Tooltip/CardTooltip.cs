@@ -9,8 +9,10 @@ public class CardTooltip : MonoBehaviour
     public TMP_Text cardTitle, cardDescription, cardRequirementText, cardTypeText;
     public CardRenderer cardRenderer;
 
-    public Card card;
+    public RectTransform rectTransform;
+    public CanvasGroup canvasGroup;
 
+    public Card card;
 
     public void Setup(Card card)
     {
@@ -37,16 +39,16 @@ public class CardTooltip : MonoBehaviour
 
     public void Position(Card card)
     {
-        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform cardRectTransform = card.GetComponent<RectTransform>();
         if (card.owner is { })
         {
             float heightOffset = (rectTransform.rect.height / 2) + (card.cardRenderer.image.rectTransform.rect.height / 2);
-            rectTransform.position = card.GetComponent<RectTransform>().position;
+            rectTransform.position = cardRectTransform.position;
             rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y + heightOffset + 20);
         }
         else
         {
-            rectTransform.position = card.GetComponent<RectTransform>().position;
+            rectTransform.position = cardRectTransform.position;
         }
     }
 
