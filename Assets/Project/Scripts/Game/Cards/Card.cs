@@ -55,7 +55,6 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	public void Flip(bool doFlipAnimation = false)
 	{
-		Debug.Log("calleed");
 		if (!isHidden)
 		{
 			cardRenderer.Flip();

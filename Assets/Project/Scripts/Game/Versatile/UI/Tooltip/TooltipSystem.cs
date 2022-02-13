@@ -23,11 +23,6 @@ public class TooltipSystem : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Displays a normal tooltip.
-	/// </summary>
-	/// <param name="body"></param>
-	/// <param name="header"></param>
 	public void Show(string body, string header = "")
 	{
 		tooltip.UpdateTransform();
@@ -46,12 +41,6 @@ public class TooltipSystem : MonoBehaviour
 		LeanTween.scale(cardTooltip.rectTransform, Vector2.one, 0.3f).setEaseInOutQuart();
 		LeanTween.alphaCanvas(cardTooltip.canvasGroup, 1f, 0.3f).setEaseInOutQuart();
 	}
-	/// <summary>
-	/// Displays an error tooltip at the given vector2.
-	/// </summary>
-	/// <param name="vector2"></param>
-	/// <param name="body"></param>
-	/// <param name="header"></param>
 	public void ShowError(string body, string header = "")
 	{
 		fixedTooltip.UpdateTransform();
