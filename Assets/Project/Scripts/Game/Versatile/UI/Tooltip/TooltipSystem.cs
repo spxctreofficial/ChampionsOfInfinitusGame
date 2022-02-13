@@ -6,9 +6,12 @@ public class TooltipSystem : MonoBehaviour
 {
 	public static TooltipSystem instance;
 
-	public enum TooltipType { Tooltip, ErrorTooltip }
+	public enum TooltipType { Tooltip, ErrorTooltip, CardTooltip }
 	public Tooltip tooltip;
 	public FixedTooltip fixedTooltip;
+	public CardTooltip cardTooltip;
+
+	public List<int> currentlyActiveIDs = new List<int>();
 
 	private void Awake()
 	{
@@ -30,11 +33,19 @@ public class TooltipSystem : MonoBehaviour
 	{
 		tooltip.UpdateTransform();
 		tooltip.UpdatePivot();
-		tooltip.gameObject.SetActive(true);
 
 		tooltip.SetText(body, header);
 		tooltip.GetComponent<CanvasGroup>().alpha = 0f;
 		LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 1f, 0.25f).setEaseInOutQuart();
+	}
+	public void ShowCard(Card card)
+    {
+		cardTooltip.Setup(card);
+
+		cardTooltip.transform.localScale = new Vector2(0.8f, 0.8f);
+		cardTooltip.GetComponent<CanvasGroup>().alpha = 0f;
+		LeanTween.scale(cardTooltip.GetComponent<RectTransform>(), Vector2.one, 0.3f).setEaseInOutQuart();
+		LeanTween.alphaCanvas(cardTooltip.GetComponent<CanvasGroup>(), 1f, 0.3f).setEaseInOutQuart();
 	}
 	/// <summary>
 	/// Displays an error tooltip at the given vector2.
@@ -46,7 +57,6 @@ public class TooltipSystem : MonoBehaviour
 	{
 		fixedTooltip.UpdateTransform();
 		fixedTooltip.UpdatePivot();
-		fixedTooltip.gameObject.SetActive(true);
 
 		fixedTooltip.SetText(body, header);
 		fixedTooltip.GetComponent<CanvasGroup>().alpha = 0f;
@@ -58,10 +68,10 @@ public class TooltipSystem : MonoBehaviour
 	public void Hide()
 	{
 		tooltip.GetComponent<CanvasGroup>().alpha = 0f;
-		tooltip.gameObject.SetActive(false);
 
 		fixedTooltip.GetComponent<CanvasGroup>().alpha = 0f;
-		fixedTooltip.gameObject.SetActive(false);
+
+		cardTooltip.GetComponent<CanvasGroup>().alpha = 0f;
 	}
 	/// <summary>
 	/// Hide a specific type of tooltip.
@@ -74,10 +84,15 @@ public class TooltipSystem : MonoBehaviour
 		switch (tooltipType)
 		{
 			case TooltipType.Tooltip:
-				LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => tooltip.gameObject.SetActive(false)).setEaseInOutQuart();
+				LeanTween.alphaCanvas(tooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setEaseInOutQuart();
 				break;
 			case TooltipType.ErrorTooltip:
-				LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setOnComplete(() => fixedTooltip.gameObject.SetActive(false)).setEaseInOutQuart();
+				LeanTween.alphaCanvas(fixedTooltip.GetComponent<CanvasGroup>(), 0f, fadeOutTime).setEaseInOutQuart();
+				break;
+			case TooltipType.CardTooltip:
+				if (currentlyActiveIDs.Count > 0 || cardTooltip.GetComponent<CanvasGroup>().alpha == 0f) break;
+				currentlyActiveIDs.Add(LeanTween.scale(cardTooltip.GetComponent<RectTransform>(), new Vector2(0.8f, 0.8f), 0.3f).setEaseInOutQuart().uniqueId);
+				currentlyActiveIDs.Add(LeanTween.alphaCanvas(cardTooltip.GetComponent<CanvasGroup>(), 0f, 0.3f).setEaseInOutQuart().setOnComplete(() => currentlyActiveIDs.Clear()).uniqueId);
 				break;
 		}
 	}

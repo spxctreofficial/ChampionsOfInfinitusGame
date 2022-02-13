@@ -12,9 +12,8 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	[FormerlySerializedAs("cardScriptableObject")] [Header("Card Information")]
 	public CardData cardData;
 	[Header("References")]
-	public Image cardFront;
-	public Image cardIcon;
-	public TMP_Text caption, cornerText, staminaRequirementText;
+	public CardRenderer cardRenderer;
+	public TMP_Text caption;
 	public TMP_Text discardFeed, advantageFeed;
 	public GameObject[] redGlow, greenGlow;
 
@@ -28,8 +27,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		set
 		{
 			staminaRequirementModifier = value;
-			staminaRequirementText.text = EffectiveStaminaRequirement.ToString();
-			staminaRequirementText.color = cardData.cardColor == CardColor.Dark ? Color.white : Color.black;
+			cardRenderer.Refresh();
 		}
 	}
 	public int EffectiveStaminaRequirement
@@ -47,15 +45,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public bool isHidden;
 	public List<string> tags = new();
 
-	private int delayID;
+	private List<int> delayIDs = new List<int>();
 
 	protected virtual void Start()
 	{
 		gameObject.name = cardData.cardName;
-		if (cardFront.sprite != cardData.cardFront && cardFront.sprite != cardData.cardBack) cardFront.sprite = cardData.cardFront;
-		cardIcon.sprite = cardData.cardIcon;
-		cornerText.text = cardData.cornerText;
-		if (cardData.cardColor == CardColor.Dark) cornerText.color = Color.white;
 		StaminaRequirementModifier = 0;
 	}
 
@@ -64,23 +58,17 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		Debug.Log("calleed");
 		if (!isHidden)
 		{
+			cardRenderer.Flip();
 			isHidden = true;
-			cardFront.sprite = cardData.cardBack;
-			cardIcon.gameObject.SetActive(false);
 
 			advantageFeed.gameObject.SetActive(false);
-			cornerText.gameObject.SetActive(false);
-			staminaRequirementText.gameObject.SetActive(false);
 		}
 		else
 		{
+			cardRenderer.Flip();
 			isHidden = false;
-			cardFront.sprite = cardData.cardFront;
-			cardIcon.gameObject.SetActive(true);
 
 			advantageFeed.gameObject.SetActive(true);
-			cornerText.gameObject.SetActive(true);
-			staminaRequirementText.gameObject.SetActive(true);
 
 			if (doFlipAnimation)
 			{
@@ -367,23 +355,22 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	}
 	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
-		delayID = LeanTween.delayedCall(1f, () =>
+		delayIDs.Add(LeanTween.delayedCall(0.75f, () =>
 		{
-			if (isHidden)
+			TooltipSystem.instance.cardTooltip.Setup(this);
+			delayIDs.Add(LeanTween.delayedCall(0.25f, () =>
 			{
-				TooltipSystem.instance.Show(null, "Flipped Card");
-				return;
-			}
-
-			string description = cardData.cardDescription;
-			description += "\n\nStamina Requirement: " + (EffectiveStaminaRequirement == 0 ? "FREE" : EffectiveStaminaRequirement.ToString());
-			TooltipSystem.instance.Show(description, cardData.cardName);
-		}).uniqueId;
+				TooltipSystem.instance.ShowCard(this);
+			}).uniqueId);
+		}).uniqueId);
 	}
 	public virtual void OnPointerExit(PointerEventData eventData)
 	{
-		LeanTween.cancel(delayID);
-		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+		foreach (int delayID in delayIDs)
+        {
+			LeanTween.cancel(delayID);
+		}
+		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.CardTooltip);
 	}
 
 	#endregion
