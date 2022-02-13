@@ -17,7 +17,7 @@ public class CardTooltip : MonoBehaviour
         Clear();
         cardTitle.text = card.cardData.cardName;
         cardDescription.text = card.cardData.cardDescription;
-        cardRequirementText.text = "\n\nStamina Requirement: " + (card.EffectiveStaminaRequirement == 0 ? "FREE" : card.EffectiveStaminaRequirement.ToString());
+        cardRequirementText.text = "Stamina Requirement: " + (card.EffectiveStaminaRequirement == 0 ? "FREE" : card.EffectiveStaminaRequirement.ToString());
         switch (card.cardData.cardColor)
         {
             case CardColor.Light:

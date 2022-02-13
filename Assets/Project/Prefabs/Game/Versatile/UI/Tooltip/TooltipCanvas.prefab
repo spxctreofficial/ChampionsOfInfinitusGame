@@ -271,7 +271,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Sure!
 
-    This is a short description of what a thing does.'
+    This is a description of how this card works.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9ea549eb8f1a9648871032885ba1407, type: 2}
   m_sharedMaterial: {fileID: -8918839540550838688, guid: e9ea549eb8f1a9648871032885ba1407,
