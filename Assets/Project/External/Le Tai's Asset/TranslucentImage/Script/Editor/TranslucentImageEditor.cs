@@ -26,7 +26,7 @@ public class TranslucentImageEditor : ImageEditor
         base.OnEnable();
 
         source         = serializedObject.FindProperty("source");
-        spriteBlending = serializedObject.FindProperty("spriteBlending");
+        spriteBlending = serializedObject.FindProperty("m_spriteBlending");
         vibrancy       = serializedObject.FindProperty("vibrancy");
         brightness     = serializedObject.FindProperty("brightness");
         flatten        = serializedObject.FindProperty("flatten");

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -10,10 +11,12 @@ public class MainMenuController : MonoBehaviour
 {
 	public static MainMenuController instance;
 
-	public Canvas overlayCanvas;
 	public GameObject mainPanel;
 	public ShopPanel shopPanel;
+	public GameObject overlayCanvas;
 	public Image logo;
+
+	public GameObject blurVolume;
 
 	public DialogueSession firstRunGameSession, firstRunShopSession;
 
@@ -28,10 +31,12 @@ public class MainMenuController : MonoBehaviour
 	}
 	private void Start()
 	{
-		overlayCanvas.gameObject.SetActive(true);
 		mainPanel.AddComponent<CanvasGroup>();
 
 		shopPanel.Setup();
+
+		overlayCanvas.gameObject.SetActive(true);
+		blurVolume.gameObject.SetActive(true);
 	}
 
 	/// <summary>
@@ -40,23 +45,26 @@ public class MainMenuController : MonoBehaviour
 	public void Focus()
 	{
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
+		Destroy(overlayCanvas.gameObject);
+		Destroy(blurVolume.gameObject);
 		AudioManager.instance.Play(logo.GetComponent<AudioSource>().clip);
 
 		// StartCoroutine(ShakeImage(logo.transform, 0.35f, 15f));
 		CameraShaker.Instance.ShakeOnce(8f, 4f, 0f, 0.65f);
 
-		Destroy(overlayCanvas.gameObject);
 		LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.1f).setEaseInOutQuad().setOnComplete(() =>
 		{
 			LeanTween.scale(logo.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), 1f).setEaseInOutQuad();
 		});
 
 		if (!DataManager.instance.firstRunGame)
+        {
 			DialogueSystem.Create(firstRunGameSession, new Vector2(0, -270), () =>
 			{
 				DataManager.instance.firstRunGame = true;
 				DataManager.instance.Save();
 			}).transform.SetParent(mainPanel.transform, false);
+		}
 	}
 	/// <summary>
 	/// Loads the Sandbox scene.

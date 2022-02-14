@@ -13,8 +13,7 @@ public partial class TranslucentImage
         base.Reset();
         color = Color.white;
 
-        material = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/Le Tai's Asset/TranslucentImage/Material/Default-Translucent.mat");
+        material   = FindDefaultMaterial();
         vibrancy   = material.GetFloat(_vibrancyPropId);
         brightness = material.GetFloat(_brightnessPropId);
         flatten    = material.GetFloat(_flattenPropId);
@@ -22,6 +21,18 @@ public partial class TranslucentImage
         source = source ? source : FindObjectOfType<TranslucentImageSource>();
 
         PrepareShader();
+    }
+
+    static Material FindDefaultMaterial()
+    {
+        var guid = AssetDatabase.FindAssets("Default-Translucent t:Material l:TranslucentImageResource");
+
+        if (guid.Length == 0)
+            Debug.LogError("Can't find Default-Translucent Material");
+
+        var path = AssetDatabase.GUIDToAssetPath(guid[0]);
+
+        return AssetDatabase.LoadAssetAtPath<Material>(path);
     }
 
     protected override void OnValidate()

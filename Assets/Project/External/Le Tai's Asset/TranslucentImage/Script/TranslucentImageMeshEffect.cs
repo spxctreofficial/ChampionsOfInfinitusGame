@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,7 +13,18 @@ namespace LeTai.Asset.TranslucentImage
     {
         [Tooltip("Blend between the sprite and background blur")]
         [Range(0, 1)]
-        public float spriteBlending = .65f;
+        [FormerlySerializedAs("spriteBlending")]
+        public float m_spriteBlending = .65f;
+
+        public float spriteBlending
+        {
+            get => m_spriteBlending;
+            set
+            {
+                m_spriteBlending = value;
+                SetLayoutDirty();
+            }
+        }
 
         public virtual void ModifyMesh(VertexHelper vh)
         {
