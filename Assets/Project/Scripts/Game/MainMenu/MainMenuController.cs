@@ -20,6 +20,8 @@ public class MainMenuController : MonoBehaviour
 
 	public DialogueSession firstRunGameSession, firstRunShopSession;
 
+	ConfirmDialog quitDialog;
+
 	private void Awake()
 	{
 		if (instance == null)
@@ -38,11 +40,18 @@ public class MainMenuController : MonoBehaviour
 		overlayCanvas.gameObject.SetActive(true);
 		blurVolume.gameObject.SetActive(true);
 	}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+			QuitGame();
+        }
+    }
 
-	/// <summary>
-	/// PRESS TO START.
-	/// </summary>
-	public void Focus()
+    /// <summary>
+    /// PRESS TO START.
+    /// </summary>
+    public void Focus()
 	{
 		mainPanel.GetComponent<AudioLowPassFilter>().enabled = false;
 		Destroy(overlayCanvas.gameObject);
@@ -91,17 +100,19 @@ public class MainMenuController : MonoBehaviour
 	public void QuitGame()
 	{
 		if (!DataManager.instance.firstRunGame) return;
+		if (quitDialog is { }) return;
 
-		ConfirmDialog confirmDialog = ConfirmDialog.CreateNew("QUIT", "\n\nAre you sure you want to quit the game?\n\n\n", () =>
+		quitDialog = ConfirmDialog.CreateNew("QUIT", "\n\nAre you sure you want to quit the game?\n\n\n", () =>
 		{
 			ConfirmDialog.instance.Hide();
+			quitDialog = null;
 		}, () =>
 		{
 			DataManager.instance.Save();
 			Application.Quit();
 		});
-		confirmDialog.transform.SetParent(mainPanel.transform, false);
-		confirmDialog.GetComponent<RectTransform>().localPosition = new Vector2(0, -270);
+		quitDialog.transform.SetParent(mainPanel.transform, false);
+		quitDialog.GetComponent<RectTransform>().localPosition = new Vector2(0, -270);
 	}
 
 	private IEnumerator ShakeImage(Transform transform, float duration, float magnitude)
