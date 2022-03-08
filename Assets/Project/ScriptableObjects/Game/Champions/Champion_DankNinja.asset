@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
+  m_Name: Champion_DankNinja
+  m_EditorClassIdentifier: 
+  championName: Dank Ninja
+  championID: Champion_DankNinja
+  avatar: {fileID: 21300000, guid: af717e7799a20c543bde1420ed314fd5, type: 3}
+  description: 
+  gender: 0
+  faction: 3
+  race: 0
+  maxHP: 8
+  signatureWeapon: {fileID: 11400000, guid: e707c73eb97003045a6ff61dfa0e10bc, type: 2}
+  championClass: 0
+  abilities: []
+  unlockability: 0
+  value: 5000

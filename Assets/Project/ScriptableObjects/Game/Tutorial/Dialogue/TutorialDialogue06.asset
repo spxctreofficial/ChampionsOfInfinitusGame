@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90286e90629125e418b8efe6aa1b4f27, type: 3}
+  m_Name: TutorialDialogue06
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: Congratulations! Since your Ace of Diamonds had a higher value than
+      my King of Clubs, you deal damage to me.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: The amount of health, cards, and name of the champion will be displayed
+      around every champion's avatar.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: Now, let's take a look at playing DIAMONDS.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: DIAMONDS, when played normally, perform a miscellaneous task that may
+      either benefit or impede multiple/all players.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: You can hover over cards to find out what a card does, its combat value,
+      and extra information about the card.
+    caretBehaviour: 1
+    continueWithoutInput: 0
+  - speakingChampion: {fileID: 11400000, guid: afd38e2b6a0c65c4e8ae0a862db73df2, type: 2}
+    sentence: You have a 2 of DIAMONDS in your hand. Hover over it to find out what
+      it does, then click it when you're ready.
+    caretBehaviour: 1
+    continueWithoutInput: 0

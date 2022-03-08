@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22590f80ff256c34594773085c3675ff, type: 3}
+  m_Name: Champion_RegimeCaptain
+  m_EditorClassIdentifier: 
+  championName: Regime Captain
+  championID: Champion_RegimeCaptain
+  avatar: {fileID: 21300000, guid: 542ac847b3459cb428e503f441d44c4b, type: 3}
+  description: Charged with the duty to lead his squad to battle against the forces
+    of the Regime's adversaries, the Regime Captain can quickly infiltrate and remove
+    opponents with the "help" of his team.
+  gender: 0
+  faction: 1
+  race: 0
+  maxHP: 10
+  signatureWeapon: {fileID: 11400000, guid: f724e1b20d7e2bb47b59064d8f81aebc, type: 2}
+  championClass: 7
+  abilities:
+  - {fileID: 11400000, guid: 408284d49603484469e4124a9430c6b6, type: 2}
+  extendedDeck:
+    genericBasicCards:
+      entries: []
+    genericSpecialCards:
+      entries: []
+    genericWeapons:
+      entries: []
+    uniqueBasicCards:
+      entries: []
+    uniqueSpecialCards:
+      entries: []
+    uniqueWeapons:
+      entries: []
+  unlockability: 0
+  value: 750
