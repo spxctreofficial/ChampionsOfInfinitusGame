@@ -81,4 +81,10 @@ public class DiscardManager : MonoBehaviour
 		}
 		yield return StartCoroutine(discarder.hand.Discard(card));
 	}
+
+	public void Remove()
+    {
+		instance = null;
+		Destroy(gameObject);
+    }
 }

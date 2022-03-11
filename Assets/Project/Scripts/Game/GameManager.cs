@@ -228,6 +228,7 @@ public abstract class GameManager : MonoBehaviour
 		if (championController.discardAmount > 0)
 		{
 			yield return StartCoroutine(DiscardManager.Create(championController).Initialize());
+			DiscardManager.instance.Remove();
 		}
 		NextTurnCalculator(championController);
 	}

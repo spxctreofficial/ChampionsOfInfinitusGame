@@ -16,5 +16,5 @@ MonoBehaviour:
   weaponDescription: A knife.
   weaponSprite: {fileID: 0}
   attackDamage: 1
-  maxDurability: 2
+  maxDurability: 1000
   damageType: 0

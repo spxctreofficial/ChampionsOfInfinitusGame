@@ -145,14 +145,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 					yield break;
 				}
 
-				if (DiscardManager.instance is {} && DiscardManager.instance.discarder == championController)
+				if (DiscardManager.instance is { } && DiscardManager.instance.discarder == championController && championController.discardAmount > 0)
 				{
 					yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
 					yield break;
 				}
 
 				// Parry
-				if (FightManager.fightInstance is {} && FightManager.instance.parrying)
+				if (FightManager.fightInstance is { } && FightManager.fightInstance is { })
 				{
 					yield return StartCoroutine(OnParryActionPhase(championController));
 
@@ -236,7 +236,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 					yield break;
 				}
-				FightManager.fightInstance.DefendingCard = this;
+				FightManager.parryInstance.ParryingCard = this;
 				yield break;
 			default:
 				TooltipSystem.instance.ShowError("You cannot play this card to parry the attack!");
@@ -256,7 +256,9 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 					LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
 					yield break;
 				}
-				FightManager.fightInstance.DefendingCard = this;
+
+				if (FightManager.parryInstance is { }) FightManager.parryInstance.DefendingCard = this;
+				else FightManager.fightInstance.DefendingCard = this;
 				yield break;
 			default:
 				TooltipSystem.instance.ShowError("You cannot defend with this card!");
@@ -269,7 +271,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		switch (championController.isMyTurn)
 		{
 			case true:
-				if (DiscardManager.instance is {}) yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
+				if (DiscardManager.instance is {} && DiscardManager.instance.discarder == championController && championController.discardAmount > 0) yield return StartCoroutine(DiscardManager.instance.PlayerDiscardOperator(this));
 				yield break;
 			case false:
 				TooltipSystem.instance.ShowError("It is not your turn!");
@@ -356,11 +358,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		delayIDs.Add(LeanTween.delayedCall(0.75f, () =>
 		{
-			TooltipSystem.instance.cardTooltip.Setup(this);
-			delayIDs.Add(LeanTween.delayedCall(0.25f, () =>
-			{
-				TooltipSystem.instance.ShowCard(this);
-			}).uniqueId);
+			if (this is { })
+            {
+				TooltipSystem.instance.cardTooltip.Setup(this);
+				delayIDs.Add(LeanTween.delayedCall(0.25f, () =>
+				{
+					TooltipSystem.instance.ShowCard(this);
+				}).uniqueId);
+			}
 		}).uniqueId);
 	}
 	public virtual void OnPointerExit(PointerEventData eventData)

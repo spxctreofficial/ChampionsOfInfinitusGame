@@ -6,190 +6,241 @@ using Random = UnityEngine.Random;
 
 public class FightManager : MonoBehaviour
 {
-	public static FightManager instance;
-	public static Fight fightInstance;
+    public static FightManager instance;
+    public static Fight fightInstance;
+    public static Parry parryInstance;
 
-	public bool parrying;
+    private void Awake()
+    {
+        if (instance is null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
-	private void Awake()
-	{
-		if (instance is null)
-		{
-			instance = this;
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
-	}
+    public static FightManager Create()
+    {
+        FightManager fightManager = new GameObject("FightManager").AddComponent<FightManager>();
+        return fightManager;
+    }
 
-	public static FightManager Create()
-	{
-		FightManager fightManager = new GameObject("FightManager").AddComponent<FightManager>();
-		return fightManager;
-	}
+    public IEnumerator InitiateFight(ChampionController attacker, ChampionController defender, Card attackingCard)
+    {
+        GameManager.instance.endTurnButton.gameObject.SetActive(false);
+        Fight fight = new Fight(attacker, defender, attackingCard);
 
-	public IEnumerator InitiateFight(ChampionController attacker, ChampionController defender, Card attackingCard) {
-		GameManager.instance.endTurnButton.gameObject.SetActive(false);
-		Fight fight = new Fight(attacker, defender, attackingCard);
+        fight.AttackingCard.Flip();
+        yield return new WaitUntil(() => fight.AttackCanStart);
+        fight.AttackingCard.Flip();
 
-		fight.AttackingCard.Flip();
-		yield return new WaitUntil(() => fight.AttackCanStart);
-		fight.AttackingCard.Flip();
+        yield return StartCoroutine(HandleFight(fight.Attacker, fight.Defender, fight.AttackingCard));
+    }
+    private IEnumerator InitiateParry(ChampionController parryingController, ChampionController defender, Card parryingCard)
+    {
+        Parry parry = new Parry(parryingController, defender, parryingCard);
 
-		yield return StartCoroutine(HandleFight(attacker, defender, attackingCard));
-	}
-	private IEnumerator HandleFight(ChampionController attacker, ChampionController defender, Card attackingCard)
-	{
-		StartCoroutine(fightInstance.Attacker.hand.UseCard(fightInstance.AttackingCard));
+        yield return StartCoroutine(HandleFight(parryingController, defender, parryingCard));
+    }
+    private IEnumerator HandleFight(ChampionController attacker, ChampionController defender, Card attackingCard)
+    {
+        StartCoroutine(attacker.hand.UseCard(attackingCard));
 
-		fightInstance.Defender.championParticleController.redGlow.SetActive(true);
+        defender.championParticleController.redGlow.SetActive(true);
 
-		if (!fightInstance.Defender.isPlayer)
-		{
-			foreach (Card card in fightInstance.Defender.hand.cards)
-			{
-				switch (card.cardData.cardFunctions.primaryFunction)
-				{
-					case "block":
-					case "parry":
-						PickBotDefenseCard(card);
-						yield return new WaitForSeconds(0.2f);
-						break;
-				}
-			}
-		}
-		else
-		{
-			bool willWait = false;
-			foreach (Card card in fightInstance.Defender.hand.cards)
-			{
-				PickPlayerDefenseCard(card, out willWait);
-			}
+        Card defendingCard = null;
+        if (!defender.isPlayer)
+        {
+            foreach (Card card in defender.hand.cards)
+            {
+                if (defendingCard is { }) break;
 
-			if (willWait)
-			{
-				yield return new WaitUntil(() => fightInstance.DefendingCard is {});
-			}
+                switch (card.cardData.cardFunctions.primaryFunction)
+                {
+                    case "block":
+                    case "parry":
+                        yield return new WaitForSeconds(0.2f);
 
-			foreach (Card card in fightInstance.Defender.hand.cards)
-			{
-				foreach (GameObject gameObject in card.greenGlow)
-				{
-					gameObject.SetActive(false);
-				}
-			}
+                        if (PickBotDefenseCard(attacker, defender, attackingCard, card))
+                        {
+                            defendingCard = card;
+                            break;
+                        }
 
-		}
+                        break;
+                }
+            }
+        }
+        else
+        {
+            int willWait = 0;
+            foreach (Card card in defender.hand.cards) if (IsAPlayerDefendCard(attackingCard, card)) willWait++;
 
-		if (fightInstance.DefendingCard is {})
-		{
-			yield return StartCoroutine(fightInstance.Defender.hand.UseCard(fightInstance.DefendingCard));
-		}
+            if (willWait > 0)
+            {
+                switch (parryInstance is { })
+                {
+                    case true:
+                        yield return new WaitUntil(() => parryInstance.DefendingCard is { });
+                        defendingCard = parryInstance.DefendingCard;
+                        break;
+                    case false:
+                        yield return new WaitUntil(() => fightInstance.DefendingCard is { });
+                        defendingCard = fightInstance.DefendingCard;
+                        break;
+                }
+                
+            }
 
-		yield return StartCoroutine(CombatCalculation());
+            foreach (Card card in defender.hand.cards)
+            {
+                foreach (GameObject gameObject in card.greenGlow)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
 
-		fightInstance = null;
-		instance = null;
-		Destroy(gameObject);
-	}
+        }
 
-	private IEnumerator CombatCalculation()
-	{
-		fightInstance.Defender.championParticleController.redGlow.SetActive(false);
+        if (defendingCard is { })
+        {
+            yield return StartCoroutine(defendingCard.owner.hand.UseCard(defendingCard));
+        }
 
-		switch (fightInstance.AttackingCard.cardData.cardFunctions.primaryFunction)
-		{
-			case "attack":
-			case "parry":
-				if (fightInstance.DefendingCard is null)
-				{
-					yield return StartCoroutine(DefenselessFunction(fightInstance.Attacker, fightInstance.Defender));
-					yield break;
-				}
+        yield return StartCoroutine(CombatCalculation(attacker, defender, attackingCard, defendingCard));
 
-				switch (fightInstance.DefendingCard.cardData.cardFunctions.primaryFunction)
-				{
-					case "block":
-						yield return StartCoroutine(BlockFunction(fightInstance.Attacker, fightInstance.Defender, fightInstance.AttackingCard, fightInstance.DefendingCard));
-						break;
-					case "parry":
-						yield return StartCoroutine(ParryFunction(fightInstance.Defender, fightInstance.Attacker, fightInstance.DefendingCard, fightInstance.AttackingCard));
-						break;
-				}
+        fightInstance = null;
+        parryInstance = null;
+        instance = null;
+        Destroy(gameObject);
+    }
 
-				break;
+    private IEnumerator CombatCalculation(ChampionController attacker, ChampionController defender, Card attackingCard, Card defendingCard)
+    {
+
+        switch (attackingCard.cardData.cardFunctions.primaryFunction)
+        {
+            case "attack":
+            case "parry":
+                if (defendingCard is null)
+                {
+                    yield return new WaitForSeconds(0.75f);
+                    yield return StartCoroutine(DefenselessFunction(attacker, defender));
+                    break;
+                }
+
+                switch (defendingCard.cardData.cardFunctions.primaryFunction)
+                {
+                    case "block":
+                        yield return StartCoroutine(BlockFunction(attacker, defender, attackingCard, defendingCard));
+                        break;
+                    case "parry":
+                        yield return StartCoroutine(ParryFunction(defender, attacker, defendingCard, attackingCard));
+                        break;
+                }
+
+                break;
             default:
                 Debug.LogError("yo hol up");
                 break;
-		}
+        }
 
-		if (fightInstance.Attacker.isPlayer) GameManager.instance.endTurnButton.gameObject.SetActive(true);
-	}
+        defender.championParticleController.redGlow.SetActive(false);
+        if (attacker.isPlayer) GameManager.instance.endTurnButton.gameObject.SetActive(true);
+    }
 
-	private void PickBotDefenseCard(Card card) {
-		if (card.cardData.cardFunctions.primaryFunction == "parry" && fightInstance.Defender.equippedWeapon is null) {
-			return;
-		}
-		if (card.cardData.cardColor == fightInstance.AttackingCard.cardData.cardColor && fightInstance.DefendingCard == null) {
-			fightInstance.DefendingCard = card;
-		}
+    private bool PickBotDefenseCard(ChampionController attacker, ChampionController defender, Card attackingCard, Card defendingCard)
+    {
 
-		if (fightInstance.DefendingCard != null &&
-			card.cardData.cardFunctions.primaryFunction == "parry" &&
-			(card.cardData.cardColor == fightInstance.AttackingCard.cardData.cardColor &&
-			 card.cardData.cardFunctions.primaryFunction != fightInstance.DefendingCard.cardData.cardFunctions.primaryFunction &&
-			 Random.Range(0f, 1f) < (parrying ? 0.75f : 0.5f))) {
-			fightInstance.DefendingCard = card;
-		}
-	}
-	private void PickPlayerDefenseCard(Card card, out bool willWait) {
-		willWait = false;
-		if (card.cardData.cardColor != fightInstance.AttackingCard.cardData.cardColor) return;
+        if (defendingCard.cardData.cardFunctions.primaryFunction == "parry" && defender.equippedWeapon is null)
+        {
+            return false;
+        }
+        if (defendingCard.cardData.cardColor == attackingCard.cardData.cardColor)
+        {
+            if (parryInstance is { }) parryInstance.DefendingCard = defendingCard;
+            else fightInstance.DefendingCard = defendingCard;
+            return true;
+        }
 
-		switch (card.cardData.cardFunctions.primaryFunction) {
-			case "block":
-			case "parry":
-				willWait = true;
-				foreach (GameObject gameObject in card.greenGlow) {
-					gameObject.SetActive(true);
-				}
-				break;
-		}
-	}
+        if (defendingCard.cardData.cardFunctions.primaryFunction == "parry" &&
+            (defendingCard.cardData.cardColor == fightInstance.AttackingCard.cardData.cardColor &&
+             defendingCard.cardData.cardFunctions.primaryFunction != fightInstance.DefendingCard.cardData.cardFunctions.primaryFunction &&
+             Random.Range(0f, 1f) < (parryInstance is { } ? 0.75f : 0.5f)))
+        {
+            if (parryInstance is { } && parryInstance.DefendingCard is { })
+            {
+                parryInstance.DefendingCard = defendingCard;
+                return true;
+            }
+            else if (fightInstance.DefendingCard is { })
+            {
+                fightInstance.DefendingCard = defendingCard;
+                return true;
+            }
 
-	private IEnumerator DefenselessFunction(ChampionController attacker, ChampionController defender) {
-		yield return StartCoroutine(defender.Damage(attacker.equippedWeapon.EffectiveDamage, attacker.equippedWeapon.weaponScriptableObject.damageType, attacker));
-		attacker.matchStatistic.successfulAttacks++;
-		defender.matchStatistic.failedDefends++;
-	}
-	private IEnumerator BlockFunction(ChampionController attacker, ChampionController defender, Card attackingCard, Card defendingCard) {
-		if (!parrying) attacker.equippedWeapon.Damage(1);
-		if (attackingCard.cardData.cardColor == defendingCard.cardData.cardColor) {
-			AudioManager.instance.Play("swordimpact_fail");
-			CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
-			attacker.matchStatistic.failedAttacks++;
-			defender.matchStatistic.successfulDefends++;
-			yield break;
-		}
+            return false;
+        }
 
-		yield return StartCoroutine(fightInstance.Defender.Damage(fightInstance.Attacker.equippedWeapon.EffectiveDamage, fightInstance.Attacker.equippedWeapon.weaponScriptableObject.damageType, fightInstance.Attacker));
-		fightInstance.Attacker.matchStatistic.successfulAttacks++;
-		fightInstance.Defender.matchStatistic.failedDefends++;
-	}
-	private IEnumerator ParryFunction(ChampionController parryingChampionController, ChampionController parriedChampionController, Card parryingCard, Card parriedCard) {
-		if (!parrying) parriedChampionController.equippedWeapon.Damage(1);
-		if (parriedCard.cardData.cardColor == parryingCard.cardData.cardColor) {
-			AudioManager.instance.Play("swordimpact_fail");
-			CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
-			parrying = true;
-			parryingChampionController.equippedWeapon.Damage(1);
-			yield return StartCoroutine(instance.HandleFight(parryingChampionController, parriedChampionController, parryingCard));
-			yield break;
-		}
+        return false;
+    }
+    private bool IsAPlayerDefendCard(Card attackingCard, Card defendingCard)
+    {
+        if (defendingCard.cardData.cardColor != attackingCard.cardData.cardColor) return false;
 
-		yield return StartCoroutine(parryingChampionController.Damage(parriedChampionController.equippedWeapon.EffectiveDamage, parriedChampionController.equippedWeapon.weaponScriptableObject.damageType, parriedChampionController));
-		parriedChampionController.matchStatistic.successfulAttacks++;
-		parryingChampionController.matchStatistic.failedDefends++;
-	}
+        switch (defendingCard.cardData.cardFunctions.primaryFunction)
+        {
+            case "block":
+            case "parry":
+                foreach (GameObject gameObject in defendingCard.greenGlow)
+                {
+                    gameObject.SetActive(true);
+                }
+                return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator DefenselessFunction(ChampionController attacker, ChampionController defender)
+    {
+        yield return StartCoroutine(defender.Damage(attacker.equippedWeapon.EffectiveDamage, attacker.equippedWeapon.weaponScriptableObject.damageType, attacker));
+        attacker.matchStatistic.successfulAttacks++;
+        defender.matchStatistic.failedDefends++;
+    }
+    private IEnumerator BlockFunction(ChampionController attacker, ChampionController defender, Card attackingCard, Card defendingCard)
+    {
+        if (parryInstance is { }) attacker.equippedWeapon.Damage(1);
+        if (attackingCard.cardData.cardColor == defendingCard.cardData.cardColor)
+        {
+            AudioManager.instance.Play("swordimpact_fail");
+            CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
+            attacker.matchStatistic.failedAttacks++;
+            defender.matchStatistic.successfulDefends++;
+            yield break;
+        }
+
+        yield return StartCoroutine(defender.Damage(attacker.equippedWeapon.EffectiveDamage, attacker.equippedWeapon.weaponScriptableObject.damageType, attacker));
+        attacker.matchStatistic.successfulAttacks++;
+        defender.matchStatistic.failedDefends++;
+    }
+    private IEnumerator ParryFunction(ChampionController parryingChampionController, ChampionController parriedChampionController, Card parryingCard, Card parriedCard)
+    {
+        if (parryInstance is { }) parriedChampionController.equippedWeapon.Damage(1);
+        if (parriedCard.cardData.cardColor == parryingCard.cardData.cardColor)
+        {
+            AudioManager.instance.Play("swordimpact_fail");
+            CameraShaker.Instance.ShakeOnce(1f, 4f, 0.1f, 0.2f);
+            parryingChampionController.equippedWeapon.Damage(1);
+            yield return StartCoroutine(instance.InitiateParry(parryingChampionController, parriedChampionController, parryingCard));
+            yield break;
+        }
+
+        yield return StartCoroutine(parryingChampionController.Damage(parriedChampionController.equippedWeapon.EffectiveDamage, parriedChampionController.equippedWeapon.weaponScriptableObject.damageType, parriedChampionController));
+        parriedChampionController.matchStatistic.successfulAttacks++;
+        parryingChampionController.matchStatistic.failedDefends++;
+    }
 }
