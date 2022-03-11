@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76ca61494a873f43b98ae3100cee2be, type: 3}
   m_Name: Card_LightDraw4
   m_EditorClassIdentifier: 
-  cardName: Draw (Light)
+  cardName: Draw
   cardDescription: When played, draw four light cards.
   cornerText: +4
   cardFront: {fileID: 21300000, guid: 7b5dccdfa6e44944dada5728b1d87778, type: 3}

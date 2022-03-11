@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76ca61494a873f43b98ae3100cee2be, type: 3}
   m_Name: Card_DarkDraw3
   m_EditorClassIdentifier: 
-  cardName: Draw (Dark)
+  cardName: Draw
   cardDescription: When played, draw one dark card.
   cornerText: +3
   cardFront: {fileID: 21300000, guid: 3c30c7b1b22bdd048abbbe35646d5e59, type: 3}
