@@ -291,7 +291,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		}
 
 		FightManager fightManager = FightManager.Create();
-		yield return StartCoroutine(fightManager.HandleFight(championController, defender, attackingCard));
+		yield return StartCoroutine(fightManager.InitiateFight(championController, defender, attackingCard));
 	}
 	public IEnumerator HealFunction(ChampionController championController = null)
 	{
