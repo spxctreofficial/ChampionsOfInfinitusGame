@@ -30,6 +30,7 @@ This update is overhauls the card system, champions, sprites, and the game as a 
 	- ChampionInfoPanel received some UI improvements and changes:
 		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
 - The GUI have received numerous animation improvements!
+	- The Main Menu has received a complete design overhaul. New music has been added to make the main menu feel more atmospheric and eerie rather than an arcade, the buttons have been resized and moved to a more minimalistic location, and the gradient background previously used has been made clearer to see.
 	- Certain UI elements now have a nice fade-in and a shorter zoom-in effect that makes the animation pop out and look quite modern and smooth.
 	- Fixed any UI-scaling issues that make the game look wonky at times.
 	- Fixed an issue where tooltips would fade out randomly when hovering over certain objects.
