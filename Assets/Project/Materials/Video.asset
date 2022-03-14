@@ -44,8 +44,8 @@ CustomRenderTexture:
   m_InitTexture: {fileID: 0}
   m_UpdateMode: 0
   m_InitializationMode: 2
-  m_UpdateZoneSpace: 0
-  m_CurrentUpdateZoneSpace: 0
+  m_UpdateZoneSpace: 1
+  m_CurrentUpdateZoneSpace: 1
   m_UpdateZones: []
   m_UpdatePeriod: 0
   m_ShaderPass: 0
