@@ -395,6 +395,7 @@ public abstract class GameManager : MonoBehaviour
 	/// <param name="champion"></param>
 	/// <param name="slot"></param>
 	/// <param name="spawnAsPlayer"></param>
+	/// <param name="dealHand"></param>
 	public ChampionController Spawn(Champion champion, ChampionSlot slot = null, bool spawnAsPlayer = false, bool dealHand = true)
 	{
 		if (slot is null) slot = ChampionSlot.FindNextVacantSlot();

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +46,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private bool isHolding;
 
 	private int delayID;
-	private readonly List<int> DelayIDs = new();
+	private readonly List<int> delayIDs = new();
 
 	private void Start()
 	{
@@ -460,26 +459,26 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			TooltipSystem.instance.Show(body, champion.championName); // show the tooltip
 		}).uniqueId;
 
-		foreach (int delayID in DelayIDs)
+		foreach (int delayID in delayIDs)
 		{
 			LeanTween.cancel(delayID);
 		}
-		DelayIDs.Clear();
+		delayIDs.Clear();
 
-		DelayIDs.Add(LeanTween.alphaCanvas(heartsStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
-		DelayIDs.Add(LeanTween.alphaCanvas(weaponStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs.Add(LeanTween.alphaCanvas(heartsStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs.Add(LeanTween.alphaCanvas(weaponStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
 	}
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		LeanTween.cancel(delayID);
 
-		foreach (int delayID in DelayIDs)
+		foreach (int delayID in delayIDs)
 		{
 			LeanTween.cancel(delayID);
 		}
-		DelayIDs.Clear();
-		DelayIDs.Add(LeanTween.alphaCanvas(heartsStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
-		DelayIDs.Add(LeanTween.alphaCanvas(weaponStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs.Clear();
+		delayIDs.Add(LeanTween.alphaCanvas(heartsStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs.Add(LeanTween.alphaCanvas(weaponStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
 
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 	}
