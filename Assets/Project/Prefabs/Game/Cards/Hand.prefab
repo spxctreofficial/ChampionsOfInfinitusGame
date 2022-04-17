@@ -115,4 +115,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  deck:
+    genericBasicCards:
+      entries: []
+    genericSpecialCards:
+      entries: []
+    genericWeapons:
+      entries: []
+    uniqueBasicCards:
+      entries: []
+    uniqueSpecialCards:
+      entries: []
+    uniqueWeapons:
+      entries: []
   cards: []
