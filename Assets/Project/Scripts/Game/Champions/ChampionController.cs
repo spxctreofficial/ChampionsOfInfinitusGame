@@ -46,7 +46,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	private bool isHolding;
 
 	private int delayID;
-	private readonly List<int> delayIDs = new();
+	private List<int> delayIDs = new();
+	private List<int> delayIDs2 = new();
 
 	private void Start()
 	{
@@ -446,41 +447,47 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		delayID = LeanTween.delayedCall(0.5f, () =>
+		delayIDs.Add(LeanTween.delayedCall(0.45f, () =>
 		{
-
-			string body = "Health: " + currentHP + "/" + champion.maxHP; // health
+			string body = "Health: " + currentHP + "/" + champion.maxHP;
 			body += equippedWeapon is null ? " None" : "\nWeapon: " + equippedWeapon.weaponScriptableObject.weaponName + " (" + equippedWeapon.currentDurability + "/" + equippedWeapon.weaponScriptableObject.maxDurability + " Durability, " + equippedWeapon.EffectiveDamage + " Damage)";
-			body += "\nCards: " + hand.GetCardCount(); // card amount
+			body += "\nCards: " + hand.GetCardCount();
 			body += "\nStamina: (" + currentStamina + "/" + GameManager.instance.CurrentRoundStamina + ")";
 
-			body += currentNemesis == null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.champion.championName; // nemesis
+			body += currentNemesis is null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.champion.championName;
 			body += "\n\nCLICK & HOLD FOR MORE INFO";
-			TooltipSystem.instance.Show(body, champion.championName); // show the tooltip
-		}).uniqueId;
+			
+			delayIDs.Add(LeanTween.delayedCall(0.05f, () =>
+			{
+				TooltipSystem.instance.Show(body, champion.championName);
+			}).uniqueId);
+			
+		}).uniqueId);
 
-		foreach (int delayID in delayIDs)
+		foreach (int delayID in delayIDs2)
 		{
 			LeanTween.cancel(delayID);
 		}
-		delayIDs.Clear();
-
-		delayIDs.Add(LeanTween.alphaCanvas(heartsStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
-		delayIDs.Add(LeanTween.alphaCanvas(weaponStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs2.Clear();
+		delayIDs2.Add(LeanTween.alphaCanvas(heartsStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs2.Add(LeanTween.alphaCanvas(weaponStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
 	}
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		LeanTween.cancel(delayID);
-
 		foreach (int delayID in delayIDs)
 		{
 			LeanTween.cancel(delayID);
 		}
-		delayIDs.Clear();
-		delayIDs.Add(LeanTween.alphaCanvas(heartsStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
-		delayIDs.Add(LeanTween.alphaCanvas(weaponStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
-
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
+
+		foreach (int delayID in delayIDs2)
+		{
+			LeanTween.cancel(delayID);
+		}
+		delayIDs2.Clear();
+		delayIDs2.Add(LeanTween.alphaCanvas(heartsStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
+		delayIDs2.Add(LeanTween.alphaCanvas(weaponStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
+
 	}
 	public void OnPointerDown(PointerEventData eventData)
 	{
