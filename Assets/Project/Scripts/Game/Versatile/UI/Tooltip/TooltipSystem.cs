@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TooltipSystem : MonoBehaviour
 {
+	public enum TooltipType
+	{
+		Tooltip,
+		ErrorTooltip,
+		CardTooltip
+	}
+
 	public static TooltipSystem instance;
 
-	public enum TooltipType { Tooltip, ErrorTooltip, CardTooltip }
 	public Tooltip tooltip;
 	public FixedTooltip fixedTooltip;
 	public CardTooltip cardTooltip;
-
-	public List<int> currentlyActiveIDs = new List<int>();
 
 	private void Awake()
 	{
 		if (instance == null)
 			instance = this;
 		else
-		{
 			Destroy(gameObject);
-		}
 	}
 
 	public void Show(string body, string header = "")
@@ -30,17 +30,19 @@ public class TooltipSystem : MonoBehaviour
 
 		tooltip.SetText(body, header);
 		tooltip.canvasGroup.alpha = 0f;
-		LeanTween.alphaCanvas(tooltip.canvasGroup, 1f, 0.25f).setEaseInOutQuart();
+		tooltip.delayIDs.Add(LeanTween.alphaCanvas(tooltip.canvasGroup, 1f, 0.3f).setEaseInOutQuart().setOnComplete(() => tooltip.delayIDs.Clear()).uniqueId);
 	}
+
 	public void ShowCard(Card card)
-    {
+	{
 		cardTooltip.Setup(card);
 
 		cardTooltip.transform.localScale = new Vector2(0.8f, 0.8f);
 		cardTooltip.canvasGroup.alpha = 0f;
-		LeanTween.scale(cardTooltip.rectTransform, Vector2.one, 0.3f).setEaseInOutQuart();
-		LeanTween.alphaCanvas(cardTooltip.canvasGroup, 1f, 0.3f).setEaseInOutQuart();
+		cardTooltip.delayIDs.Add(LeanTween.scale(cardTooltip.rectTransform, Vector2.one, 0.3f).setEaseInOutQuart().uniqueId);
+		cardTooltip.delayIDs.Add(LeanTween.alphaCanvas(cardTooltip.canvasGroup, 1f, 0.3f).setEaseInOutQuart().setOnComplete(() => cardTooltip.delayIDs.Clear()).uniqueId);
 	}
+
 	public void ShowError(string body, string header = "")
 	{
 		fixedTooltip.UpdateTransform();
@@ -50,8 +52,9 @@ public class TooltipSystem : MonoBehaviour
 		fixedTooltip.canvasGroup.alpha = 0f;
 		LeanTween.alphaCanvas(fixedTooltip.canvasGroup, 1f, 0.25f).setEaseInOutQuart();
 	}
+
 	/// <summary>
-	/// Hide all active tooltips.
+	///     Hide all active tooltips.
 	/// </summary>
 	public void Hide()
 	{
@@ -61,8 +64,9 @@ public class TooltipSystem : MonoBehaviour
 
 		cardTooltip.GetComponent<CanvasGroup>().alpha = 0f;
 	}
+
 	/// <summary>
-	/// Hide a specific type of tooltip.
+	///     Hide a specific type of tooltip.
 	/// </summary>
 	/// <param name="tooltipType"></param>
 	public void Hide(TooltipType tooltipType)
@@ -72,15 +76,28 @@ public class TooltipSystem : MonoBehaviour
 		switch (tooltipType)
 		{
 			case TooltipType.Tooltip:
-				LeanTween.alphaCanvas(tooltip.canvasGroup, 0f, fadeOutTime).setEaseInOutQuart();
+				if (tooltip.canvasGroup.alpha == 0f) break;
+				foreach (int delayID in tooltip.delayIDs)
+				{
+					LeanTween.cancel(delayID);
+				}
+				tooltip.delayIDs.Clear();
+
+				tooltip.delayIDs.Add(LeanTween.alphaCanvas(tooltip.canvasGroup, 0f, fadeOutTime).setEaseInOutQuart().setOnComplete(() => tooltip.delayIDs.Clear()).uniqueId);
 				break;
 			case TooltipType.ErrorTooltip:
 				LeanTween.alphaCanvas(fixedTooltip.canvasGroup, 0f, fadeOutTime).setEaseInOutQuart();
 				break;
 			case TooltipType.CardTooltip:
-				if (currentlyActiveIDs.Count > 0 || cardTooltip.canvasGroup.alpha == 0f) break;
-				currentlyActiveIDs.Add(LeanTween.scale(cardTooltip.rectTransform, new Vector2(0.8f, 0.8f), 0.3f).setEaseInOutQuart().uniqueId);
-				currentlyActiveIDs.Add(LeanTween.alphaCanvas(cardTooltip.canvasGroup, 0f, 0.3f).setEaseInOutQuart().setOnComplete(() => currentlyActiveIDs.Clear()).uniqueId);
+				if (cardTooltip.canvasGroup.alpha == 0f) break;
+				foreach (int delayID in cardTooltip.delayIDs)
+				{
+					LeanTween.cancel(delayID);
+				}
+				cardTooltip.delayIDs.Clear();
+
+				cardTooltip.delayIDs.Add(LeanTween.scale(cardTooltip.rectTransform, new Vector2(0.8f, 0.8f), 0.3f).setEaseInOutQuart().uniqueId);
+				cardTooltip.delayIDs.Add(LeanTween.alphaCanvas(cardTooltip.canvasGroup, 0f, 0.3f).setEaseInOutQuart().setOnComplete(() => cardTooltip.delayIDs.Clear()).uniqueId);
 				break;
 		}
 	}

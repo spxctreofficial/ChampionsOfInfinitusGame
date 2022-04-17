@@ -1,53 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Random = UnityEngine.Random;
 using EZCameraShake;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-	[Header("Champion")]
-	public Champion champion;
-	[HideInInspector]
-	public Hand hand;
-	[HideInInspector]
-	public MatchStatistic matchStatistic;
+	[Header("Champion")] public Champion champion;
+
+	[HideInInspector] public Hand hand;
+
+	[HideInInspector] public MatchStatistic matchStatistic;
+
 	public ChampionAbilityFeed abilityFeed;
 
-	[SerializeField]
-	private Image championImage;
-	[SerializeField]
-	private TMP_Text nameText, heartsText, weaponDamageText, weaponDurabilityText, cardsText;
+	[SerializeField] private Image championImage;
+
+	[SerializeField] private TMP_Text nameText, heartsText, weaponDamageText, weaponDurabilityText, cardsText;
+
 	[SerializeField] private CanvasGroup heartsStats, weaponStats;
 	public ChampionParticleController championParticleController;
 
-	[Header("Variables")]
-	public int currentHP;
+	[Header("Variables")] public int currentHP;
+
 	public Weapon equippedWeapon;
 
 	public List<Ability> abilities;
 	public int currentStamina;
 
-	[HideInInspector]
-	public int discardAmount;
-	[HideInInspector]
-	public bool isPlayer, isMyTurn, isDead;
+	[HideInInspector] public int discardAmount;
+
+	[HideInInspector] public bool isPlayer, isMyTurn, isDead;
+
 	public string team;
 	public ChampionSlot slot;
-	[HideInInspector]
-	public ChampionController currentNemesis, currentOwner;
+
+	[HideInInspector] public ChampionController currentNemesis, currentOwner;
+
 	public List<ChampionController> teamMembers = new();
+
+	private int delayID;
+	private readonly List<int> delayIDs2 = new();
+	private bool isHolding;
 
 	// Click & Hold
 	private float secondsHeld;
-	private bool isHolding;
-
-	private int delayID;
-	private List<int> delayIDs = new();
-	private List<int> delayIDs2 = new();
 
 	private void Start()
 	{
@@ -67,9 +66,11 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			ability.Setup(this, abilityScriptableObject);
 			abilities.Add(ability);
 		}
+
 		isDead = false;
 		currentNemesis = null;
 	}
+
 	private void Update()
 	{
 		AppearanceUpdater();
@@ -88,8 +89,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 	}
 
 	/// <summary>
-	/// Damage this ChampionController.
-	/// Set AbilityCheck to false to disable ability checking.
+	///     Damage this ChampionController.
+	///     Set AbilityCheck to false to disable ability checking.
 	/// </summary>
 	/// <param name="amount"></param>
 	/// <param name="damageType"></param>
@@ -106,17 +107,10 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		}
 
 		// Damage Calculation
-		if (source is {})
-		{
+		if (source is { })
 			foreach (Ability ability in source.abilities)
-			{
 				amount += ability.DamageCalculationBonusSource(amount, damageType);
-			}
-		}
-		foreach (Ability ability in abilities)
-		{
-			amount += ability.DamageCalculationBonus(amount, damageType);
-		}
+		foreach (Ability ability in abilities) amount += ability.DamageCalculationBonus(amount, damageType);
 		currentHP = Mathf.Max(currentHP - amount, 0);
 
 		// MatchStatistic Update
@@ -138,33 +132,27 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 				DamageHistory myDamageHistory = damageHistory;
 				if (myDamageHistory.amount > source.matchStatistic.totalDamageDealt / 2 && myDamageHistory.attacksAgainst >= 2)
-				{
-					if (currentNemesis == null) currentNemesis = source;
-				}
+					if (currentNemesis == null)
+						currentNemesis = source;
 				break;
 			}
 
 			if (currentNemesis != null && currentNemesis == source)
-			{
 				foreach (ChampionController teammate in teamMembers)
+				foreach (DamageHistory damageHistory in currentNemesis.matchStatistic.damageHistories)
 				{
-					foreach (DamageHistory damageHistory in currentNemesis.matchStatistic.damageHistories)
-					{
-						if (damageHistory.dealtAgainst != this) continue;
-						float chance = damageHistory.attacksAgainst / (GameManager.instance.roundsElapsed + 1f) >= 0.65f ? 0.7f : 0.4f;
-						chance -= teammate.currentNemesis == null ? 0f : 0.2f;
-						chance += teammate.currentOwner == this ? 2f : 0f;
-						if (Random.Range(0f, 1f) < chance) teammate.currentNemesis = currentNemesis;
-						break;
-					}
+					if (damageHistory.dealtAgainst != this) continue;
+					float chance = damageHistory.attacksAgainst / (GameManager.instance.roundsElapsed + 1f) >= 0.65f ? 0.7f : 0.4f;
+					chance -= teammate.currentNemesis == null ? 0f : 0.2f;
+					chance += teammate.currentOwner == this ? 2f : 0f;
+					if (Random.Range(0f, 1f) < chance) teammate.currentNemesis = currentNemesis;
+					break;
 				}
-			}
 
 			// Slight chance for nemesis role to be removed.
 			if (source.currentNemesis == this)
-			{
-				if (Random.Range(0f, 1f) < 0.15f) source.currentNemesis = null;
-			}
+				if (Random.Range(0f, 1f) < 0.15f)
+					source.currentNemesis = null;
 		}
 
 		// Effects
@@ -194,8 +182,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 				magnitude = 5f;
 				if (!silent) AudioManager.instance.Play("unblockabledamage");
 				break;
-
 		}
+
 		StartCoroutine(slot.ShakeOccupant(0.5f, magnitude));
 		CameraShaker.Instance.ShakeOnce(Mathf.Max(magnitude / 2, 6.5f) + Mathf.Max(amount - 25, 0) * 0.1f, Mathf.Max(magnitude / 5, 4f), 0f, 0.25f);
 		championParticleController.PlayEffect(championParticleController.bloodSplatter);
@@ -207,22 +195,17 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// Ability Check
 		if (abilityCheck == false) yield break;
-		foreach (Ability ability in abilities)
-		{
-			yield return StartCoroutine(ability.OnDamage(amount));
-		}
+		foreach (Ability ability in abilities) yield return StartCoroutine(ability.OnDamage(amount));
 		foreach (ChampionController championController in GameManager.instance.champions)
 		{
 			if (championController == this || championController.isDead) continue;
-			foreach (Ability ability in abilities)
-			{
-				yield return StartCoroutine(ability.OnDamage(this, amount));
-			}
+			foreach (Ability ability in abilities) yield return StartCoroutine(ability.OnDamage(this, amount));
 		}
 	}
+
 	/// <summary>
-	/// Heals this ChampionController.
-	/// Set AbilityCheck to false to disable ability checking.
+	///     Heals this ChampionController.
+	///     Set AbilityCheck to false to disable ability checking.
 	/// </summary>
 	/// <param name="amount"></param>
 	/// <param name="abilityCheck"></param>
@@ -241,24 +224,54 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		AudioManager.instance.Play("heal");
 
 		if (abilityCheck == false) yield break;
-		foreach (Ability ability in abilities)
-		{
-			yield return StartCoroutine(ability.OnHeal(amount));
-		}
+		foreach (Ability ability in abilities) yield return StartCoroutine(ability.OnHeal(amount));
 		foreach (ChampionController championController in GameManager.instance.champions)
 		{
 			if (championController == this || championController.isDead) continue;
-			foreach (Ability ability in abilities)
-			{
-				yield return StartCoroutine(ability.OnHeal(this, amount));
-			}
+			foreach (Ability ability in abilities) yield return StartCoroutine(ability.OnHeal(this, amount));
+		}
+	}
+
+	public void SetHand(Hand hand)
+	{
+		this.hand = hand;
+		hand.owner = this;
+	}
+
+	private void AppearanceUpdater()
+	{
+		nameText.text = champion.championName;
+		heartsText.text = currentHP.ToString();
+		weaponDamageText.text = equippedWeapon is null ? "N/A" : equippedWeapon.EffectiveDamage.ToString();
+		weaponDurabilityText.text = equippedWeapon is null ? "N/A" : equippedWeapon.currentDurability.ToString();
+		if (hand != null) cardsText.text = hand.GetCardCount().ToString();
+		if (currentHP <= 0)
+		{
+			heartsText.color = new Color32(100, 100, 100, 255);
+			championImage.color = Color.gray;
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
+			bloodEmission.rateOverTime = 0f;
+			return;
+		}
+
+		if (currentHP <= 0.6f * champion.maxHP)
+		{
+			heartsText.color = currentHP <= 0.3f * champion.maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
+			bloodEmission.rateOverTime = currentHP <= 0.3f * champion.maxHP ? 20f : 8f;
+		}
+		else
+		{
+			heartsText.color = new Color32(0, 255, 0, 255);
+			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
+			bloodEmission.rateOverTime = 0f;
 		}
 	}
 
 	#region Death Functions
 
 	/// <summary>
-	/// Checks if this ChampionController is dead.
+	///     Checks if this ChampionController is dead.
 	/// </summary>
 	/// <returns></returns>
 	private bool DeathCheck()
@@ -274,6 +287,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		return true;
 	}
+
 	private IEnumerator DeathDiscard()
 	{
 		Card[] cards = hand.cards.ToArray();
@@ -305,7 +319,9 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 		{
 			Card weaponCard = hand.GetPlayableWeaponCard();
 
-			if (weaponCard is {}) {}
+			if (weaponCard is { })
+			{
+			}
 		}
 
 
@@ -328,15 +344,13 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			switch (card.cardData.cardFunctions.primaryFunction)
 			{
 				case "attack":
-					if (equippedWeapon is {})
+					if (equippedWeapon is { })
 					{
 						ChampionController target = SelectTarget();
 
-						if (target is {})
-						{
-							yield return card.AttackFunction(this, target);
-						}
+						if (target is { }) yield return card.AttackFunction(this, target);
 					}
+
 					break;
 				case "block":
 				case "parry":
@@ -362,10 +376,7 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			if (selectedChampionController.isDead || selectedChampionController.teamMembers.Contains(this) || selectedChampionController == this) continue;
 			if (selectedChampionController.currentHP - equippedWeapon.EffectiveDamage > 0) continue;
 
-			if (Random.Range(0f, 1f) < (selectedChampionController.hand.GetCardCount() <= 2 ? 1f : 0.85f))
-			{
-				return selectedChampionController;
-			}
+			if (Random.Range(0f, 1f) < (selectedChampionController.hand.GetCardCount() <= 2 ? 1f : 0.85f)) return selectedChampionController;
 		}
 
 		bool didntAttackPlayer = false;
@@ -377,52 +388,16 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			float chance = 0.7f;
 			chance = didntAttackPlayer ? 0.8f : chance;
 			chance += currentHP >= 0.8f * champion.maxHP ? 0.1f : 0f;
-			if (Random.Range(0f, 1f) < chance)
-			{
-				return selectedChampionController;
-			}
+			if (Random.Range(0f, 1f) < chance) return selectedChampionController;
 
 			if (selectedChampionController.isPlayer) didntAttackPlayer = true;
 		}
+
 		Debug.Log("Couldn't find suitable attacker! Returning null");
 		return null;
 	}
 
 	#endregion
-
-	public void SetHand(Hand hand)
-	{
-		this.hand = hand;
-		hand.owner = this;
-	}
-	private void AppearanceUpdater()
-	{
-		nameText.text = champion.championName;
-		heartsText.text = currentHP.ToString();
-		weaponDamageText.text = equippedWeapon is null ? "N/A" : equippedWeapon.EffectiveDamage.ToString();
-		weaponDurabilityText.text = equippedWeapon is null ? "N/A" : equippedWeapon.currentDurability.ToString();
-		if (hand != null) cardsText.text = hand.GetCardCount().ToString();
-		if (currentHP <= 0)
-		{
-			heartsText.color = new Color32(100, 100, 100, 255);
-			championImage.color = Color.gray;
-			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
-			bloodEmission.rateOverTime = 0f;
-			return;
-		}
-		if (currentHP <= 0.6f * champion.maxHP)
-		{
-			heartsText.color = currentHP <= 0.3f * champion.maxHP ? new Color32(255, 0, 0, 255) : new Color32(255, 255, 0, 255);
-			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
-			bloodEmission.rateOverTime = currentHP <= 0.3f * champion.maxHP ? 20f : 8f;
-		}
-		else
-		{
-			heartsText.color = new Color32(0, 255, 0, 255);
-			ParticleSystem.EmissionModule bloodEmission = championParticleController.bloodDrip.emission;
-			bloodEmission.rateOverTime = 0f;
-		}
-	}
 
 	#region Pointer Events
 
@@ -445,9 +420,10 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		FightManager.fightInstance.Defender = this;
 	}
+
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		delayIDs.Add(LeanTween.delayedCall(0.45f, () =>
+		delayID = LeanTween.delayedCall(0.5f, () =>
 		{
 			string body = "Health: " + currentHP + "/" + champion.maxHP;
 			body += equippedWeapon is null ? " None" : "\nWeapon: " + equippedWeapon.weaponScriptableObject.weaponName + " (" + equippedWeapon.currentDurability + "/" + equippedWeapon.weaponScriptableObject.maxDurability + " Durability, " + equippedWeapon.EffectiveDamage + " Damage)";
@@ -456,39 +432,27 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 			body += currentNemesis is null ? "\nNemesis: None" : "\nNemesis: " + currentNemesis.champion.championName;
 			body += "\n\nCLICK & HOLD FOR MORE INFO";
-			
-			delayIDs.Add(LeanTween.delayedCall(0.05f, () =>
-			{
-				TooltipSystem.instance.Show(body, champion.championName);
-			}).uniqueId);
-			
-		}).uniqueId);
 
-		foreach (int delayID in delayIDs2)
-		{
-			LeanTween.cancel(delayID);
-		}
+			TooltipSystem.instance.Show(body, champion.championName);
+		}).uniqueId;
+
+		foreach (int delayID in delayIDs2) LeanTween.cancel(delayID);
 		delayIDs2.Clear();
 		delayIDs2.Add(LeanTween.alphaCanvas(heartsStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
 		delayIDs2.Add(LeanTween.alphaCanvas(weaponStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
 	}
+
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		foreach (int delayID in delayIDs)
-		{
-			LeanTween.cancel(delayID);
-		}
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.Tooltip);
 
-		foreach (int delayID in delayIDs2)
-		{
-			LeanTween.cancel(delayID);
-		}
+		foreach (int delayID in delayIDs2) LeanTween.cancel(delayID);
 		delayIDs2.Clear();
 		delayIDs2.Add(LeanTween.alphaCanvas(heartsStats, 1f, 0.2f).setEaseInOutQuart().uniqueId);
 		delayIDs2.Add(LeanTween.alphaCanvas(weaponStats, 0f, 0.2f).setEaseInOutQuart().uniqueId);
-
 	}
+
 	public void OnPointerDown(PointerEventData eventData)
 	{
 		if (eventData.button == PointerEventData.InputButton.Left)
@@ -498,10 +462,8 @@ public class ChampionController : MonoBehaviour, IPointerEnterHandler, IPointerE
 			isHolding = true;
 		}
 	}
-	public void OnPointerUp(PointerEventData eventData)
-	{
-		isHolding = false;
-	}
+
+	public void OnPointerUp(PointerEventData eventData) { isHolding = false; }
 
 	#endregion
 }

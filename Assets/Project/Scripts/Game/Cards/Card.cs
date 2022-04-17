@@ -45,7 +45,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public bool isHidden;
 	public List<string> tags = new();
 
-	private List<int> delayIDs = new();
+	private int delayID;
 
 	protected virtual void Start()
 	{
@@ -356,21 +356,15 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	}
 	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
-		delayIDs.Add(LeanTween.delayedCall(0.75f, () =>
+		delayID = LeanTween.delayedCall(1f, () =>
 		{
 			TooltipSystem.instance.cardTooltip.Setup(this);
-			delayIDs.Add(LeanTween.delayedCall(0.25f, () =>
-			{
-				TooltipSystem.instance.ShowCard(this);
-			}).uniqueId);
-		}).uniqueId);
+			TooltipSystem.instance.ShowCard(this);
+		}).uniqueId;
 	}
 	public virtual void OnPointerExit(PointerEventData eventData)
 	{
-		foreach (int delayID in delayIDs)
-        {
-			LeanTween.cancel(delayID);
-		}
+		LeanTween.cancel(delayID);
 		TooltipSystem.instance.Hide(TooltipSystem.TooltipType.CardTooltip);
 	}
 

@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-[ExecuteInEditMode()]
+[ExecuteInEditMode]
 public class Tooltip : MonoBehaviour
 {
 	public TMP_Text header;
@@ -15,6 +14,23 @@ public class Tooltip : MonoBehaviour
 	public RectTransform rectTransform;
 	public CanvasGroup canvasGroup;
 
+	public List<int> delayIDs = new();
+
+	private void Update()
+	{
+		if (Application.isEditor)
+		{
+			int headerLength = header.text.Length;
+			int contentLength = body.text.Length;
+
+			layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit;
+		}
+
+		if (!Application.isPlaying) return;
+
+		UpdateTransform();
+	}
+
 	public void SetText(string body = "", string header = "")
 	{
 		if (string.IsNullOrEmpty(body) && string.IsNullOrEmpty(header))
@@ -22,6 +38,7 @@ public class Tooltip : MonoBehaviour
 			Debug.Log("Dont call me baby");
 			return;
 		}
+
 		switch (string.IsNullOrEmpty(header))
 		{
 			case true:
@@ -32,6 +49,7 @@ public class Tooltip : MonoBehaviour
 				this.header.text = header;
 				break;
 		}
+
 		switch (string.IsNullOrEmpty(body))
 		{
 			case true:
@@ -48,32 +66,20 @@ public class Tooltip : MonoBehaviour
 
 		layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
 	}
+
 	public void UpdateTransform()
 	{
 		Vector3 mousePos = Input.mousePosition;
 		mousePos.z = transform.parent.GetComponent<Canvas>().planeDistance;
 		transform.position = FindObjectOfType<Camera>().ScreenToWorldPoint(mousePos);
 	}
+
 	public void UpdatePivot()
 	{
 		Vector3 mousePos = Input.mousePosition;
-		Vector2 pivot = new Vector2(mousePos.x / Screen.width, mousePos.y > Screen.height / 2 ? 1.2f : 0);
-		if (GameManager.instance != null) pivot.y = GameManager.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
+		Vector2 pivot = new(mousePos.x / Screen.width, mousePos.y > Screen.height / 2f ? 1.2f : 0);
+		if (GameManager.instance is { })
+			pivot.y = GameManager.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
 		rectTransform.pivot = pivot;
-	}
-
-	private void Update()
-	{
-		if (Application.isEditor)
-		{
-			int headerLength = header.text.Length;
-			int contentLength = body.text.Length;
-
-			layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
-		}
-
-		if (!Application.isPlaying) return;
-
-		UpdateTransform();
 	}
 }
