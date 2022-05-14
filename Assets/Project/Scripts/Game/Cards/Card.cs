@@ -128,22 +128,21 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
                     yield break;
                 }
 
-                // Parry
-                if (FightManager.fightInstance is { } && FightManager.fightInstance is { }) {
-                    yield return StartCoroutine(OnParryActionPhase(championController));
-
-                    yield break;
-                }
-
-                // Change Attack Card
                 if (FightManager.fightInstance is { }) {
+                    // Parry Instance
+                    if (FightManager.parryInstance is { }) {
+                        Debug.Log("parry action condition success");
+                        yield return StartCoroutine(OnParryActionPhase(championController));
+                        yield break;
+                    }
+
+                    // Change Attack Card
                     yield return StartCoroutine(OnAttackChangeActionPhase(championController));
                     yield break;
                 }
-                else {
-                    yield return StartCoroutine(OnNormalFunctionActionPhase(championController));
-                    yield break;
-                }
+
+                yield return StartCoroutine(OnNormalFunctionActionPhase(championController));
+                yield break;
             case false:
                 if (FightManager.fightInstance is { } && FightManager.fightInstance.Defender == championController) {
                     yield return StartCoroutine(OnDefenseActionPhase(championController));
@@ -200,7 +199,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
                     LeanTween.delayedCall(1f, () => TooltipSystem.instance.Hide(TooltipSystem.TooltipType.ErrorTooltip));
                     yield break;
                 }
-                FightManager.parryInstance.ParryingCard = this;
+                FightManager.parryInstance.DefendingCard = this;
                 yield break;
             default:
                 TooltipSystem.instance.ShowError("You cannot play this card to parry the attack!");

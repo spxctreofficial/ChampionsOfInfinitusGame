@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +7,7 @@ public class CardRenderer : MonoBehaviour {
     public Image image, icon;
     public TMP_Text cornerText, staminaRequirementText;
 
-    void Start() {
+    private void Start() {
         Refresh();
     }
 
@@ -29,18 +27,17 @@ public class CardRenderer : MonoBehaviour {
     public void Flip() {
         if (!card.isHidden) {
             image.sprite = card.cardData.cardBack;
-            icon.gameObject.SetActive(false);
 
+            icon.gameObject.SetActive(false);
             cornerText.gameObject.SetActive(false);
             staminaRequirementText.gameObject.SetActive(false);
+            return;
         }
-        else {
-            image.sprite = card.cardData.cardFront;
-            icon.gameObject.SetActive(true);
 
+        image.sprite = card.cardData.cardFront;
 
-            cornerText.gameObject.SetActive(true);
-            staminaRequirementText.gameObject.SetActive(true);
-        }
+        icon.gameObject.SetActive(true);
+        cornerText.gameObject.SetActive(true);
+        staminaRequirementText.gameObject.SetActive(true);
     }
 }

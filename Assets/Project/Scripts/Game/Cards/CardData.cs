@@ -17,7 +17,8 @@ public class CardData : ScriptableObject {
     public string cornerText;
     public Sprite cardFront, cardBack, cardIcon;
 
-    [Header("Functional Variables")]
+    [Header("Card Variables")]
+    [Tooltip("These variables are used to determine the function of the card when being played.")]
     public CardFunctions cardFunctions;
     public CardColor cardColor;
     [Range(0, 10)]
