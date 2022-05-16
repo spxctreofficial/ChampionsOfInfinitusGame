@@ -4,82 +4,75 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class Tooltip : MonoBehaviour
-{
-	public TMP_Text header;
-	public TMP_Text body;
-	public LayoutElement layoutElement;
-	public int characterWrapLimit;
+public class Tooltip : MonoBehaviour {
+    public TMP_Text header;
+    public TMP_Text body;
+    public LayoutElement layoutElement;
+    public int characterWrapLimit;
 
-	public RectTransform rectTransform;
-	public CanvasGroup canvasGroup;
+    public RectTransform rectTransform;
+    public CanvasGroup canvasGroup;
 
-	public List<int> delayIDs = new();
+    public List<int> delayIDs = new();
 
-	private void Update()
-	{
-		if (Application.isEditor)
-		{
-			int headerLength = header.text.Length;
-			int contentLength = body.text.Length;
+    public static readonly Vector2 minScale = new Vector2(0.4f, 0.4f);
 
-			layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit;
-		}
+    private void Update() {
+        if (Application.isEditor) {
+            int headerLength = header.text.Length;
+            int contentLength = body.text.Length;
 
-		if (!Application.isPlaying) return;
+            layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit;
+        }
 
-		UpdateTransform();
-	}
+        if (!Application.isPlaying) return;
 
-	public void SetText(string body = "", string header = "")
-	{
-		if (string.IsNullOrEmpty(body) && string.IsNullOrEmpty(header))
-		{
-			Debug.Log("Dont call me baby");
-			return;
-		}
+        UpdateTransform();
+    }
 
-		switch (string.IsNullOrEmpty(header))
-		{
-			case true:
-				this.header.gameObject.SetActive(false);
-				break;
-			case false:
-				this.header.gameObject.SetActive(true);
-				this.header.text = header;
-				break;
-		}
+    public void SetText(string body = "", string header = "") {
+        if (string.IsNullOrEmpty(body) && string.IsNullOrEmpty(header)) {
+            Debug.Log("Dont call me baby");
+            return;
+        }
 
-		switch (string.IsNullOrEmpty(body))
-		{
-			case true:
-				this.body.gameObject.SetActive(false);
-				break;
-			case false:
-				this.body.gameObject.SetActive(true);
-				this.body.text = body;
-				break;
-		}
+        switch (string.IsNullOrEmpty(header)) {
+            case true:
+                this.header.gameObject.SetActive(false);
+                break;
+            case false:
+                this.header.gameObject.SetActive(true);
+                this.header.text = header;
+                break;
+        }
 
-		int headerLength = this.header.text.Length;
-		int contentLength = this.body.text.Length;
+        switch (string.IsNullOrEmpty(body)) {
+            case true:
+                this.body.gameObject.SetActive(false);
+                break;
+            case false:
+                this.body.gameObject.SetActive(true);
+                this.body.text = body;
+                break;
+        }
 
-		layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
-	}
+        int headerLength = this.header.text.Length;
+        int contentLength = this.body.text.Length;
 
-	public void UpdateTransform()
-	{
-		Vector3 mousePos = Input.mousePosition;
-		mousePos.z = transform.parent.GetComponent<Canvas>().planeDistance;
-		transform.position = FindObjectOfType<Camera>().ScreenToWorldPoint(mousePos);
-	}
+        layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit ? true : false;
+    }
 
-	public void UpdatePivot()
-	{
-		Vector3 mousePos = Input.mousePosition;
-		Vector2 pivot = new(mousePos.x / Screen.width, mousePos.y > Screen.height / 2f ? 1.2f : 0);
-		if (GameManager.instance is { })
-			pivot.y = GameManager.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
-		rectTransform.pivot = pivot;
-	}
+    public void UpdateTransform() {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = transform.parent.GetComponent<Canvas>().planeDistance;
+        transform.position = FindObjectOfType<Camera>().ScreenToWorldPoint(mousePos);
+    }
+
+    public void UpdatePivot() {
+        Vector3 mousePos = Input.mousePosition;
+        Vector2 pivot = new(mousePos.x / Screen.width, mousePos.y > Screen.height / 2f ? 1.2f : 0);
+        if (GameManager.instance is { })
+            pivot.y = GameManager.instance.gamePhase == GamePhase.GameStart ? 0f : pivot.y;
+        rectTransform.pivot = pivot;
+    }
 }

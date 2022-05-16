@@ -285,7 +285,8 @@ public abstract class GameManager : MonoBehaviour {
         ChampionController nextTurnChampion;
         try {
             nextTurnChampion = champions[champions.IndexOf(currentTurnChampionController) + 1];
-        } catch (ArgumentOutOfRangeException) {
+        }
+        catch (ArgumentOutOfRangeException) {
             Debug.LogWarning("The index was out of range. Elapsing round and resetting.");
             nextTurnChampion = champions[0];
             roundsElapsed++;
@@ -293,7 +294,8 @@ public abstract class GameManager : MonoBehaviour {
         while (nextTurnChampion.isDead) {
             try {
                 nextTurnChampion = champions[champions.IndexOf(nextTurnChampion) + 1];
-            } catch (ArgumentOutOfRangeException) {
+            }
+            catch (ArgumentOutOfRangeException) {
                 Debug.Log("The index was out of range. Elapsing round and resetting.");
                 nextTurnChampion = champions[0];
                 roundsElapsed++;
@@ -318,7 +320,8 @@ public abstract class GameManager : MonoBehaviour {
         ChampionController nextTurnChampion;
         try {
             nextTurnChampion = champions[0];
-        } catch (NullReferenceException) {
+        }
+        catch (NullReferenceException) {
             Debug.LogError("The first champion was not found! An error most likely occured whilst preparing the game.");
             return;
         }
@@ -335,6 +338,13 @@ public abstract class GameManager : MonoBehaviour {
             AudioManager.instance.Stop(gameArea.GetComponent<AudioSource>().clip);
             SceneManager.LoadScene("MainMenu");
         });
+    }
+
+    public void UpdateDiscardArea() {
+        if (GameManager.instance.discardArea.transform.childCount <= 8) return;
+        for (int i = GameManager.instance.discardArea.transform.childCount; i > 8; i--) {
+            Destroy(GameManager.instance.discardArea.transform.GetChild(0).gameObject);
+        }
     }
 
     // Spawn Methods

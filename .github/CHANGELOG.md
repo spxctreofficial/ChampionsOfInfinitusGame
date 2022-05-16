@@ -29,13 +29,14 @@ This update is overhauls the card system, champions, sprites, and the game as a 
 	- Technical: Removed champion information variables from the `ChampionController`. All access to these variables have been redirected to the ScriptableObject itself.
 	- ChampionInfoPanel received some UI improvements and changes:
 		- ChampionInfoPanel's zoom-in and zoom-out animation has been refined to resemble that of the ConfirmDialog's animation.
-- The GUI have received numerous animation improvements!
+- The entire game has received improvements to the overall appearance, aesthetic, and consistency.
 	- The Main Menu has received a complete design overhaul. New music has been added to make the main menu feel more atmospheric and eerie rather than an arcade, the buttons have been resized and moved to a more minimalistic location, and the gradient background previously used has been made clearer to see.
+	- The player's hand have been given fluid animations when a card is added or removed, in addition to the scale-in and scale-out of the card itself.
 	- Certain UI elements now have a nice fade-in and a shorter zoom-in effect that makes the animation pop out and look quite modern and smooth.
 	- Fixed any UI-scaling issues that make the game look wonky at times.
 	- Fixed an issue where tooltips would fade out randomly when hovering over certain objects.
 		- Technical: This was fixed by disabling any invisible objects that blocked raycasts, and therefore resetting the tooltip.
-	- Optimized the HDR glow's impact on performance.
+	- Optimized the HDR glow's performance implications while making the glow look better and less jarring when moved around or scaled up and down.
 - Added a Pause Menu to allow the player to quit the game.
 - Added a Setting within the pause menu that allowed the player to adjust simple graphics and quality settings.
 	- I am very aware that the settings menu is currently only accessible within the game.

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4946762797089187213}
   - component: {fileID: 4946762797089187219}
   - component: {fileID: 4946762797089187212}
-  - component: {fileID: 209752898052926214}
   - component: {fileID: 4946762797089187203}
   m_Layer: 5
   m_Name: Hand
@@ -31,7 +30,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9154384100099581181}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,13 +78,103 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &209752898052926214
+--- !u!114 &4946762797089187203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4946762797089187214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901b12db9b880db40876b3df6fa0a174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handViewport: {fileID: 2878283425385492035}
+  owner: {fileID: 0}
+  deck:
+    genericBasicCards:
+      entries: []
+    genericSpecialCards:
+      entries: []
+    genericWeapons:
+      entries: []
+    uniqueBasicCards:
+      entries: []
+    uniqueSpecialCards:
+      entries: []
+    uniqueWeapons:
+      entries: []
+  cards: []
+--- !u!1 &8861767970896867883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9154384100099581181}
+  - component: {fileID: 7469356832997799427}
+  - component: {fileID: 2878283425385492035}
+  - component: {fileID: 3177401476678336561}
+  - component: {fileID: 5845262330040008922}
+  m_Layer: 5
+  m_Name: HandViewport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9154384100099581181
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861767970896867883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4946762797089187213}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!222 &7469356832997799427
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861767970896867883}
+  m_CullTransparentMesh: 1
+--- !u!114 &2878283425385492035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861767970896867883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20587ee1bb80a0043b6bf77a580663fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 4946762797089187203}
+  rectTransform: {fileID: 0}
+--- !u!114 &3177401476678336561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861767970896867883}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
@@ -102,30 +192,17 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
---- !u!114 &4946762797089187203
+--- !u!114 &5845262330040008922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4946762797089187214}
+  m_GameObject: {fileID: 8861767970896867883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31e241a05af688943b789852eff1c2e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  deck:
-    genericBasicCards:
-      entries: []
-    genericSpecialCards:
-      entries: []
-    genericWeapons:
-      entries: []
-    uniqueBasicCards:
-      entries: []
-    uniqueSpecialCards:
-      entries: []
-    uniqueWeapons:
-      entries: []
-  cards: []
+  m_HorizontalFit: 2
+  m_VerticalFit: 2

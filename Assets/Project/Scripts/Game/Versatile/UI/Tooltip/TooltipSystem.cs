@@ -25,7 +25,9 @@ public class TooltipSystem : MonoBehaviour {
         tooltip.UpdatePivot();
 
         tooltip.SetText(body, header);
+        tooltip.rectTransform.localScale = Tooltip.minScale;
         tooltip.canvasGroup.alpha = 0f;
+        tooltip.delayIDs.Add(LeanTween.scale(tooltip.rectTransform, Vector2.one / 2, 0.3f).setEaseInOutQuart().uniqueId);
         tooltip.delayIDs.Add(LeanTween.alphaCanvas(tooltip.canvasGroup, 1f, 0.3f).setEaseInOutQuart().setOnComplete(() => tooltip.delayIDs.Clear()).uniqueId);
     }
 
@@ -70,7 +72,7 @@ public class TooltipSystem : MonoBehaviour {
                     LeanTween.cancel(delayID);
                 }
                 tooltip.delayIDs.Clear();
-
+                tooltip.delayIDs.Add(LeanTween.scale(tooltip.rectTransform, Tooltip.minScale, fadeOutTime).setEaseInOutQuart().uniqueId);
                 tooltip.delayIDs.Add(LeanTween.alphaCanvas(tooltip.canvasGroup, 0f, fadeOutTime).setEaseInOutQuart().setOnComplete(() => tooltip.delayIDs.Clear()).uniqueId);
                 break;
             case TooltipType.ErrorTooltip:
